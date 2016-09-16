@@ -1,0 +1,56 @@
+.loading {
+    display:none;
+}
+
+.preload {
+    margin:0;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-right: -50%;
+    transform:translate(-50%, -50%);
+}
+input[type="text"]
+{
+    background: transparent;
+    border: none;
+    width:100%;
+}
+
+input[type="number"]
+{
+    background: transparent;
+    border: none;
+    width:100%;
+}
+.DT{
+    width: 95%;
+    align-content: center;
+    margin: 0 auto;
+}
+.pace-running .content {
+    display: none;
+}
+.transparentBg{
+    background-color: transparent;
+    border: none;
+    resize: none;
+    width: 100px;
+}
+
+.centerTD{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.heading{
+    background-color: #454545; color: #fff
+}
+
+.dataTable-width{
+    width: 90%; margin: 0 auto;
+}
+
+.whitebg{
+    background-color: #fff;
+}
