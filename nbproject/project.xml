@@ -103,7 +103,6 @@
             <source-roots>
                 <root id="src.srcForums2.dir" name="Source Packages Forums"/>
                 <root id="src.dir"/>
-                <root id="src.srcAccounts.dir" name="Source Packages Accounts"/>
                 <root id="src.srcForums2.dir" name="Source Packages Forums"/>
                 <root id="src.srcDemo.dir" name="Source Packages Demo"/>
                 <root id="src.srcEducation.dir" name="Source Packages Education"/>
