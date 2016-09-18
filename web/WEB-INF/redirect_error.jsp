@@ -29,7 +29,7 @@
 
                             <p>
                                 We will work on fixing that right away.
-                                Meanwhile, you may <a href="/ProjectTek/ServletAccess?redirect=home">return to dashboard</a>.
+                                Meanwhile, you may <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home">return to dashboard</a>.
                             </p>
                         </div>
                     </div>

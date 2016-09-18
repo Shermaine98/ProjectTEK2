@@ -1,4 +1,4 @@
-<%@page import="model.acccounts.User"%>
+<%@page import="model.accounts.User"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -115,12 +115,12 @@ and open the template in the editor.
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
 <!--                        <li>
-                            <a href="/ProjectTek/ServletAccess?redirect=homeIT">
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=homeIT">
                                 <i class="fa fa-dashboard"></i><span>Home</span>
                             </a>
                         </li>-->
                         <li>
-                            <a href="/ProjectTek/ServletAccess?redirect=homeIT">
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=homeIT">
                                 <i class="fa fa-home"></i><span> Home</span>
                             </a>
                         </li>
@@ -129,8 +129,8 @@ and open the template in the editor.
                                 <i class="fa fa-user"></i><span>Account Requests Approval</span>
                             </a>
                             <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc">
-                                <li><a href="/ProjectTek/ServletAccess?redirect=approvalsInternal" style="color: #cc5200; margin-left: 8%;">Internal Accounts</a></li>
-                                <li><a href="/ProjectTek/ServletAccess?redirect=approvalsExternal" style="color: #cc5200; margin-left: 8%;">External Accounts</a></li>
+                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=approvalsInternal" style="color: #cc5200; margin-left: 8%;">Internal Accounts</a></li>
+                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=approvalsExternal" style="color: #cc5200; margin-left: 8%;">External Accounts</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -138,8 +138,8 @@ and open the template in the editor.
                                 <i class="fa fa-user"></i><span>Update Accounts</span>
                             </a>
                             <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc">
-                                <li><a href="/ProjectTek/ServletAccess?redirect=updatesInternal" style="color: #cc5200; margin-left: 8%;">Internal Accounts</a></li>
-                                <li><a href="/ProjectTek/ServletAccess?redirect=updatesExternal" style="color: #cc5200; margin-left: 8%;">External Accounts</a></li>
+                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=updatesInternal" style="color: #cc5200; margin-left: 8%;">Internal Accounts</a></li>
+                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=updatesExternal" style="color: #cc5200; margin-left: 8%;">External Accounts</a></li>
                             </ul>
                         </li>
                 </section>
