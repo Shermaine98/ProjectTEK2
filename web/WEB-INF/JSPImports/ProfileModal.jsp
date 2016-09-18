@@ -3,7 +3,7 @@
     Created on : Jul 21, 2016, 8:17:35 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="model.accounts.User"%>
+<%@page import="Model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
