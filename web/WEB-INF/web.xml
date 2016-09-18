@@ -176,6 +176,22 @@
         <servlet-name>SetAnalysisDataServlet</servlet-name>
         <servlet-class>servlet.setdata.SetAnalysisDataServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FactEducationServlet</servlet-name>
+        <servlet-class>servlet.getjson.FactEducationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FactGetAllServlet</servlet-name>
+        <servlet-class>servlet.getjson.FactGetAllServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FactHospitalServlet</servlet-name>
+        <servlet-class>servlet.getjson.FactHospitalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FactPeopleServlet</servlet-name>
+        <servlet-class>servlet.getjson.FactPeopleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -327,6 +343,22 @@
     <servlet-mapping>
         <servlet-name>SetAnalysisDataServlet</servlet-name>
         <url-pattern>/SetAnalysisDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FactEducationServlet</servlet-name>
+        <url-pattern>/FactEducationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FactGetAllServlet</servlet-name>
+        <url-pattern>/FactGetAllServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FactHospitalServlet</servlet-name>
+        <url-pattern>/FactHospitalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FactPeopleServlet</servlet-name>
+        <url-pattern>/FactPeopleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
