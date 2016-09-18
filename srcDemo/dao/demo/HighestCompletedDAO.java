@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
@@ -237,7 +238,7 @@ public class HighestCompletedDAO {
             pstmt.close();
             return rows;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }

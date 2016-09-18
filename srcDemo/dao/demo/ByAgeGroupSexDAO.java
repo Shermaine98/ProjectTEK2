@@ -18,12 +18,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
  * @author shermainesy
  */
-public class byAgeGroupSexDAO {
+public class ByAgeGroupSexDAO {
 
     public ArrayList<ByAgeGroupSex> ViewByAgeGroupSex() throws ParseException {
         try {
@@ -50,7 +51,7 @@ public class byAgeGroupSexDAO {
             }
             return ArrByAgeGroupSex;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
@@ -83,7 +84,7 @@ public class byAgeGroupSexDAO {
             }
             return ArrByAgeGroupSex;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
@@ -113,7 +114,7 @@ public class byAgeGroupSexDAO {
             }
             return ArrByAgeGroupSex;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
@@ -150,7 +151,7 @@ public class byAgeGroupSexDAO {
             }
             return true;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -223,7 +224,7 @@ public class byAgeGroupSexDAO {
             pstmt.close();
             return rows;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -245,7 +246,7 @@ public class byAgeGroupSexDAO {
             pstmt.close();
             return rows;
         } catch (SQLException ex) {
-            getLogger(byAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
