@@ -132,6 +132,46 @@
         <servlet-name>ApproveReportsHealth</servlet-name>
         <servlet-class>servlets.health.servlet.ApproveReportsHealth</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RetrieveDataEducationServlet</servlet-name>
+        <servlet-class>servlets.education.access.RetrieveDataEducationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewSchool</servlet-name>
+        <servlet-class>servlets.education.servlet.AddNewSchool</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSchoolDirectory</servlet-name>
+        <servlet-class>servlets.education.servlet.UpdateSchoolDirectory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadToDatabaseEducation</servlet-name>
+        <servlet-class>servlets.education.servlet.UploadToDatabaseEducation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewReportsForApprovalEduc</servlet-name>
+        <servlet-class>servlets.education.servlet.ViewReportsForApprovalEduc</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApprovalsEducation</servlet-name>
+        <servlet-class>servlets.education.servlet.ApprovalsEducation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSchoolNamePrivate</servlet-name>
+        <servlet-class>servlets.education.servlet.SearchSchoolNamePrivate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSchoolNamePublic</servlet-name>
+        <servlet-class>servlets.education.servlet.SearchSchoolNamePublic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetSchoolData</servlet-name>
+        <servlet-class>servlets.education.servlet.SetSchoolData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValiEnrollment</servlet-name>
+        <servlet-class>servlets.education.servlet.ValiEnrollment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -239,6 +279,46 @@
     <servlet-mapping>
         <servlet-name>ApproveReportsHealth</servlet-name>
         <url-pattern>/ApproveReportsHealth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RetrieveDataEducationServlet</servlet-name>
+        <url-pattern>/RetrieveDataEducationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewSchool</servlet-name>
+        <url-pattern>/AddNewSchool</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSchoolDirectory</servlet-name>
+        <url-pattern>/UpdateSchoolDirectory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadToDatabaseEducation</servlet-name>
+        <url-pattern>/UploadToDatabaseEducation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewReportsForApprovalEduc</servlet-name>
+        <url-pattern>/ViewReportsForApprovalEduc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApprovalsEducation</servlet-name>
+        <url-pattern>/ApprovalsEducation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSchoolNamePrivate</servlet-name>
+        <url-pattern>/SearchSchoolNamePrivate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSchoolNamePublic</servlet-name>
+        <url-pattern>/SearchSchoolNamePublic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetSchoolData</servlet-name>
+        <url-pattern>/SetSchoolData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValiEnrollment</servlet-name>
+        <url-pattern>/ValiEnrollment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
