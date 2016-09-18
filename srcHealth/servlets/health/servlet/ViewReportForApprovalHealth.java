@@ -6,7 +6,7 @@
 package servlets.health.servlet;
 
 import dao.health.NutritionalStatusDAO;
-import dao.health.directoryHospitalDAO;
+import dao.health.DirectoryHospitalDAO;
 import model.health.NutritionalStatus;
 import model.health.DirectoryHealth;
 import servlets.servlet.BaseServlet;
@@ -79,7 +79,7 @@ public class ViewReportForApprovalHealth extends BaseServlet {
         }
      
      else  if (page.equalsIgnoreCase("directoryApproval")) {
-            directoryHospitalDAO DAO = new directoryHospitalDAO();
+            DirectoryHospitalDAO DAO = new DirectoryHospitalDAO();
             ArrayList<DirectoryHealth> directoryHealth = new ArrayList<DirectoryHealth>();
             try {
                 directoryHealth = DAO.ViewByDirectoryHospital(Integer.parseInt(formID));

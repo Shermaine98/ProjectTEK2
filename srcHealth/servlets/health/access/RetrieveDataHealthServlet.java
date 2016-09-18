@@ -7,7 +7,7 @@ package servlets.health.access;
 
 import dao.RecordDAO;
 import dao.health.NutritionalStatusDAO;
-import dao.health.directoryHospitalDAO;
+import dao.health.DirectoryHospitalDAO;
 import model.GlobalRecords;
 import model.Record;
 import model.health.DirectoryHealth;
@@ -24,6 +24,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
@@ -76,7 +77,7 @@ public class RetrieveDataHealthServlet extends BaseServlet {
             rd.forward(request, response);
 
         } else if (redirect.equalsIgnoreCase("directoryHosptial")) {
-            directoryHospitalDAO directoryHospitalDAO = new directoryHospitalDAO();
+            DirectoryHospitalDAO directoryHospitalDAO = new DirectoryHospitalDAO();
             ArrayList<DirectoryHealth> directoryHealth = new ArrayList<DirectoryHealth>();
             try {
                 directoryHealth = directoryHospitalDAO.ViewDirectoryHospitalRecent();

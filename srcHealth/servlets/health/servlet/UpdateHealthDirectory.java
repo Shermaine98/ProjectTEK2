@@ -6,7 +6,7 @@
 package servlets.health.servlet;
 
 import dao.RecordDAO;
-import dao.health.directoryHospitalDAO;
+import dao.health.DirectoryHospitalDAO;
 import model.health.DirectoryHealth;
 import servlets.servlet.BaseServlet;
 import com.google.gson.Gson;
@@ -44,7 +44,7 @@ public class UpdateHealthDirectory extends BaseServlet {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         // ServletContext context= getServletContext();
         RequestDispatcher rd = null;
-        directoryHospitalDAO directoryHospitalDAO = new directoryHospitalDAO();
+        DirectoryHospitalDAO directoryHospitalDAO = new DirectoryHospitalDAO();
 
         if (redirect.equalsIgnoreCase("invalid")) {
             String schoolName = request.getParameter("schoolName");

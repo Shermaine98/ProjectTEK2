@@ -236,6 +236,34 @@
         <servlet-name>ReportAccess</servlet-name>
         <servlet-class>servlet.access.reports.ReportAccess</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetDataServlet</servlet-name>
+        <servlet-class>servlet.setdata.SetDataServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetEnrollmentDataServlet</servlet-name>
+        <servlet-class>servlet.setdata.SetEnrollmentDataServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetHealthDirectoryData</servlet-name>
+        <servlet-class>servlet.setdata.SetHealthDirectoryData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetHighestCompletedData</servlet-name>
+        <servlet-class>servlet.setdata.SetHighestCompletedData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetMaritalDataServlet</servlet-name>
+        <servlet-class>servlet.setdata.SetMaritalDataServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetNutritionalStatusDataServlet</servlet-name>
+        <servlet-class>servlet.setdata.SetNutritionalStatusDataServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetSchoolDirectoryServlet</servlet-name>
+        <servlet-class>servlet.setdata.SetSchoolDirectoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -447,6 +475,34 @@
     <servlet-mapping>
         <servlet-name>ReportAccess</servlet-name>
         <url-pattern>/ReportAccess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetDataServlet</servlet-name>
+        <url-pattern>/SetDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetEnrollmentDataServlet</servlet-name>
+        <url-pattern>/SetEnrollmentDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetHealthDirectoryData</servlet-name>
+        <url-pattern>/SetHealthDirectoryData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetHighestCompletedData</servlet-name>
+        <url-pattern>/SetHighestCompletedData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetMaritalDataServlet</servlet-name>
+        <url-pattern>/SetMaritalDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetNutritionalStatusDataServlet</servlet-name>
+        <url-pattern>/SetNutritionalStatusDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetSchoolDirectoryServlet</servlet-name>
+        <url-pattern>/SetSchoolDirectoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

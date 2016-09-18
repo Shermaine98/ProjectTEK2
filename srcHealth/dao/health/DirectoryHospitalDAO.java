@@ -16,12 +16,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
  * @author Shermaine
  */
-public class directoryHospitalDAO {
+public class DirectoryHospitalDAO {
 
     public ArrayList<DirectoryHealth> ViewDirectoryHospitalRecent() throws ParseException, SQLException {
         try {
@@ -60,7 +61,7 @@ public class directoryHospitalDAO {
 
             return ArrListOfHospitals;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
@@ -97,7 +98,7 @@ public class directoryHospitalDAO {
             }
             return ArrListOfHospitals;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
@@ -135,7 +136,7 @@ public class directoryHospitalDAO {
             }
             return ArrListOfHospitals;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
@@ -179,7 +180,7 @@ public class directoryHospitalDAO {
             }
             return true;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -219,7 +220,7 @@ public class directoryHospitalDAO {
             pstmt.close();
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -270,7 +271,7 @@ public class directoryHospitalDAO {
             }
 
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -324,7 +325,7 @@ public class directoryHospitalDAO {
             }
 
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -353,7 +354,7 @@ public class directoryHospitalDAO {
 
             }
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return rows;
     }
@@ -383,7 +384,7 @@ public class directoryHospitalDAO {
 
             }
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return rows;
     }
@@ -414,7 +415,7 @@ public class directoryHospitalDAO {
 
             }
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return rows;
     }
@@ -442,7 +443,7 @@ public class directoryHospitalDAO {
 
             }
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return rows;
     }
@@ -483,7 +484,7 @@ public class directoryHospitalDAO {
             pstmt.close();
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -507,7 +508,7 @@ public class directoryHospitalDAO {
                 return rows == 1;
             }
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -550,7 +551,7 @@ public class directoryHospitalDAO {
             }
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(directoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
