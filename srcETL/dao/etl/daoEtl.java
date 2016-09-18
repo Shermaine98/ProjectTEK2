@@ -6,7 +6,7 @@
 package dao.etl;
 
 import db.DBConnectionFactoryStarSchema;
-import etl.ETL;
+import etl.etl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -34,12 +34,12 @@ public class daoEtl {
             }
             System.out.println("ETL?");
             if (rows > 0) {
-                ETL ETL = new ETL();
+                etl etl = new etl();
                 System.out.println("GOING TO ETL    ");
-                return ETL.run();
+                return etl.run();
             }
         } catch (SQLException ex) {
-            getLogger(ETLDAO.class.getName()).log(SEVERE, null, ex);
+            getLogger(daoEtl.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }

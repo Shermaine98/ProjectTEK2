@@ -1,12 +1,10 @@
 package servlet.etl;
 
-import SetData.SetDataServlet;
 import com.google.gson.Gson;
+import dao.etl.daoEtl;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
-import static java.util.logging.Level.SEVERE;
-import static java.util.logging.Logger.getLogger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +31,8 @@ public class ServletEtl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         int year = Calendar.getInstance().get(Calendar.YEAR);       
-        ETLDAO ETLDAO = new ETLDAO();
-        boolean x = ETLDAO.runETLDAO(year); 
+        daoEtl daoETL = new daoEtl();
+        boolean x = daoETL.runETLDAO(year); 
         
         Gson gson = new Gson();
         String json = gson.toJson(x);
@@ -55,11 +53,7 @@ public class ServletEtl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            getLogger(SetDataServlet.class.getName()).log(SEVERE, null, ex);
-        }
+        
     }
 
     /**
@@ -73,11 +67,7 @@ public class ServletEtl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            getLogger(SetDataServlet.class.getName()).log(SEVERE, null, ex);
-        }
+       
     }
 
     /**
