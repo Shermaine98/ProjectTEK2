@@ -192,6 +192,50 @@
         <servlet-name>FactPeopleServlet</servlet-name>
         <servlet-class>servlet.getjson.FactPeopleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateReport</servlet-name>
+        <servlet-class>servlets.reports.servlet.CreateReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SavedReportAnalysis</servlet-name>
+        <servlet-class>servlets.reports.servlet.SavedReportAnalysis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SavedReportIntegration</servlet-name>
+        <servlet-class>servlets.reports.servlet.SavedReportIntegration</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SavedReportMatrix</servlet-name>
+        <servlet-class>servlets.reports.servlet.SavedReportMatrix</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchIntegratedAnalysis</servlet-name>
+        <servlet-class>servlets.reports.servlet.SearchIntegratedAnalysis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchReportAnalysis</servlet-name>
+        <servlet-class>servlets.reports.servlet.SearchReportAnalysis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchReportMatrix</servlet-name>
+        <servlet-class>servlets.reports.servlet.SearchReportMatrix</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetIntegratedAnalysis</servlet-name>
+        <servlet-class>servlets.reports.servlet.SetIntegratedAnalysis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetReportAnalysis</servlet-name>
+        <servlet-class>servlets.reports.servlet.SetReportAnalysis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetReportMatrix</servlet-name>
+        <servlet-class>servlets.reports.servlet.SetReportMatrix</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportAccess</servlet-name>
+        <servlet-class>servlet.access.reports.ReportAccess</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -359,6 +403,50 @@
     <servlet-mapping>
         <servlet-name>FactPeopleServlet</servlet-name>
         <url-pattern>/FactPeopleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateReport</servlet-name>
+        <url-pattern>/CreateReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SavedReportAnalysis</servlet-name>
+        <url-pattern>/SavedReportAnalysis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SavedReportIntegration</servlet-name>
+        <url-pattern>/SavedReportIntegration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SavedReportMatrix</servlet-name>
+        <url-pattern>/SavedReportMatrix</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchIntegratedAnalysis</servlet-name>
+        <url-pattern>/SearchIntegratedAnalysis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchReportAnalysis</servlet-name>
+        <url-pattern>/SearchReportAnalysis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchReportMatrix</servlet-name>
+        <url-pattern>/SearchReportMatrix</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetIntegratedAnalysis</servlet-name>
+        <url-pattern>/SetIntegratedAnalysis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetReportAnalysis</servlet-name>
+        <url-pattern>/SetReportAnalysis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetReportMatrix</servlet-name>
+        <url-pattern>/SetReportMatrix</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportAccess</servlet-name>
+        <url-pattern>/ReportAccess</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
