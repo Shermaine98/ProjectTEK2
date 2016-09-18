@@ -5,9 +5,9 @@
  */
 package servlets.servlet;
 
-import DAO.recordDAO;
-import Model.record;
-import Model.taskModelUploader;
+import dao.RecordDAO;
+import model.Record;
+import model.TaskModelUploader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -43,15 +43,15 @@ public class GetReasonReject extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             String formID = request.getParameter("formid");
-            recordDAO recordDAO = new recordDAO();
-            record record = new record();
+            RecordDAO recordDAO = new RecordDAO();
+            Record record = new Record();
 //IV - Health
 //III - Education
 //I - Demo
-            taskModelUploader newtaskModelUploader = new taskModelUploader();
+            TaskModelUploader newtaskModelUploader = new TaskModelUploader();
 
             record = recordDAO.GetForReasons(Integer.parseInt(formID));
-            taskModelUploader taskModelUploader = new taskModelUploader();
+            TaskModelUploader taskModelUploader = new TaskModelUploader();
             taskModelUploader.taskModel(String.valueOf(record.getCensusYear()));
             taskModelUploader.getTaskModel();
             for (int i = 0; i < taskModelUploader.getTaskModel().size(); i++) {

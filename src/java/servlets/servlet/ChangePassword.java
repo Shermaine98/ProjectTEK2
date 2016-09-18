@@ -5,7 +5,7 @@
  */
 package servlets.servlet;
 
-import DAO.Accounts;
+import dao.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;

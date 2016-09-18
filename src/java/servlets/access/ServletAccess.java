@@ -1,14 +1,14 @@
 package servlets.access;
 
-import DAO.Accounts;
-import DAO.DemoDashboard;
-import DAO.EducDashboard;
-import DAO.HealthDashboard;
-import DAO.taskDAO;
-import Model.User;
-import Model.taskModelHead;
-import Model.taskModelUploader;
-import Servlets.BaseServlet;
+import dao.Accounts;
+import dao.DemoDashboard;
+import dao.EducDashboard;
+import dao.HealthDashboard;
+import dao.TaskDAO;
+import model.User;
+import model.TaskModelHead;
+import model.TaskModelUploader;
+import servlets.servlet.BaseServlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -51,7 +51,7 @@ public class ServletAccess extends BaseServlet {
             DemoDashboard dDAO = new DemoDashboard();
             HealthDashboard hDAO = new HealthDashboard();
             EducDashboard eDAO = new EducDashboard();
-            taskDAO taskDAO = new taskDAO();
+            TaskDAO taskDAO = new TaskDAO();
 
             Calendar now = Calendar.getInstance();
             int year = now.get(Calendar.YEAR);
@@ -89,7 +89,7 @@ public class ServletAccess extends BaseServlet {
 
 //HOME
             if (redirect.equalsIgnoreCase("home")) {
-                ArrayList<taskModelUploader> arrayTask = taskDAO.checkTaskUploader(yearInString);
+                ArrayList<TaskModelUploader> arrayTask = taskDAO.checkTaskUploader(yearInString);
                 request.setAttribute("tasks", arrayTask);
                 request.setAttribute("page", "home");
                 rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
@@ -103,20 +103,20 @@ public class ServletAccess extends BaseServlet {
                 User chck = (User) session.getAttribute("user");
 
                 if (chck.getPosition().equals("Project Development Officer IV")) {
-                    ArrayList<taskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Health");
-                    ArrayList<taskModelUploader> validated = taskDAO.getUploadedValidated(yearInString);
-                    ArrayList<taskModelUploader> approved = taskDAO.getUploadedApprovedReject(yearInString);
-                    ArrayList<taskModelUploader> notUploaded = taskDAO.getNotUploaded(yearInString);
+                    ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Health");
+                    ArrayList<TaskModelUploader> validated = taskDAO.getUploadedValidated(yearInString);
+                    ArrayList<TaskModelUploader> approved = taskDAO.getUploadedApprovedReject(yearInString);
+                    ArrayList<TaskModelUploader> notUploaded = taskDAO.getNotUploaded(yearInString);
 
                     request.setAttribute("notUploaded", notUploaded);
                     request.setAttribute("validated", validated);
                     request.setAttribute("approved", approved);
                     request.setAttribute("tasksHead", arrayTask);
                 } else if (chck.getPosition().equals("Project Development Officer III")) {
-                    ArrayList<taskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Education");
+                    ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Education");
                     request.setAttribute("tasksHead", arrayTask);
                 } else if (chck.getPosition().equals("Project Development Officer I")) {
-                    ArrayList<taskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Demographics");
+                    ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Demographics");
                     request.setAttribute("tasksHead", arrayTask);
                 }
                 rd = request.getRequestDispatcher("/WEB-INF/home_PDO.jsp");

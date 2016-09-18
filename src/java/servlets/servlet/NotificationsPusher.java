@@ -5,8 +5,8 @@
  */
 package servlets.servlet;
 
-import DAO.notificationDAO;
-import Model.taskModelUploader;
+import dao.NotificationDAO;
+import model.TaskModelUploader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -44,42 +44,42 @@ public class NotificationsPusher extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            ArrayList<taskModelUploader> notification = new ArrayList<taskModelUploader>();
+            ArrayList<TaskModelUploader> notification = new ArrayList<TaskModelUploader>();
             String position = request.getParameter("position");
              int year = Calendar.getInstance().get(Calendar.YEAR);
     //IV - Health
 //III - Education
 //I - Demo
-            notificationDAO notificationDAO = new notificationDAO();
+            NotificationDAO notificationDAO = new NotificationDAO();
             if (position.equals("IT Admin")) {
 
             } else if (position.equalsIgnoreCase("Project Development Officer IV")) {
-                ArrayList<taskModelUploader> temp = new ArrayList<taskModelUploader>();
+                ArrayList<TaskModelUploader> temp = new ArrayList<TaskModelUploader>();
                 temp = notificationDAO.NotificationApprovalRecord(String.valueOf(year));
-                for (taskModelUploader temp1 : temp) {
+                for (TaskModelUploader temp1 : temp) {
                     if (temp1.getReportType().equalsIgnoreCase("Health")) {
                         notification.add(temp1);
                     }
                 }
             } else if (position.equalsIgnoreCase("Project Development Officer I")) {
-                ArrayList<taskModelUploader> temp = new ArrayList<taskModelUploader>();
+                ArrayList<TaskModelUploader> temp = new ArrayList<TaskModelUploader>();
                 temp = notificationDAO.NotificationApprovalRecord(String.valueOf(year));
-                for (taskModelUploader temp1 : temp) {
+                for (TaskModelUploader temp1 : temp) {
                     if (temp1.getReportType().equalsIgnoreCase("Demographics")) {
                         notification.add(temp1);
                     }
                 }
             } else if (position.equalsIgnoreCase("Project Development Officer III")) {
-                ArrayList<taskModelUploader> temp = new ArrayList<taskModelUploader>();
+                ArrayList<TaskModelUploader> temp = new ArrayList<TaskModelUploader>();
                 temp = notificationDAO.NotificationApprovalRecord(String.valueOf(year));
-                for (taskModelUploader temp1 : temp) {
+                for (TaskModelUploader temp1 : temp) {
                     if (temp1.getReportType().equalsIgnoreCase("Education")) {
                         notification.add(temp1);
                     }
                 }
             } else {
-                ArrayList<taskModelUploader> rejected = new ArrayList<taskModelUploader>();
-                ArrayList<taskModelUploader> approved = new ArrayList<taskModelUploader>();
+                ArrayList<TaskModelUploader> rejected = new ArrayList<TaskModelUploader>();
+                ArrayList<TaskModelUploader> approved = new ArrayList<TaskModelUploader>();
                 approved = notificationDAO.NotificationUploder(String.valueOf(year));
                 rejected = notificationDAO.NotificationRejected(String.valueOf(year));
                 notification.addAll(approved);

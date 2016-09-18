@@ -5,7 +5,7 @@
  */
 package servlets.servlet;
 
-import DAO.recordDAO;
+import dao.RecordDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,7 +39,7 @@ public class UploadCheckerServlet extends BaseServlet {
         boolean x = false;
         String decision = "upload";
         // DEMO
-        recordDAO recordDAO = new recordDAO();
+        RecordDAO recordDAO = new RecordDAO();
 
         if (page.equalsIgnoreCase("AgeGroup")) {
             try {

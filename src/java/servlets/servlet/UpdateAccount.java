@@ -1,8 +1,8 @@
 package servlets.servlet;
 
-import DAO.Accounts;
-import Model.User;
-import Servlets.BaseServlet;
+import dao.Accounts;
+import model.User;
+import servlets.servlet.BaseServlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
