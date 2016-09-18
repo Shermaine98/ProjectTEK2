@@ -5,13 +5,13 @@
  */
 package setdata;
 
-import DAO.recordDAO;
-import DAOCharts.SchoolDirectory;
-import DAOCharts.SchoolEnrollment;
-import Model.record;
-import ModelEducation.EnrollmentDet;
-import ModelEducation.directorySchool;
-import ModelEducation.enrollment;
+import dao.RecordDAO;
+import dao.charts.SchoolDirectory;
+import dao.charts.SchoolEnrollment;
+import model.Record;
+import model.education.EnrollmentDet;
+import model.education.DirectorySchool;
+import model.education.Enrollment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -59,7 +59,7 @@ public class SetEnrollmentDataServlet extends HttpServlet {
             SchoolEnrollment charts = new SchoolEnrollment();
             EnrollmentDet total = charts.retrieveTotalMaleFemale(censusYear, classification);
             ArrayList<EnrollmentDet> byGrade = charts.retrieveGradeStatistics(censusYear, classification);
-            ArrayList<enrollment> bySchool = charts.retrieveSchoolStatistics(censusYear, classification);
+            ArrayList<Enrollment> bySchool = charts.retrieveSchoolStatistics(censusYear, classification);
             
             JSONObject objSchoolTotal = new JSONObject();
             try {

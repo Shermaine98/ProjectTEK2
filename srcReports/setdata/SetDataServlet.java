@@ -5,11 +5,11 @@
  */
 package setdata;
 
-import DAOCharts.ByAgeGroupChart;
-import DAODemo.byAgeGroupSexDAO;
-import DAO.recordDAO;
-import ModelDemo.ByAgeGroupSex;
-import Model.record;
+import dao.charts.ByAgeGroupChart;
+import dao.demo.ByAgeGroupSexDAO;
+import dao.RecordDAO;
+import model.demo.ByAgeGroupSex;
+import model.Record;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -58,7 +58,7 @@ public class SetDataServlet extends HttpServlet {
 
           
                 int formID = 200000000 + parseInt(censusYear);
-                ArrayList<ByAgeGroupSex> ByAgeGroupSexTable = new byAgeGroupSexDAO().ViewByAgeGroupSexFormID(formID);
+                ArrayList<ByAgeGroupSex> ByAgeGroupSexTable = new ByAgeGroupSexDAO().ViewByAgeGroupSexFormID(formID);
                 ByAgeGroupSex byAgeGroupTotal = chart.retrieveTotalFemale(formID);
                 ArrayList<ByAgeGroupSex> arrByAgeGroup = chart.retrieveByAgeGroupSex(formID);
                 ArrayList<ByAgeGroupSex> arrTotalMF = chart.retrieveTotalMaleFemalePerBgy(formID);
@@ -125,7 +125,7 @@ public class SetDataServlet extends HttpServlet {
                     }
 
                 }
-                record records = new recordDAO().GetbyFormID(formID);
+                Record records = new RecordDAO().GetbyFormID(formID);
 
                 for (int i = 0; i < ByAgeGroupSexTable.size(); i++) {
                     JSONObject objTable = new JSONObject();

@@ -5,15 +5,15 @@
  */
 package setdata;
 
-import DAO.recordDAO;
-import DAOCharts.ListOfHospitalDAO;
-import DAOCharts.NutritionalStatusChartsDAO;
-import DAOCharts.SchoolDirectory;
-import Model.record;
-import ModelEducation.directorySchool;
-import ModelHealth.NutritionalStatus;
-import ModelHealth.NutritionalStatusBMI;
-import ModelHealth.directoryHealth;
+import dao.RecordDAO;
+import dao.charts.ListOfHospitalDAO;
+import dao.charts.NutritionalStatusChartsDAO;
+import dao.charts.SchoolDirectory;
+import model.Record;
+import model.education.DirectorySchool;
+import model.health.NutritionalStatus;
+import model.health.NutritionalStatusBMI;
+import model.health.DirectoryHealth;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -71,7 +71,7 @@ public class SetNutritionalStatusDataServlet extends HttpServlet {
             ArrayList<NutritionalStatus> district = chart.retrieveByDistrict(formID);
             ArrayList<NutritionalStatus> grade = chart.retrieveGrade(formID);
 
-            record records = new recordDAO().GetbyFormID(formID);
+            Record records = new RecordDAO().GetbyFormID(formID);
             
             
             for(int i = 0; i < table.size(); i++){

@@ -5,11 +5,11 @@
  */
 package setdata;
 
-import DAO.recordDAO;
-import DAOCharts.SchoolDirectory;
-import Model.record;
-import ModelEducation.elemTeachers;
-import ModelEducation.directorySchool;
+import dao.RecordDAO;
+import dao.charts.SchoolDirectory;
+import model.Record;
+import model.education.ElemTeachers;
+import model.education.DirectorySchool;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -53,12 +53,12 @@ public class SetSchoolDirectoryServlet extends HttpServlet {
             JSONObject ObjectAll = new JSONObject();
           
             int censusYear = parseInt(tempCensusYear);
-            ArrayList<directorySchool> schools = new ArrayList<directorySchool>();
+            ArrayList<DirectorySchool> schools = new ArrayList<DirectorySchool>();
             SchoolDirectory schoolDirectory = new SchoolDirectory();
                         
             schools = schoolDirectory.retrieveDirectorySchool(censusYear, classification);
 
-            record records = new recordDAO().GetbyFormID(censusYear);
+            Record records = new RecordDAO().GetbyFormID(censusYear);
             
             JSONObject objSchoolTotal = new JSONObject();
             try {

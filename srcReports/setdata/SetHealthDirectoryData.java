@@ -5,12 +5,12 @@
  */
 package setdata;
 
-import DAO.recordDAO;
-import DAOCharts.ListOfHospitalDAO;
-import DAOCharts.SchoolDirectory;
-import Model.record;
-import ModelEducation.directorySchool;
-import ModelHealth.directoryHealth;
+import dao.RecordDAO;
+import dao.charts.ListOfHospitalDAO;
+import dao.charts.SchoolDirectory;
+import model.Record;
+import model.education.DirectorySchool;
+import model.health.DirectoryHealth;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -61,13 +61,13 @@ public class SetHealthDirectoryData extends HttpServlet {
             int formID = 90000000 + parseInt(censusYear);
             ListOfHospitalDAO hospitalDAO = new ListOfHospitalDAO();
             
-            directoryHealth overallPrivHealth = hospitalDAO.retrieveOverAllHospitals(formID, privateClassification);
-            directoryHealth overallPubHealth = hospitalDAO.retrieveOverAllHospitals(formID, publicClassification);
+            DirectoryHealth overallPrivHealth = hospitalDAO.retrieveOverAllHospitals(formID, privateClassification);
+            DirectoryHealth overallPubHealth = hospitalDAO.retrieveOverAllHospitals(formID, publicClassification);
             
-            ArrayList<directoryHealth> privHospitals = hospitalDAO.retrieveAllHospitals(formID, privateClassification);
-            ArrayList<directoryHealth> pubHospitals = hospitalDAO.retrieveAllHospitals(formID, publicClassification);
+            ArrayList<DirectoryHealth> privHospitals = hospitalDAO.retrieveAllHospitals(formID, privateClassification);
+            ArrayList<DirectoryHealth> pubHospitals = hospitalDAO.retrieveAllHospitals(formID, publicClassification);
             
-            record records = new recordDAO().GetbyFormID(formID);
+            Record records = new RecordDAO().GetbyFormID(formID);
             
             JSONObject objPrivTotal = new JSONObject();
             try {

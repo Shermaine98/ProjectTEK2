@@ -5,14 +5,14 @@
  */
 package setdata;
 
-import DAOCharts.ByAgeGroupChart;
-import DAODemo.byAgeGroupSexDAO;
-import DAO.recordDAO;
-import DAOCharts.HighestCompletedChart;
-import ModelDemo.ByAgeGroupSex;
-import Model.record;
-import ModelDemo.HighestCompleted;
-import ModelDemo.HighestCompletedAgeGroup;
+import dao.charts.ByAgeGroupChart;
+import dao.demo.ByAgeGroupSexDAO;
+import dao.RecordDAO;
+import dao.charts.HighestCompletedChart;
+import model.demo.ByAgeGroupSex;
+import model.Record;
+import model.demo.HighestCompleted;
+import model.demo.HighestCompletedAgeGroup;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -100,7 +100,7 @@ public class SetHighestCompletedData extends HttpServlet {
                     getLogger(SetDataServlet.class.getName()).log(SEVERE, null, ex);
                 }
             }
-            record records = new recordDAO().GetbyFormID(formID);
+            Record records = new RecordDAO().GetbyFormID(formID);
 
             for (int i = 0; i < femaleLocation.size(); i++) {
                 JSONObject objarrFemaleLocation = new JSONObject();

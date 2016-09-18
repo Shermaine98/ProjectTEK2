@@ -5,14 +5,14 @@
  */
 package setdata;
 
-import DAOCharts.ByAgeGroupChart;
-import DAODemo.byAgeGroupSexDAO;
-import DAO.recordDAO;
-import DAOCharts.MaritalStatusChart;
-import DAODemo.MaritalStatusDAO;
-import ModelDemo.ByAgeGroupSex;
-import Model.record;
-import ModelDemo.MaritalStatus;
+import dao.charts.ByAgeGroupChart;
+import dao.demo.ByAgeGroupSexDAO;
+import dao.RecordDAO;
+import dao.charts.MaritalStatusChart;
+import dao.demo.MaritalStatusDAO;
+import model.demo.ByAgeGroupSex;
+import model.Record;
+import model.demo.MaritalStatus;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -152,7 +152,7 @@ public class SetMaritalDataServlet extends HttpServlet {
                 }
                 
 
-                record records = new recordDAO().GetbyFormID(formID);
+                Record records = new RecordDAO().GetbyFormID(formID);
                 
                 for (int i = 0; i < MaritalTable.size(); i++) {
                     JSONObject objTable = new JSONObject();
