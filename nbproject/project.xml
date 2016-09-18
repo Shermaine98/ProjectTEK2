@@ -101,9 +101,10 @@
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
+                <root id="src.srcForums.dir" name="Source Packages Forums"/>
                 <root id="src.dir"/>
                 <root id="src.srcAccounts.dir" name="Source Packages Accounts"/>
-                <root id="src.srcGuests.dir" name="Source Packages Guests"/>
+                <root id="src.srcForums2.dir" name="Source Packages Forums"/>
                 <root id="src.srcDemo.dir" name="Source Packages Demo"/>
                 <root id="src.srcEducation.dir" name="Source Packages Education"/>
                 <root id="src.srcHealth.dir" name="Source Packages Health"/>
