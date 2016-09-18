@@ -8,7 +8,7 @@ package checker.demo;
 import model.demo.HighestCompleted;
 import model.demo.HighestCompletedAgeGroup;
 import model.temp.demo.HighestCompletedAgeGroupTemp;
-import model.temp.demoHighestCompletedTemp;
+import model.temp.demo.HighestCompletedTemp;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 

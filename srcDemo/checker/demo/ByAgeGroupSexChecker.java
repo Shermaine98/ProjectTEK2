@@ -6,10 +6,12 @@
 package checker.demo;
 
 import model.demo.ByAgeGroupSex;
-import model.temp.demo.byAgeGroupTemp;
+import model.temp.demo.ByAgeGroupTemp;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -19,7 +21,7 @@ import static java.lang.Integer.parseInt;
 public class ByAgeGroupSexChecker {
 
     private ArrayList<ByAgeGroupSex> arrayNoError;
-    private ArrayList<byAgeGroupTemp> arrayError;
+    private ArrayList<ByAgeGroupTemp> arrayError;
     private  boolean trigger = false;
 
     /*
@@ -29,15 +31,15 @@ public class ByAgeGroupSexChecker {
 
     }
 
-    public ByAgeGroupSexChecker(ArrayList<byAgeGroupTemp> ArrErrorByAgeGroupSex) {
+    public ByAgeGroupSexChecker(ArrayList<ByAgeGroupTemp> ArrErrorByAgeGroupSex) {
 
         ByAgeGroupSex ByAgeGroupSex;
-        byAgeGroupTemp byAgeGroupTemp;
+        ByAgeGroupTemp byAgeGroupTemp;
         arrayNoError = new ArrayList<>();
         arrayError = new ArrayList<>();
 
         for (int i = 0; i < ArrErrorByAgeGroupSex.size(); i++) {
-            byAgeGroupTemp = new byAgeGroupTemp();
+            byAgeGroupTemp = new ByAgeGroupTemp();
             if (ArrErrorByAgeGroupSex.get(i).getBarangay() == null
                     || ArrErrorByAgeGroupSex.get(i).getAgeGroup() == null
                     || ArrErrorByAgeGroupSex.get(i).getBothSex() == null
@@ -127,15 +129,15 @@ public class ByAgeGroupSexChecker {
         }
     }
 
-    public ByAgeGroupSexChecker(ArrayList<byAgeGroupTemp> ArrErrorByAgeGroupSex, int year, int formID) {
+    public ByAgeGroupSexChecker(ArrayList<ByAgeGroupTemp> ArrErrorByAgeGroupSex, int year, int formID) {
 
-        byAgeGroupTemp byAgeGroupTemp;
+        ByAgeGroupTemp byAgeGroupTemp;
         ByAgeGroupSex ByAgeGroupSex;
         arrayNoError = new ArrayList<>();
         arrayError = new ArrayList<>();
 
         for (int i = 0; i < ArrErrorByAgeGroupSex.size(); i++) {
-            byAgeGroupTemp = new byAgeGroupTemp();
+            byAgeGroupTemp = new ByAgeGroupTemp();
             if (ArrErrorByAgeGroupSex.get(i).getBarangay() == null
                     || ArrErrorByAgeGroupSex.get(i).getAgeGroup() == null
                     || ArrErrorByAgeGroupSex.get(i).getBothSex() == null
@@ -230,7 +232,7 @@ public class ByAgeGroupSexChecker {
         }
     }
 
-    public ArrayList<ByAgeGroupSex> TransformData(ArrayList<byAgeGroupTemp> ArrErrorByAgeGroupSex) {
+    public ArrayList<ByAgeGroupSex> TransformData(ArrayList<ByAgeGroupTemp> ArrErrorByAgeGroupSex) {
 
         ByAgeGroupSex ByAgeGroupSex;
         ArrayList<ByAgeGroupSex> TransformData = new ArrayList<>();
@@ -331,7 +333,7 @@ public class ByAgeGroupSexChecker {
         return !StringUtils.isNumeric(str);
     }
 
-    public boolean checkGrandTotal(ArrayList<byAgeGroupTemp> ArrErrorByAgeGroupSex) {
+    public boolean checkGrandTotal(ArrayList<ByAgeGroupTemp> ArrErrorByAgeGroupSex) {
       if( trigger == false){
         
         int totalInExcel = 0;
@@ -377,7 +379,7 @@ public class ByAgeGroupSexChecker {
     }
 
     //i times 20
-    public static boolean isAgeGroupComplete(ArrayList<byAgeGroupTemp> ArrErrorByAgeGroupSex) {
+    public static boolean isAgeGroupComplete(ArrayList<ByAgeGroupTemp> ArrErrorByAgeGroupSex) {
         boolean complete = true;//= str.chars().allMatch(Character::isDigit);
 
         String ageGroup[] = new String[21];
@@ -403,7 +405,7 @@ public class ByAgeGroupSexChecker {
         ageGroup[19] = "0 - 17";
         ageGroup[20] = "18 and Over";
 
-        for (byAgeGroupTemp ArrErrorByAgeGroupSex1 : ArrErrorByAgeGroupSex) {
+        for (ByAgeGroupTemp ArrErrorByAgeGroupSex1 : ArrErrorByAgeGroupSex) {
             for (int x = 0; x < 20; x++) {
                 if (ArrErrorByAgeGroupSex.get(x).getBarangay().trim().equalsIgnoreCase(ageGroup[x].trim())) {
 
@@ -431,14 +433,14 @@ public class ByAgeGroupSexChecker {
     /**
      * @return the arrayError
      */
-    public ArrayList<byAgeGroupTemp> getArrayError() {
+    public ArrayList<ByAgeGroupTemp> getArrayError() {
         return arrayError;
     }
 
     /**
      * @param arrayError the arrayError to set
      */
-    public void setArrayError(ArrayList<byAgeGroupTemp> arrayError) {
+    public void setArrayError(ArrayList<ByAgeGroupTemp> arrayError) {
         this.arrayError = arrayError;
     }
 

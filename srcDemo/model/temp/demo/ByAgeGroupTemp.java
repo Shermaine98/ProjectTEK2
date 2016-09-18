@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
  *
  * @author shermainesy
  */
-public class byAgeGroupTemp {
+public class ByAgeGroupTemp {
 
     private int formID;
     private int year;
