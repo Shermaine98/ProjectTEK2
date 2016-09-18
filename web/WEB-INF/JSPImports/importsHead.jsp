@@ -1,4 +1,4 @@
-<%@page import="model.accounts.User"%>
+<%@page import="model.acccounts.User"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -168,32 +168,32 @@ and open the template in the editor.
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
 <!--                        <li>
-                            <a href="ServletAccess?redirect=homePDO">
+                            <a href="/ProjectTek/ServletAccess?redirect=homePDO">
                                 <i class="fa fa-dashboard"></i><span>Dashboard</span>
                             </a>
                         </li>-->
                         <li>
-                            <a href="ServletAccess?redirect=homePDO">
+                            <a href="/ProjectTek/ServletAccess?redirect=homePDO">
                                 <i class="fa fa-home"></i><span> Home</span>
                             </a>
                         </li>
                         <li>
                             <%if (chck.getPosition().equalsIgnoreCase("Project Development Officer III")) {%>
-                            <a href="RetrieveDataEducationServlet?redirect=education_approval">
+                            <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=education_approval">
                                 <i class="fa fa-check-circle-o"></i><span>Approval of Reports</span>
                             </a>
                             <%} else if (chck.getPosition().equalsIgnoreCase("Project Development Officer I")) {%>
-                            <a href="RetrieveDataDemoServlet?redirect=demographics_approval">
+                            <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=demographics_approval">
                                 <i class="fa fa-check-circle-o"></i><span>Approval of Reports</span>
                             </a>
                             <%} else if (chck.getPosition().equalsIgnoreCase("Project Development Officer IV")) {%>
-                            <a href="RetrieveDataHealthServlet?redirect=health_approval">
+                            <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=health_approval">
                                 <i class="fa fa-check-circle-o"></i><span>Approval of Reports</span>
                             </a>
                             <%}%>
                         </li>
                         <li>
-                            <a href="ServletAccess?redirect=reportsLibrary">
+                            <a href="/ProjectTek/ServletAccess?redirect=reportsLibrary">
                                 <i class="fa fa-book"></i>
                                 <span>Internal Reports Library</span>
                             </a>
@@ -207,13 +207,13 @@ and open the template in the editor.
                             </a>
                             <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc; margin-left: 8%;">
                                 <li>
-                                    <a href="ServletAccess?redirect=StandardManipulation" style="color: #cc5200">
+                                    <a href="/ProjectTek/ServletAccess?redirect=StandardManipulation" style="color: #cc5200">
                                         <i class="fa fa-bar-chart-o"></i>
                                         <span>Integrated Analytics</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ServletAccess?redirect=DataManipulation" style="color: #cc5200">
+                                    <a href="/ProjectTek/ServletAccess?redirect=DataManipulation" style="color: #cc5200">
                                         <i class="fa fa-database"></i>
                                         <span>Customized Analytics</span>
                                     </a>
@@ -230,13 +230,13 @@ and open the template in the editor.
                             <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc; margin-left: 8%;">
 
                                 <li>
-                                    <a href="ServletAccess?redirect=CreateReport" style="color: #cc5200">
+                                    <a href="/ProjectTek/ServletAccess?redirect=CreateReport" style="color: #cc5200">
                                         <i class="fa fa-pencil-square-o"></i>
                                         <span>Create Report</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ServletAccess?redirect=SavedReports" style="color: #cc5200">
+                                    <a href="/ProjectTek/ServletAccess?redirect=SavedReports" style="color: #cc5200">
                                         <i class="fa fa-file-text-o"></i>
                                         <span>Draft Reports</span>
                                     </a>
@@ -244,7 +244,7 @@ and open the template in the editor.
                             </ul>
                         </li>
                         <li>
-                            <a href="ServletAccess?redirect=PublishedReports">
+                            <a href="/ProjectTek/ServletAccess?redirect=PublishedReports">
                                 <i class="fa fa-file-archive-o"></i>
                                 <span>Published Reports</span>
                             </a>
@@ -340,25 +340,25 @@ and open the template in the editor.
                                     $('body').on('click', 'a.task', function () {
                                         var formName = $(this).text();
                                         if (formName === "Enrollment in Public School") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=public&formID=" + year);
+                                            window.location.replace("/ProjectTek/ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=public&formID=" + year);
                                         } else if (formName === "Enrollment in Private School") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=private&formID=" + year);
+                                            window.location.replace("/ProjectTek/ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=private&formID=" + year);
                                         } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("/ProjectTek/ViewReportsForApprovalEduc?page=reportsLibrary");
                                         } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("/ProjectTek/ViewReportsForApprovalEduc?page=reportsLibrary");
                                             //DEMO
                                         } else if (formName === "Household Population by Age Group and Sex") {
-                                            window.location.replace("ViewArchivesReportForApproval?page=byAgeGroupApprovalS&formID=" + year);
+                                            window.location.replace("/ProjectTek/ViewArchivesReportForApproval?page=byAgeGroupApprovalS&formID=" + year);
                                         } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                            window.location.replace("ViewArchivesReportForApproval?page=highestAttaintmentApprovalS&formID=" + year);
+                                            window.location.replace("/ProjectTek/ViewArchivesReportForApproval?page=highestAttaintmentApprovalS&formID=" + year);
                                         } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                            window.location.replace("ViewArchivesReportForApproval?page=maritalStatusApprovalS&formID=" + year);
+                                            window.location.replace("/ProjectTek/ViewArchivesReportForApproval?page=maritalStatusApprovalS&formID=" + year);
                                         }//DEMO END
                                         else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                            window.location.replace("ViewReportForApprovalHealth?page=nutritionalApprovalS&formID=" + year);
+                                            window.location.replace("/ProjectTek/ViewReportForApprovalHealth?page=nutritionalApprovalS&formID=" + year);
                                         } else if (formName === "List of Hospitals") {
-                                            window.location.replace("ViewReportForApprovalHealth?page=reportsLibrary");
+                                            window.location.replace("/ProjectTek/ViewReportForApprovalHealth?page=reportsLibrary");
                                         }
 
                                     });

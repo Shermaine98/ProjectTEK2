@@ -1,5 +1,4 @@
-<%@page import="model.accounts.User"%>
-
+<%@page import="model.acccounts.User"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -116,18 +115,18 @@ and open the template in the editor.
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
                         <!--<li>
-                            <a href="ServletAccess?redirect=home_guest">
+                            <a href="/ProjectTek/ServletAccess?redirect=home_guest">
                                 <i class="fa fa-dashboard"></i><span>Home</span>
                             </a>
                         </li>-->
                         <li>
-                            <a href="ServletAccess?redirect=reportsLibrary">
+                            <a href="/ProjectTek/ServletAccess?redirect=reportsLibrary">
                                 <i class="fa fa-book"></i>
                                 <span>Internal Reports Library</span>
                             </a>
                         </li>
                         <li>
-                            <a href="ServletAccess?redirect=PublishedReports">
+                            <a href="/ProjectTek/ServletAccess?redirect=PublishedReports">
                                 <i class="fa fa-file-archive-o"></i>
                                 <span>Published Reports</span>
                             </a>
