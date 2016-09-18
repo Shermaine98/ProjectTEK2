@@ -76,6 +76,38 @@
         <servlet-name>RetrieveDataDemoServlet</servlet-name>
         <servlet-class>servlets.demo.access.RetrieveDataDemoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ApproveDemoServlet</servlet-name>
+        <servlet-class>servlets.demo.servlet.ApproveDemoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditErrorFormServlet</servlet-name>
+        <servlet-class>servlets.demo.servlet.EditErrorFormServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadToDatabaseDemo</servlet-name>
+        <servlet-class>servlets.demo.servlet.UploadToDatabaseDemo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValiAgeByGrpServ</servlet-name>
+        <servlet-class>servlets.demo.servlet.ValiAgeByGrpServ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValiHighestAttaintment</servlet-name>
+        <servlet-class>servlets.demo.servlet.ValiHighestAttaintment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValiMaritalStatus</servlet-name>
+        <servlet-class>servlets.demo.servlet.ValiMaritalStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewArchivesReportForApproval</servlet-name>
+        <servlet-class>servlets.demo.servlet.ViewArchivesReportForApproval</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewReportsDemo</servlet-name>
+        <servlet-class>servlets.demo.servlet.ViewReportsDemo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -127,6 +159,38 @@
     <servlet-mapping>
         <servlet-name>RetrieveDataDemoServlet</servlet-name>
         <url-pattern>/RetrieveDataDemoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApproveDemoServlet</servlet-name>
+        <url-pattern>/ApproveDemoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditErrorFormServlet</servlet-name>
+        <url-pattern>/EditErrorFormServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadToDatabaseDemo</servlet-name>
+        <url-pattern>/UploadToDatabaseDemo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValiAgeByGrpServ</servlet-name>
+        <url-pattern>/ValiAgeByGrpServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValiHighestAttaintment</servlet-name>
+        <url-pattern>/ValiHighestAttaintment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValiMaritalStatus</servlet-name>
+        <url-pattern>/ValiMaritalStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewArchivesReportForApproval</servlet-name>
+        <url-pattern>/ViewArchivesReportForApproval</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewReportsDemo</servlet-name>
+        <url-pattern>/ViewReportsDemo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

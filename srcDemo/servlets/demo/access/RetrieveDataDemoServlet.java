@@ -7,7 +7,7 @@ import dao.RecordDAO;
 import model.GlobalRecords;
 import model.Record;
 import servlets.servlet.BaseServlet;
-import servlets.demo.ApproveDemoServlet;
+import servlets.demo.servlet.ApproveDemoServlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -41,13 +41,13 @@ public class RetrieveDataDemoServlet extends BaseServlet {
         String redirect = request.getParameter("redirect");
         String saveToDb = (String) request.getAttribute("saveToDB");
         RequestDispatcher rd = null;
-        recordDAO recordDAO = new recordDAO();
+        RecordDAO recordDAO = new RecordDAO();
 
         //Demo Aid       
         if (redirect.equalsIgnoreCase("byAgeGroupSex")) {
-            byAgeGroupSexDAO byAgeGroupSexDAO = new byAgeGroupSexDAO();
-            ArrayList<globalRecords> ErrRecords = new ArrayList<>();
-            ArrayList<record> records = new ArrayList<>();
+            ByAgeGroupSexDAO byAgeGroupSexDAO = new ByAgeGroupSexDAO();
+            ArrayList<GlobalRecords> ErrRecords = new ArrayList<>();
+            ArrayList<Record> records = new ArrayList<>();
             try {
                 ErrRecords = byAgeGroupSexDAO.getValidationFalse();
                 records = recordDAO.GetForApproval(200000000, 299999999);
@@ -67,8 +67,8 @@ public class RetrieveDataDemoServlet extends BaseServlet {
             rd.forward(request, response);
         } else if (redirect.equalsIgnoreCase("MaritalStatus")) {
             MaritalStatusDAO maritalStatus = new MaritalStatusDAO();
-            ArrayList<globalRecords> ErrRecords = new ArrayList<>();
-            ArrayList<record> records = new ArrayList<>();
+            ArrayList<GlobalRecords> ErrRecords = new ArrayList<>();
+            ArrayList<Record> records = new ArrayList<>();
             try {
                 ErrRecords = maritalStatus.getNullCountMarital();
                 records = recordDAO.GetForApproval(300000000, 399999999);
@@ -88,8 +88,8 @@ public class RetrieveDataDemoServlet extends BaseServlet {
             rd.forward(request, response);
         } else if (redirect.equalsIgnoreCase("HighestCompleted")) {
             HighestCompletedDAO highestCompletedDAO = new HighestCompletedDAO();
-            ArrayList<globalRecords> ErrRecords = new ArrayList<>();
-            ArrayList<record> records = new ArrayList<>();
+            ArrayList<GlobalRecords> ErrRecords = new ArrayList<>();
+            ArrayList<Record> records = new ArrayList<>();
             try {
                 ErrRecords = highestCompletedDAO.getNullCountHighest();
                 records = recordDAO.GetForApproval(400000000, 499999999);
@@ -109,9 +109,9 @@ public class RetrieveDataDemoServlet extends BaseServlet {
             rd.forward(request, response);
         } //DEMO  head    
         else if (redirect.equalsIgnoreCase("demographics_approval")) {
-            ArrayList<record> recordsAge = new ArrayList<>();
-            ArrayList<record> recordsMarital = new ArrayList<>();
-            ArrayList<record> recordsHighest = new ArrayList<>();
+            ArrayList<Record> recordsAge = new ArrayList<>();
+            ArrayList<Record> recordsMarital = new ArrayList<>();
+            ArrayList<Record> recordsHighest = new ArrayList<>();
             //AGE GROUP APPRVOVAL
             try {
                 recordsAge = recordDAO.GetForApproval(200000000, 299999999);
@@ -147,9 +147,9 @@ public class RetrieveDataDemoServlet extends BaseServlet {
                 request.setAttribute("subject", "marital");
             }
 
-            ArrayList<record> recordsAge = new ArrayList<>();
-            ArrayList<record> recordsMarital = new ArrayList<>();
-            ArrayList<record> recordsHighest = new ArrayList<>();
+            ArrayList<Record> recordsAge = new ArrayList<>();
+            ArrayList<Record> recordsMarital = new ArrayList<>();
+            ArrayList<Record> recordsHighest = new ArrayList<>();
             //AGE GROUP APPRVOVAL
             try {
                 recordsAge = recordDAO.GetForApproval(200000000, 299999999);
