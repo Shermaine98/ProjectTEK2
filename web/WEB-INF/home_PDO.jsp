@@ -104,15 +104,15 @@
                                                 <td class="date"><%= arrTask.get(i).getsDueDate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
                                                 <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="text-align:right; padding-right: 1%"> <a href="/ProjectTek/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
+                                                <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
 
                                                 <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("saved")) {%>
                                                 <td class="status"><span class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="text-align:right; padding-right: 1%"> <a href="/ProjectTek/ReportAccess?redirect=Saved&Navi=true"><input type="button"  class="btn btn-primary btn-sm" value="Go to Saved Reports" /></a></td>
+                                                <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=Saved&Navi=true"><input type="button"  class="btn btn-primary btn-sm" value="Go to Saved Reports" /></a></td>
 
                                                 <% } else {%>
                                                 <td class="status"><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="text-align:right; padding-right: 1%"> <a href="/ProjectTek/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
+                                                <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
 
                                                 <% }%>
                                             </tr>
@@ -148,17 +148,17 @@
                                     <p>There are no reports pending for approval</p>
                                     <% } else { %>
                                     <% if (aAgeGroup >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=approval_agegroup">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=approval_agegroup">
                                         <button class="btn btn-warning smallButtonStyle"><%=aAgeGroup%></button></a>
                                     <p class="expand">Household Population by Age Group and Sex</p>
                                     <% }
                                         if (aHighest >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=approval_highestcompleted">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=approval_highestcompleted">
                                         <button class="btn btn-warning smallButtonStyle"><%=aHighest%></button></a>
                                     <p class="expand" id='ahighest' onclick="expand('ahighest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
                                     <% }
                                         if (aMarital >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=approval_maritalstatus">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=approval_maritalstatus">
                                         <button class="btn btn-warning smallButtonStyle"><%=aMarital%></button></a>
                                     <p class="expand" id='amarital' onclick="expand('amarital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
                                     <% } %>
@@ -174,22 +174,22 @@
                                     <p>There are no reports pending for approval</p>
                                     <% } else { %>
                                     <% if (aPublicEnrollment >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=approval_publicenrollment">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=approval_publicenrollment">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPublicEnrollment%></button></a>
                                     <p class="expand">Enrollment in Public Schools</p>
                                     <% }
                                         if (aPrivateEnrollment >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=approval_privateenrollment">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=approval_privateenrollment">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateEnrollment%></button></a>
                                     <p class="expand">Enrollment in Private Schools</p>
                                     <% }
                                         if (aPublicDirectory >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=approval_publicdirectory">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=approval_publicdirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPublicDirectory%></button></a>
                                     <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
                                     <% }
                                         if (aPrivateDirectory >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=approval_privatedirectory">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=approval_privatedirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateDirectory%></button></a>
                                     <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
                                     <% }
@@ -203,12 +203,12 @@
                                     <p>There are no reports pending for approval</p>
                                     <% } else {
                                         if (aNutritionalStatus >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=approval_nutritional">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=approval_nutritional">
                                         <button class="btn btn-warning smallButtonStyle"><%=aNutritionalStatus%></button></a>
                                     <p class="expand" id='anutrition' onclick='expand("anutrition")'> Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
                                     <% }
                                         if (aHospital >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=health_approval">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=health_approval">
                                         <button class="btn btn-warning smallButtonStyle"><%=aHospital%></button></a><p class="expand"> List of Hospitals</p>
                                         <% }
                                                 }

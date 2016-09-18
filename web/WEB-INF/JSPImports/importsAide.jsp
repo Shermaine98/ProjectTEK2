@@ -1,4 +1,4 @@
-<%@page import="model.acccounts.User"%>
+<%@page import="Model.User"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -150,12 +150,12 @@ and open the template in the editor.
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
 <!--                        <li>
-                            <a href="/ProjectTek/ServletAccess?redirect=home">
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home">
                                 <i class="fa fa-dashboard"></i><span>Dashboard</span>
                             </a>
                         </li>-->
                         <li>
-                            <a href="/ProjectTek/ServletAccess?redirect=home">
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home">
                                 <i class="fa fa-home"></i><span> Home</span>
                             </a>
                         </li>
@@ -167,32 +167,32 @@ and open the template in the editor.
                             <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc">
                                 <li class="treeview"><a href="#" style="color: #cc5200"><span class="fa fa-mortar-board"></span> Education<span class="fa fa-angle-left" style="float: right; "></span></a>
                                     <ul class="treeview-menu">
-                                        <li><a href="/ProjectTek/RetrieveDataEducationServlet?redirect=ePublic">Enrollment in Public Schools</a></li>
-                                        <li><a href="/ProjectTek/RetrieveDataEducationServlet?redirect=ePrivate">Enrollment in Private Schools</a></li>
-                                        <li><a href="/ProjectTek/RetrieveDataEducationServlet?redirect=publicDirectory">Number of Teachers and<br/> Classrooms for Public Schools</a></li>
-                                        <li><a href="/ProjectTek/RetrieveDataEducationServlet?redirect=privateDirectory">Number of Teachers and<br/> Classrooms for Private Schools</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic">Enrollment in Public Schools</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate">Enrollment in Private Schools</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory">Number of Teachers and<br/> Classrooms for Public Schools</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory">Number of Teachers and<br/> Classrooms for Private Schools</a></li>
                                     </ul>
                                 </li>
                                 <li class="treeview"><a href="#" style="color: #cc5200"><span class="fa fa-users"></span> Demographics<span class="fa fa-angle-left" style="float: right;"></span></a>
                                     <ul class="treeview-menu">
-                                        <li><a href="/ProjectTek/RetrieveDataDemoServlet?redirect=byAgeGroupSex">Household Population by<br/>Age Group and Sex</a></li>
-                                        <li><a href="/ProjectTek/RetrieveDataDemoServlet?redirect=HighestCompleted">Household Population 5<br/>years old and over by Highest<br/>Grade/Year Completed,<br/>age group and sex</a></li>
-                                        <li><a href="/ProjectTek/RetrieveDataDemoServlet?redirect=maritalStatus">Household Population 10<br/>years old and over by Age<br/>Group, Sex, and<br/> Marital Status </a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">Household Population by<br/>Age Group and Sex</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted">Household Population 5<br/>years old and over by Highest<br/>Grade/Year Completed,<br/>age group and sex</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=maritalStatus">Household Population 10<br/>years old and over by Age<br/>Group, Sex, and<br/> Marital Status </a></li>
                                     </ul>
                                 </li>
                                 <li class="treeview"><a href="#" style="color: #cc5200"><span class="fa fa-hospital-o"></span> Health<span class="fa fa-angle-left" style="float: right;"></span></a>
                                     <ul class="treeview-menu">
-                                        <li><a href="/ProjectTek/RetrieveDataHealthServlet?redirect=percentageDist">Percentage Distribution of<br/>Elementary School
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist">Percentage Distribution of<br/>Elementary School
                                                 Children<br/>in Each District in the<br/>Division of
                                                 Caloocan by<br/>Nutritional Status/By Gender</a></li>
-                                        <li><a href="/ProjectTek/RetrieveDataHealthServlet?redirect=directoryHosptial">List of Hospitals</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial">List of Hospitals</a></li>
 
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="/ProjectTek/ServletAccess?redirect=reportsLibrary">
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary">
                                 <i class="fa fa-book"></i>
                                 <span>Internal Reports Library</span>
                             </a>
@@ -315,23 +315,23 @@ and open the template in the editor.
                                         $('body').on('click', 'a.approved', function () {
                                             var formName = $(this).text();
                                             if (formName === "Enrollment in Public School") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Enrollment in Private School") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Household Population by Age Group and Sex") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportAgeGroup");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportAgeGroup");
                                             } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "List of Hospitals") {
-                                                window.location.replace("/ProjectTek/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
                                             }
 
                                         });
@@ -368,25 +368,25 @@ and open the template in the editor.
                                         $('#okbtn').click(function () {
                                             var formName = task;
                                             if (formName === "Enrollment in Public School") {
-                                                window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=ePublic");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic");
                                             } else if (formName === "Enrollment in Private School") {
-                                                window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=ePrivate");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate");
                                             } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=publicDirectory");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory");
                                             } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=privateDirectory");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory");
                                                 //DEMO
                                             } else if (formName === "Household Population by Age Group and Sex") {
-                                                window.location.replace("/ProjectTek/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
                                             } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                window.location.replace("/ProjectTek/RetrieveDataDemoServlet?redirect=HighestCompleted");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted");
                                             } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                window.location.replace("/ProjectTek/RetrieveDataDemoServlet?redirect=MaritalStatus");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=MaritalStatus");
                                             }//DEMO END
                                             else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                window.location.replace("/ProjectTek/RetrieveDataHealthServlet?redirect=percentageDist");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist");
                                             } else if (formName === "List of Hospitals") {
-                                                window.location.replace("/ProjectTek/RetrieveDataHealthServlet?redirect=directoryHosptial");
+                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial");
                                             }
                                         });
                                     });

@@ -135,47 +135,47 @@
                                     <p>There are no incomplete reports</p>
                                     <% } else { %>
                                     <% if (iPublicEnrollment >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=ePublic">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPublicEnrollment%></button></a>
                                         <p class="expand">Enrollment in Public Schools</p>
                                             <% }
                                                 if (iPrivateEnrollment >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=ePrivate">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPrivateEnrollment%></button></a>
                                         <p class="expand">Enrollment in Private Schools</p>
                                             <% }
                                                 if (iPublicDirectory >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=publicDirectory">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPublicDirectory%></button></a>
                                         <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
                                             <% }
                                                 if (iPrivateDirectory >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=privateDirectory">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPrivateDirectory%></button></a>
                                         <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
                                             <% }
                                                 if (iAgeGroup >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
                                         <button class="btn btn-warning smallButtonStyle"><%=iAgeGroup%></button></a>
                                         <p class="expand">Household Population by Age Group and Sex</p>
                                             <% }
                                                 if (iHighest >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=HighestCompleted">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted">
                                         <button class="btn btn-warning smallButtonStyle"><%=iHighest%></button></a>
                                         <p class="expand" id='highest' onclick="expand('highest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
                                             <% }
                                                 if (iMarital >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=maritalStatus">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=maritalStatus">
                                         <button class="btn btn-warning smallButtonStyle"><%=iMarital%></button></a>
                                         <p class="expand" id='marital' onclick="expand('marital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
                                             <% }
                                                 if (iNutritionalStatus >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=percentageDist">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist">
                                         <button class="btn btn-warning smallButtonStyle"><%=iNutritionalStatus%></button></a>
                                         <p class="expand" id='nutrition' onclick='expand("nutrition")'>Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
                                             <% }
                                                 if (iHospital >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=directoryHosptial">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial">
                                         <button class="btn btn-warning smallButtonStyle"><%=iHospital%></button></a>
                                         <p class="expand">List of Hospitals</p>
                                             <% }
@@ -212,47 +212,47 @@
                                     <p>There are no reports pending for approval</p>
                                     <% } else { %>
                                     <% if (aPublicEnrollment >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=ePublic">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPublicEnrollment%></button></a>
                                         <p class="expand">Enrollment in Public Schools</p>
                                             <% }
                                                 if (aPrivateEnrollment >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=ePrivate">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateEnrollment%></button></a>
                                         <p class="expand">Enrollment in Private Schools</p>
                                             <% }
                                                 if (aPublicDirectory >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=publicDirectory">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPublicDirectory%></button></a>
                                         <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
                                             <% }
                                                 if (aPrivateDirectory >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataEducationServlet?redirect=privateDirectory">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateDirectory%></button></a>
                                         <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
                                             <% }
                                                 if (aAgeGroup >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
                                         <button class="btn btn-warning smallButtonStyle"><%=aAgeGroup%></button></a>
                                         <p class="expand">Household Population by Age Group and Sex</p>
                                             <% }
                                                 if (aHighest >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=HighestCompleted">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted">
                                         <button class="btn btn-warning smallButtonStyle"><%=aHighest%></button></a>
                                         <p class="expand" id='ahighest' onclick="expand('ahighest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
                                             <% }
                                                 if (aMarital >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataDemoServlet?redirect=maritalStatus">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=maritalStatus">
                                         <button class="btn btn-warning smallButtonStyle"><%=aMarital%></button></a>
                                         <p class="expand" id='amarital' onclick="expand('amarital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
                                             <% }
                                                 if (aNutritionalStatus >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=percentageDist">
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist">
                                         <button class="btn btn-warning smallButtonStyle"><%=aNutritionalStatus%></button></a>
                                         <p class="expand" id='anutrition' onclick='expand("anutrition")'>Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
                                             <% }
                                                 if (aHospital >= 1) {%>
-                                    <a href="/ProjectTek/RetrieveDataHealthServlet?redirect=directoryHosptial"><button class="btn btn-warning smallButtonStyle"><%=aHospital%></button></a> <p class="expand">List of Hospitals</p>
+                                    <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial"><button class="btn btn-warning smallButtonStyle"><%=aHospital%></button></a> <p class="expand">List of Hospitals</p>
                                             <% }
                                                 } //END OF ELSE %>
                                 </div>
@@ -285,23 +285,23 @@
 
                 var formName = $(this).closest("tr").find(".ts").text();
                 if (formName === "Enrollment in Public School") {
-                    window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=ePublic");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic");
                 } else if (formName === "Enrollment in Private School") {
-                    window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=ePrivate");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate");
                 } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                    window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=privateDirectory");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory");
                 } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                    window.location.replace("/ProjectTek/RetrieveDataEducationServlet?redirect=privateDirectory");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory");
                 } else if (formName === "Household Population by Age Group and Sex") {
-                    window.location.replace("/ProjectTek/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
                 } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                    window.location.replace("/ProjectTek/RetrieveDataDemoServlet?redirect=HighestCompleted");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted");
                 } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                    window.location.replace("/ProjectTek/RetrieveDataDemoServlet?redirect=maritalStatus");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=maritalStatus");
                 } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                    window.location.replace("/ProjectTek/RetrieveDataHealthServlet?redirect=percentageDist");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist");
                 } else if (formName === "List of Hospitals") {
-                    window.location.replace("/ProjectTek/RetrieveDataHealthServlet?redirect=directoryHosptial");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial");
                 }
 
             });
