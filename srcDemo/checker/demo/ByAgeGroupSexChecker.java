@@ -5,8 +5,8 @@
  */
 package checker.demo;
 
-import ModelDemo.ByAgeGroupSex;
-import ModelDemoTemp.byAgeGroupTemp;
+import model.demo.ByAgeGroupSex;
+import model.temp.demo.byAgeGroupTemp;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;

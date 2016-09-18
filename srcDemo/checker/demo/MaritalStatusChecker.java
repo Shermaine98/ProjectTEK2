@@ -5,8 +5,8 @@
  */
 package checker.demo;
 
-import ModelDemo.MaritalStatus;
-import ModelDemoTemp.MaritalStatusTemp;
+import model.demo.MaritalStatus;
+import model.temp.demo.MaritalStatusTemp;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;

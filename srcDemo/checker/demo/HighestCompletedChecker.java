@@ -5,10 +5,10 @@
  */
 package checker.demo;
 
-import ModelDemo.HighestCompleted;
-import ModelDemo.HighestCompletedAgeGroup;
-import ModelDemoTemp.HighestCompletedAgeGroupTemp;
-import ModelDemoTemp.HighestCompletedTemp;
+import model.demo.HighestCompleted;
+import model.demo.HighestCompletedAgeGroup;
+import model.temp.demo.HighestCompletedAgeGroupTemp;
+import model.temp.demoHighestCompletedTemp;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 
