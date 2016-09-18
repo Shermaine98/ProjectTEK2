@@ -101,6 +101,7 @@
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
+                <root id="src.srcGuest.dir" name="Source Packages Guest"/>
                 <root id="src.srcForums2.dir" name="Source Packages Forums"/>
                 <root id="src.dir"/>
                 <root id="src.srcForums2.dir" name="Source Packages Forums"/>
