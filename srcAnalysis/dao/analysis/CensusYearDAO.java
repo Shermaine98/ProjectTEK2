@@ -5,10 +5,10 @@
  */
 package dao.analysis;
 
-import DAOAnalysis.FactPeopleDAO;
-import DAODemo.HighestCompletedDAO;
-import DB.DBConnectionFactoryStarSchema;
-import ModelAnalysis.FactPeople;
+import dao.analysis.FactPeopleDAO;
+import dao.demo.HighestCompletedDAO;
+import db.DBConnectionFactoryStarSchema;
+import model.analysis.FactPeople;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;

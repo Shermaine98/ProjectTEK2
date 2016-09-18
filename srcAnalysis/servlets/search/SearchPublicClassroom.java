@@ -5,10 +5,10 @@
  */
 package servlets.search;
 
-import dao.recordDAO;
-import model.record;
-import servlets.BaseServlet;
-import servletsDemo.ApproveDemoServlet;
+import dao.RecordDAO;
+import model.Record;
+import servlets.servlet.BaseServlet;
+import servlets.demo.servlet.ApproveDemoServlet;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.ParseException;
@@ -40,8 +40,8 @@ public class SearchPublicClassroom extends BaseServlet {
 
         String year = request.getParameter("query");
         String page = request.getParameter("page");
-        recordDAO recordDAO = new recordDAO();
-        ArrayList<record> recordsMarital = new ArrayList<>();
+        RecordDAO recordDAO = new RecordDAO();
+        ArrayList<Record> recordsMarital = new ArrayList<>();
         
         try {
             recordsMarital = recordDAO.SearchYear(190000000, 199999999, year);

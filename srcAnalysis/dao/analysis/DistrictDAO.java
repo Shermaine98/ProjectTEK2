@@ -20,25 +20,23 @@ import static java.util.logging.Logger.getLogger;
  *
  * @author Gian
  */
-public class BarangayDAO {
- 
-    public ArrayList<Integer> retrieveBarangays () throws ParseException {
+public class DistrictDAO {
+    public ArrayList<String> retrieveDistricts () throws ParseException {
         try {
             DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
-            ArrayList<Integer> bgy = new ArrayList<Integer>();
+            ArrayList<String> district = new ArrayList<String>();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM DIM_BARANGAY");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM DIM_DISTRICT");
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    bgy.add(rs.getInt("BARANGAY"));
+                    district.add(rs.getString("DISTRICT"));
                 }
                 pstmt.close();
             }
-            return bgy;
+            return district;
         } catch (SQLException ex) {
             getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
-    
 }

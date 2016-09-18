@@ -16,12 +16,12 @@ import org.pentaho.di.trans.TransMeta;
  *
  * @author Shermaine
  */
-public class etl {
+public class Etl {
 
     public boolean run() {
         try {
             KettleEnvironment.init();
-            URL location = etl.class.getProtectionDomain().getCodeSource().getLocation();
+            URL location = Etl.class.getProtectionDomain().getCodeSource().getLocation();
             String projectLocation = String.valueOf(location.getFile());
             String ETLLoc = projectLocation.replace("build/web/WEB-INF/classes/", "ETL.ktr");
             TransMeta metaData = new TransMeta(ETLLoc);

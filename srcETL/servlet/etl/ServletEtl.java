@@ -1,7 +1,7 @@
 package servlet.etl;
 
 import com.google.gson.Gson;
-import dao.etl.daoEtl;
+import dao.etl.DaoEtl;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -31,7 +31,7 @@ public class ServletEtl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         int year = Calendar.getInstance().get(Calendar.YEAR);       
-        daoEtl daoETL = new daoEtl();
+        DaoEtl daoETL = new DaoEtl();
         boolean x = daoETL.runETLDAO(year); 
         
         Gson gson = new Gson();

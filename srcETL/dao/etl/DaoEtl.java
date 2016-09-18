@@ -6,18 +6,21 @@
 package dao.etl;
 
 import db.DBConnectionFactoryStarSchema;
-import etl.etl;
+import etl.Etl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
 import static java.util.logging.Logger.getLogger;
 
 /**
  *
  * @author Shermaine
  */
-public class daoEtl {
+public class DaoEtl {
 
     public boolean runETLDAO(int year) {
         try {
@@ -34,12 +37,12 @@ public class daoEtl {
             }
             System.out.println("ETL?");
             if (rows > 0) {
-                etl etl = new etl();
+                Etl etl = new Etl();
                 System.out.println("GOING TO ETL    ");
                 return etl.run();
             }
         } catch (SQLException ex) {
-            getLogger(daoEtl.class.getName()).log(SEVERE, null, ex);
+            getLogger(DaoEtl.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }

@@ -5,10 +5,10 @@
  */
 package servlets.search;
 
-import DAO.recordDAO;
-import Model.record;
-import Servlets.BaseServlet;
-import ServletsDemo.ApproveDemoServlet;
+import dao.RecordDAO;
+import model.Record;
+import servlets.servlet.BaseServlet;
+import servlets.demo.servlet.ApproveDemoServlet;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.ParseException;
@@ -41,8 +41,8 @@ public class SearchHospitalsDirectory extends BaseServlet {
         String year = request.getParameter("query");
         String page = request.getParameter("page");
       
-            recordDAO recordDAO = new recordDAO();
-            ArrayList<record> recordsHighest = new ArrayList<>();
+            RecordDAO recordDAO = new RecordDAO();
+            ArrayList<Record> recordsHighest = new ArrayList<>();
                  
             try {
                 recordsHighest = recordDAO.SearchYear(90000000, 99999999, year);

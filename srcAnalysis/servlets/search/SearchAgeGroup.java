@@ -5,9 +5,9 @@
  */
 package servlets.search;
 
-import DAO.recordDAO;
-import Model.record;
-import Servlets.BaseServlet;
+import dao.RecordDAO;
+import model.Record;
+import servlets.servlet.BaseServlet;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.ParseException;
@@ -37,8 +37,8 @@ public class SearchAgeGroup extends BaseServlet {
 
             String year = request.getParameter("query");
         
-            recordDAO recordDAO = new recordDAO();
-            ArrayList<record> recordsAge = new ArrayList<>();
+            RecordDAO recordDAO = new RecordDAO();
+            ArrayList<Record> recordsAge = new ArrayList<>();
             try {
                 recordsAge = recordDAO.SearchYear(200000000, 299999999, year);
             } catch (ParseException ex) {

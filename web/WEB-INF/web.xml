@@ -172,6 +172,10 @@
         <servlet-name>ValiEnrollment</servlet-name>
         <servlet-class>servlets.education.servlet.ValiEnrollment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetAnalysisDataServlet</servlet-name>
+        <servlet-class>servlet.setdata.SetAnalysisDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -319,6 +323,10 @@
     <servlet-mapping>
         <servlet-name>ValiEnrollment</servlet-name>
         <url-pattern>/ValiEnrollment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetAnalysisDataServlet</servlet-name>
+        <url-pattern>/SetAnalysisDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
