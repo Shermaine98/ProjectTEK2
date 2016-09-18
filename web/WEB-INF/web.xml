@@ -108,6 +108,30 @@
         <servlet-name>ViewReportsDemo</servlet-name>
         <servlet-class>servlets.demo.servlet.ViewReportsDemo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RetrieveDataHealthServlet</servlet-name>
+        <servlet-class>servlets.health.access.RetrieveDataHealthServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateHealthDirectory</servlet-name>
+        <servlet-class>servlets.health.servlet.UpdateHealthDirectory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadToDatabaseHealth</servlet-name>
+        <servlet-class>servlets.health.servlet.UploadToDatabaseHealth</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValiNutritionalStatus</servlet-name>
+        <servlet-class>servlets.health.servlet.ValiNutritionalStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewReportForApprovalHealth</servlet-name>
+        <servlet-class>servlets.health.servlet.ViewReportForApprovalHealth</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApproveReportsHealth</servlet-name>
+        <servlet-class>servlets.health.servlet.ApproveReportsHealth</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -191,6 +215,30 @@
     <servlet-mapping>
         <servlet-name>ViewReportsDemo</servlet-name>
         <url-pattern>/ViewReportsDemo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RetrieveDataHealthServlet</servlet-name>
+        <url-pattern>/RetrieveDataHealthServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateHealthDirectory</servlet-name>
+        <url-pattern>/UpdateHealthDirectory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadToDatabaseHealth</servlet-name>
+        <url-pattern>/UploadToDatabaseHealth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValiNutritionalStatus</servlet-name>
+        <url-pattern>/ValiNutritionalStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewReportForApprovalHealth</servlet-name>
+        <url-pattern>/ViewReportForApprovalHealth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApproveReportsHealth</servlet-name>
+        <url-pattern>/ApproveReportsHealth</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
