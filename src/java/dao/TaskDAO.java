@@ -19,13 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
 
 /**
  *
@@ -291,7 +284,7 @@ public class TaskDAO {
 
             for (int i = 0; i < taskModel.getTaskModel().size(); i++) {
                 if (taskModel.getTaskModel().get(i).getReportType().equalsIgnoreCase("Analysis") && sector.equalsIgnoreCase(taskModel.getTaskModel().get(i).getSector())) {
-                    String checkExist = "SELECT isDraft from report_analysis where sector = ? and `year` = ?";
+                    String checkExist = "SELECT isDraft from analysis_report where sector = ? and `year` = ?";
                     PreparedStatement pstmt = conn.prepareStatement(checkExist);
                     pstmt.setString(1, sector);
                      pstmt.setString(2, year);
@@ -329,7 +322,7 @@ public class TaskDAO {
 
             for (int i = 0; i < taskModel.getTaskModel().size(); i++) {
                 if (taskModel.getTaskModel().get(i).getReportType().equalsIgnoreCase("Matrix") && sector.equalsIgnoreCase(taskModel.getTaskModel().get(i).getSector())) {
-                    String checkExist = "SELECT isDraft from matrix where sector = ? and `year` = ?";
+                    String checkExist = "SELECT isDraft from matrix_report where sector = ? and `year` = ?";
                     PreparedStatement pstmt = conn.prepareStatement(checkExist);
                     pstmt.setString(1, sector);
                       pstmt.setString(2, year);
@@ -364,7 +357,7 @@ public class TaskDAO {
 
             for (int i = 0; i < taskModel.getTaskModel().size(); i++) {
                 if (taskModel.getTaskModel().get(i).getReportType().equalsIgnoreCase("Integrated") && sector.equalsIgnoreCase(taskModel.getTaskModel().get(i).getSector())) {
-                    String checkExist = "SELECT isDraft from IntegratedReport where sector = ? and `year` = ?";
+                    String checkExist = "SELECT isDraft from integrated_report where sector = ? and `year` = ?";
                     PreparedStatement pstmt = conn.prepareStatement(checkExist);
                     pstmt.setString(1, sector);
                      pstmt.setString(2, year);
