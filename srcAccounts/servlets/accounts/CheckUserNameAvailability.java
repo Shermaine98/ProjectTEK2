@@ -38,9 +38,8 @@ public class CheckUserNameAvailability extends BaseServlet {
             availability = "true";
         } else {
             availability = "false";
-        }
-        
-          String json = new Gson().toJson(availability);
+        }       Gson gson = new Gson();
+         String json = gson.toJson(availability);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(json);

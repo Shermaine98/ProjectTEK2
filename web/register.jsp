@@ -208,7 +208,7 @@
                                             data: {
                                                 userName: userName
                                             }, success: function (data) {
-                                                console.log(data);s
+                                                console.log(data);
                                                 if (data === "true") {
                                                     $("#userName").css("border-bottom-color", "#fff");
                                                     $("#submit").prop("disabled", true);
