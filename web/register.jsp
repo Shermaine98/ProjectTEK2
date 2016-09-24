@@ -139,11 +139,11 @@
                             <h4 class="form-title">Account Details</h4>
                             <div class="form-group">
                                 <label class="sr-only">Email</label>
-                                <input type="text" name="email" placeholder="Email Address" class="form-control" id="form-username">
+                                <input type="text" name="email" onkeyup="checkEmailAvailability()" placeholder="Email Address" class="form-username form-control" id="email">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="username" placeholder="Username" class="form-username form-control" id="form-username">
+                                <input type="text" name="username" onkeyup="checkUserNameAvailability()" placeholder="Username" class="form-username form-control" id="userName">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
@@ -165,15 +165,31 @@
         <script src="index_template/DateTime.js" type="text/javascript"></script>
         <script>
 
-                                    function showReason() {
-                                        $("#reason").show();
-                                        $("#reason1").show();
-                                    }
+            function showReason() {
+                $("#reason").show();
+                $("#reason1").show();
+            }
 
-                                    function hideReason() {
-                                        $("#reason").hide();
-                                        $("#reason1").hide();
-                                    }
+            function hideReason() {
+                $("#reason").hide();
+                $("#reason1").hide();
+            }
+
+            function checkEmailAvailability() {
+                $.getJSON("CheckEmailAvailability", function (mps) {
+
+
+                });
+
+            }
+
+            function checkUserNameAvailability() {
+                $.getJSON("CheckUserNameAvailability", function (mps) {
+
+
+                });
+            }
         </script>
     </body>
+
 </html>
