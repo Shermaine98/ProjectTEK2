@@ -102,15 +102,14 @@
             <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.dir"/>
+                <root id="src.srcAccounts.dir" name="Source Packages Accounts"/>
+                <root id="src.srcForums2.dir" name="Source Packages Forums"/>
                 <root id="src.srcDemo.dir" name="Source Packages Demo"/>
                 <root id="src.srcHealth.dir" name="Source Packages Health"/>
                 <root id="src.srcEducation.dir" name="Source Packages Education"/>
                 <root id="src.srcETL.dir" name="Source Packages ETL"/>
                 <root id="src.srcAnalysis.dir" name="Source Packages Analysis"/>
                 <root id="src.srcReports.dir" name="Source Packages Reports"/>
-                <root id="src.srcGuest.dir" name="Source Packages Guest"/>
-                <root id="src.srcForums2.dir" name="Source Packages Forums"/>
-                <root id="src.srcForums2.dir" name="Source Packages Forums"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>

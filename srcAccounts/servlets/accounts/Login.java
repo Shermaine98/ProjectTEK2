@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.servlet;
+package servlets.accounts;
 
-import dao.Accounts;
+import dao.accounts.Accounts;
 import dao.DemoDashboard;
 import dao.EducDashboard;
 import dao.HealthDashboard;
 import dao.TaskDAO;
-import model.User;
+import model.accounts.User;
 import model.TaskModelHead;
 import model.TaskModelUploader;
 import java.io.IOException;
@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static java.util.logging.Logger.getLogger;
 import static java.util.logging.Logger.getLogger;
 
 /**

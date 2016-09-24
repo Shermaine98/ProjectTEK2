@@ -16,9 +16,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
 
 /**
  *
@@ -383,7 +380,7 @@ public class RecordDAO {
             }
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
+            getLogger(RecordDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }

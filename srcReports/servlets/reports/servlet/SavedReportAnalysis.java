@@ -6,7 +6,7 @@
 package servlets.reports.servlet;
 
 import dao.reports.ReportDAO;
-import model.User;
+import model.accounts.User;
 import model.reports.ReportAnalysis;
 import servlets.servlet.BaseServlet;
 import java.io.IOException;

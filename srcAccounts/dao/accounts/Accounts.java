@@ -1,8 +1,9 @@
-package dao;
+package dao.accounts;
 
+import dao.accounts.*;
 import db.DBConnectionFactory;
 import static db.DBConnectionFactory.getInstance;
-import model.User;
+import model.accounts.User;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

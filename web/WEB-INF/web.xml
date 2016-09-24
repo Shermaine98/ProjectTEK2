@@ -29,16 +29,12 @@
         <servlet-class>servlets.access.ServletAccess</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Approvals</servlet-name>
-        <servlet-class>servlets.servlet.Approvals</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>BaseServlet</servlet-name>
         <servlet-class>servlets.servlet.BaseServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
-        <servlet-class>servlets.servlet.ChangePassword</servlet-class>
+        <servlet-class>servlets.accounts.ChangePassword</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ErrorHandler</servlet-name>
@@ -50,11 +46,11 @@
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>servlets.servlet.Login</servlet-class>
+        <servlet-class>servlets.accounts.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets.servlet.Logout</servlet-class>
+        <servlet-class>servlets.accounts.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NotificationsPusher</servlet-name>
@@ -264,13 +260,13 @@
         <servlet-name>SetSchoolDirectoryServlet</servlet-name>
         <servlet-class>servlet.setdata.SetSchoolDirectoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountApproval</servlet-name>
+        <servlet-class>servlets.accounts.AccountApproval</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Approvals</servlet-name>
-        <url-pattern>/Approvals</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BaseServlet</servlet-name>
@@ -503,6 +499,10 @@
     <servlet-mapping>
         <servlet-name>SetSchoolDirectoryServlet</servlet-name>
         <url-pattern>/SetSchoolDirectoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountApproval</servlet-name>
+        <url-pattern>/AccountApproval</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

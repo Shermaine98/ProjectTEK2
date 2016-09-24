@@ -7,8 +7,8 @@ package dao.demo;
 
 import dao.RecordDAO;
 import db.DBConnectionFactoryStorageDB;
-import model.GlobalRecords;
 import model.Record;
+import model.GlobalRecords;
 import model.demo.HighestCompleted;
 import model.demo.HighestCompletedAgeGroup;
 import java.sql.Connection;
@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
-import static java.util.logging.Logger.getLogger;
 import static java.util.logging.Logger.getLogger;
 
 /**

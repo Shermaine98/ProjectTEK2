@@ -7,9 +7,9 @@ package dao.demo;
 
 import dao.RecordDAO;
 import db.DBConnectionFactoryStorageDB;
-import model.GlobalRecords;
 import model.demo.ByAgeGroupSex;
 import model.Record;
+import model.GlobalRecords;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
-import static java.util.logging.Logger.getLogger;
 import static java.util.logging.Logger.getLogger;
 
 /**

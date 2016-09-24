@@ -7,7 +7,7 @@ package servlets.reports.servlet;
 
 import dao.reports.ReportDAO;
 import model.reports.Matrix;
-import model.User;
+import model.accounts.User;
 import servlets.servlet.BaseServlet;
 import java.io.IOException;
 import java.io.PrintWriter;

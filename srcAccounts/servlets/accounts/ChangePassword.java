@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.servlet;
+package servlets.accounts;
 
-import dao.Accounts;
+import dao.accounts.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;

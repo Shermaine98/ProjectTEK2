@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : register
     Created on : Jun 11, 2016, 1:12:39 PM
     Author     : Dinding
@@ -80,7 +80,7 @@
                 color: #fff
             }
             a:hover {
-                color: #9999ff 
+                color: #9999ff
             }
         </style>
     </head>
@@ -92,8 +92,8 @@
                 <div class="form-box">
                     <div class="form-top">
                         <div class="post-thumb">
-                            <img src="index_template/Ph_seal_ncr_caloocan.png" width="130px"  /></div>
-                        <div class="post-content">    
+                            <img src="index_template/Ph_seal_ncr_caloocan.png" alt="Caloocan" width="130"  /></div>
+                        <div class="post-content">
                             <h3 class="post-title">City Planning Department</h3></div>
                     </div>
                     <div class="form-bottom">
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Birthdate</label>
-                                <input class="form-control form_element" id="Birthdate" placeholder="Birth Date" type="date" name="birthdate" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" />
+                                <input class="form-control form_element" id="Birthdate"  type="date" name="birthdate" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" />
                             </div>
                             <div class="form-group">
                                 <p>Are you an employee or an external researcher?</p>

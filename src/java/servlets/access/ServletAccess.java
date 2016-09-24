@@ -1,11 +1,11 @@
 package servlets.access;
 
-import dao.Accounts;
+import dao.accounts.Accounts;
 import dao.DemoDashboard;
 import dao.EducDashboard;
 import dao.HealthDashboard;
 import dao.TaskDAO;
-import model.User;
+import model.accounts.User;
 import model.TaskModelHead;
 import model.TaskModelUploader;
 import servlets.servlet.BaseServlet;
@@ -128,13 +128,7 @@ public class ServletAccess extends BaseServlet {
             } //APPROVALS
             else if (redirect.equalsIgnoreCase("approvalsInternal")) {
                 ArrayList<User> users = new ArrayList<>();
-                try {
-                    users = accountsDAO.getUserForApprovalMember();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                users = accountsDAO.getUserForApprovalMember();
 
                 request.setAttribute("users_array", users);
                 request.setAttribute("page", "approvalsInternal");
@@ -142,13 +136,7 @@ public class ServletAccess extends BaseServlet {
                 rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("approvalsExternal")) {
                 ArrayList<User> users = new ArrayList<>();
-                try {
-                    users = accountsDAO.getUserForApprovalOthers();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                users = accountsDAO.getUserForApprovalOthers();
 
                 request.setAttribute("users_array", users);
                 request.setAttribute("page", "approvalsExternal");
@@ -156,29 +144,17 @@ public class ServletAccess extends BaseServlet {
                 rd.forward(request, response);
             } //UPDATES
             else if (redirect.equalsIgnoreCase("updatesInternal")) {
-                try {
-                    ArrayList<User> users = accountsDAO.getApprovedInternalUsers();
-                    request.setAttribute("users_array", users);
-                    request.setAttribute("page", "updatesInternal");
-                    rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updatesInternal.jsp");
-                    rd.forward(request, response);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ArrayList<User> users = accountsDAO.getApprovedInternalUsers();
+                request.setAttribute("users_array", users);
+                request.setAttribute("page", "updatesInternal");
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updatesInternal.jsp");
+                rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("updatesExternal")) {
-                try {
-                    ArrayList<User> users = accountsDAO.getApprovedExternalUsers();
-                    request.setAttribute("users_array", users);
-                    request.setAttribute("page", "updatesExternal");
-                    rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updatesExternal.jsp");
-                    rd.forward(request, response);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ArrayList<User> users = accountsDAO.getApprovedExternalUsers();
+                request.setAttribute("users_array", users);
+                request.setAttribute("page", "updatesExternal");
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updatesExternal.jsp");
+                rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("reportsLibrary")) {
                 request.setAttribute("reportSet", "none");
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");

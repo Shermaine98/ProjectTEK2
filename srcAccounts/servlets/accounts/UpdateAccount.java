@@ -1,7 +1,7 @@
-package servlets.servlet;
+package servlets.accounts;
 
-import dao.Accounts;
-import model.User;
+import dao.accounts.Accounts;
+import model.accounts.User;
 import servlets.servlet.BaseServlet;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -63,9 +63,9 @@ public class UpdateAccount extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvalsExternal.jsp");
                 rd.forward(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AccountApproval.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
-                Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AccountApproval.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

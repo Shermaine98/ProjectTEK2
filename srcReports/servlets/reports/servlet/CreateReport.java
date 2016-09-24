@@ -8,7 +8,7 @@ package servlets.reports.servlet;
 import dao.reports.ReportDAO;
 import model.reports.ImageUtils;
 import model.reports.Matrix;
-import model.User;
+import model.accounts.User;
 import model.reports.ReportAnalysis;
 import servlets.servlet.BaseServlet;
 import java.awt.image.BufferedImage;
