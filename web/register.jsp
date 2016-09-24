@@ -165,30 +165,43 @@
         <script src="index_template/DateTime.js" type="text/javascript"></script>
         <script>
 
-            function showReason() {
-                $("#reason").show();
-                $("#reason1").show();
-            }
+                                    function showReason() {
+                                        $("#reason").show();
+                                        $("#reason1").show();
+                                    }
 
-            function hideReason() {
-                $("#reason").hide();
-                $("#reason1").hide();
-            }
+                                    function hideReason() {
+                                        $("#reason").hide();
+                                        $("#reason1").hide();
+                                    }
 
-            function checkEmailAvailability() {
-                $.getJSON("CheckEmailAvailability", function (mps) {
+                                    function checkEmailAvailability() {
+                                        $.ajax({
+                                            url: "CheckEmailAvailability",
+                                            type: 'POST',
+                                            dataType: "JSON"
+                                            , success: function (data) {
 
+                                                console.log(data);
+                                            }, error: function (XMLHttpRequest, textStatus, exception) {
+                                                console.log(exception);
+                                            }
+                                        });
 
-                });
+                                    }
 
-            }
-
-            function checkUserNameAvailability() {
-                $.getJSON("CheckUserNameAvailability", function (mps) {
-
-
-                });
-            }
+                                    function checkUserNameAvailability() {
+                                        $.ajax({
+                                            url: "CheckUserNameAvailability",
+                                            type: 'POST',
+                                            dataType: "JSON"
+                                            , success: function (data) {
+                                                console.log(data);
+                                            }, error: function (XMLHttpRequest, textStatus, exception) {
+                                                console.log(exception);
+                                            }
+                                        });
+                                    }
         </script>
     </body>
 

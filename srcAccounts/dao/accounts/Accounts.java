@@ -341,7 +341,7 @@ public class Accounts {
         }
         return false;
     }
-    
+
     public ArrayList<User> getApprovedExternalUsers() throws SQLException, ParseException {
         try {
             DBConnectionFactory myFactory = getInstance();
@@ -415,6 +415,60 @@ public class Accounts {
                 }
             }
             pstmt.close();
+            return rows;
+        } catch (SQLException ex) {
+            getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean userNameAvailability(String username) {
+        boolean rows = false;
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement(
+                        "SELECT * FROM USERS WHERE UserName = ?");
+                pstmt.setString(1, username);
+
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    rows = true;
+                } else {
+                    rows = false;
+                }
+                rs.close();
+                pstmt.close();
+            }
+
+            return rows;
+        } catch (SQLException ex) {
+            getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+     public boolean emailAvailability(String email) {
+        boolean rows = false;
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement(
+                        "SELECT * FROM USERS WHERE EMAIL = ?");
+                pstmt.setString(1, email);
+
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    rows = true;
+                } else {
+                    rows = false;
+                }
+                rs.close();
+                pstmt.close();
+            }
+
             return rows;
         } catch (SQLException ex) {
             getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
