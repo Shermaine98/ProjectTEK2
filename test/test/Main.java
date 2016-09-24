@@ -5,10 +5,19 @@
  */
 package test;
 
+import dao.accounts.Accounts;
+
 /**
  *
  * @author Shermaine
  */
 public class Main {
-    
+
+   
+    public static void main (String args[])  {
+        Accounts DAO = new Accounts();
+        boolean x = DAO.emailAvailability("s");
+        System.out.println(x);
+
+    }
 }

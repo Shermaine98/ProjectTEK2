@@ -41,7 +41,7 @@ public class CheckEmailAvailability extends BaseServlet {
             availability = "false";
         }
         
-        String json = new Gson().toJson(availability);
+         String json = new Gson().toJson(availability);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(json);

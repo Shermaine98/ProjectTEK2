@@ -186,7 +186,7 @@
                                             },
                                             success: function (data) {
                                                 console.log(data);
-                                                if (data == "true") {
+                                                if (data === "true") {
                                                     $("#email").css("border-bottom-color", "#fff");
                                                     $("#submit").prop("disabled", true);
                                                 } else {
@@ -208,9 +208,8 @@
                                             data: {
                                                 userName: userName
                                             }, success: function (data) {
-                                                console.log(data);
-
-                                                if (data == "true") {
+                                                console.log(data);s
+                                                if (data === "true") {
                                                     $("#userName").css("border-bottom-color", "#fff");
                                                     $("#submit").prop("disabled", true);
                                                 } else {

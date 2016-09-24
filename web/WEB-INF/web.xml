@@ -272,6 +272,10 @@
         <servlet-name>CheckUserNameAvailability</servlet-name>
         <servlet-class>servlets.accounts.CheckUserNameAvailability</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletForums</servlet-name>
+        <servlet-class>servlet.forums.ServletForums</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -519,6 +523,10 @@
     <servlet-mapping>
         <servlet-name>CheckUserNameAvailability</servlet-name>
         <url-pattern>/CheckUserNameAvailability</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletForums</servlet-name>
+        <url-pattern>/ServletForums</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
