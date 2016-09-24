@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : approvalsInternal
     Created on : 07 5, 16, 9:34:28 PM
     Author     : Geraldine
@@ -25,13 +25,13 @@
                 </section>
 
                 <% ArrayList<User> users = (ArrayList<User>) request.getAttribute("users_array"); %>
-                
+
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
                         <div class="col-xs-12" style="margin-top: 2%">
                             <div class="box box-solid">
-                                
+
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <tbody><tr>

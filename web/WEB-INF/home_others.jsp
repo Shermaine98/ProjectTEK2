@@ -1,11 +1,12 @@
-<%-- 
+<%--
     Document   : home_others
     Created on : 07 15, 16, 10:17:46 PM
     Author     : Geraldine
 --%>
 
-<%@include file="levelOfAccess.jsp"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="levelOfAccess.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
