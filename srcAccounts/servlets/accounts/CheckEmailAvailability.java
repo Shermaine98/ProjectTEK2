@@ -28,20 +28,19 @@ public class CheckEmailAvailability extends BaseServlet {
      */
     @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         boolean x = false;
-        String email ="";
+        String email = request.getParameter("email");
         String availability = "false";
         // DEMO
         Accounts AccountsDAO = new Accounts();
 
-            x = AccountsDAO.emailAvailability(email);
+        x = AccountsDAO.emailAvailability(email);
         if (x == true) {
             availability = "true";
         } else {
             availability = "false";
         }
-
+        
         String json = new Gson().toJson(availability);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");

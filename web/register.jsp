@@ -97,18 +97,18 @@
                             <h3 class="post-title">City Planning Department</h3></div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="register" method="post">
+                        <form role="form" action="Register" method="post">
                             <h4 class="form-title">Personal Information</h4>
                             <div class="form-group" style="float:left; width: 49%; margin-right: 2%">
                                 <label class="sr-only">First Name</label>
-                                <input type="text" name="firstName" placeholder="First Name" class="form-control">
+                                <input type="text" required name="firstName" placeholder="First Name" class="form-control">
                             </div>
                             <div class="form-group" style="float:left; width: 49%; ">
                                 <label class="sr-only">Last Name</label>
-                                <input type="text" name="lastName" placeholder="Last Name" class="form-control">
+                                <input type="text" required name="lastName" placeholder="Last Name" class="form-control">
                             </div>
                             <div class="form-group">
-                                <select name="gender" class="form-control form_element" style="">
+                                <select required name="gender" class="form-control form_element" style="">
                                     <option value="" disabled selected>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -119,14 +119,14 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Birthdate</label>
-                                <input class="form-control form_element" id="Birthdate"  type="date" name="birthdate" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" />
+                                <input required class="form-control form_element" id="Birthdate"  type="date" name="birthdate" onfocus="(this.type = 'date')"  onblur="(this.type = 'text')" />
                             </div>
                             <div class="form-group">
                                 <p>Are you an employee or an external researcher?</p>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Are you an employee or an external researcher?</label>
-                                <input type="radio" name="division" value="employee" onclick="hideReason()"> Employee<br>
+                                <input type="radio" name="division" required value="employee" onclick="hideReason()"> Employee<br>
                                 <input type="radio" name="division" value="others" onclick="showReason()"> Researcher<br>
                             </div>
                             <div class="form-group" id="reason1" style="display:none; font-size: small; margin: 0; ">
@@ -139,17 +139,17 @@
                             <h4 class="form-title">Account Details</h4>
                             <div class="form-group">
                                 <label class="sr-only">Email</label>
-                                <input type="text" name="email" onkeyup="checkEmailAvailability()" placeholder="Email Address" class="form-username form-control" id="email">
+                                <input required type="text" name="email" onkeyup="checkEmailAvailability()" placeholder="Email Address" class="form-username form-control" id="email">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="username" onkeyup="checkUserNameAvailability()" placeholder="Username" class="form-username form-control" id="userName">
+                                <input required type="text" name="username" onkeyup="checkUserNameAvailability()" placeholder="Username" class="form-username form-control" id="userName">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="password" placeholder="Password" class="form-password form-control" id="form-password">
+                                <input required type="password" name="password" placeholder="Password" class="form-password form-control" id="form-password">
                             </div>
-                            <button type="submit" class="btn" style="background-color:#ee913a">Submit</button>
+                            <button type="submit" id="submit" disabled class="btn" style="background-color:#ee913a">Submit</button>
                             <a href="index.jsp">Back</a>
                         </form>
                     </div>
@@ -176,29 +176,49 @@
                                     }
 
                                     function checkEmailAvailability() {
+                                        var email = document.getElementById('email').value;
                                         $.ajax({
                                             url: "CheckEmailAvailability",
                                             type: 'POST',
-                                            dataType: "JSON"
-                                            , success: function (data) {
-
+                                            dataType: "JSON",
+                                            data: {
+                                                email: email
+                                            },
+                                            success: function (data) {
                                                 console.log(data);
+                                                if (data == "true") {
+                                                    $("#email").css("border-bottom-color", "#fff");
+                                                    $("#submit").prop("disabled", true);
+                                                } else {
+                                                    $("#submit").prop("disabled", false);
+                                                }
                                             }, error: function (XMLHttpRequest, textStatus, exception) {
-                                                console.log(exception);
+                                                console.log(textStatus);
                                             }
                                         });
 
                                     }
 
                                     function checkUserNameAvailability() {
+                                        var userName = document.getElementById('userName').value;
                                         $.ajax({
                                             url: "CheckUserNameAvailability",
                                             type: 'POST',
-                                            dataType: "JSON"
-                                            , success: function (data) {
+                                            dataType: "JSON",
+                                            data: {
+                                                userName: userName
+                                            }, success: function (data) {
                                                 console.log(data);
+
+                                                if (data == "true") {
+                                                    $("#userName").css("border-bottom-color", "#fff");
+                                                    $("#submit").prop("disabled", true);
+                                                } else {
+                                                    $("#submit").prop("disabled", false);
+                                                }
+
                                             }, error: function (XMLHttpRequest, textStatus, exception) {
-                                                console.log(exception);
+                                                console.log(textStatus);
                                             }
                                         });
                                     }

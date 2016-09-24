@@ -15,7 +15,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">My Profile</h4>
                     </div>
-                    <form action="changePassword" method="post">
+                    <form action="ChangePassword" method="post">
                         <div class="modal-body" id="modal-body2">
                             <% User chck2 = (User) session.getAttribute("user");%>
                             <input hidden name="username" value="<%=chck2.getUsername()%>" />

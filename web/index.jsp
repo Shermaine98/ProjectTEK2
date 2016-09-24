@@ -69,13 +69,13 @@
                 <div class="form-box">
                     <div class="form-top">
                         <div class="post-thumb">
-                            <img src="index_template/Ph_seal_ncr_caloocan.png" width="130px" /></div>
+                            <img src="index_template/Ph_seal_ncr_caloocan.png" width="130" /></div>
                         <div class="post-content">
                             <h3 class="post-title">City Planning Department</h3></div>
                     </div>
 
                     <div class="form-bottom">
-                        <form role="form" action="login" method="post" class="login-form">
+                        <form role="form" action="Login" method="post" class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
                                 <input type="text" name="username" placeholder="Username" class="form-username form-control" id="form-username" required />

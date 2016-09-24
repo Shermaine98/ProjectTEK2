@@ -135,7 +135,7 @@ and open the template in the editor.
                                 <a href="#"  class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i></a>
                                 <ul class="dropdown-menu" style="padding: 5px;">
                                     <li><a data-toggle="modal" data-target="#profileModal">Change Password</a></li>
-                                    <li><a href="logout" onclick="clearStorage()">Sign out</a></li>
+                                    <li><a href="Logout" onclick="clearStorage()">Sign out</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -428,7 +428,7 @@ public class Accounts {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
                 PreparedStatement pstmt = conn.prepareStatement(
-                        "SELECT * FROM USERS WHERE UserName = ?");
+                        "SELECT * FROM USERS WHERE username = ?");
                 pstmt.setString(1, username);
 
                 ResultSet rs = pstmt.executeQuery();
