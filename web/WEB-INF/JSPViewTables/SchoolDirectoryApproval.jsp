@@ -4,7 +4,7 @@
     Author     : Geraldine
 --%>
 
-<%@page import="ModelEducation.directorySchool"%>
+<%@page import="model.education.DirectorySchool"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
@@ -112,7 +112,7 @@
                             <li class="title">Education</li>
                             <li class="active title">Number of Teachers and Classrooms for Private Schools</li>
                         </ol>
-                        
+
                         <div style=" margin: 0 auto; display:block; text-align: center">
                             <div class="form-inline">
                                 <div class="form-group" style="background: transparent;">
@@ -154,7 +154,7 @@
                         <!--END MODAL-->
                         <br/>
 
-                        <%                            ArrayList<directorySchool> directorySchool = (ArrayList<directorySchool>) request.getAttribute("directory");%>
+                        <%                            ArrayList<DirectorySchool> directorySchool = (ArrayList<DirectorySchool>) request.getAttribute("directory");%>
 
                         <div class="DT" id="SchoolDirectory">                                <input type="hidden" id="censusYear" value="<%=directorySchool.get(0).getCensusYear()%>"/>
 

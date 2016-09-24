@@ -4,7 +4,7 @@
     Author     : Shermaine
 --%>
 
-<%@page import="ModelHealth.NutritionalStatus"%>
+<%@page import="model.health.NutritionalStatus"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>

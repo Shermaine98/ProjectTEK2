@@ -3,7 +3,7 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="Model.record"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -78,11 +78,11 @@
                 <input type="text" hidden value="<%=subject%>" id="report_title" />
 
                 <%
-                    ArrayList<record> publicEnrollment = (ArrayList<record>) request.getAttribute("publicEnrollment");
-                    ArrayList<record> privateEnrollment = (ArrayList<record>) request.getAttribute("privateEnrollment");
+                    ArrayList<Record> publicEnrollment = (ArrayList<Record>) request.getAttribute("publicEnrollment");
+                    ArrayList<Record> privateEnrollment = (ArrayList<Record>) request.getAttribute("privateEnrollment");
 
-                    ArrayList<record> directoryPublic = (ArrayList<record>) request.getAttribute("directoryPublic");
-                    ArrayList<record> directoryPrivate = (ArrayList<record>) request.getAttribute("directoryPrivate");%>
+                    ArrayList<Record> directoryPublic = (ArrayList<Record>) request.getAttribute("directoryPublic");
+                    ArrayList<Record> directoryPrivate = (ArrayList<Record>) request.getAttribute("directoryPrivate");%>
 
                 <section class="content">
                     <div class="row">

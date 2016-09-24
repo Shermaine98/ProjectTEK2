@@ -3,7 +3,7 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="Model.record"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -81,9 +81,9 @@
 
 
                 <%
-                    ArrayList<record> age = (ArrayList<record>) request.getAttribute("age");
-                    ArrayList<record> marital = (ArrayList<record>) request.getAttribute("marital");
-                    ArrayList<record> highest = (ArrayList<record>) request.getAttribute("highest");%>
+                    ArrayList<Record> age = (ArrayList<Record>) request.getAttribute("age");
+                    ArrayList<Record> marital = (ArrayList<Record>) request.getAttribute("marital");
+                    ArrayList<Record> highest = (ArrayList<Record>) request.getAttribute("highest");%>
 
                 <section class="content">
                     <div class="row">

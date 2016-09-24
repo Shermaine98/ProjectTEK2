@@ -4,10 +4,8 @@
     Author     : Gian
 --%>
 
-<%@page import="ModelEducationTemp.EnrollmentTemp"%>
-<%@page import="ModelEducation.enrollment"%>
-<%@page import="ModelHealthTemp.NutritionalStatusTemp"%>
-<%@page import="ModelHealth.NutritionalStatus"%>
+<%@page import="model.temp.education.EnrollmentTemp"%>
+<%@page import="model.education.Enrollment"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="../levelOfAccess.jsp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -135,7 +133,7 @@
                                                 </div>
                                         </div>
                                         <% }
-                                            ArrayList<enrollment> enrollment = (ArrayList<enrollment>) request.getAttribute("ArrNoError");
+                                            ArrayList<Enrollment> enrollment = (ArrayList<Enrollment>) request.getAttribute("ArrNoError");
                                         %>
 
                                         <div class="DT">

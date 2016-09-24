@@ -3,7 +3,7 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="Model.taskModelUploader"%>
+<%@page import="model.TaskModelUploader"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
@@ -52,7 +52,7 @@
                 <section class="content">
                     <div class="row">
 
-                        <% ArrayList<taskModelUploader> arrTask = ((ArrayList<taskModelUploader>) request.getAttribute("tasks")); %>
+                        <% ArrayList<TaskModelUploader> arrTask = ((ArrayList<TaskModelUploader>) request.getAttribute("tasks")); %>
 
                         <div class="col-md-8">
                             <div class="box box-solid">

@@ -4,10 +4,9 @@
     Author     : Geraldine
 --%>
 
-<%@page import="ModelHealth.directoryHealth"%>
-<%@page import="ModelHealth.directoryHealth"%>
-<%@page import="Model.globalRecords"%>
-<%@page import="Model.record"%>
+<%@page import="model.health.DirectoryHealth"%>
+<%@page import="model.GlobalRecords"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -91,7 +90,7 @@
                     <div class="row">
 
 
-                        <%                    ArrayList<directoryHealth> directoryHealth = (ArrayList<directoryHealth>) request.getAttribute("directoryHealth");%>
+                        <%                    ArrayList<DirectoryHealth> directoryHealth = (ArrayList<DirectoryHealth>) request.getAttribute("directoryHealth");%>
                         <input type="hidden" id="formID" value="<%= directoryHealth.get(0).getFormID()%>" />
 
                         <div class="col-md-12">

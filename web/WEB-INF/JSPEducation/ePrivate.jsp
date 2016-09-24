@@ -1,7 +1,7 @@
 
 
-<%@page import="Model.globalRecords"%>
-<%@page import="Model.record"%>
+<%@page import="model.GlobalRecords"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -122,7 +122,7 @@
 
 
                         <%
-                            ArrayList<globalRecords> ErrRecords = (ArrayList<globalRecords>) request.getAttribute("IncompleteRecords");%>
+                            ArrayList<GlobalRecords> ErrRecords = (ArrayList<GlobalRecords>) request.getAttribute("IncompleteRecords");%>
 
                         <div class="col-md-7">
                             <div class="box box-solid">
@@ -168,7 +168,7 @@
                         </div>
 
                         <!--End of RIGHT Box-->
-                        <%                            ArrayList<record> records = (ArrayList<record>) request.getAttribute("validatedRecords");%>
+                        <%                            ArrayList<Record> records = (ArrayList<Record>) request.getAttribute("validatedRecords");%>
 
                         <div class="col-md-12">
                             <div class="box box-solid box-archived">

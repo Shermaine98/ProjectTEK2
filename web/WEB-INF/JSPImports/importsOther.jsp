@@ -1,4 +1,4 @@
-<%@page import="Model.User"%>
+<%@page import="model.accounts.User"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.

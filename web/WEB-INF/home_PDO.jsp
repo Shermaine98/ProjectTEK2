@@ -3,8 +3,8 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="Model.taskModelHead"%>
-<%@page import="Model.taskModelUploader"%>
+<%@page import="model.TaskModelHead"%>
+<%@page import="model.TaskModelUploader"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->

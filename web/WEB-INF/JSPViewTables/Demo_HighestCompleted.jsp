@@ -4,8 +4,8 @@
     Author     : Shermaine
 --%>
 
-<%@page import="ModelDemo.HighestCompleted"%>
-<%@page import="ModelDemo.ByAgeGroupSex"%>
+<%@page import="model.demo.HighestCompleted"%>
+<%@page import="model.demo.ByAgeGroupSex"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -51,7 +51,7 @@
                                     <% for (int i = 0; i < highest.size(); i++) {%>
                                     <tr style="background-color: #454545; color: #fff">
                                         <th>Location</th>
-                                        <td colspan="3  "><input type="text" name="location" readonly value="<%=highest.get(i).getLocation()%>" /></td>
+                                        <td colspan="3"><input type="text" name="location" readonly value="<%=highest.get(i).getLocation()%>" /></td>
                                     </tr>
                                     <tr style="background-color: #454545; color: #fff">
                                         <th>Sex</th>

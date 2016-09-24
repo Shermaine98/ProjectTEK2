@@ -4,7 +4,7 @@
     Author     : Shermaine
 --%>
 
-<%@page import="ModelDemo.ByAgeGroupSex"%>
+<%@page import="model.demo.ByAgeGroupSex"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>

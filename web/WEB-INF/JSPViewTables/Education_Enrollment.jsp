@@ -4,7 +4,7 @@
     Author     : Shermaine
 --%>
 
-<%@page import="ModelEducation.enrollment"%>
+<%@page import="model.education.Enrollment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -25,7 +25,7 @@
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
-                        <%                            ArrayList<enrollment> enrollment = (ArrayList<enrollment>) request.getAttribute("enrollment");
+                        <%                            ArrayList<Enrollment> enrollment = (ArrayList<Enrollment>) request.getAttribute("enrollment");
                             String classification = request.getAttribute("classification").toString();
                             String pageTitle = request.getAttribute("clicked").toString();
                             String toCaps = Character.toUpperCase(classification.charAt(0)) + classification.substring(1);

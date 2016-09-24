@@ -5,8 +5,8 @@
 --%>
 
 
-<%@page import="Model.globalRecords"%>
-<%@page import="Model.record"%>
+<%@page import="model.GlobalRecords"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,9 +32,9 @@
                     <li class="active title">Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</li>
                 </ol>
 
-                 <%//SUCCESS SAVE IN DB WITHOUT ERRORS
-                    String temp = (String) request.getAttribute("saveToDB");
-                    if (temp.equalsIgnoreCase("successDB") || temp.equalsIgnoreCase("SaveWithError")) { %>
+                <%//SUCCESS SAVE IN DB WITHOUT ERRORS
+                     String temp = (String) request.getAttribute("saveToDB");
+                     if (temp.equalsIgnoreCase("successDB") || temp.equalsIgnoreCase("SaveWithError")) { %>
                 <div class="callout callout-success">
                     <% if (temp.equalsIgnoreCase("successDB")) { %>
 
@@ -64,13 +64,13 @@
                     <p>The overall total is incorrect</p>
                     <%}%>
                 </div>
-                <%}else if (temp.equalsIgnoreCase("UploadError")) { %>
-                    <div class="callout callout-danger">
-                        <h4>The file uploaded is incorrect</h4>
-                        <p>Kindly upload the correct file</p>
-                    </div>
-                    <%}%>
-<!--MODAL-->
+                <%} else if (temp.equalsIgnoreCase("UploadError")) { %>
+                <div class="callout callout-danger">
+                    <h4>The file uploaded is incorrect</h4>
+                    <p>Kindly upload the correct file</p>
+                </div>
+                <%}%>
+                <!--MODAL-->
                 <div data-backdrop="static" id="showModalWarning" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -115,7 +115,7 @@
                         </div>
                         <!--End of LEFT COLUMN-->
 
-                                  <%   ArrayList<globalRecords> ErrRecords = (ArrayList<globalRecords>) request.getAttribute("IncompleteRecords");%>
+                        <%   ArrayList<GlobalRecords> ErrRecords = (ArrayList<GlobalRecords>) request.getAttribute("IncompleteRecords");%>
 
                         <div class="col-md-7">
                             <div class="box box-solid">
@@ -149,10 +149,10 @@
 
                                                 %>
                                             </tbody>
-                                            <input id="page" name="page" type="hidden"  value="Editedbynutritional"/>
-                                            <input id="iformID" name="formID" type="hidden" />
-                                        </table>
 
+                                        </table>
+                                        <input id="page" name="page" type="hidden"  value="Editedbynutritional"/>
+                                        <input id="iformID" name="formID" type="hidden" />
                                     </form>
                                 </div>
                                 <!-- /.box-body -->
@@ -161,7 +161,7 @@
                         </div>
 
                         <!--End of RIGHT Box-->
-                        <%                            ArrayList<record> records = (ArrayList<record>) request.getAttribute("validatedRecords");%>
+                        <%                            ArrayList<Record> records = (ArrayList<Record>) request.getAttribute("validatedRecords");%>
 
                         <div class="col-md-12">
                             <div class="box box-solid box-archived">
@@ -183,7 +183,7 @@
                                             <tbody>
                                                 <%
 
-                                                    for (int i = 0; i < records.size(); i++)  {%>
+                                                    for (int i = 0; i < records.size(); i++) {%>
                                                 <tr>
                                                     <td class="nr" ><%=records.get(i).getFormID()%></td>
                                                     <td><%=records.get(i).getCensusYear()%></td>

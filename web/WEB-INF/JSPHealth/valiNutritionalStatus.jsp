@@ -4,8 +4,8 @@
     Author     : Gian
 --%>
 
-<%@page import="ModelHealthTemp.NutritionalStatusTemp"%>
-<%@page import="ModelHealth.NutritionalStatus"%>
+<%@page import="model.temp.health.NutritionalStatusTemp"%>
+<%@page import="model.health.NutritionalStatus"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="../levelOfAccess.jsp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

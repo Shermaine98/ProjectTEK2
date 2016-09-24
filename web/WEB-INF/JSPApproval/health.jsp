@@ -3,7 +3,7 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="Model.record"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -77,8 +77,8 @@
                 <input type="text" hidden value="<%=subject%>" id="report_title" />
 
                 <%
-                    ArrayList<record> ListOfHospital = (ArrayList<record>) request.getAttribute("directory");
-                    ArrayList<record> NutritionalStatus = (ArrayList<record>) request.getAttribute("NutritionalStatus");%>
+                    ArrayList<Record> ListOfHospital = (ArrayList<Record>) request.getAttribute("directory");
+                    ArrayList<Record> NutritionalStatus = (ArrayList<Record>) request.getAttribute("NutritionalStatus");%>
 
                 <section class="content">
                     <div class="row">

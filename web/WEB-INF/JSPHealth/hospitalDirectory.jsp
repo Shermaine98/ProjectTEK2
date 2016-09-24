@@ -4,11 +4,7 @@
     Author     : Geraldine
 --%>
 
-<%@page import="ModelHealth.directoryHealth"%>
-<%@page import="ModelHealth.directoryHealth"%>
-<%@page import="Model.globalRecords"%>
-<%@page import="Model.record"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="model.health.DirectoryHealth"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -241,7 +237,7 @@
                         <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="text-align:center; display: block; margin: 0 auto 1% auto"><span class="glyphicon glyphicon-plus"></span> Add New</button>-->
 
 
-                        <%                    ArrayList<directoryHealth> directoryHealth = (ArrayList<directoryHealth>) request.getAttribute("directoryHealth");%>
+                        <%                    ArrayList<DirectoryHealth> directoryHealth = (ArrayList<DirectoryHealth>) request.getAttribute("directoryHealth");%>
 
                         <div class="col-md-12">
                             <div class="box box-solid box-archived">

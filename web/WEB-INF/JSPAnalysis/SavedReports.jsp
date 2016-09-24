@@ -4,9 +4,9 @@
     Author     : Geraldine
 --%>
 
-<%@page import="Model.Integrated"%>
-<%@page import="Model.Matrix"%>
-<%@page import="Model.reportAnalysis"%>
+<%@page import="model.reports.Integrated"%>
+<%@page import="model.reports.Matrix"%>
+<%@page import="model.reports.ReportAnalysis"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -200,7 +200,7 @@
                         <form id="reportAnalysis" action="SavedReportAnalysis" method="post">
                             <div class="col-md-10 " id="analysis" align="center" style="margin: 2% auto 0 auto; float:none; display:none;">
                                 <%                                    if (analysis.equalsIgnoreCase("Analysis")) {
-                                        ArrayList<reportAnalysis> reportAnalysis = (ArrayList<reportAnalysis>) request.getAttribute("reportAnalysis");
+                                        ArrayList<ReportAnalysis> reportAnalysis = (ArrayList<ReportAnalysis>) request.getAttribute("reportAnalysis");
                                 %>
                                 <h3>Drafts of <%=reportAnalysis.get(0).getSector()%> Analysis  Produced by <%=reportAnalysis.get(0).getCreatedByName()%></h3>
 
