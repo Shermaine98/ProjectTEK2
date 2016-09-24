@@ -1,3 +1,4 @@
+<%@page import="model.accounts.User"%>
 <%
     User user = (User) session.getAttribute("user");
     String division = user.getDivision();

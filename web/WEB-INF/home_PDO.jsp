@@ -78,7 +78,7 @@
                             </div>
                           </div>
 
-                        <% ArrayList<taskModelHead> arrTask = ((ArrayList<taskModelHead>) request.getAttribute("tasksHead")); %>
+                        <% ArrayList<TaskModelHead> arrTask = ((ArrayList<TaskModelHead>) request.getAttribute("tasksHead")); %>
 
                         <div class="col-md-8" style="float:left;">
                             <div class="box box-solid">
@@ -249,9 +249,9 @@
                         </div>
 
                         <% if (user.getPosition().equals("Project Development Officer IV")) {
-                                ArrayList<taskModelUploader> validated = (ArrayList<taskModelUploader>) request.getAttribute("validated");
-                                ArrayList<taskModelUploader> approved = (ArrayList<taskModelUploader>) request.getAttribute("approved");
-                                ArrayList<taskModelUploader> notUploaded = (ArrayList<taskModelUploader>) request.getAttribute("notUploaded");%>
+                                ArrayList<TaskModelUploader> validated = (ArrayList<TaskModelUploader>) request.getAttribute("validated");
+                                ArrayList<TaskModelUploader> approved = (ArrayList<TaskModelUploader>) request.getAttribute("approved");
+                                ArrayList<TaskModelUploader> notUploaded = (ArrayList<TaskModelUploader>) request.getAttribute("notUploaded");%>
 
 
                         <div id="integrateLoad" class="modal fade" role="dialog">
