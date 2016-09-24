@@ -4,8 +4,8 @@
     Author     : shermainesy
 --%>
 
-<%@page import="ModelDemo.MaritalStatus"%>
-<%@page import="ModelDemoTemp.MaritalStatusTemp"%>
+<%@page import="model.demo.MaritalStatus"%>
+<%@page import="model.temp.demo.MaritalStatusTemp"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>

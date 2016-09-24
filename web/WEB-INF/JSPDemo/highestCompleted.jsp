@@ -3,8 +3,8 @@
     Created on : Jun 18, 2016, 1:48:30 PM
     Author     : Gian
 --%>
-<%@page import="Model.globalRecords"%>
-<%@page import="Model.record"%>
+<%@page import="model.GlobalRecords"%>
+<%@page import="model.Record"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
@@ -121,7 +121,7 @@
                         <!--End of LEFT COLUMN-->
 
                         <%
-                            ArrayList<globalRecords> ErrRecords = (ArrayList<globalRecords>) request.getAttribute("IncompleteRecords");%>
+                            ArrayList<GlobalRecords> ErrRecords = (ArrayList<GlobalRecords>) request.getAttribute("IncompleteRecords");%>
 
                         <div class="col-md-7">
                             <div class="box box-solid">
@@ -167,7 +167,7 @@
                         </div>
 
                         <!--End of RIGHT Box-->
-                        <%                            ArrayList<record> records = (ArrayList<record>) request.getAttribute("validatedRecords");%>
+                        <%                            ArrayList<Record> records = (ArrayList<Record>) request.getAttribute("validatedRecords");%>
 
                         <div class="col-md-12">
                             <div class="box box-solid box-archived">

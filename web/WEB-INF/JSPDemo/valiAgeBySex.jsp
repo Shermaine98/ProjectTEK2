@@ -4,8 +4,8 @@
     Author     : shermainesy
 --%>
 
-<%@page import="ModelDemo.ByAgeGroupSex"%>
-<%@page import="ModelDemoTemp.byAgeGroupTemp"%>
+<%@page import="model.demo.ByAgeGroupSex"%>
+<%@page import="model.temp.demo.ByAgeGroupTemp"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="../levelOfAccess.jsp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -65,7 +65,7 @@
                         <div>
                             <form id="UploadDb" action="ValiAgeByGrpServ" method="post">
 
-                                <%     ArrayList<byAgeGroupTemp> byAgeGroupError = (ArrayList<byAgeGroupTemp>) request.getAttribute("ArrError");
+                                <%     ArrayList<ByAgeGroupTemp> byAgeGroupError = (ArrayList<ByAgeGroupTemp>) request.getAttribute("ArrError");
 
                                     if (byAgeGroupError != null) {%>
 

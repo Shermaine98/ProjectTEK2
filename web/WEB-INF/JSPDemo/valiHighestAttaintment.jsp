@@ -4,8 +4,8 @@
     Author     : Roxas, Atayan and Sy
 --%>
 
-<%@page import="ModelDemo.HighestCompleted"%>
-<%@page import="ModelDemoTemp.HighestCompletedAgeGroupTemp"%>
+<%@page import="model.demo.HighestCompleted"%>
+<%@page import="model.temp.demo.HighestCompletedAgeGroupTemp"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="../levelOfAccess.jsp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
