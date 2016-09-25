@@ -11,4 +11,5 @@ package dao.forums;
  */
 public class DaoHotList {
     
+    
 }

@@ -114,11 +114,11 @@ and open the template in the editor.
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
-                        <!--<li>
+                        <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home_guest">
                                 <i class="fa fa-dashboard"></i><span>Home</span>
                             </a>
-                        </li>-->
+                        </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=PublishedReports">
                                 <i class="fa fa-file-archive-o"></i>
