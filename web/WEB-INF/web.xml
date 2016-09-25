@@ -58,7 +58,7 @@
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>servlets.servlet.Register</servlet-class>
+        <servlet-class>servlets.accounts.Register</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateAccount</servlet-name>

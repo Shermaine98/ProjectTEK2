@@ -184,7 +184,6 @@
                                     function registerValidation() {
                                         var email = document.getElementById('email').value;
                                         var userName = document.getElementById('userName').value;
-                                        console.log(email);
                                         $.ajax({
                                             url: "RegisterValidation",
                                             type: 'POST',
@@ -194,7 +193,6 @@
                                                 userName: userName
                                             },
                                             success: function (data) {
-                                                console.log(data);
                                                 $("#email").css("border", "none");
                                                 $("#userName").css("border", "none");
                                                 document.getElementById('emailValidation').style.display = "none";
@@ -207,7 +205,7 @@
                                                     $("#userName").css("border", "4px solid red");
                                                     document.getElementById('userNameValidation').style.display = "block";
                                                     $("#submit").prop("disabled", true);
-                                                } else if (data === false) {
+                                                } else if (data === "false") {
                                                     $("#submit").prop("disabled", false);
                                                 }
                                             }, error: function (XMLHttpRequest, textStatus, exception) {
