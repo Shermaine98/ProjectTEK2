@@ -6,7 +6,7 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="levelOfAccess.jsp"%>
+<%@include file="../levelOfAccess.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,26 +25,18 @@
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
-
-
-                        <!-- ADD  NEW Modal -->
-                        <div id="newTopic" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <form action="" method="post">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">New Topic</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                        </div>
-                                </div>
+                        <!--MODAL-->
+                        <form action="" method="post">
+                            <div class="modal-body" id="modal-body2">
+                                <textarea name="observations" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"> </textarea>
                             </div>
-                        </div>
-                        <!-- END ADD  NEW Modal -->
+                            <div class="modal-footer" id="modal-footer2">
+                                <button type="submit" class="btn btn-success" >Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
 
-                        <div class="col-md-7">
+                        <!--END MODAL-->                       <div class="col-md-7">
                             <div class="box box-solid">
                                 <div class="box-body">
                                     <table class="table table-condensed">
@@ -78,8 +70,8 @@
                                             <tr>
                                                 <td style="font-size: medium; font-weight: 600">Recent Topics</td>
                                                 <td style="font-size: medium; font-weight: 600;">
-                                                        <button class="btn btn-primary btn-sm pull-right" style="padding-right: 10%;" data-toggle="modal" data-target="#newTopic">
-                                                            <span class="fa fa-plus" style="margin-right: 10%;"></span>New Post</button></td>
+                                                    <button class="btn btn-primary btn-sm pull-right" style="padding-right: 10%;" data-toggle="modal" data-target="#newTopic">
+                                                        <span class="fa fa-plus" style="margin-right: 10%;"></span>New Post</button></td>
                                             </tr>
                                         </thead>
                                         <tbody>

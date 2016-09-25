@@ -58,7 +58,7 @@
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>servlets.servlet.Register</servlet-class>
+        <servlet-class>servlets.accounts.Register</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateAccount</servlet-name>
@@ -265,12 +265,8 @@
         <servlet-class>servlets.accounts.AccountApproval</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckEmailAvailability</servlet-name>
-        <servlet-class>servlets.accounts.CheckEmailAvailability</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CheckUserNameAvailability</servlet-name>
-        <servlet-class>servlets.accounts.CheckUserNameAvailability</servlet-class>
+        <servlet-name>RegisterValidation</servlet-name>
+        <servlet-class>servlets.accounts.RegisterValidation</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletForums</servlet-name>
@@ -517,12 +513,8 @@
         <url-pattern>/AccountApproval</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckEmailAvailability</servlet-name>
-        <url-pattern>/CheckEmailAvailability</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CheckUserNameAvailability</servlet-name>
-        <url-pattern>/CheckUserNameAvailability</url-pattern>
+        <servlet-name>RegisterValidation</servlet-name>
+        <url-pattern>/RegisterValidation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletForums</servlet-name>
