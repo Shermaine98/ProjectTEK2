@@ -82,6 +82,10 @@
             a:hover {
                 color: #9999ff
             }
+            .error
+            {
+                border:1px solid red;
+            }
         </style>
     </head>
     <body style="background-color: #4d4d4d">
@@ -139,17 +143,19 @@
                             <h4 class="form-title">Account Details</h4>
                             <div class="form-group">
                                 <label class="sr-only">Email</label>
-                                <input required type="text" name="email" onkeyup="checkEmailAvailability()" placeholder="Email Address" class="form-username form-control" id="email">
+                                <input required type="text" name="email" onkeyup="registerValidation()" placeholder="Email Address" class="form-username form-control" id="email">
+                                <input  type="text" style="display:none" id="emailValidation" value="email is already registered, kindly ">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input required type="text" name="username" onkeyup="checkUserNameAvailability()" placeholder="Username" class="form-username form-control" id="userName">
+                                <input required type="text" name="username" onkeyup="registerValidation()" placeholder="Username" class="form-username form-control" id="userName">
+                                <input  type="text" style="display:none"  id="userNameValidation" value="Username is already taken">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
                                 <input required type="password" name="password" placeholder="Password" class="form-password form-control" id="form-password">
                             </div>
-                            <button type="submit" id="submit" disabled class="btn" style="background-color:#ee913a">Submit</button>
+                            <button type="submit" id="submit"  class="btn" style="background-color:#ee913a">Submit</button>
                             <a href="index.jsp">Back</a>
                         </form>
                     </div>
@@ -175,51 +181,40 @@
                                         $("#reason1").hide();
                                     }
 
-                                    function checkEmailAvailability() {
+                                    function registerValidation() {
                                         var email = document.getElementById('email').value;
+                                        var userName = document.getElementById('userName').value;
+                                        console.log(email);
                                         $.ajax({
-                                            url: "CheckEmailAvailability",
+                                            url: "RegisterValidation",
                                             type: 'POST',
                                             dataType: "JSON",
                                             data: {
-                                                email: email
+                                                email: email,
+                                                userName: userName
                                             },
                                             success: function (data) {
                                                 console.log(data);
-                                                if (data === "true") {
-                                                    $("#email").css("border-bottom-color", "#fff");
+                                                $("#email").css("border", "none");
+                                                $("#userName").css("border", "none");
+                                                document.getElementById('emailValidation').style.display = "none";
+                                                document.getElementById('userNameValidation').style.display = "none";
+                                                if (data === "trueEmail") {
+                                                    $("#email").css("border", "4px solid red");
+                                                    document.getElementById('emailValidation').style.display = "block";
                                                     $("#submit").prop("disabled", true);
-                                                } else {
+                                                } else if (data === "trueUserName") {
+                                                    $("#userName").css("border", "4px solid red");
+                                                    document.getElementById('userNameValidation').style.display = "block";
+                                                    $("#submit").prop("disabled", true);
+                                                } else if (data === false) {
                                                     $("#submit").prop("disabled", false);
                                                 }
                                             }, error: function (XMLHttpRequest, textStatus, exception) {
-                                                console.log(textStatus);
+                                                console.log(exception);
                                             }
                                         });
 
-                                    }
-
-                                    function checkUserNameAvailability() {
-                                        var userName = document.getElementById('userName').value;
-                                        $.ajax({
-                                            url: "CheckUserNameAvailability",
-                                            type: 'POST',
-                                            dataType: "JSON",
-                                            data: {
-                                                userName: userName
-                                            }, success: function (data) {
-                                                console.log(data);
-                                                if (data === "true") {
-                                                    $("#userName").css("border-bottom-color", "#fff");
-                                                    $("#submit").prop("disabled", true);
-                                                } else {
-                                                    $("#submit").prop("disabled", false);
-                                                }
-
-                                            }, error: function (XMLHttpRequest, textStatus, exception) {
-                                                console.log(textStatus);
-                                            }
-                                        });
                                     }
         </script>
     </body>
