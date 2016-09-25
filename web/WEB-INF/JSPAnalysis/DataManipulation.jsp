@@ -286,7 +286,7 @@
             function getFactPeople() {
                 $("#output").empty();
                 $(function () {
-                    $.getJSON("factPeopleServlet", function (mps) {
+                    $.getJSON("FactPeopleServlet", function (mps) {
                         $("#output").pivotUI(mps, {
                             renderers: renderers,
                             cols: ["Census Year"],
@@ -311,7 +311,7 @@
             function getFactEducation() {
                 $("#output").empty();
                 $(function () {
-                    $.getJSON("factEducationServlet", function (mps) {
+                    $.getJSON("FactEducationServlet", function (mps) {
                         $("#output").pivotUI(mps, {
                             renderers: renderers,
                             cols: ["Year", "Classification", "Grade Level"],
@@ -330,7 +330,7 @@
             function getFactHospital() {
                 $("#output").empty();
                 $(function () {
-                    $.getJSON("factHospitalServlet", function (mps) {
+                    $.getJSON("FactHospitalServlet", function (mps) {
                         $("#output").pivotUI(mps, {
                             renderers: renderers,
                             cols: ["Year", "Classification"],
