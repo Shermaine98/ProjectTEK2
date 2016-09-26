@@ -144,12 +144,14 @@
                             <div class="form-group">
                                 <label class="sr-only">Email</label>
                                 <input required type="text" name="email" onkeyup="registerValidation()" placeholder="Email Address" class="form-username form-control" id="email">
-                                <input  type="text" style="display:none" id="emailValidation" value="email is already registered, kindly ">
+                                <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"  
+                                       id="emailValidation">*Email has already been taken</label>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
                                 <input required type="text" name="username" onkeyup="registerValidation()" placeholder="Username" class="form-username form-control" id="userName">
-                                <input  type="text" style="display:none"  id="userNameValidation" value="Username is already taken">
+                                <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"  
+                                       id="userNameValidation">*Username has already been taken</label>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
@@ -198,11 +200,11 @@
                                                 document.getElementById('emailValidation').style.display = "none";
                                                 document.getElementById('userNameValidation').style.display = "none";
                                                 if (data === "trueEmail") {
-                                                    $("#email").css("border", "4px solid red");
+                                                    $("#email").css("border", "3px solid red");
                                                     document.getElementById('emailValidation').style.display = "block";
                                                     $("#submit").prop("disabled", true);
                                                 } else if (data === "trueUserName") {
-                                                    $("#userName").css("border", "4px solid red");
+                                                    $("#userName").css("border", "3px solid red");
                                                     document.getElementById('userNameValidation').style.display = "block";
                                                     $("#submit").prop("disabled", true);
                                                 } else if (data === "false") {

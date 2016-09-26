@@ -6,10 +6,10 @@
 
 //Setting MIN & MAX DATES FOR DATEPICKERS
 //Used for Minimum date is tomorrow (in index.html, until when researchers will have access)
-var today = new Date().toISOString().split('T')[0];
-var tomorrowLocal = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 - new Date().getTimezoneOffset() * 60 * 1000).toISOString().substr(0, 10);
-document.getElementById('employmentDate').setAttribute('max', today);
-document.getElementById('employmentDate').setAttribute('value', today);
+//var today = new Date().toISOString().split('T')[0];
+//var tomorrowLocal = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 - new Date().getTimezoneOffset() * 60 * 1000).toISOString().substr(0, 10);
+//document.getElementById('employmentDate').setAttribute('max', today);
+//document.getElementById('employmentDate').setAttribute('value', today);
 
 /**
  * Used for researchers (others) in register
