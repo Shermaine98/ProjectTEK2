@@ -1,6 +1,7 @@
 package model.forums;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -12,6 +13,7 @@ public class Forums {
     private int createdBy;
     private String body;
     private int reportCount;
+    private Date dateCreated;
     private ArrayList<Comments> comments = new ArrayList<Comments>();
     private ArrayList<Tags> tags = new ArrayList<Tags>();
     /**
@@ -110,6 +112,20 @@ public class Forums {
      */
     public void setTags(ArrayList<Tags> tags) {
         this.tags = tags;
+    }
+
+    /**
+     * @return the dateCreated
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    /**
+     * @param dateCreated the dateCreated to set
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
    
     
