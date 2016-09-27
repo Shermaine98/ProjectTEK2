@@ -16,12 +16,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
  * @author Shermaine
  */
-public class DaoForum {
+public class ForumDAO {
 
     public boolean addForum(Forums forum) {
         try {
@@ -40,7 +41,7 @@ public class DaoForum {
             }
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(DaoForum.class.getName()).log(SEVERE, null, ex);
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -72,7 +73,7 @@ public class DaoForum {
 
             return arrForums;
         } catch (SQLException ex) {
-            getLogger(DaoForum.class.getName()).log(SEVERE, null, ex);
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }

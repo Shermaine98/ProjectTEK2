@@ -5,6 +5,8 @@
  */
 package model.forums;
 
+import java.util.Date;
+
 /**
  *
  * @author Shermaine
@@ -13,7 +15,10 @@ public class Comments {
    private int idComments;
    private int commentedby;
    private String comment;
-
+private String forumTitle;
+private int createdBy;
+private int forumID;
+private Date commentedDate;
     /**
      * @return the idComments
      */
@@ -54,5 +59,61 @@ public class Comments {
      */
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    /**
+     * @return the forumTitle
+     */
+    public String getForumTitle() {
+        return forumTitle;
+    }
+
+    /**
+     * @param forumTitle the forumTitle to set
+     */
+    public void setForumTitle(String forumTitle) {
+        this.forumTitle = forumTitle;
+    }
+
+    /**
+     * @return the createdBy
+     */
+    public int getCreatedBy() {
+        return createdBy;
+    }
+
+    /**
+     * @param createdBy the createdBy to set
+     */
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * @return the forumID
+     */
+    public int getForumID() {
+        return forumID;
+    }
+
+    /**
+     * @param forumID the forumID to set
+     */
+    public void setForumID(int forumID) {
+        this.forumID = forumID;
+    }
+
+    /**
+     * @return the commentedDate
+     */
+    public Date getCommentedDate() {
+        return commentedDate;
+    }
+
+    /**
+     * @param commentedDate the commentedDate to set
+     */
+    public void setCommentedDate(Date commentedDate) {
+        this.commentedDate = commentedDate;
     }
 }

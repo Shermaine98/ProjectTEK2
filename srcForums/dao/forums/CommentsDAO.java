@@ -14,31 +14,32 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
+import model.forums.Comments;
 import static java.util.logging.Logger.getLogger;
-import model.accounts.Comments;
 
 /**
  *
  * @author Shermaine
  */
-public class DaoComments {
+public class CommentsDAO {
 
     public boolean addComment(Comments comments) {
         try {
             DBConnectionFactory myFactory = getInstance();
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String query = "";
+                String query = "INSERT INTO COMMENTS (comment, commentedBy, forumTitle, createdBy, forumID) values (?,?,?,?,?)";
                 PreparedStatement pstmt = conn.prepareStatement(query);
-                pstmt.setInt(1, comments.getUserID());
-                pstmt.setString(2, comments.getUsername());
-                pstmt.setDate(3, comments.getDatePosted());
-                pstmt.setInt(4, comments.getUserID());
+                pstmt.setString(1, comments.getComment());
+                pstmt.setInt(2, comments.getCommentedby());
+                pstmt.setString(3, comments.getForumTitle());
+                pstmt.setInt(4, comments.getCreatedBy());
+                pstmt.setInt(5, comments.getForumID());
                 rows = pstmt.executeUpdate();
             }
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(DaoComments.class.getName()).log(SEVERE, null, ex);
+            getLogger(CommentsDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -49,16 +50,19 @@ public class DaoComments {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM COMMENTS");
                 pstmt.setInt(1, forumID);
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Comments comments = new Comments();
-                    comments.setUserID(rs.getInt("userID"));
-                    comments.setUsername(rs.getString("username"));
+                    comments.setIdComments(rs.getInt("idComment"));
+                    comments.setCommentedDate(rs.getDate("commentedDate"));
                     comments.setComment(rs.getString("comment"));
-                    comments.setDatePosted(rs.getDate("dateCreated"));
+                    comments.setCommentedby(rs.getInt("commentedBy"));
+                    comments.setForumTitle(rs.getString("forumTitle"));
+                    comments.setCreatedBy(rs.getInt("createdBy"));
+                    comments.setForumID(rs.getInt("forumID"));
                     arrComments.add(comments);
 
                 }
@@ -69,7 +73,7 @@ public class DaoComments {
 
             return arrComments;
         } catch (SQLException ex) {
-            getLogger(DaoComments.class.getName()).log(SEVERE, null, ex);
+            getLogger(CommentsDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }
