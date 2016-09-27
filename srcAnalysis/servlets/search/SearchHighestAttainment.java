@@ -66,4 +66,3 @@ public class SearchHighestAttainment extends BaseServlet {
         }
 
     }
-

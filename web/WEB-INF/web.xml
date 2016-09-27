@@ -272,6 +272,46 @@
         <servlet-name>ServletForums</servlet-name>
         <servlet-class>servlet.forums.ServletForums</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchAgeGroup</servlet-name>
+        <servlet-class>servlets.search.SearchAgeGroup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAgeGroupSex</servlet-name>
+        <servlet-class>servlets.search.SearchAgeGroupSex</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchHighestAttainment</servlet-name>
+        <servlet-class>servlets.search.SearchHighestAttainment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchHospitalsDirectory</servlet-name>
+        <servlet-class>servlets.search.SearchHospitalsDirectory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchMaritalStatus</servlet-name>
+        <servlet-class>servlets.search.SearchMaritalStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchNutritionalStatus</servlet-name>
+        <servlet-class>servlets.search.SearchNutritionalStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchPrivateClassroom</servlet-name>
+        <servlet-class>servlets.search.SearchPrivateClassroom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchPrivateEnrollment</servlet-name>
+        <servlet-class>servlets.search.SearchPrivateEnrollment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchPublicClassroom</servlet-name>
+        <servlet-class>servlets.search.SearchPublicClassroom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchPublicEnrollment</servlet-name>
+        <servlet-class>servlets.search.SearchPublicEnrollment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -519,6 +559,46 @@
     <servlet-mapping>
         <servlet-name>ServletForums</servlet-name>
         <url-pattern>/ServletForums</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchAgeGroup</servlet-name>
+        <url-pattern>/SearchAgeGroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchAgeGroupSex</servlet-name>
+        <url-pattern>/SearchAgeGroupSex</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchHighestAttainment</servlet-name>
+        <url-pattern>/SearchHighestAttainment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchHospitalsDirectory</servlet-name>
+        <url-pattern>/SearchHospitalsDirectory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMaritalStatus</servlet-name>
+        <url-pattern>/SearchMaritalStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchNutritionalStatus</servlet-name>
+        <url-pattern>/SearchNutritionalStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchPrivateClassroom</servlet-name>
+        <url-pattern>/SearchPrivateClassroom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchPrivateEnrollment</servlet-name>
+        <url-pattern>/SearchPrivateEnrollment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchPublicClassroom</servlet-name>
+        <url-pattern>/SearchPublicClassroom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchPublicEnrollment</servlet-name>
+        <url-pattern>/SearchPublicEnrollment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
