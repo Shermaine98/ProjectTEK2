@@ -9,8 +9,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://code.highcharts.com/highcharts.js"></script>
         <link href="cssImported/search.css" rel="stylesheet" type="text/css"/>
         <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
         <script src="jsImported/jquery.autocomplete.js" type="text/javascript"></script>
