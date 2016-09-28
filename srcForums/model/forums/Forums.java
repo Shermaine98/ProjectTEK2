@@ -14,6 +14,8 @@ public class Forums {
     private String body;
     private int reportCount;
     private Date dateCreated;
+    private int favoritesCount;
+    private int CommentsCount;
     private ArrayList<Comments> comments = new ArrayList<Comments>();
     private ArrayList<Tags> tags = new ArrayList<Tags>();
     /**
@@ -126,6 +128,34 @@ public class Forums {
      */
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    /**
+     * @return the favoritesCount
+     */
+    public int getFavoritesCount() {
+        return favoritesCount;
+    }
+
+    /**
+     * @param favoritesCount the favoritesCount to set
+     */
+    public void setFavoritesCount(int favoritesCount) {
+        this.favoritesCount = favoritesCount;
+    }
+
+    /**
+     * @return the CommentsCount
+     */
+    public int getCommentsCount() {
+        return CommentsCount;
+    }
+
+    /**
+     * @param CommentsCount the CommentsCount to set
+     */
+    public void setCommentsCount(int CommentsCount) {
+        this.CommentsCount = CommentsCount;
     }
    
     

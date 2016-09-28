@@ -6,8 +6,8 @@
 package dao.forums;
 
 import db.DBConnectionFactory;
-import model.forums.Forums;
 import static db.DBConnectionFactory.getInstance;
+import model.forums.Forums;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
-import static java.util.logging.Logger.getLogger;
 import static java.util.logging.Logger.getLogger;
 
 /**
@@ -46,23 +45,25 @@ public class ForumDAO {
         return false;
     }
 
-    public ArrayList<Forums> getComments(int forumID) throws ParseException {
+    public ArrayList<Forums> getForums() throws ParseException {
         ArrayList<Forums> arrForums = new ArrayList<Forums>();
 
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
                 PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS");
-                pstmt.setInt(1, forumID);
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Forums forums = new Forums();
                     forums.setForumID(rs.getInt("forumID"));
                     forums.setCreatedBy(rs.getInt("createdBy"));
+                    forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
                     forums.setReportCount(rs.getInt("reportCount"));
                     forums.setDateCreated(rs.getDate("dateCreated"));
+                    forums.setFavoritesCount(getFavorites(forums.getForumID()));
+                    forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     arrForums.add(forums);
 
                 }
@@ -76,6 +77,58 @@ public class ForumDAO {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
+    }
+
+    public int getFavorites(int forumID) throws ParseException {
+        int count = 0;
+
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT count(forumTitle) AS 'FavoritesCount' FROM forums_favorite WHERE forumID = ?;");
+                pstmt.setInt(1, forumID);
+
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("FavoritesCount");
+
+                }
+
+                pstmt.close();
+                rs.close();
+            }
+
+            return count;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getCommentsCount(int forumID) throws ParseException {
+        int count = 0;
+
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT count(forumTitle) AS 'CommentsCounts' FROM comments WHERE forumID = ?;");
+                pstmt.setInt(1, forumID);
+
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("CommentsCounts");
+
+                }
+
+                pstmt.close();
+                rs.close();
+            }
+
+            return count;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }
