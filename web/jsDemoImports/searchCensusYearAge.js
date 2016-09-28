@@ -1008,8 +1008,10 @@ function getSchoolData() {
 
             var print = data;
             $('#dataTable').remove();
+            $('#dataTable2').remove();
 
-            var str = '<table id="approved" class="table table-bordered" role="grid" aria-describedby="incomplete_info">\n\
+            var str = '<table id="dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="incomplete_info">\n\
+                            <thead style="display:none;"><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
@@ -1070,9 +1072,12 @@ function getSchoolData() {
 
             //COMA
             format();
+            $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
                 "paging": true,
-                "ordering": true,
+                "ordering": false,
+                "pageLength": 12,
+                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
                 "info": false, "language": {
                     "emptyTable": "No Data"
                 }
@@ -1583,6 +1588,8 @@ function getEnrollmentData() {
             $("#dataTable").DataTable({
                 "paging": true,
                 "ordering": false,
+                "pageLength": 12,
+                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
                 "info": false, "language": {
                     "emptyTable": "No Data"
                 }
@@ -1740,7 +1747,8 @@ function getNutritionalStatus() {
             $('#dataTable').remove();
             $('#dataTable2').remove();
 
-            var str = '<table class="table table-bordered table-hover">\n\
+            var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
+                            <thead style="display:none"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
@@ -1791,21 +1799,16 @@ function getNutritionalStatus() {
                 $('#data').append(table);
             }
             format();
+            
+            $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
                 "paging": true,
                 "ordering": false,
+                "pageLength": 12,
+                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
                 "info": false, "language": {
                     "emptyTable": "No Data"
-                },
-                "columns": [
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'}
-                ]
+                }
             });
             $('#loadingSpinner').hide();
             $('input:text').focus(
