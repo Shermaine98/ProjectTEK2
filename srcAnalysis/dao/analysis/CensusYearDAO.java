@@ -51,5 +51,27 @@ public class CensusYearDAO extends HttpServlet {
         }
         return null;
     }
+    
+    public int getLatestYear () throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            int year = 0;
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT cencusyear \n" +
+                    "FROM starschema.dim_cencusyear\n" +
+                    "order by cencusYear desc\n" +
+                    "limit 1;");
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    year = rs.getInt("CENCUSYEAR");
+                }
+                pstmt.close();
+            }
+            return year;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return 0;
+    }
 
 }

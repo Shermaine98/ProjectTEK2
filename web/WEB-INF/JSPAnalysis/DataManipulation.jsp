@@ -86,10 +86,9 @@
                             <select id="commonReports" name="commonReports" class="form-control" onchange="getData()" style="display:none; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; width: 95%;">
                             </select>
                             
-                            <div id="byAgeGrpSex" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%;">
-                            </div>
-
-                            <div id="output" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; ">
+                            <div class="box-body">
+                                <div id="output" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; ">
+                                </div>
                             </div>
 
                             <%
@@ -367,10 +366,10 @@
             function getData(){
                 var conceptName = $('#commonReports').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
-                    setHHPopAgeGroupSex(2015);
+                    setHHPopAgeGroupSex();
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
-                    setMaritalStatus(2015);
+                    setMaritalStatus();
                 }
             }
 

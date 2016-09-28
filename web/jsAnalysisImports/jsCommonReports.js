@@ -1,11 +1,8 @@
-function setHHPopAgeGroupSex (censusYear){
+function setHHPopAgeGroupSex (){
     $.ajax({
-        url: "SetDataServlet",
+        url: "SetHHPopAgeGroupSex",
         type: 'POST',
         dataType: "JSON",
-        data: {
-            censusYear: censusYear
-        },
         success: function(data){
             var print = data;
             var malePerBarangay = [];
@@ -114,7 +111,7 @@ function setHHPopAgeGroupSex (censusYear){
                     }
                 },
                 title: {
-                    text: 'Household Population by Age Group and Sex'
+                    text: 'Household Population by Age Group and Sex for ' + print[0].Total.latestYear
                 },
                 subtitle: {
                     text: 'Click and drag to zoom in. Hold down shift key to pan.'
@@ -173,14 +170,11 @@ function setHHPopAgeGroupSex (censusYear){
     });
 }
 
-function setMaritalStatus(censusYear) {
+function setMaritalStatus() {
     $.ajax({
-        url: "SetMaritalDataServlet",
+        url: "SetMaritalStatusServlet",
         type: 'POST',
         dataType: "JSON",
-        data: {
-            censusYear: censusYear
-        },
         success: function (data) {
             var print = data;    
             counter = 0;
@@ -614,7 +608,7 @@ function setMaritalStatus(censusYear) {
                     }
                 },
                 title: {
-                    text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status'
+                    text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status for ' + print[0].Total.censusYear
                 },
                 subtitle: {
                     text: 'Click and drag to zoom in. Hold down shift key to pan.'

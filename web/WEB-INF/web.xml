@@ -316,6 +316,10 @@
         <servlet-name>SetHHPopAgeGroupSex</servlet-name>
         <servlet-class>servlet.setdata.SetHHPopAgeGroupSex</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetMaritalStatusServlet</servlet-name>
+        <servlet-class>servlets.commoncharts.SetMaritalStatusServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -607,6 +611,10 @@
     <servlet-mapping>
         <servlet-name>SetHHPopAgeGroupSex</servlet-name>
         <url-pattern>/SetHHPopAgeGroupSex</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetMaritalStatusServlet</servlet-name>
+        <url-pattern>/SetMaritalStatusServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

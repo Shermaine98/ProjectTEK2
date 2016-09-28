@@ -73,17 +73,17 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <!--CHARTS, change id value-->
-                                    <div id="byAgeGrpSex" style="width:90%;">
-                                        <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
-                                    </div>
+                                    <center>
+                                        <div id="byAgeGrpSex" style="width:90%;">
+                                            <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
+                                        </div>
+                                    </center>
                                     <!--TABLE-->
                                     <div id="TableHolder" style="margin-top:3%; width: 90%; margin-left: auto; margin-right: auto;">
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
             </div>
