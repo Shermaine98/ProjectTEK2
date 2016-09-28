@@ -252,8 +252,6 @@ function chart(print) {
         topCategories.push(print[0].totalAgeGroupSex[i].ageGroup);
     }
 
-
-
     var malePerBarangay = [];
     for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
         item = {};

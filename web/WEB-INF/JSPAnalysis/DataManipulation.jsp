@@ -13,7 +13,13 @@
         <script src="jsPivot/jsapi.js" type="text/javascript"></script>
         <link href="cssPivot/pivot.css" rel="stylesheet" type="text/css"/>
         <script src="jsPivot/pivot.js" type="text/javascript"></script>
+        <script src="Highcharts/highcharts.js"></script>
+        <script src="Highcharts/modules/data.js"></script>
+        <script src="Highcharts/modules/drilldown.js"></script>
+        <script src="Highcharts/modules/exporting.js"></script>
+        <script src="jsAnalysisImports/jsCommonReports.js" type="text/javascript"></script>
         <script src="jsPivot/gchart_renderers.js" type="text/javascript"></script>
+        
         <title>Customized Analytics</title>
 
         <style>
@@ -78,13 +84,13 @@
 
                             </div>
 
-                            <select id="commonReports" name="commonReports" class="form-control" style="display:none; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; width: 95%;">
+                            <select id="commonReports" name="commonReports" class="form-control" onchange="getData()" style="display:none; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; width: 95%;">
                             </select>
                             
-                            <div id="byAgeGrpSex" style="width:90%;">
+                            <div id="byAgeGrpSex" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%;">
                             </div>
 
-                            <div id="output" style="margin: 20px;">
+                            <div id="output" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; ">
                             </div>
 
                             <%
@@ -320,11 +326,7 @@
                                 "Total No. of  Post-Secondary Undergrand", "Total No. of College Degree Holder", "Total No. of No Baccalaureate", "Total No. of Not Stated", "Total No. of College Undergrand Granduates", "Total No. of  Post-Secondary Granduates"]
                         });
                     });
-
-
                 });
-
-
             }
 
 
@@ -346,7 +348,6 @@
                 });
             }
 
-
             function getFactHospital() {
                 $("#output").empty();
                 $(function () {
@@ -361,13 +362,17 @@
                             hiddenFromDragDrop: ["No. of Beds", "No. of Midwives", "No. of Nurses", "No. of Doctors"]
                         });
                     });
-
-
                 });
-
-
             }
 
+            function getData(){
+                var conceptName = $('#commonReports').find(":selected").text();
+                if(conceptName=='Household Population by Age Group and Sex'){
+                    setHHPopAgeGroupSex();
+                    document.getElementById("output").style.visibility = "hidden";
+                    document.getElementById("output").style.height = "1px";
+                }
+            }
 
         </script>
 

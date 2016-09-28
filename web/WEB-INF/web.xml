@@ -312,6 +312,10 @@
         <servlet-name>SearchPublicEnrollment</servlet-name>
         <servlet-class>servlets.search.SearchPublicEnrollment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SetHHPopAgeGroupSex</servlet-name>
+        <servlet-class>servlet.setdata.SetHHPopAgeGroupSex</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -599,6 +603,10 @@
     <servlet-mapping>
         <servlet-name>SearchPublicEnrollment</servlet-name>
         <url-pattern>/SearchPublicEnrollment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetHHPopAgeGroupSex</servlet-name>
+        <url-pattern>/SetHHPopAgeGroupSex</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
