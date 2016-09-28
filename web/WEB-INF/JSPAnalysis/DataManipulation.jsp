@@ -69,7 +69,6 @@
                                 <option value="2">Analyze Education Data</option>
                                 <option value="3">Analyze Health Data</option>
                             </select>
-
                         </div>
                         <div align="center">
                             <br/><br/>
@@ -368,9 +367,10 @@
             function getData(){
                 var conceptName = $('#commonReports').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
-                    setHHPopAgeGroupSex();
-                    document.getElementById("output").style.visibility = "hidden";
-                    document.getElementById("output").style.height = "1px";
+                    setHHPopAgeGroupSex(2015);
+                }
+                else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
+                    setMaritalStatus(2015);
                 }
             }
 

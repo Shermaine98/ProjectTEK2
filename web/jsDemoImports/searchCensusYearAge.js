@@ -429,7 +429,6 @@ function chart(print) {
 //}
 
 function getMaritalStatusData() {
-
     reportTitle.innerText = $('#form_name').find(":selected").text();
     document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
