@@ -5,13 +5,10 @@
  */
 package servlets.commoncharts;
 
-import dao.charts.ByAgeGroupChart;
-import dao.demo.ByAgeGroupSexDAO;
 import dao.RecordDAO;
 import dao.analysis.CensusYearDAO;
 import dao.charts.MaritalStatusChart;
 import dao.demo.MaritalStatusDAO;
-import model.demo.ByAgeGroupSex;
 import model.Record;
 import model.demo.MaritalStatus;
 import java.io.IOException;

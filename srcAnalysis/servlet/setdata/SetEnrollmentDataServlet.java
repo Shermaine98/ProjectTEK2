@@ -5,12 +5,8 @@
  */
 package servlet.setdata;
 
-import dao.RecordDAO;
-import dao.charts.SchoolDirectory;
 import dao.charts.SchoolEnrollment;
-import model.Record;
 import model.education.EnrollmentDet;
-import model.education.DirectorySchool;
 import model.education.Enrollment;
 import java.io.IOException;
 import java.io.PrintWriter;

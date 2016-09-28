@@ -6,14 +6,10 @@
 package servlet.setdata;
 
 import dao.RecordDAO;
-import dao.charts.ListOfHospitalDAO;
 import dao.charts.NutritionalStatusChartsDAO;
-import dao.charts.SchoolDirectory;
 import model.Record;
-import model.education.DirectorySchool;
 import model.health.NutritionalStatus;
 import model.health.NutritionalStatusBMI;
-import model.health.DirectoryHealth;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;

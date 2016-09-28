@@ -8,7 +8,6 @@ package servlet.setdata;
 import dao.RecordDAO;
 import dao.charts.SchoolDirectory;
 import model.Record;
-import model.education.ElemTeachers;
 import model.education.DirectorySchool;
 import java.io.IOException;
 import java.io.PrintWriter;

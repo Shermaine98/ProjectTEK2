@@ -5,11 +5,8 @@
  */
 package servlet.setdata;
 
-import dao.charts.ByAgeGroupChart;
-import dao.demo.ByAgeGroupSexDAO;
 import dao.RecordDAO;
 import dao.charts.HighestCompletedChart;
-import model.demo.ByAgeGroupSex;
 import model.Record;
 import model.demo.HighestCompleted;
 import model.demo.HighestCompletedAgeGroup;
