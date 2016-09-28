@@ -48,9 +48,6 @@
 
                 <section class="content">
                     <div class="row">
-
-
-
                         <section class="content-header">
                             <h1><img src="AdminLTE/dist/img/analysis.png" style="width: 3%;" alt=""/> Analysis</h1>
                         </section>
@@ -83,16 +80,20 @@
 
                             <select id="commonReports" name="commonReports" class="form-control" style="display:none; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; width: 95%;">
                             </select>
+                            
+                            <div id="byAgeGrpSex" style="width:90%;">
+                            </div>
 
                             <div id="output" style="margin: 20px;">
                             </div>
 
-                            <%                                String reportKind = (String) request.getAttribute("type");
+                            <%
+                                String reportKind = (String) request.getAttribute("type");
                                 if (reportKind.equalsIgnoreCase("matrix")) {
                             %>
                             <button  type="button" class="btn btn-primary" id="btnMatrix" style="margin-bottom: 3%;" >Add Chart to Sector Analysis Matrix</button>
                             <%
-                            } else if (reportKind.equalsIgnoreCase("analysis")) {
+                                } else if (reportKind.equalsIgnoreCase("analysis")) {
                             %>
                             <button  type="button" class="btn btn-primary"  id="btnReport" style="margin-bottom: 3%;">Add Chart to Report Analysis</button>
                             <%}%>

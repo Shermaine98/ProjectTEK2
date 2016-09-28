@@ -16,29 +16,32 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import static java.util.logging.Logger.getLogger;
 
 /**
  *
  * @author Shermaine
  */
-public class DaoForum {
+public class ForumDAO {
 
     public boolean addForum(Forums forum) {
         try {
             DBConnectionFactory myFactory = getInstance();
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String query = "";
+                String query = "INSERT INTO FORUMS (forumTitle, createdBy, body, reportCount) VALUES (?,?,?,?) ";
                 PreparedStatement pstmt = conn.prepareStatement(query);
-                pstmt.setInt(1, forum.getForumID());
-                pstmt.setString(2, forum.getForumTitle());
-                pstmt.setInt(3, forum.getCreatedBy());
+
+                pstmt.setString(1, forum.getForumTitle());
+                pstmt.setInt(2, forum.getCreatedBy());
+                pstmt.setString(3, forum.getBody());
+                pstmt.setInt(4, forum.getReportCount());
 
                 rows = pstmt.executeUpdate();
             }
             return rows == 1;
         } catch (SQLException ex) {
-            getLogger(DaoForum.class.getName()).log(SEVERE, null, ex);
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
     }
@@ -49,15 +52,17 @@ public class DaoForum {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS");
                 pstmt.setInt(1, forumID);
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Forums forums = new Forums();
-                    forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setForumID(rs.getInt("forumID"));
+                    forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setBody(rs.getString("body"));
+                    forums.setReportCount(rs.getInt("reportCount"));
+                    forums.setDateCreated(rs.getDate("dateCreated"));
                     arrForums.add(forums);
 
                 }
@@ -68,7 +73,7 @@ public class DaoForum {
 
             return arrForums;
         } catch (SQLException ex) {
-            getLogger(DaoForum.class.getName()).log(SEVERE, null, ex);
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
     }

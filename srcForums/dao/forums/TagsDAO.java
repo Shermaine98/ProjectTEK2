@@ -9,7 +9,6 @@ package dao.forums;
  *
  * @author Shermaine
  */
-public class DaoHotList {
-    
+public class TagsDAO {
     
 }
