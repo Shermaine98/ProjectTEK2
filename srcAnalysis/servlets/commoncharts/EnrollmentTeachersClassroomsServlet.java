@@ -11,29 +11,28 @@ import dao.analysis.FactEnrollmentDAO;
 import dao.analysis.FactSchoolTeachersFacilitiesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.analysis.FactEnrollment;
+import model.analysis.FactSchoolTeachersFacilities;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static java.util.logging.Logger.getLogger;
-import model.analysis.FactEnrollment;
-import model.analysis.FactSchoolTeachersFacilities;
-import model.analysis.Gaps;
 
 /**
  *
  * @author giancarloroxas
  */
-public class SetClassroomRequirementServlet extends HttpServlet {
+public class EnrollmentTeachersClassroomsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,12 +48,10 @@ public class SetClassroomRequirementServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
             JSONArray jarrayYears = new JSONArray();
             JSONArray jarrayDistrict = new JSONArray();
             JSONArray jarrayEnrollmentForSchoolAgeGoingPopulation = new JSONArray();
-            JSONArray jarrayClassrooms = new JSONArray();
-            JSONArray jarrayGaps = new JSONArray();
+            JSONArray jarrayClassroomsTeachers = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
             
             CensusYearDAO chartsYears = new CensusYearDAO();
@@ -65,17 +62,13 @@ public class SetClassroomRequirementServlet extends HttpServlet {
             ArrayList<Integer> censusYears = chartsYears.retrieveYears();            
             ArrayList<String> district = chartsDistrict.retrieveDistricts();
             ArrayList<FactEnrollment> enrollment = null;
-            ArrayList<FactSchoolTeachersFacilities> classrooms = null;
+            ArrayList<FactSchoolTeachersFacilities> classroomsTeachers = null;
             try {
                 enrollment = chartsEdu.retrieveEnrollmentForSchoolGoingAge();
-                classrooms = chartsClassrooms.retrieveNumberOfClassrooms();
+                classroomsTeachers = chartsClassrooms.retrieveNumberOfClassrooms();
             } catch (SQLException ex) {
                 Logger.getLogger(SetClassroomRequirementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            ArrayList<Gaps> gaps = new ArrayList<Gaps>();
-            Gaps gap = new Gaps();
-            gaps = gap.calculateGaps(classrooms, enrollment);
             
             for(int i = 0; i < censusYears.size(); i++){
                 JSONObject objYears = new JSONObject();
@@ -110,27 +103,15 @@ public class SetClassroomRequirementServlet extends HttpServlet {
                 }
             }
             
-            for(int i = 0; i < classrooms.size(); i++){
+            for(int i = 0; i < classroomsTeachers.size(); i++){
                 JSONObject objClassrooms = new JSONObject();
                 try {
-                    objClassrooms.put("year", classrooms.get(i).getCensusYear());
-                    objClassrooms.put("district", classrooms.get(i).getDistrict());
-                    objClassrooms.put("classrooms", classrooms.get(i).getNoOfClassrooms());
-                    objClassrooms.put("zone", classrooms.get(i).getZone());
-                    jarrayClassrooms.put(objClassrooms);
-                } catch (JSONException ex) {
-                    getLogger(SetClassroomRequirementServlet.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-            
-            for(int i = 0; i < gaps.size(); i++){
-                JSONObject objGaps = new JSONObject();
-                try {
-                    objGaps.put("year", gaps.get(i).getCensusYear());
-                    objGaps.put("district", gaps.get(i).getDistrict());
-                    objGaps.put("gap", gaps.get(i).getGap());
-                    objGaps.put("zone", gaps.get(i).getZone());
-                    jarrayGaps.put(objGaps);
+                    objClassrooms.put("year", classroomsTeachers.get(i).getCensusYear());
+                    objClassrooms.put("district", classroomsTeachers.get(i).getDistrict());
+                    objClassrooms.put("classrooms", classroomsTeachers.get(i).getNoOfClassrooms());
+                    objClassrooms.put("teachers", classroomsTeachers.get(i).getNoOfTeachers());
+                    objClassrooms.put("zone", classroomsTeachers.get(i).getZone());
+                    jarrayClassroomsTeachers.put(objClassrooms);
                 } catch (JSONException ex) {
                     getLogger(SetClassroomRequirementServlet.class.getName()).log(SEVERE, null, ex);
                 }
@@ -139,12 +120,10 @@ public class SetClassroomRequirementServlet extends HttpServlet {
             ObjectAll.put("years", jarrayYears);
             ObjectAll.put("districts", jarrayDistrict);
             ObjectAll.put("enrollment", jarrayEnrollmentForSchoolAgeGoingPopulation);
-            ObjectAll.put("classrooms", jarrayClassrooms);
-            ObjectAll.put("gaps", jarrayGaps);
+            ObjectAll.put("classrooms", jarrayClassroomsTeachers);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().write("[" + ObjectAll.toString() + "]");
-
         }
     }
 
@@ -163,7 +142,7 @@ public class SetClassroomRequirementServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(SetClassroomRequirementServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnrollmentTeachersClassroomsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -181,7 +160,7 @@ public class SetClassroomRequirementServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(SetClassroomRequirementServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnrollmentTeachersClassroomsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

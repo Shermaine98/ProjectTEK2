@@ -324,6 +324,10 @@
         <servlet-name>SetClassroomRequirementServlet</servlet-name>
         <servlet-class>servlets.commoncharts.SetClassroomRequirementServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EnrollmentTeachersClassroomsServlet</servlet-name>
+        <servlet-class>servlets.commoncharts.EnrollmentTeachersClassroomsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -623,6 +627,10 @@
     <servlet-mapping>
         <servlet-name>SetClassroomRequirementServlet</servlet-name>
         <url-pattern>/SetClassroomRequirementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnrollmentTeachersClassroomsServlet</servlet-name>
+        <url-pattern>/EnrollmentTeachersClassrooms</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
