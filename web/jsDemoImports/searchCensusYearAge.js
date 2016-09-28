@@ -1995,14 +1995,15 @@ function getHighestCompleted() {
 
             $('#dataTable2').remove();
 
-            var str = '<table class="table table-bordered table-hover">\n\
+            var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
+                            <thead style="display:none"><th></th><th></th><th></th><th></th></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
             document.getElementById("TableHolder").innerHTML = str;
             for (i = 0; i < print[0].table.length; i++) {
                 $('#data').append('<tr style="background-color: #454545; color: #fff">\n\
-                                            <th width="100px">Location</th>\n\
+                                            <th>Location</th>\n\
                                             <td colspan="3"><input type="text" name="location" readonly value="' + print[0].table[i].location + '" /></td>\n\
                                         </tr>\n\
                                         <tr style="background-color: #454545; color: #fff">\n\
@@ -2042,21 +2043,15 @@ function getHighestCompleted() {
                                         <% }%>');
             }
             format();
+            $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
                 "paging": true,
                 "ordering": false,
+                "pageLength": 12,
+                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
                 "info": false, "language": {
                     "emptyTable": "No Data"
-                },
-                "columns": [
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'}
-                ]
+                }
             });
             $('#loadingSpinner').hide();
             $('input:text').focus(
