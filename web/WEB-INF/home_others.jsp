@@ -6,12 +6,15 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="../levelOfAccess.jsp"%>
+<%@include file="levelOfAccess.jsp"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Project TEK | Home </title>
+        <script src="jsForums/forums.js" type="text/javascript"></script>
+
         <style>
             tr{
                 height: 50px;
@@ -62,32 +65,17 @@
                             </div>
                             <!-- /.box -->
 
-                            <div class="box box-solid">
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <td style="font-size: medium; font-weight: 600">Recent Topics</td>
-                                                <td style="font-size: medium; font-weight: 600;">
-                                                    <button class="btn btn-primary btn-sm pull-right" style="padding-right: 10%;" data-toggle="modal" data-target="#newTopic">
-                                                        <span class="fa fa-plus" style="margin-right: 10%;"></span>New Post</button></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">Caloocan City is the greatest city...</a></td>
-                                                <td style="vertical-align:middle; text-align: right;">6 Views</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">On the development of the city plan</a></td>
-                                                <td style="vertical-align:middle; text-align: right;">14 Views</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.box-body -->
+                            <!--
+                                forumBody
+                            -->
+                            <div id="forumBody">
+
+
                             </div>
+                              <!--
+                                /.forumBody
+                            -->
+
                             <!-- /.box -->
                         </div>
 
