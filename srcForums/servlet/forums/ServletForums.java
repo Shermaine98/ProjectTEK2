@@ -62,6 +62,7 @@ public class ServletForums extends BaseServlet {
                     obj.put("reportCounts", arrForum.get(i).getReportCount());
                     obj.put("commentsCount", arrForum.get(i).getCommentsCount());
                     obj.put("favoritesCount", arrForum.get(i).getFavoritesCount());
+                    obj.put("createdByName", arrForum.get(i).getCreatedByName());
 
                     ArrayList<Tags> arrTags = new ArrayList<Tags>();
                     arrTags = tagsDAO.getTags(arrForum.get(i).getForumID());

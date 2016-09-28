@@ -122,7 +122,7 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
                 rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("home_guest")) {
-                request.setAttribute("", "");
+              //  request.setAttribute("", "");
                 rd = request.getRequestDispatcher("/WEB-INF/home_others.jsp");
                 rd.forward(request, response);
             } //APPROVALS

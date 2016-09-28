@@ -11,6 +11,7 @@ public class Forums {
     private int forumID;
     private String forumTitle;
     private int createdBy;
+    private String createdByName;
     private String body;
     private int reportCount;
     private Date dateCreated;
@@ -156,6 +157,20 @@ public class Forums {
      */
     public void setCommentsCount(int CommentsCount) {
         this.CommentsCount = CommentsCount;
+    }
+
+    /**
+     * @return the createdByName
+     */
+    public String getCreatedByName() {
+        return createdByName;
+    }
+
+    /**
+     * @param createdByName the createdByName to set
+     */
+    public void setCreatedByName(String createdByName) {
+        this.createdByName = createdByName;
     }
    
     

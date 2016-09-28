@@ -5,6 +5,7 @@
  */
 package dao.forums;
 
+import dao.RecordDAO;
 import db.DBConnectionFactory;
 import static db.DBConnectionFactory.getInstance;
 import model.forums.Forums;
@@ -37,7 +38,9 @@ public class ForumDAO {
                 pstmt.setInt(4, forum.getReportCount());
 
                 rows = pstmt.executeUpdate();
+                conn.close();
             }
+            
             return rows == 1;
         } catch (SQLException ex) {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
@@ -47,7 +50,7 @@ public class ForumDAO {
 
     public ArrayList<Forums> getForums() throws ParseException {
         ArrayList<Forums> arrForums = new ArrayList<Forums>();
-
+        RecordDAO recordsDAO = new RecordDAO();
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
@@ -64,6 +67,7 @@ public class ForumDAO {
                     forums.setDateCreated(rs.getDate("dateCreated"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
+                    forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
                     arrForums.add(forums);
 
                 }

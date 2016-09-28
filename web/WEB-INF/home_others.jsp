@@ -28,15 +28,16 @@
                 <section class="content">
                     <div class="row">
                         <!--MODAL-->
-                        <form action="" method="post">
-                            <div class="modal-body" id="modal-body2">
-                                <textarea name="observations" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"> </textarea>
-                            </div>
-                            <div class="modal-footer" id="modal-footer2">
-                                <button type="submit" class="btn btn-success" >Save</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
+
+                        <div >
+                            <textarea id="forumTitle"  style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"> "title" </textarea>
+                            <textarea id="forumBody" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;">"body" </textarea>
+                        </div>
+                        <div>
+                            <button type="submit" onclick="submitNewForum()" class="btn btn-success" >Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+
 
                         <!--END MODAL-->                       <div class="col-md-7">
                             <div class="box box-solid">
@@ -67,12 +68,12 @@
                             <!--
                                 forumBody
                             -->
-                            <div id="forumBody">
+                            <div id="forumDiv">
 
 
                             </div>
-                              <!--
-                                /.forumBody
+                            <!--
+                              /.forumBody
                             -->
 
                             <!-- /.box -->
