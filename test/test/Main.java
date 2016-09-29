@@ -20,7 +20,7 @@ public class Main {
     public static void main (String args[]) throws ParseException  {
         ForumDAO DAO = new ForumDAO();
         ArrayList<Tags> x = new ArrayList<Tags> ();
-        x = DAO.a;
+      //  x = DAO.a;
         System.out.println(x.get(0).getTag());
 
     }
