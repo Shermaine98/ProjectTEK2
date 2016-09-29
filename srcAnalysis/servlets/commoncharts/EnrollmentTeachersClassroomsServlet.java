@@ -65,7 +65,7 @@ public class EnrollmentTeachersClassroomsServlet extends HttpServlet {
             ArrayList<FactSchoolTeachersFacilities> classroomsTeachers = null;
             try {
                 enrollment = chartsEdu.retrieveEnrollmentForSchoolGoingAge();
-                classroomsTeachers = chartsClassrooms.retrieveNumberOfClassrooms();
+                classroomsTeachers = chartsClassrooms.retrieveNumberOfClassroomsTeachers();
             } catch (SQLException ex) {
                 Logger.getLogger(SetClassroomRequirementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

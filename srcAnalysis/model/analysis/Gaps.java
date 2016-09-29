@@ -47,25 +47,6 @@ public class Gaps {
         this.zone = zone;
     }
     
-    public ArrayList<Gaps> calculateGaps(ArrayList<FactSchoolTeachersFacilities> classrooms, ArrayList<FactEnrollment> enrollment){
-        ArrayList<Gaps> gaps = new ArrayList<Gaps>();
-        
-        for(int i = 0; i < classrooms.size(); i++){
-            for(int x = 0; x < enrollment.size(); x++){
-                if(classrooms.get(i).getCensusYear() == enrollment.get(x).getCensusYear()
-                        && classrooms.get(i).getDistrict() == enrollment.get(x).getDistrict()
-                        && classrooms.get(i).getZone() == enrollment.get(x).getZone()){
-                    Gaps temp = new Gaps();
-                    temp.setCensusYear(classrooms.get(i).getCensusYear());
-                    temp.setDistrict(classrooms.get(i).getDistrict());
-                    temp.setZone(classrooms.get(i).getZone());
-                    int difference = (classrooms.get(i).getNoOfClassrooms()*45) - (enrollment.get(x).getFemaleCount()+enrollment.get(x).getMaleCount());
-                    temp.setGap(difference);
-                }
-            }
-        }
-        
-        return gaps;
-    }
+    
     
 }
