@@ -193,7 +193,6 @@ function setMaritalStatus() {
                 }
             }
 
-
             var singleMale = [];
             for (var i = 0; i < print[0].maleBarangay.length; i++) {
                 item = {};
@@ -655,6 +654,254 @@ function setMaritalStatus() {
                     series: []
                 }
             });
+        },
+        error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
+        }
+    });
+}
+
+
+function setClassroomRequirement(){
+    $.ajax({
+        url: "SetClassroomRequirementServlet",
+        type: 'POST',
+        dataType: "JSON",
+        success: function (data) {
+            var print = data;   
+            var totalEnrollees = [];
+            for (var i = 0; i < print[0].years.length; i++) {
+                var totals = 0;
+                item = {};
+                item["name"] = print[0].years[i].year;
+                item["drilldown"] = print[0].years[i].year + 'e';
+                item["type"] = 'column';
+                data = [];
+                for (var x = 0; x < print[0].enrollment.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].enrollment[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].enrollment[x].year) {
+                                totals = totals + parseInt(print[0].enrollment[x].enrollment); 
+                            }
+                        }
+                    }
+                }
+                item["y"] = totals;
+                totalEnrollees.push(item);
+            }
+            
+            var totalClassrooms = [];
+            for (var i = 0; i < print[0].years.length; i++) {
+                var totals = 0;
+                item = {};
+                item["name"] = print[0].years[i].year;
+                item["drilldown"] = print[0].years[i].year + 'c';
+                item["type"] = 'column';
+                data = [];
+                for (var x = 0; x < print[0].classrooms.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].classrooms[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].classrooms[x].year) {
+                                totals = totals + (parseInt(print[0].classrooms[x].classrooms)*45); 
+                            }
+                        }
+                    }
+                }
+                item["y"] = totals;
+                totalClassrooms.push(item);
+            }
+            
+            var totalGaps = [];
+            for (var i = 0; i < print[0].years.length; i++) {
+                var totals = 0;
+                item = {};
+                item["name"] = print[0].years[i].year;
+                item["drilldown"] = print[0].years[i].year + 'g';
+                item["type"] = 'column';
+                data = [];
+                for (var x = 0; x < print[0].gaps.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].gaps[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].gaps[x].year) {
+                                totals = totals + parseInt(print[0].gaps[x].gap); 
+                            }
+                        }
+                    }
+                }
+                item["y"] = totals;
+                totalGaps.push(item);
+            }
+            
+            $('#output').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift'
+            },
+            title: {
+                text: 'Classroom Requirements in Public Elementary School'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            plotOptions: {
+                column: {
+//        stacking: 'normal'
+                    dataLabels: {
+                        enabled: true
+                    },
+                    series: {
+                        allowPointSelect: true
+                    }
+                },
+            },
+            series: [{
+                    name: 'Enrollees',
+                    type: 'column',
+                    data: totalEnrollees
+                },  {
+                    name: 'Classrooms',
+                    type: 'column',
+                    data: totalClassrooms
+                }, {
+                    name: 'Gaps',
+                    type: 'column',
+                    color: '#FF3232',
+                    data: totalGaps
+                    
+                }
+            ],
+            drilldown: {
+                //series: drilldownsHospital
+            }
+        });
+            
+        },
+        error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
+        }
+    });
+}
+
+function setEnrollmentTeacherClassroom(){
+    $.ajax({
+        url: "EnrollmentTeachersClassrooms",
+        type: 'POST',
+        dataType: "JSON",
+        success: function (data) {
+            var print = data;   
+            var totalEnrollees = [];
+            for (var i = 0; i < print[0].years.length; i++) {
+                var totals = 0;
+                item = {};
+                item["name"] = print[0].years[i].year;
+                item["drilldown"] = print[0].years[i].year + 'e';
+                item["type"] = 'column';
+                data = [];
+                for (var x = 0; x < print[0].enrollment.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].enrollment[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].enrollment[x].year) {
+                                totals = totals + parseInt(print[0].enrollment[x].enrollment); 
+                            }
+                        }
+                    }
+                }
+                item["y"] = totals;
+                totalEnrollees.push(item);
+            }
+            
+            var totalClassrooms = [];
+            for (var i = 0; i < print[0].years.length; i++) {
+                var totals = 0;
+                item = {};
+                item["name"] = print[0].years[i].year;
+                item["drilldown"] = print[0].years[i].year + 'c';
+                item["type"] = 'column';
+                data = [];
+                for (var x = 0; x < print[0].classrooms.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].classrooms[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].classrooms[x].year) {
+                                totals = totals + (parseInt(print[0].classrooms[x].classrooms)); 
+                            }
+                        }
+                    }
+                }
+                item["y"] = totals;
+                totalClassrooms.push(item);
+            }
+            
+            var totalTeachers = [];
+            for (var i = 0; i < print[0].years.length; i++) {
+                var totals = 0;
+                item = {};
+                item["name"] = print[0].years[i].year;
+                item["drilldown"] = print[0].years[i].year + 't';
+                item["type"] = 'column';
+                data = [];
+                for (var x = 0; x < print[0].classrooms.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].classrooms[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].classrooms[x].year) {
+                                totals = totals + (parseInt(print[0].classrooms[x].teachers)); 
+                            }
+                        }
+                    }
+                }
+                item["y"] = totals;
+                totalTeachers.push(item);
+            }
+            
+            
+            $('#output').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift'
+            },
+            title: {
+                text: 'Classroom Requirements in Public Elementary School'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            plotOptions: {
+                column: {
+//        stacking: 'normal'
+                    dataLabels: {
+                        enabled: true
+                    },
+                    series: {
+                        allowPointSelect: true
+                    }
+                },
+            },
+            series: [{
+                    name: 'Enrollees',
+                    type: 'column',
+                    data: totalEnrollees
+                },  {
+                    name: 'Teachers',
+                    type: 'column',
+                    data: totalTeachers
+                }, {
+                    name: 'Classrooms',
+                    type: 'column',
+                    color: '#FF3232',
+                    data: totalClassrooms
+                    
+                }
+            ],
+            drilldown: {
+                //series: drilldownsHospital
+            }
+        });
+            
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);

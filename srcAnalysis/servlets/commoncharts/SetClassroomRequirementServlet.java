@@ -72,10 +72,10 @@ public class SetClassroomRequirementServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(SetClassroomRequirementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            ArrayList<Gaps> gaps = new ArrayList<Gaps>();
-            Gaps gap = new Gaps();
-            gaps = gap.calculateGaps(classrooms, enrollment);
+            
+            System.out.println("HI");
+            ArrayList<Gaps> gaps = null;
+            gaps = calculateGaps(classrooms, enrollment);
             
             for(int i = 0; i < censusYears.size(); i++){
                 JSONObject objYears = new JSONObject();
@@ -146,6 +146,34 @@ public class SetClassroomRequirementServlet extends HttpServlet {
             response.getWriter().write("[" + ObjectAll.toString() + "]");
 
         }
+    }
+    
+    public ArrayList<Gaps> calculateGaps(ArrayList<FactSchoolTeachersFacilities> classrooms, ArrayList<FactEnrollment> enrollment){
+        ArrayList<Gaps> gaps = new ArrayList<Gaps>();
+        System.out.println("s");
+        
+        for(int i = 0; i < classrooms.size(); i++){
+            for(int x = 0; x < enrollment.size(); x++){
+                System.out.println(classrooms.get(i).getDistrict() + " " + enrollment.get(x).getDistrict());
+                if(classrooms.get(i).getCensusYear() == enrollment.get(x).getCensusYear()
+                        && classrooms.get(i).getDistrict().equalsIgnoreCase(enrollment.get(x).getDistrict())){
+                    Gaps temp = new Gaps();
+                    temp.setCensusYear(classrooms.get(i).getCensusYear());
+                    temp.setDistrict(classrooms.get(i).getDistrict());
+                    temp.setZone(classrooms.get(i).getZone());
+                    System.out.print("CensusYear" + temp.getCensusYear()+" ");
+                    System.out.print("District" + temp.getDistrict()+" ");
+                    System.out.print("Zone" + temp.getZone()+" ");
+                    System.out.print(classrooms.get(i).getNoOfClassrooms() + "x45 " + " - " + (enrollment.get(x).getFemaleCount()+enrollment.get(x).getMaleCount()));
+                    int difference = (enrollment.get(x).getCount()-(classrooms.get(i).getNoOfClassrooms()*45));
+                    System.out.print("Difference" + difference+"\n");
+                    temp.setGap(difference);
+                    gaps.add(temp);
+                }
+            }
+        }
+        
+        return gaps;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

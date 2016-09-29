@@ -371,6 +371,12 @@
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
                     setMaritalStatus();
                 }
+                else if(conceptName=='Classroom requirements in Public Elementary Schools'){
+                    setClassroomRequirement();
+                }
+                else if(conceptName=='Data on Enrollment, Teachers and Classrooms'){
+                    setEnrollmentTeacherClassroom();
+                }
             }
 
         </script>
