@@ -9,18 +9,19 @@ import com.google.gson.Gson;
 import dao.forums.ForumDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 import model.forums.Forums;
 
 /**
  *
  * @author Shermaine
  */
-public class AddNewForumServlet extends HttpServlet {
+public class NewForumServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,24 +31,24 @@ public class AddNewForumServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
-
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         System.out.print("HELLO");
+       
         String forumTitle = request.getParameter("forumTitle");
         String body = request.getParameter("forumBody");
-        // HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
 
-        // User chck = (User) session.getAttribute("user");
+         User chck = (User) session.getAttribute("user");
         ForumDAO forumDAO = new ForumDAO();
 
         Forums forum = new Forums();
         forum.setForumTitle(forumTitle);
         forum.setBody(body);
-        forum.setCreatedBy(100000011);
+        forum.setCreatedBy(chck.getUserID());
         forum.setReportCount(0);
 
         boolean x = false;
@@ -58,10 +59,9 @@ public class AddNewForumServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(json);
-
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -73,7 +73,7 @@ public class AddNewForumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
@@ -87,7 +87,7 @@ public class AddNewForumServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
