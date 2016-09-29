@@ -329,8 +329,8 @@
         <servlet-class>servlets.commoncharts.EnrollmentTeachersClassroomsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddNewForumServlet</servlet-name>
-        <servlet-class>servlet.forums.AddNewForumServlet</servlet-class>
+        <servlet-name>NewForumServlet</servlet-name>
+        <servlet-class>servlet.forums.NewForumServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
@@ -637,8 +637,8 @@
         <url-pattern>/EnrollmentTeachersClassrooms</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddNewForumServlet</servlet-name>
-        <url-pattern>/AddNewForumServlet</url-pattern>
+        <servlet-name>NewForumServlet</servlet-name>
+        <url-pattern>/NewForumServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

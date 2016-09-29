@@ -16,7 +16,7 @@ function Viewforums() {
         dataType: "JSON",
         success: function (data) {
 
-            console.log(data);
+//            console.log(data);
             var element = document.getElementById("forumDiv");
             $('#forumDiv').empty();
 
@@ -69,19 +69,20 @@ function submitNewForum() {
     console.log(forumBody);
 
     $.ajax({
-        url: "AddNewForumServlet",
+        url: "NewForumServlet",
         type: 'POST',
+        dataType: "JSON",
         data: {
             forumTitle: forumTitle,
             forumBody: forumBody
         },
-        dataType: "JSON",
+        
          success: function (data) {
 
         console.log(data);
-//            if (data === "true") {
-//                forums();
-//            }
+            if (data === true) {
+                Viewforums();
+            }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(textStatus);
