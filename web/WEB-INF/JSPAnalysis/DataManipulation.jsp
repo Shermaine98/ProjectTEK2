@@ -73,6 +73,9 @@
                         <div align="center">
                             <br/><br/>
 
+                            
+                                
+                            
                             <div id="theButtonsForPivot" style="display:none; margin-left: 2%;">
 
                                 <button class="btn btn-default btn-sm" id="b1" type="button" ><span class="glyphicon glyphicon-menu-left"></span></button>
@@ -80,11 +83,18 @@
                                 <button class="btn btn-default btn-sm" id="b2" type="button"  ><span class="glyphicon glyphicon-menu-right"></span></button>
                                 &nbsp;&nbsp;
                                 <button type="button" class="btn btn-info  btn-circle" data-toggle="modal" data-target="#instructions"><i class="fa fa-fw fa-info"></i></button>
-
+                                <br>
+                                <button class="btn btn-default btn-sm" id="b1" type="button" ><span class="glyphicon glyphicon-menu-left"></span></button>
                             </div>
 
                             <select id="commonReports" name="commonReports" class="form-control" onchange="getData()" style="display:none; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; width: 95%;">
                             </select>
+                            
+                            <div id='withoutChartSelection' style='margin-left:1%;margin-right:1%;'>
+                            </div>
+                            
+                            <div id='withChartSelection' style='margin-left:1%;margin-right:1%;width:100%'>
+                            </div>
                             
                             <div class="box-body">
                                 <div id="output" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; ">
@@ -269,9 +279,6 @@
                 }
             }
 
-        </script>
-        <script>
-
             function getSelected() {
                 var conceptName = $('#selected').find(":selected").val();
                 if (conceptName == "1") {
@@ -282,6 +289,8 @@
                     $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
                     $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
                     document.getElementById('commonReports').style.display = "block";
+                    addPivotButtons();
+                    
                 } else if (conceptName == "2") {
                     getFactEducation();
                     $('select[name="commonReports"]').empty();
@@ -293,6 +302,7 @@
                     $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Schools</option>");
                     $('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
                     document.getElementById('commonReports').style.display = "block";
+                    addPivotButtons();
                 } else if (conceptName == "3") {
                     getFactHospital();
                     $('select[name="commonReports"]').empty();
@@ -301,6 +311,7 @@
                     $('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
                     $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
                     document.getElementById('commonReports').style.display = "block";
+                    addPivotButtons();
                 }
                 document.getElementById('theButtonsForPivot').style.display = "block";
             }
@@ -310,6 +321,89 @@
             var derivers = $.pivotUtilities.derivers;
             var renderers = $.extend($.pivotUtilities.renderers, $.pivotUtilities.gchart_renderers);
             var utils = $.pivotUtilities;
+            
+            function addPivotButtons(){
+                $("#theButtonsForPivot").empty();
+                $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b1' type='button' ><span class='glyphicon glyphicon-menu-left'></span></button>");
+                $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b3' type='button'  >Change Zoom</button>");
+                $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b2' type='button'  ><span class='glyphicon glyphicon-menu-right'></span></button>");
+                $("#theButtonsForPivot").append("&nbsp;&nbsp;");
+                $("#theButtonsForPivot").append("<button type='button' class='btn btn-info  btn-circle' data-toggle='modal' data-target='#instructions'><i class='fa fa-fw fa-info'></i></button>");
+            }   
+            
+            function addWithChartSelections(){
+                $("#theButtonsForPivot").empty();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").append("<div class='col-md-2'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <button id='pivot' class='btn btn-default' style='width:100%; height:200px'>Pivot Table</button>\n\
+                                                    </div>\n\
+                                                </div>\n\
+                                                <div class='col-md-5'>\n\
+                                                    <table>\n\
+                                                        <tr>\n\
+                                                            <select id='commonReports' name='charts' class='form-control' onchange='getData()'>\n\
+                                                            </select>\n\
+                                                            </br>\n\
+                                                        </tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter By Year</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div id='years' style='height: 85px;'>\n\
+                                                                    </div>\n\
+                                                                </div>\n\
+                                                            </div>\n\
+                                                        </tr>\n\
+                                                    </table>\n\
+                                                </div>\n\
+                                                <div class='col-md-5'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                            <h4 class='box-title'>Filter By District</h4>\n\
+                                                        </div>\n\
+                                                        <div class='box-body'>\n\
+                                                            <div id='districts' style=' height: 140px;'>\n\
+                                                            </div>\n\
+                                                        </div>\n\
+                                                    </div>\n\
+                                                </div>");
+            }   
+            
+            function addWithoutChartSelections(){
+                $("#theButtonsForPivot").empty();
+                $("#withChartSelection").empty();
+                $("#withoutChartSelection").append("<div class='col-md-2'>\n\
+                                    <div class='box box-solid'>\n\
+                                        <button class='btn btn-default' style='width:100%; height:200px'>Pivot Table</button>\n\
+                                    </div>\n\
+                                </div>\n\
+                                <div class='col-md-5'>\n\
+                                    <div class='box box-solid'>\n\
+                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                            <h4 class='box-title'>Filter By Year</h4>\n\
+                                        </div>\n\
+                                        <div class='box-body'>\n\
+                                            <div id='years' style='height: 140px;'> <!--- overflow-y: scroll; -->\n\
+                                            </div>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </div>\n\
+                                <div class='col-md-5'>\n\
+                                    <div class='box box-solid'>\n\
+                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                            <h4 class='box-title'>Filter By District</h4>\n\
+                                        </div>\n\
+                                        <div class='box-body'>\n\
+                                            <div id='districts' style=' height: 140px;'>\n\
+                                            </div>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </div>");
+            }   
+
+
 
 
             function getFactPeople() {
@@ -372,12 +466,17 @@
                 var conceptName = $('#commonReports').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
                     setHHPopAgeGroupSex();
+                    addWithoutChartSelections();
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
                     setMaritalStatus();
+                    $("#theButtonsForPivot").empty();
+                    addWithChartSelections();
                 }
                 else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
                     setClassroomRequirement();
+                    $("#theButtonsForPivot").empty();
+                    
                 }
                 else if(conceptName=='Data on Enrollment, Teachers and Classrooms'){
                     setEnrollmentTeacherClassroom();
