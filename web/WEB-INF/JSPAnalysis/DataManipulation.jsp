@@ -278,23 +278,28 @@
                     getFactPeople();
                     $('select[name="commonReports"]').empty();
                     $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                    $('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
                     $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
                     $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
-                    $('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
                     document.getElementById('commonReports').style.display = "block";
                 } else if (conceptName == "2") {
                     getFactEducation();
                     $('select[name="commonReports"]').empty();
                     $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                    $('select[name="commonReports"]').append("<option value='Classroom requirements in Public Elementary Schools'>Classroom requirements in Public Elementary Schools</option>");
+                    $('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
+                    $('select[name="commonReports"]').append("<option value='Classroom, Teachers Requirements in Public Elementary Schools'>Classroom, Teachers Requirements in Public Elementary Schools</option>");
                     $('select[name="commonReports"]').append("<option value='Data on Enrollment, Teachers and Classrooms'>Data on Enrollment, Teachers and Classrooms</option>");
+                    $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Preschools'>Enrollment in Public and Private Preschools</option>");
+                    $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Schools</option>");
+                    $('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
                     document.getElementById('commonReports').style.display = "block";
                 } else if (conceptName == "3") {
                     getFactHospital();
                     $('select[name="commonReports"]').empty();
                     $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                    $('select[name="commonReports"]').append("<option value='Nutritional Status of the preschool and elementary students'>Nutritional Status of the preschool and elementary students</option>");
-                    $('select[name="commonReports"]').append("<option value='Health Facilities'>Health Facilities</option>");
+                    $('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
+                    $('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
+                    $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
                     document.getElementById('commonReports').style.display = "block";
                 }
                 document.getElementById('theButtonsForPivot').style.display = "block";
@@ -371,7 +376,7 @@
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
                     setMaritalStatus();
                 }
-                else if(conceptName=='Classroom requirements in Public Elementary Schools'){
+                else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
                     setClassroomRequirement();
                 }
                 else if(conceptName=='Data on Enrollment, Teachers and Classrooms'){
