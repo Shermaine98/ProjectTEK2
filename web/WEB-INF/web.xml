@@ -336,6 +336,14 @@
         <servlet-name>ForumSpecificServlet</servlet-name>
         <servlet-class>servlet.forums.ForumSpecificServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CommentsServlet</servlet-name>
+        <servlet-class>servlet.forums.CommentsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommentsGetterServlet</servlet-name>
+        <servlet-class>servlet.forums.CommentsGetterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -647,6 +655,14 @@
     <servlet-mapping>
         <servlet-name>ForumSpecificServlet</servlet-name>
         <url-pattern>/ForumSpecificServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentsServlet</servlet-name>
+        <url-pattern>/CommentsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentsGetterServlet</servlet-name>
+        <url-pattern>/CommentsGetterServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

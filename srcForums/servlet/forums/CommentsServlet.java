@@ -6,7 +6,7 @@
 package servlet.forums;
 
 import com.google.gson.Gson;
-import dao.forums.ForumDAO;
+import dao.forums.CommentsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.accounts.User;
-import model.forums.Forums;
+import model.forums.Comments;
 
 /**
  *
  * @author Shermaine
  */
-public class NewForumServlet extends HttpServlet {
+public class CommentsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,23 +36,26 @@ public class NewForumServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-       
+
         String forumTitle = request.getParameter("forumTitle");
-        String body = request.getParameter("forumBody");
-         HttpSession session = request.getSession();
+        String comment = request.getParameter("comment");
+        String createdBy = request.getParameter("createdBy");
+        String forumID = request.getParameter("forumID");
+        HttpSession session = request.getSession();
 
-         User chck = (User) session.getAttribute("user");
-        ForumDAO forumDAO = new ForumDAO();
+        User chck = (User) session.getAttribute("user");
+        CommentsDAO commentsDAO = new CommentsDAO();
 
-        Forums forum = new Forums();
-        forum.setForumTitle(forumTitle);
-        forum.setBody(body);
-        forum.setCreatedBy(chck.getUserID());
-        forum.setReportCount(0);
+        Comments comments = new Comments();
+        comments.setComment(comment);
+        comments.setCommentedby(chck.getUserID());
+        comments.setForumID(Integer.parseInt(forumID));
+        comments.setForumTitle(forumTitle);
+        comments.setCreatedBy(Integer.parseInt(createdBy));
 
         boolean x = false;
 
-        x = forumDAO.addForum(forum);
+        x = commentsDAO.addComment(comments);
 
         String json = new Gson().toJson(x);
         response.setContentType("application/json");
@@ -60,7 +63,7 @@ public class NewForumServlet extends HttpServlet {
         response.getWriter().write(json);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

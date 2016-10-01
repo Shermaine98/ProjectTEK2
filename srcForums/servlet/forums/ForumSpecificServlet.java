@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.education.access;
+package servlet.forums;
 
 import dao.forums.ForumDAO;
 import servlets.servlet.BaseServlet;
@@ -36,19 +36,19 @@ public class ForumSpecificServlet extends BaseServlet {
     @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String title = request.getParameter("titleName");
+        String forumId = request.getParameter("forumId");
         RequestDispatcher rd = null;
         ForumDAO forumDAO = new ForumDAO();
         Forums forum = new Forums();
 
         try {
-            forum = forumDAO.getForum(title);
+            forum = forumDAO.getForum(Integer.parseInt(forumId));
         } catch (ParseException ex) {
             Logger.getLogger(ForumSpecificServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         request.setAttribute("forum", forum);
-        rd = request.getRequestDispatcher("forumSpecific.jsp");
+        rd = request.getRequestDispatcher("/WEB-INF/forumSpecific.jsp");
         rd.forward(request, response);
 
     }

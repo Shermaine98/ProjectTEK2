@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="model.forums.Forums"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="levelOfAccess.jsp"%>
 <!DOCTYPE html>
@@ -12,7 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Project TEK | Home </title>
-        <script src="jsForums/forums.js" type="text/javascript"></script>
 
         <style>
             tr{
@@ -38,19 +38,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
-                        <!--MODAL-->
-
-                        <div >
-                            <textarea id="forumTitle"  style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"> "title" </textarea>
-                            <textarea id="forumBody" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;">"body" </textarea>
-                        </div>
-                        <div>
-                            <button type="submit" onclick="submitNewForum()" class="btn btn-success" >Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-
-
-                        <!--END MODAL-->                       <div class="col-md-7">
+                        <div class="col-md-7">
                             <div class="box box-solid">
                                 <div class="box-body">
                                     <table class="table table-condensed">
@@ -79,9 +67,26 @@
                             <!--
                                 forumBody
                             -->
-                            <div id="forumDiv">
+                            <div id="specificForum">
+                                <% Forums forum = (Forums) request.getAttribute("forum");%>
+                                <input type = "hidden" value="<%= forum.getForumID()%>" />
+                                <input type="text"  value="<%= forum.getForumTitle()%>" />
+                                <textarea> <%= forum.getBody()%> </textarea>
+                                <input type="text"  value=" <%= forum.getCreatedByName()%>" />
+                                <input type="text"  value=" <%= forum.getCommentsCount()%>" />
+                                <input type="text"  value=" <%= forum.getReportCount()%>" />
+                                <input type="text" value=" <%= forum.getFavoritesCount()%> "/>
+                                <input type="text" value="<%= forum.getDateCreated()%>"/>
+                                <table>
+                                    <% for (int i = 0; i < forum.getTags().size(); i++) {%>
+                                    <td> <%=forum.getTags()%> </td>
+                                    <%}%>
+                                </table>
+                                <table id="tableComments">
+                                    <!--Comments here-->
 
 
+                                </table>
                             </div>
                             <!--
                               /.forumBody

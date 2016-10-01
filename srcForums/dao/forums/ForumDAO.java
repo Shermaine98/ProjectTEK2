@@ -83,7 +83,7 @@ public class ForumDAO {
         return null;
     }
 
-    public Forums getForum(String forumTitle) throws ParseException {
+    public Forums getForum(int forumID) throws ParseException {
         Forums forums = new Forums();
         RecordDAO recordsDAO = new RecordDAO();
         CommentsDAO commentsDAO = new CommentsDAO();
@@ -91,8 +91,8 @@ public class ForumDAO {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS WHERE FORUMTITLE = ?");
-                pstmt.setString(1, forumTitle);
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS WHERE forumID = ?");
+                pstmt.setInt(1, forumID);
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     forums.setForumID(rs.getInt("forumID"));

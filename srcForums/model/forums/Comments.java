@@ -19,6 +19,7 @@ private String forumTitle;
 private int createdBy;
 private int forumID;
 private Date commentedDate;
+private String commentedByName;
     /**
      * @return the idComments
      */
@@ -115,5 +116,19 @@ private Date commentedDate;
      */
     public void setCommentedDate(Date commentedDate) {
         this.commentedDate = commentedDate;
+    }
+
+    /**
+     * @return the commentedByName
+     */
+    public String getCommentedByName() {
+        return commentedByName;
+    }
+
+    /**
+     * @param commentedByName the commentedByName to set
+     */
+    public void setCommentedByName(String commentedByName) {
+        this.commentedByName = commentedByName;
     }
 }

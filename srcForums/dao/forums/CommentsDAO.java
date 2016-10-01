@@ -5,6 +5,7 @@
  */
 package dao.forums;
 
+import dao.RecordDAO;
 import db.DBConnectionFactory;
 import static db.DBConnectionFactory.getInstance;
 import java.sql.Connection;
@@ -46,11 +47,12 @@ public class CommentsDAO {
 
     public ArrayList<Comments> getComments(int forumID) throws ParseException {
         ArrayList<Comments> arrComments = new ArrayList<Comments>();
+                RecordDAO recordsDAO = new RecordDAO();
 
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM COMMENTS");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM COMMENTS WHERE forumID = ?");
                 pstmt.setInt(1, forumID);
 
                 ResultSet rs = pstmt.executeQuery();
@@ -60,6 +62,7 @@ public class CommentsDAO {
                     comments.setCommentedDate(rs.getDate("commentedDate"));
                     comments.setComment(rs.getString("comment"));
                     comments.setCommentedby(rs.getInt("commentedBy"));
+                    comments.setCommentedByName(recordsDAO.GetUserName(comments.getCommentedby()));
                     comments.setForumTitle(rs.getString("forumTitle"));
                     comments.setCreatedBy(rs.getInt("createdBy"));
                     comments.setForumID(rs.getInt("forumID"));

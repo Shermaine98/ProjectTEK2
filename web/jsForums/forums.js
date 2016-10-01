@@ -36,11 +36,12 @@ function Viewforums() {
                 var tbodytr = document.createElement("tr");
 
                 tbody.appendChild(tbodytr);
+                
                 $(tbodytr).append('<td><span title="favoritesCount"></span>' + data[i].favoritesCount + '</td>');
                 $(tbodytr).append('<td><span title="comments">' + data[i].commentsCount + '</span</td>');
                 $(tbodytr).append('<td><span title="favoritesCount"></span>' + data[i].commentsCount + '</td>');
                 $(tbodytr).append('<td><span title="reports">' + data[i].reportCounts + '</span</td>');
-                $(tbodytr).append('<td><span title="title"><a class="titleName">' + data[i].forumTitle + '</a></span></td>');
+                $(tbodytr).append('<td><span title="title"><input type="text" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
                 // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
                 // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
                 $(tbodytr).append('<td><span title="createdByName">' + data[i].createdByName + '</span></td>');
@@ -87,20 +88,14 @@ function submitNewForum() {
     });
 
 }
-
+var ctx = "${pageContext.request.contextPath}";
 // if title is clicked - redirect get TitleName and redirect to specific forum page
 
 $(document).on('click', '.titleName', function () {
-    var titleName = $(this).text();
+    var forumId = $(this).prev().attr('value');
+//    console.log(forumId);
+  window.location.replace("ForumSpecificServlet?forumId="+forumId);
 
-    $.ajax({
-        url: "NewForumServlet",
-        type: 'POST',
-        dataType: "JSON",
-        data: {
-            titleName: titleName
-        }
-    });
 });
 
 
@@ -108,13 +103,8 @@ $(document).on('click', '.titleName', function () {
 
 $(document).on('click', '.tagsName', function () {
     var tagsName = $(this).text();
-    
-    $.ajax({
-        url: "NewForumServlet",
-        type: 'POST',
-        dataType: "JSON",
-        data: {
-            tagsName: tagsName
-        }
-    });
+
+    window.location.replace("request.getContextPath()/?tagsName=" + tagsName);
+
+
 });

@@ -5,23 +5,27 @@
  */
 package servlet.forums;
 
-import com.google.gson.Gson;
-import dao.forums.ForumDAO;
+import dao.forums.CommentsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.accounts.User;
-import model.forums.Forums;
+import model.forums.Comments;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author Shermaine
  */
-public class NewForumServlet extends HttpServlet {
+public class CommentsGetterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,31 +37,40 @@ public class NewForumServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
+        response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-       
-        String forumTitle = request.getParameter("forumTitle");
-        String body = request.getParameter("forumBody");
-         HttpSession session = request.getSession();
+        CommentsDAO commentsDAO = new CommentsDAO();
 
-         User chck = (User) session.getAttribute("user");
-        ForumDAO forumDAO = new ForumDAO();
+        String forumID = request.getParameter("forumID");
 
-        Forums forum = new Forums();
-        forum.setForumTitle(forumTitle);
-        forum.setBody(body);
-        forum.setCreatedBy(chck.getUserID());
-        forum.setReportCount(0);
+        ArrayList<Comments> arrComments = new ArrayList<Comments>();
+        arrComments = commentsDAO.getComments(Integer.parseInt(forumID));
 
-        boolean x = false;
+        JSONArray array = new JSONArray();
 
-        x = forumDAO.addForum(forum);
+        for (int i = 0; i < arrComments.size(); i++) {
+            JSONObject obj = new JSONObject();
 
-        String json = new Gson().toJson(x);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        response.getWriter().write(json);
+            try {
+                obj.put("commentID", arrComments.get(i).getIdComments());
+                obj.put("comment", arrComments.get(i).getComment());
+                obj.put("commentedBy", arrComments.get(i).getCommentedby());
+                obj.put("dateCreated", arrComments.get(i).getCommentedDate());
+                obj.put("forumID", arrComments.get(i).getForumID());
+                obj.put("forumTitle", arrComments.get(i).getForumTitle());
+
+                array.put(obj);
+
+            } catch (JSONException ex) {
+                Logger.getLogger(ServletForums.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        out.print(array);
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -72,7 +85,11 @@ public class NewForumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(CommentsGetterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -86,7 +103,11 @@ public class NewForumServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(CommentsGetterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
