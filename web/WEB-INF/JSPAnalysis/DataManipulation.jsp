@@ -283,35 +283,10 @@
                 var conceptName = $('#selected').find(":selected").val();
                 if (conceptName == "1") {
                     getFactPeople();
-                    $('select[name="commonReports"]').empty();
-                    $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                    $('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
-                    $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
-                    $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
-                    document.getElementById('commonReports').style.display = "block";
-                    addPivotButtons();
-                    
                 } else if (conceptName == "2") {
                     getFactEducation();
-                    $('select[name="commonReports"]').empty();
-                    $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                    $('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
-                    $('select[name="commonReports"]').append("<option value='Classroom, Teachers Requirements in Public Elementary Schools'>Classroom, Teachers Requirements in Public Elementary Schools</option>");
-                    $('select[name="commonReports"]').append("<option value='Data on Enrollment, Teachers and Classrooms'>Data on Enrollment, Teachers and Classrooms</option>");
-                    $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Preschools'>Enrollment in Public and Private Preschools</option>");
-                    $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Schools</option>");
-                    $('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
-                    document.getElementById('commonReports').style.display = "block";
-                    addPivotButtons();
                 } else if (conceptName == "3") {
                     getFactHospital();
-                    $('select[name="commonReports"]').empty();
-                    $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                    $('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
-                    $('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
-                    $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
-                    document.getElementById('commonReports').style.display = "block";
-                    addPivotButtons();
                 }
                 document.getElementById('theButtonsForPivot').style.display = "block";
             }
@@ -331,18 +306,19 @@
                 $("#theButtonsForPivot").append("<button type='button' class='btn btn-info  btn-circle' data-toggle='modal' data-target='#instructions'><i class='fa fa-fw fa-info'></i></button>");
             }   
             
-            function addWithChartSelections(){
+            function addWithChartSelections(method, charts){
                 $("#theButtonsForPivot").empty();
                 $("#withoutChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-2'>\n\
+                $("#withChartSelection").empty();
+                $("#withChartSelection").append("<div style='margin-right:2%'><div class='col-md-2'>\n\
                                                     <div class='box box-solid'>\n\
-                                                        <button id='pivot' class='btn btn-default' style='width:100%; height:200px'>Pivot Table</button>\n\
+                                                        <button id='pivot' class='btn btn-default' style='width:100%; height:200px' onclick='"+method+"'>Pivot Table</button>\n\
                                                     </div>\n\
                                                 </div>\n\
                                                 <div class='col-md-5'>\n\
                                                     <table>\n\
                                                         <tr>\n\
-                                                            <select id='commonReports' name='charts' class='form-control' onchange='getData()'>\n\
+                                                            <select id='charts' name='charts' class='form-control'>\n\
                                                             </select>\n\
                                                             </br>\n\
                                                         </tr>\n\
@@ -368,44 +344,47 @@
                                                             </div>\n\
                                                         </div>\n\
                                                     </div>\n\
-                                                </div>");
+                                                </div></div>");
+                $('select[name="charts"]').empty();
+                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+                for (i = 0; i < charts.length; i++) { 
+                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
+                }
+                document.getElementById('commonReports').style.display = "block";
             }   
             
-            function addWithoutChartSelections(){
+            function addWithoutChartSelections(method){
                 $("#theButtonsForPivot").empty();
                 $("#withChartSelection").empty();
+                $("#withoutChartSelection").empty();
                 $("#withoutChartSelection").append("<div class='col-md-2'>\n\
-                                    <div class='box box-solid'>\n\
-                                        <button class='btn btn-default' style='width:100%; height:200px'>Pivot Table</button>\n\
-                                    </div>\n\
-                                </div>\n\
-                                <div class='col-md-5'>\n\
-                                    <div class='box box-solid'>\n\
-                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                            <h4 class='box-title'>Filter By Year</h4>\n\
-                                        </div>\n\
-                                        <div class='box-body'>\n\
-                                            <div id='years' style='height: 140px;'> <!--- overflow-y: scroll; -->\n\
+                                            <div class='box box-solid'>\n\
+                                                <button class='btn btn-default' style='width:100%; height:200px' onclick='"+method+"'>Pivot Table</button>\n\
                                             </div>\n\
                                         </div>\n\
-                                    </div>\n\
-                                </div>\n\
-                                <div class='col-md-5'>\n\
-                                    <div class='box box-solid'>\n\
-                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                            <h4 class='box-title'>Filter By District</h4>\n\
-                                        </div>\n\
-                                        <div class='box-body'>\n\
-                                            <div id='districts' style=' height: 140px;'>\n\
+                                        <div class='col-md-5'>\n\
+                                            <div class='box box-solid'>\n\
+                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                    <h4 class='box-title'>Filter By Year</h4>\n\
+                                                </div>\n\
+                                                <div class='box-body'>\n\
+                                                    <div id='years' style='height: 140px;'> <!--- overflow-y: scroll; -->\n\
+                                                    </div>\n\
+                                                </div>\n\
                                             </div>\n\
                                         </div>\n\
-                                    </div>\n\
-                                </div>");
-            }   
-
-
-
-
+                                        <div class='col-md-5'>\n\
+                                            <div class='box box-solid'>\n\
+                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                    <h4 class='box-title'>Filter By District</h4>\n\
+                                                </div>\n\
+                                                <div class='box-body'>\n\
+                                                    <div id='districts' style=' height: 140px;'>\n\
+                                                    </div>\n\
+                                                </div>\n\
+                                            </div>\n\
+                                        </div>");
+            }
             function getFactPeople() {
                 $("#output").empty();
                 $(function () {
@@ -424,6 +403,16 @@
                         });
                     });
                 });
+                addPivotButtons();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").empty();
+                $('select[name="commonReports"]').empty();
+                //common charts
+                $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                $('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
+                $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
+                $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
+                document.getElementById('commonReports').style.display = "block";
             }
 
 
@@ -441,8 +430,21 @@
                             hiddenFromDragDrop: ["Male Count", "Female Count", "Gender Disparity Index", "Both Sexes Count"]
                         });
                     });
-
                 });
+                addPivotButtons();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").empty();
+                
+                $('select[name="commonReports"]').empty();
+                $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                $('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
+                $('select[name="commonReports"]').append("<option value='Classroom, Teachers Requirements in Public Elementary Schools'>Classroom, Teachers Requirements in Public Elementary Schools</option>");
+                $('select[name="commonReports"]').append("<option value='Data on Enrollment, Teachers and Classrooms'>Data on Enrollment, Teachers and Classrooms</option>");
+                $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Preschools'>Enrollment in Public and Private Preschools</option>");
+                $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Schools</option>");
+                $('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
+                document.getElementById('commonReports').style.display = "block";
+                   
             }
 
             function getFactHospital() {
@@ -460,26 +462,42 @@
                         });
                     });
                 });
+                addPivotButtons();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").empty();
+                
+                $('select[name="commonReports"]').empty();
+                $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                $('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
+                $('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
+                $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
+                document.getElementById('commonReports').style.display = "block";
             }
 
             function getData(){
                 var conceptName = $('#commonReports').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
                     setHHPopAgeGroupSex();
-                    addWithoutChartSelections();
+                    addWithoutChartSelections('getFactPeople()');
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
                     setMaritalStatus();
                     $("#theButtonsForPivot").empty();
-                    addWithChartSelections();
+                    var charts=['Bar Chart','Pie Chart','Table'];
+                    addWithChartSelections('getFactPeople()',charts);
                 }
                 else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
                     setClassroomRequirement();
                     $("#theButtonsForPivot").empty();
-                    
+                    var charts=['Bar Chart','Pie Chart','Table'];
+                    addWithChartSelections('getFactEducation()',charts);
                 }
                 else if(conceptName=='Data on Enrollment, Teachers and Classrooms'){
                     setEnrollmentTeacherClassroom();
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Pie Chart','Table'];
+                    addWithChartSelections('getFactEducation()',charts);
+                    
                 }
             }
 
