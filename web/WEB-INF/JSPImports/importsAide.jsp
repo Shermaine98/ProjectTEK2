@@ -315,23 +315,23 @@ and open the template in the editor.
                                         $('body').on('click', 'a.approved', function () {
                                             var formName = $(this).text();
                                             if (formName === "Enrollment in Public School") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Enrollment in Private School") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Household Population by Age Group and Sex") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportAgeGroup");
+                                                window.location.replace("ServletAccess?redirect=reportAgeGroup");
                                             } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             } else if (formName === "List of Hospitals") {
-                                                window.location.replace("${pageContext.request.contextPath}/ServletAccess?redirect=reportsLibrary");
+                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
                                             }
 
                                         });
@@ -368,25 +368,25 @@ and open the template in the editor.
                                         $('#okbtn').click(function () {
                                             var formName = task;
                                             if (formName === "Enrollment in Public School") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic");
+                                                window.location.replace("RetrieveDataEducationServlet?redirect=ePublic");
                                             } else if (formName === "Enrollment in Private School") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate");
+                                                window.location.replace("RetrieveDataEducationServlet?redirect=ePrivate");
                                             } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory");
+                                                window.location.replace("RetrieveDataEducationServlet?redirect=publicDirectory");
                                             } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory");
+                                                window.location.replace("RetrieveDataEducationServlet?redirect=privateDirectory");
                                                 //DEMO
                                             } else if (formName === "Household Population by Age Group and Sex") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
+                                                window.location.replace("RetrieveDataDemoServlet?redirect=byAgeGroupSex");
                                             } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted");
+                                                window.location.replace("RetrieveDataDemoServlet?redirect=HighestCompleted");
                                             } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=MaritalStatus");
+                                                window.location.replace("RetrieveDataDemoServlet?redirect=MaritalStatus");
                                             }//DEMO END
                                             else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist");
+                                                window.location.replace("RetrieveDataHealthServlet?redirect=percentageDist");
                                             } else if (formName === "List of Hospitals") {
-                                                window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial");
+                                                window.location.replace("RetrieveDataHealthServlet?redirect=directoryHosptial");
                                             }
                                         });
                                     });

@@ -340,25 +340,25 @@ and open the template in the editor.
                                     $('body').on('click', 'a.task', function () {
                                         var formName = $(this).text();
                                         if (formName === "Enrollment in Public School") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=public&formID=" + year);
+                                            window.location.replace("ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=public&formID=" + year);
                                         } else if (formName === "Enrollment in Private School") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=private&formID=" + year);
+                                            window.location.replace("ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=private&formID=" + year);
                                         } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
                                         } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
                                             //DEMO
                                         } else if (formName === "Household Population by Age Group and Sex") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewArchivesReportForApproval?page=byAgeGroupApprovalS&formID=" + year);
+                                            window.location.replace("ViewArchivesReportForApproval?page=byAgeGroupApprovalS&formID=" + year);
                                         } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewArchivesReportForApproval?page=highestAttaintmentApprovalS&formID=" + year);
+                                            window.location.replace("ViewArchivesReportForApproval?page=highestAttaintmentApprovalS&formID=" + year);
                                         } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewArchivesReportForApproval?page=maritalStatusApprovalS&formID=" + year);
+                                            window.location.replace("ViewArchivesReportForApproval?page=maritalStatusApprovalS&formID=" + year);
                                         }//DEMO END
                                         else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewReportForApprovalHealth?page=nutritionalApprovalS&formID=" + year);
+                                            window.location.replace("ViewReportForApprovalHealth?page=nutritionalApprovalS&formID=" + year);
                                         } else if (formName === "List of Hospitals") {
-                                            window.location.replace("${pageContext.request.contextPath}/ViewReportForApprovalHealth?page=reportsLibrary");
+                                            window.location.replace("ViewReportForApprovalHealth?page=reportsLibrary");
                                         }
 
                                     });
