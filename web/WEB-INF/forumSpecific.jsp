@@ -12,8 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Project TEK | Home </title>
-
+        <title>Project TEK |  </title>
+        <script src="jsForums/comments.js" type="text/javascript"></script>
         <style>
             tr{
                 height: 50px;
@@ -69,31 +69,31 @@
                             -->
                             <div id="specificForum">
                                 <% Forums forum = (Forums) request.getAttribute("forum");%>
-                                <input type = "hidden" value="<%= forum.getForumID()%>" />
-                                <input type="text"  value="<%= forum.getForumTitle()%>" />
+                                <input id="forumID" type = "hidden" value="<%=forum.getForumID()%>" />
+                                <input id="forumTitle" type="text"  value="<%=forum.getForumTitle()%>" />
                                 <textarea> <%= forum.getBody()%> </textarea>
-                                <input type="text"  value=" <%= forum.getCreatedByName()%>" />
-                                <input type="text"  value=" <%= forum.getCommentsCount()%>" />
-                                <input type="text"  value=" <%= forum.getReportCount()%>" />
-                                <input type="text" value=" <%= forum.getFavoritesCount()%> "/>
-                                <input type="text" value="<%= forum.getDateCreated()%>"/>
+                                <input id="commentedById" type="hidden"  value="<%=forum.getCreatedBy()%>" />
+                                <input  type="text"  value="<%=forum.getCreatedByName()%>" />
+                                <input type="text"  value="<%=forum.getCommentsCount()%>" />
+                                <input type="text"  value="<%=forum.getReportCount()%>" />
+                                <input type="text" value="<%=forum.getFavoritesCount()%> "/>
+                                <input type="text" value="<%=forum.getDateCreated()%>"/>
                                 <table>
                                     <% for (int i = 0; i < forum.getTags().size(); i++) {%>
                                     <td> <%=forum.getTags()%> </td>
                                     <%}%>
                                 </table>
-                                <table id="tableComments">
-                                    <!--Comments here-->
+                                <div id="commentsBox">
 
+                                </div>
 
-                                </table>
                             </div>
                             <!--
                               /.forumBody
                             -->
                             <div>
-                                <textarea name="" id="txt" cols="30" rows="10"></textarea>
-                                <button>Submit</button>
+                                <textarea id="comment" cols="30" rows="10"></textarea>
+                                <button onclick="submitNewComment()">Submit</button>
                             </div>
                             <!-- /.box -->
                         </div>

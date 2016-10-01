@@ -15,23 +15,31 @@ function ViewComments() {
         url: "CommentsGetterServlet",
         type: 'POST',
         dataType: "JSON",
+        data: {
+            forumID: forumID
+        },
         success: function (data) {
-
-        
+            console.log(data.length);
+            
+            
+            for (var i = 0; i < data.length; i++) {
+                $("#commentsBox").append('<p>' + data[i].commentID + ' </p>');
+                $("#commentsBox").append('<p>' + data[i].comment +  ' </p');
+                $("#commentsBox").append('<p>' + data[i].commentedByName + ' </p>');
+                $("#commentsBox").append('<p>' + data[i].dateCreated +  ' </p>');
+            }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(exception);
         }
     });
-
 }
 
 
 function submitNewComment() {
-
     var forumTitle = document.getElementById('forumTitle').value;
     var forumID = document.getElementById('forumID').value;
-    var createdBy = document.getElementById('createdBy').value;
+    var createdBy = document.getElementById('commentedById').value;
     var comment = document.getElementById('comment').value;
     $.ajax({
         url: "CommentsServlet",
@@ -40,19 +48,18 @@ function submitNewComment() {
         data: {
             forumTitle: forumTitle,
             forumID: forumID,
-            createdBy:createdBy,
-            comment:comment
+            createdBy: createdBy,
+            comment: comment
         },
         success: function (data) {
 
             console.log(data);
             if (data === true) {
-                 ViewComments();
+                ViewComments();
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(textStatus);
         }
     });
-
 }

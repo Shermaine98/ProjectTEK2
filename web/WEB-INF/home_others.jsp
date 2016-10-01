@@ -35,7 +35,6 @@
                         </div>
                         <div>
                             <button type="submit" onclick="submitNewForum()" class="btn btn-success" >Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
 
 
