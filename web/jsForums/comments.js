@@ -75,10 +75,11 @@ function ViewComments() {
             
             
             for (var i = 0; i < data.length; i++) {
-                $("#commentsBox").append('<p>' + data[i].commentID + ' </p>');
+          //      $("#commentsBox").append('<p>' + data[i].commentID + ' </p>');
                 $("#commentsBox").append('<p>' + data[i].comment +  ' </p');
                 $("#commentsBox").append('<p>' + data[i].commentedByName + ' </p>');
                 $("#commentsBox").append('<p>' + data[i].dateCreated +  ' </p>');
+                
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
