@@ -19,8 +19,8 @@ function HotTopic() {
         success: function (data) {
 
 //            console.log(data);
-            var element = document.getElementById("forumDiv");
-            $('#forumDiv').empty();
+            var element = document.getElementById("hotTopicDiv");
+            $('#hotTopicDiv').empty();
 
             var para = document.createElement("div");
             element.appendChild(para);
@@ -39,19 +39,19 @@ function HotTopic() {
 
                 tbody.appendChild(tbodytr);
                 
-                $(tbodytr).append('<td><button id="btnFavorite" <i class="glyphicon glyphicon-thumbs-up"></i>' + data[i].favoritesCount + '</button> </td>');
-                $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
-                $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
-                $(tbodytr).append('<td><span glyphicon glyphicon-thumbs-down title="title"><input type="hidden" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
+             $(tbodytr).append('<td>' + data[i].favoritesCount + '</td>');
+            //    $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
+           //     $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
+                $(tbodytr).append('<td><input type="hidden" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
                 // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
                 // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
                 $(tbodytr).append('<td>' + data[i].dateCreated + '</td>');
                 $(tbodytr).append('<td> '+ data[i].createdByName + '</td>');
-                var tbodytr2 = document.createElement("tr");
-                tbody.appendChild(tbodytr2);
-                for (var j = 0; data[i].tags.length > j; j++) {
-                    $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
-                }
+            //    var tbodytr2 = document.createElement("tr");
+            //    tbody.appendChild(tbodytr2);
+            //    for (var j = 0; data[i].tags.length > j; j++) {
+            //        $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
+            //    }
                 
 
             }
@@ -95,7 +95,7 @@ function Viewforums() {
                 $(tbodytr).append('<td><button id="btnFavorite" <i class="glyphicon glyphicon-thumbs-up"></i>' + data[i].favoritesCount + '</button> </td>');
                 $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
                 $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
-                $(tbodytr).append('<td><span glyphicon glyphicon-thumbs-down title="title"><input type="hidden" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
+                $(tbodytr).append('<td><span title="title"><input type="hidden" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
                 // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
                 // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
                 $(tbodytr).append('<td>' + data[i].dateCreated + '</td>');
@@ -134,6 +134,7 @@ function submitNewForum() {
 
             console.log(data);
             if (data === true) {
+                HotTopic();
                 Viewforums();
             }
 

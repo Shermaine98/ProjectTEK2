@@ -186,16 +186,12 @@ public class ForumDAO {
                 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    PreparedStatement pstmt2 = conn.prepareStatement("SELECT forumID, COUNT(forumID) AS 'Favorites' \n"
-                            + "FROM forums_favorite\n"
-                            + "GROUP BY forumID\n"
-                            + "ORDER BY COUNT(forumID) DESC\n"
-                            + "LIMIT 5;");
+                    PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM FORUMS WHERE FORUMID = ?");
                     
                     int forumID = rs.getInt("forumID");
                     
                     pstmt2.setInt(1, forumID);
-                    ResultSet rs2 = pstmt.executeQuery();
+                    ResultSet rs2 = pstmt2.executeQuery();
                     while (rs2.next()) {
                         Forums forums = new Forums();
                         forums.setForumID(rs2.getInt("forumID"));

@@ -40,25 +40,9 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="box box-solid">
-                                <div class="box-body">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="2" style="font-size: medium; font-weight: 600">Top Topics</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">Caloocan City is the greatest city...</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">On the development of the city plan</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">Lalalalala</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+                                <div id="hotTopicDiv">
+                                    <!--HOT TOPIC CONTENTS-->
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -80,7 +64,7 @@
                                 <input type="text" value="<%=forum.getDateCreated()%>"/>
                                 <table>
                                     <% for (int i = 0; i < forum.getTags().size(); i++) {%>
-                                    <td> <%=forum.getTags()%> </td>
+                                    <td> <%=forum.getTags().get(i).getTag() %> </td>
                                     <%}%>
                                 </table>
                                 <div id="commentsBox">
