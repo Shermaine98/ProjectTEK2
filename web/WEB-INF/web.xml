@@ -332,6 +332,10 @@
         <servlet-name>NewForumServlet</servlet-name>
         <servlet-class>servlet.forums.NewForumServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForumSpecificServlet</servlet-name>
+        <servlet-class>servlet.forums.ForumSpecificServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -639,6 +643,10 @@
     <servlet-mapping>
         <servlet-name>NewForumServlet</servlet-name>
         <url-pattern>/NewForumServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForumSpecificServlet</servlet-name>
+        <url-pattern>/ForumSpecificServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

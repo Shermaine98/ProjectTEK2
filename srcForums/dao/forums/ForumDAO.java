@@ -40,7 +40,7 @@ public class ForumDAO {
                 rows = pstmt.executeUpdate();
                 conn.close();
             }
-            
+
             return rows == 1;
         } catch (SQLException ex) {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
@@ -77,6 +77,42 @@ public class ForumDAO {
             }
 
             return arrForums;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Forums getForum(String forumTitle) throws ParseException {
+        Forums forums = new Forums();
+        RecordDAO recordsDAO = new RecordDAO();
+        CommentsDAO commentsDAO = new CommentsDAO();
+        TagsDAO tagsDAO = new TagsDAO();
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS WHERE FORUMTITLE = ?");
+                pstmt.setString(1, forumTitle);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    forums.setForumID(rs.getInt("forumID"));
+                    forums.setCreatedBy(rs.getInt("createdBy"));
+                    forums.setForumTitle(rs.getString("forumTitle"));
+                    forums.setBody(rs.getString("body"));
+                    forums.setReportCount(rs.getInt("reportCount"));
+                    forums.setDateCreated(rs.getDate("dateCreated"));
+                    forums.setFavoritesCount(getFavorites(forums.getForumID()));
+                    forums.setCommentsCount(getCommentsCount(forums.getForumID()));
+                    forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
+                    forums.setComments(commentsDAO.getComments(forums.getForumID()));
+                    forums.setTags(tagsDAO.getTags(forums.getForumID()));
+                }
+
+                pstmt.close();
+                rs.close();
+            }
+
+            return forums;
         } catch (SQLException ex) {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
@@ -121,7 +157,6 @@ public class ForumDAO {
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
                     count = rs.getInt("CommentsCounts");
-
                 }
 
                 pstmt.close();

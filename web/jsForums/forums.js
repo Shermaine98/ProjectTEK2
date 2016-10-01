@@ -40,14 +40,14 @@ function Viewforums() {
                 $(tbodytr).append('<td><span title="comments">' + data[i].commentsCount + '</span</td>');
                 $(tbodytr).append('<td><span title="favoritesCount"></span>' + data[i].commentsCount + '</td>');
                 $(tbodytr).append('<td><span title="reports">' + data[i].reportCounts + '</span</td>');
-                $(tbodytr).append('<td><span title="title">' + data[i].forumTitle + '</span></td>');
-                $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
+                $(tbodytr).append('<td><span title="title"><a class="titleName">' + data[i].forumTitle + '</a></span></td>');
+                // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
                 // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
                 $(tbodytr).append('<td><span title="createdByName">' + data[i].createdByName + '</span></td>');
                 var tbodytr2 = document.createElement("tr");
                 tbody.appendChild(tbodytr2);
                 for (var j = 0; data[i].tags.length > j; j++) {
-                    $(tbodytr2).append('<td>' + data[i].tags[j].tag + '</td>');
+                    $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
                 }
                 $(tbodytr2).append('<td>' + data[i].dateCreated + '</td>');
 
@@ -65,8 +65,6 @@ function submitNewForum() {
 
     var forumTitle = document.getElementById('forumTitle').value;
     var forumBody = document.getElementById('forumBody').value;
-    console.log(forumTitle);
-    console.log(forumBody);
 
     $.ajax({
         url: "NewForumServlet",
@@ -76,10 +74,9 @@ function submitNewForum() {
             forumTitle: forumTitle,
             forumBody: forumBody
         },
-        
-         success: function (data) {
+        success: function (data) {
 
-        console.log(data);
+            console.log(data);
             if (data === true) {
                 Viewforums();
             }
@@ -90,3 +87,34 @@ function submitNewForum() {
     });
 
 }
+
+// if title is clicked - redirect get TitleName and redirect to specific forum page
+
+$(document).on('click', '.titleName', function () {
+    var titleName = $(this).text();
+
+    $.ajax({
+        url: "NewForumServlet",
+        type: 'POST',
+        dataType: "JSON",
+        data: {
+            titleName: titleName
+        }
+    });
+});
+
+
+// if tags is clicked - redirect get to page with tags
+
+$(document).on('click', '.tagsName', function () {
+    var tagsName = $(this).text();
+    
+    $.ajax({
+        url: "NewForumServlet",
+        type: 'POST',
+        dataType: "JSON",
+        data: {
+            tagsName: tagsName
+        }
+    });
+});

@@ -233,7 +233,7 @@ public class RetrieveDataEducationServlet extends BaseServlet {
 
         } else {
             request.setAttribute("page", "error");
-            rd = request.getRequestDispatcher("/WEB-INF/redirect_error.jsp");
+            rd = request.getRequestDispatcher("redirect_error.jsp");
             rd.forward(request, response);
 
         }
