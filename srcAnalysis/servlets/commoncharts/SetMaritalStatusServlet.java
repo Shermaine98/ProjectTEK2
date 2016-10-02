@@ -6,7 +6,10 @@
 package servlets.commoncharts;
 
 import dao.RecordDAO;
+import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
+import dao.analysis.DistrictDAO;
+import dao.analysis.FactPeopleDAO;
 import dao.charts.MaritalStatusChart;
 import dao.demo.MaritalStatusDAO;
 import model.Record;
@@ -25,8 +28,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
+import static java.util.logging.Level.SEVERE;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import model.analysis.FactPeople;
+import servlet.setdata.SetAnalysisDataServlet;
 
 
 /**
@@ -50,142 +56,64 @@ public class SetMaritalStatusServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             CensusYearDAO censusYearDAO = new CensusYearDAO();
-            
+            DistrictDAO chartsDistrict = new DistrictDAO();
+            FactPeopleDAO chartPeople = new FactPeopleDAO();
+            BarangayDAO chartsBarangay = new BarangayDAO();
             
             String censusYear = String.valueOf(censusYearDAO.getLatestYear());
-            JSONArray jarrayTable = new JSONArray();
-            JSONArray jarrayMaleBarangays = new JSONArray();
-            JSONArray jarrayFemaleBarangays = new JSONArray();
-            JSONArray jarrayMaleAgeGroup = new JSONArray();
-            JSONArray jarrayFemaleAgeGroup = new JSONArray();
-            JSONObject objTotal = new JSONObject();
+            JSONArray jarrayYears = new JSONArray();
+            JSONArray jarrayDistrict = new JSONArray();
+            JSONArray jarrayPeople = new JSONArray();
+            JSONArray jarrayBarangays = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
-            MaritalStatusChart chart = new MaritalStatusChart();
-
-          
-            int formID = 300000000 + parseInt(censusYear);
-            ArrayList<MaritalStatus> MaritalTable = new MaritalStatusDAO().ViewMaritalStatusFormID(formID);
-            MaritalStatus maritalStatus = chart.retrieveOverAllMaritalStatus(formID);
-            ArrayList<MaritalStatus> maleBarangays = chart.retrieveMaleBarangays(formID);
-            ArrayList<MaritalStatus> femaleBarangays = chart.retrieveFemaleBarangays(formID);
-            ArrayList<MaritalStatus> maleAgeGroup = chart.retrieveMaleAgeGroup(formID);
-            ArrayList<MaritalStatus> femaleAgeGroup = chart.retrieveFemaleAgeGroup(formID);
-
-            JSONObject objArrMaritalStatus = new JSONObject();
-            try {
-                objArrMaritalStatus.put("censusYear", censusYear);
-                objArrMaritalStatus.put("maritalStatusSingle", maritalStatus.getSingle());
-                objArrMaritalStatus.put("maritalStatusCommonLaw", maritalStatus.getCommonLawLiveIn());
-                objArrMaritalStatus.put("maritalStatusDivorced", maritalStatus.getDivorcedSeparated());
-                objArrMaritalStatus.put("maritalStatusMaried", maritalStatus.getMarried());
-                objArrMaritalStatus.put("maritalStatusUnknown", maritalStatus.getUnknown());
-                objArrMaritalStatus.put("maritalStatusWidowed", maritalStatus.getWidowed());
-            } catch (JSONException ex) {
-                getLogger(SetMaritalStatusServlet.class.getName()).log(SEVERE, null, ex);
-            }
-
-
-            for (int i = 0; i < maleBarangays.size(); i++) {
-                JSONObject objarrMaleBarangays = new JSONObject();
-                try {
-                    objarrMaleBarangays.put("arrMaleLocation", maleBarangays.get(i).getLocation());
-                    objarrMaleBarangays.put("arrMaleSex", maleBarangays.get(i).getSex());
-                    objarrMaleBarangays.put("arrMaleSingle", maleBarangays.get(i).getSingle());
-                    objarrMaleBarangays.put("arrMaleMarried", maleBarangays.get(i).getMarried());
-                    objarrMaleBarangays.put("arrMaleWidowed", maleBarangays.get(i).getWidowed());
-                    objarrMaleBarangays.put("arrMaleSeparated", maleBarangays.get(i).getDivorcedSeparated());
-                    objarrMaleBarangays.put("arrMaleLiveIn", maleBarangays.get(i).getCommonLawLiveIn());
-                    objarrMaleBarangays.put("arrMaleUnknown", maleBarangays.get(i).getUnknown());
-                    jarrayMaleBarangays.put(objarrMaleBarangays);
-                } catch (JSONException ex) {
-                    getLogger(SetMaritalStatusServlet.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
-            for (int i = 0; i < femaleBarangays.size(); i++) {
-                JSONObject objarrFemaleBarangays = new JSONObject();
-                try {
-                    objarrFemaleBarangays.put("arrFemaleLocation", femaleBarangays.get(i).getLocation());
-                    objarrFemaleBarangays.put("arrFemaleSex", femaleBarangays.get(i).getSex());
-                    objarrFemaleBarangays.put("arrFemaleSingle", femaleBarangays.get(i).getSingle());
-                    objarrFemaleBarangays.put("arrFemaleMarried", femaleBarangays.get(i).getMarried());
-                    objarrFemaleBarangays.put("arrFemaleWidowed", femaleBarangays.get(i).getWidowed());
-                    objarrFemaleBarangays.put("arrFemaleSeparated", femaleBarangays.get(i).getDivorcedSeparated());
-                    objarrFemaleBarangays.put("arrFemaleLiveIn", femaleBarangays.get(i).getCommonLawLiveIn());
-                    objarrFemaleBarangays.put("arrFemaleUnknown", femaleBarangays.get(i).getUnknown());
-                    jarrayFemaleBarangays.put(objarrFemaleBarangays);
-                } catch (JSONException ex) {
-                    getLogger(SetMaritalStatusServlet.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
-            for (int i = 0; i < maleAgeGroup.size(); i++) {
-                JSONObject objarrMaleAgeGroup = new JSONObject();
-                try {
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupLocation", maleAgeGroup.get(i).getLocation());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupAgeGroup", maleAgeGroup.get(i).getAgeGroup());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupSex", maleAgeGroup.get(i).getSex());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupSingle", maleAgeGroup.get(i).getSingle());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupMarried", maleAgeGroup.get(i).getMarried());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupWidowed", maleAgeGroup.get(i).getWidowed());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupSeparated", maleAgeGroup.get(i).getDivorcedSeparated());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupLiveIn", maleAgeGroup.get(i).getCommonLawLiveIn());
-                    objarrMaleAgeGroup.put("arrMaleAgeGroupUnknown", maleAgeGroup.get(i).getUnknown());
-                    jarrayMaleAgeGroup.put(objarrMaleAgeGroup);
-                } catch (JSONException ex) {
-                    getLogger(SetMaritalStatusServlet.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
-            for (int i = 0; i < femaleAgeGroup.size(); i++) {
-                JSONObject objarrFemaleAgeGroup = new JSONObject();
-                try {
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupLocation", femaleAgeGroup.get(i).getLocation());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupAgeGroup", femaleAgeGroup.get(i).getAgeGroup());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleSex", femaleAgeGroup.get(i).getSex());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleSingle", femaleAgeGroup.get(i).getSingle());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleMarried", femaleAgeGroup.get(i).getMarried());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleWidowed", femaleAgeGroup.get(i).getWidowed());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleSeparated", femaleAgeGroup.get(i).getDivorcedSeparated());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleLiveIn", femaleAgeGroup.get(i).getCommonLawLiveIn());
-                    objarrFemaleAgeGroup.put("arrFemaleAgeGroupFemaleUnknown", femaleAgeGroup.get(i).getUnknown());
-                    jarrayFemaleAgeGroup.put(objarrFemaleAgeGroup);
-                } catch (JSONException ex) {
-                    getLogger(SetMaritalStatusServlet.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
-
-            Record records = new RecordDAO().GetbyFormID(formID);
-
-            for (int i = 0; i < MaritalTable.size(); i++) {
-                JSONObject objTable = new JSONObject();
-                try {
-                    objTable.put("location", MaritalTable.get(i).getLocation());
-                    objTable.put("sex", MaritalTable.get(i).getSex());
-                    objTable.put("ageGroup", MaritalTable.get(i).getAgeGroup());
-                    objTable.put("single", MaritalTable.get(i).getSingle());
-                    objTable.put("married", MaritalTable.get(i).getMarried());
-                    objTable.put("widowed", MaritalTable.get(i).getWidowed());
-                    objTable.put("divorced", MaritalTable.get(i).getDivorcedSeparated());
-                    objTable.put("liveIn", MaritalTable.get(i).getCommonLawLiveIn());
-                    objTable.put("unknown", MaritalTable.get(i).getUnknown());
-                    objTable.put("total", MaritalTable.get(i).getTotal());
-                    objTable.put("UploadedBy", records.getUploadedByByName());
-                    objTable.put("ApprovedBy", records.getApprovedByName());
-                    jarrayTable.put(objTable);
-                } catch (JSONException ex) {
-                    getLogger(SetMaritalStatusServlet.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
             
-            ObjectAll.put("Total", objArrMaritalStatus);
-            ObjectAll.put("maleBarangay", jarrayMaleBarangays);
-            ObjectAll.put("femaleBarangay", jarrayFemaleBarangays);
-            ObjectAll.put("maleAgeGroup", jarrayMaleAgeGroup);
-            ObjectAll.put("femaleAgeGroup", jarrayFemaleAgeGroup);
-            ObjectAll.put("maritalTable", jarrayTable);
+            ArrayList<Integer> barangays = chartsBarangay.retrieveBarangays();
+            ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
+            ArrayList<String> district = chartsDistrict.retrieveDistricts();
+            ArrayList<FactPeople> people = chartPeople.retrieveMaritalStatus();
+
+            for(int i = 0; i < people.size(); i++){
+                JSONObject objPeople = new JSONObject();
+                try {
+                    objPeople.put("year", people.get(i).getCensusYear());
+                    objPeople.put("district", people.get(i).getDistrict());
+                    objPeople.put("widowed", people.get(i).getTotalNoOfWidowed());
+                    objPeople.put("unknown", people.get(i).getTotalNoOfUnknown());
+                    objPeople.put("married", people.get(i).getTotalNoOfMarried());
+                    objPeople.put("divorced", people.get(i).getTotalNoOfDivorced());
+                    objPeople.put("single", people.get(i).getTotalNoOfSingle());
+                    objPeople.put("liveIn", people.get(i).getTotalNoOfLiveIn());
+                    objPeople.put("zone", people.get(i).getZone());
+                    jarrayPeople.put(objPeople);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < censusYears.size(); i++){
+                JSONObject objYears = new JSONObject();
+                try {
+                    objYears.put("year", censusYears.get(i));
+                    jarrayYears.put(objYears);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < barangays.size(); i++){
+                JSONObject objBgy = new JSONObject();
+                try {
+                    objBgy.put("barangay", barangays.get(i));
+                    jarrayBarangays.put(objBgy);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            ObjectAll.put("years", jarrayYears);
+            ObjectAll.put("people", jarrayPeople);
+            ObjectAll.put("barangays", jarrayBarangays);
+            ObjectAll.put("districts", jarrayDistrict);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().write("[" + ObjectAll.toString() + "]");

@@ -217,4 +217,50 @@ public class FactPeopleDAO {
         }
         return null;
     }
+    
+    public ArrayList<FactPeople> retrieveMaritalStatus() throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            ArrayList<FactPeople> factPeople = new ArrayList<FactPeople>();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT FP.CENSUSYEAR, FP.BARANGAY, \n" +
+"			 SUM(totalNoOfWidowed) AS 'WIDOWED', \n" +
+            "            SUM(totalNoOfUnknown) AS 'UNKNOWN', \n" +
+            "            SUM(totalNoOfMarried) AS 'MARRIED', \n" +
+            "            SUM(totalNoOfDivorced) AS 'DIVORCED', \n" +
+            "            SUM(totalNoOfLiveIn) AS 'LIVE-IN', \n" +
+            "            SUM(totalNoOfSingle) AS 'SINGLE',\n" +
+"                        DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE'\n" +
+"                FROM FACT_PEOPLE FP JOIN DIM_BARANGAY DB ON DB.BARANGAY = FP.BARANGAY \n" +
+"                		     JOIN LOCATION L ON FP.BARANGAY = L.BARANGAY AND FP.BARANGAY = DB.BARANGAY\n" +
+"                GROUP BY FP.BARANGAY, FP.CENSUSYEAR\n" +
+"                ORDER BY CENSUSYEAR, BARANGAY;");
+                ResultSet rs = pstmt.executeQuery();
+                
+                while (rs.next()) {
+                    FactPeople temp = new FactPeople();
+                    temp.setCensusYear(rs.getInt("CENSUSYEAR"));
+                    temp.setBarangay(rs.getInt("BARANGAY"));
+                    temp.setDistrict(rs.getString("DISTRICT"));
+                    temp.setTotalNoOfWidowed(rs.getInt("WIDOWED"));
+                    temp.setTotalNoOfUnknown(rs.getInt("UNKNOWN"));
+                    temp.setTotalNoOfMarried(rs.getInt("MARRIED"));
+                    temp.setTotalNoOfDivorced(rs.getInt("DIVORCED"));
+                    temp.setTotalNoOfLiveIn(rs.getInt("LIVE-IN"));
+                    temp.setTotalNoOfSingle(rs.getInt("SINGLE"));
+                    temp.setZone(rs.getString("ZONE"));
+                    if(temp.getTotalNoOfPeople()<= 0)
+                        temp.setIsOutlier(true);
+                    else
+                        temp.setIsOutlier(false);
+                    factPeople.add(temp);
+                }
+                pstmt.close();
+            }
+            return factPeople;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
 }

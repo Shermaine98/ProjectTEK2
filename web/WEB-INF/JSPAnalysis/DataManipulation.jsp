@@ -481,21 +481,24 @@
                     addWithoutChartSelections('getFactPeople()');
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
-                    setMaritalStatus();
+                    var chart ='Pie Chart';
+                    setMaritalStatus(chart);
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Pie Chart','Table'];
                     addWithChartSelections('getFactPeople()',charts);
                 }
                 else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
                     setClassroomRequirement();
+                    var chart ='Bar Chart';
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Pie Chart','Table'];
+                    var charts=['Bar Chart','Table'];
                     addWithChartSelections('getFactEducation()',charts);
                 }
                 else if(conceptName=='Data on Enrollment, Teachers and Classrooms'){
                     setEnrollmentTeacherClassroom();
+                    var chart ='Bar Chart';
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Pie Chart','Table'];
+                    var charts=['Bar Chart','Table'];
                     addWithChartSelections('getFactEducation()',charts);
                     
                 }

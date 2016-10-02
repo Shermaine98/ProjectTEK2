@@ -164,18 +164,105 @@ function setHHPopAgeGroupSex (){
                 }
             })
         },
-        error: {
-            
+        error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
         }
     });
 }
 
-function setMaritalStatus() {
-    $.ajax({
+    var print;
+    var city = "Caloocan City";
+    function setMaritalStatus(chart) {
+        $.ajax({
         url: "SetMaritalStatusServlet",
         type: 'POST',
         dataType: "JSON",
         success: function (data) {
+            var print = data;
+            for (var i = 0; i < print[0].years.length; i++) {
+                    alert(print[0].years[i].year);
+                    $('#years').append('<input type="checkbox" class="filter" id="year" value="' 
+                            + print[0].years[i].year + '"checked>'
+                            +print[0].years[i].year+'</input></br>');
+                }
+
+                //district
+                for (var i = 0; i < print[0].districts.length; i++) {
+                    if(print[0].districts[i].district!=city){
+                        $('#districts').append('<input type="checkbox" class="filter" id="district" value="' 
+                                + print[0].districts[i].district + '" checked>'+print[0].districts[i].district+'</input></br>');
+                    }
+                }
+            if(chart=="0"||chart=="Pie Chart"){
+                drawMaritalStatusBar(print);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
+        }
+    });
+    }
+    
+    var year = [];
+    var district = [];
+    var barangay = [];
+    var analysischart = [];
+
+    
+    //CLICK location
+    $(document).on("click", '.filter', function () {
+        year = [];
+        district = [];
+        analysischart[0] = print[0];
+
+        $('[id="district"]:checked').each(function (e) {
+            var id = $(this).attr('value');
+            district.push(id);
+        });
+
+        $('[id="year"]:checked').each(function (e) {
+            var id = $(this).attr('value');
+            year.push(id);    
+        });
+        
+        removeYear(analysischart, year);
+        removeDistrict(analysischart, district);
+        chart(analysischart);
+
+    });
+
+    function removeYear(analysischart, year){
+        analysischart[0].years.length = 0;
+        for (var x = 0; x < year.length; x++) {
+            item = {};
+            item["year"] = year[x];
+            analysischart[0].years.push(item);
+        }
+    }
+    
+    function removeDistrict(analysischart, district){
+        analysischart[0].districts.length = 0;
+
+        for (var x = 0; x < district.length; x++) {
+            item = {};
+            item['district'] = district[x];
+            analysischart[0].districts.push(item);
+        }
+    }
+    
+    function removeBarangay(analysischart, barangay){
+        analysischart[0].barangays.length = 0;
+
+        for (var x = 0; x < barangay.length; x++) {
+            item = {};
+            item["barangay"] = barangay[x];
+            analysischart[0].barangays.push(item);
+        }
+    }
+    
+    
+    function drawMaritalStatusBar(print){
+    
             var print = data;    
             counter = 0;
             
@@ -654,12 +741,8 @@ function setMaritalStatus() {
                     series: []
                 }
             });
-        },
-        error: function (XMLHttpRequest, textStatus, exception) {
-            alert(XMLHttpRequest.responseText);
         }
-    });
-}
+
 
 
 function setClassroomRequirement(){
