@@ -72,9 +72,6 @@
                         </div>
                         <div align="center">
                             <br/><br/>
-
-                            
-                                
                             
                             <div id="theButtonsForPivot" style="display:none; margin-left: 2%;">
 

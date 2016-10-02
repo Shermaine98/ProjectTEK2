@@ -279,7 +279,6 @@ function setHHPopAgeGroupSex (){
                     }
             }
             widowedItem["y"] = widowedTotal;
-            widowedItem["drilldown"] = true;
             total.push(widowedItem);
             
             unknownItem = {};
@@ -296,7 +295,6 @@ function setHHPopAgeGroupSex (){
                     }
             }
             unknownItem["y"] = unknownTotal;
-            unknownItem["drilldown"] = true;
             total.push(unknownItem);
             
             marriedItem = {};
@@ -313,7 +311,6 @@ function setHHPopAgeGroupSex (){
                     }
             }
             marriedItem["y"] = marriedTotal;
-            marriedItem["drilldown"] = true;
             total.push(marriedItem);
             
             divorcedItem = {};
@@ -330,7 +327,6 @@ function setHHPopAgeGroupSex (){
                     }
             }
             divorcedItem["y"] = divorcedTotal;
-            divorcedItem["drilldown"] = true;
             total.push(divorcedItem);
             
             liveInItem = {};
@@ -347,7 +343,6 @@ function setHHPopAgeGroupSex (){
                     }
             }
             liveInItem["y"] = liveInTotal;
-            liveInItem["drilldown"] = true;
             total.push(liveInItem);
             
             singleItem = {};
@@ -364,48 +359,253 @@ function setHHPopAgeGroupSex (){
                     }
             }
             singleItem["y"] = singleTotal;
-            singleItem["drilldown"] = true;
             total.push(singleItem);
             
+            var drilldowns = [];
+            var south = 0; 
+            var north = 0;
+            item={};
+            item["name"] = 'Widowed';
+            item["id"] = 'widowed';
+            for (var i = 0; i < print[0].people.length; i++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                north+=print[0].people[i].widowed;
+                            }
+                            else if(print[0].people[i].zone==='SOUTH'){
+                                south+=print[0].people[i].widowed;
+                            }
+                        }
+                    }
+                }
+            }
+            data = [];
+            item2 = {};
+            item2["name"] = 'North';
+            item2["y"] = north;
+            item2["drilldown"] = 'widowedNorth';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South';
+            item2["y"] = south;
+            item2["drilldown"] = 'widowedSouth';
+            data.push(item2);
+            item['data'] = data;
+            drilldowns.push(item);
+            
+            var south = 0; 
+            var north = 0;
+            item={};
+            item["name"] = 'Married';
+            item["id"] = 'married';
+            for (var i = 0; i < print[0].people.length; i++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                north+=print[0].people[i].married;
+                            }
+                            else if(print[0].people[i].zone==='SOUTH'){
+                                south+=print[0].people[i].married;
+                            }
+                        }
+                    }
+                }
+            }
+            data = [];
+            item2 = {};
+            item2["name"] = 'North';
+            item2["y"] = north;
+            item2["drilldown"] = 'marriedNorth';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South';
+            item2["y"] = south;
+            item2["drilldown"] = 'marriedSouth';
+            data.push(item2);
+            item['data'] = data;
+            drilldowns.push(item);
+            
+            var south = 0; 
+            var north = 0;
+            item={};
+            item["name"] = 'Unknown';
+            item["id"] = 'unknown';
+            for (var i = 0; i < print[0].people.length; i++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                north+=print[0].people[i].unknown;
+                            }
+                            else if(print[0].people[i].zone==='SOUTH'){
+                                south+=print[0].people[i].unknown;
+                            }
+                        }
+                    }
+                }
+            }
+            data = [];
+            item2 = {};
+            item2["name"] = 'North';
+            item2["y"] = north;
+            item2["drilldown"] = 'unknownNorth';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South';
+            item2["y"] = south;
+            item2["drilldown"] = 'unknownSouth';
+            data.push(item2);
+            item['data'] = data;
+            drilldowns.push(item);
+            
+            var south = 0; 
+            var north = 0;
+            item={};
+            item["name"] = 'Divorced';
+            item["id"] = 'divorced';
+            for (var i = 0; i < print[0].people.length; i++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                north+=print[0].people[i].divorced;
+                            }
+                            else if(print[0].people[i].zone==='SOUTH'){
+                                south+=print[0].people[i].divorced;
+                            }
+                        }
+                    }
+                }
+            }
+            data = [];
+            item2 = {};
+            item2["name"] = 'North';
+            item2["y"] = north;
+            item2["drilldown"] = 'divorcedNorth';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South';
+            item2["y"] = south;
+            item2["drilldown"] = 'divorcedSouth';
+            data.push(item2);
+            item['data'] = data;
+            drilldowns.push(item);
+            
+            var south = 0; 
+            var north = 0;
+            item={};
+            item["name"] = 'Live-In';
+            item["id"] = 'liveIn';
+            for (var i = 0; i < print[0].people.length; i++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                north+=print[0].people[i].liveIn;
+                            }
+                            else if(print[0].people[i].zone==='SOUTH'){
+                                south+=print[0].people[i].liveIn;
+                            }
+                        }
+                    }
+                }
+            }
+            data = [];
+            item2 = {};
+            item2["name"] = 'North';
+            item2["y"] = north;
+            item2["drilldown"] = 'liveInNorth';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South';
+            item2["y"] = south;
+            item2["drilldown"] = 'liveInSouth';
+            data.push(item2);
+            item['data'] = data;
+            drilldowns.push(item);
+            
+            var south = 0; 
+            var north = 0;
+            item={};
+            item["name"] = 'Single';
+            item["id"] = 'single';
+            for (var i = 0; i < print[0].people.length; i++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                north+=print[0].people[i].single;
+                            }
+                            else if(print[0].people[i].zone==='SOUTH'){
+                                south+=print[0].people[i].single;
+                            }
+                        }
+                    }
+                }
+            }
+            data = [];
+            item2 = {};
+            item2["name"] = 'North';
+            item2["y"] = north;
+            item2["drilldown"] = 'singleNorth';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South';
+            item2["y"] = south;
+            item2["drilldown"] = 'singleSouth';
+            data.push(item2);
+            item['data'] = data;
+            drilldowns.push(item);
 
+
+            item={};
+            item["id"] = 'singleNorth';
+            item["name"] = 'Single in North Caloocan';
+            data = [];
+            for (var i = 0; i < print[0].people.length; i++) {
+                
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[i].district == print[0].districts[y].district){
+                        if(print[0].people[i].year == year){
+                            if(print[0].people[i].zone==='NORTH'){
+                                alert(print[0].people[i].single);
+                                item2 = {};
+                                item2["name"] =  print[0].people[i].district;
+                                item2["y"] = print[0].people[i].single;
+                                data.push(item2);
+                            }
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+            console.log(JSON.stringify(drilldowns));
+            
             $('#output').highcharts({
                 chart: {
                     type: chart,
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift'//,
                 },
                 title: {
                     text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status for ' + year
                 },
-                subtitle: {
-                    text: 'Click and drag to zoom in. Hold down shift key to pan.'
-                },
                 xAxis: {
                     type: 'category'
                 },
-                legend: {
-                    enabled: true
-                },
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
-                    }
-                },
                 series: [{
-                        name: 'Caloocan City',
-                        data:total
-                    }],
+                    name: 'Caloocan City',
+                    data: total
+                }],
                 drilldown: {
-                    series: []
-                }
+                    series: drilldowns
+                    }
             });
         }
 
