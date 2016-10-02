@@ -180,7 +180,6 @@ function setHHPopAgeGroupSex (){
         success: function (data) {
             var print = data;
             for (var i = 0; i < print[0].years.length; i++) {
-                    alert(print[0].years[i].year);
                     $('#years').append('<input type="checkbox" class="filter" id="year" value="' 
                             + print[0].years[i].year + '"checked>'
                             +print[0].years[i].year+'</input></br>');
@@ -193,9 +192,12 @@ function setHHPopAgeGroupSex (){
                                 + print[0].districts[i].district + '" checked>'+print[0].districts[i].district+'</input></br>');
                     }
                 }
-            if(chart=="0"||chart=="Pie Chart"){
-                drawMaritalStatusBar(print);
-            }
+                if(chart=="0"||chart=="Pie Chart"){
+                    drawMaritalStatusBar(print, 2015,'pie');
+                }
+                else if(chart=="0"||chart=="Bar Chart"){
+                    drawMaritalStatusBar(print, 2015,'column');
+                }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -261,440 +263,121 @@ function setHHPopAgeGroupSex (){
     }
     
     
-    function drawMaritalStatusBar(print){
-    
-            var print = data;    
-            counter = 0;
-            
-            var barangays = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                barangays.push(print[0].maleBarangay[i].arrMaleLocation);
-            }
-
-            var ageGroups = [];
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        ageGroups.push(print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup);
-                    }
-                }
-            }
-
-            var singleMale = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].maleBarangay[i].arrMaleLocation + " - single male";
-                item["y"] = print[0].maleBarangay[i].arrMaleSingle;
-                item["drilldown"] = true;
-                singleMale.push(item);
-            }
-
-            var singleFemale = [];
-            for (var i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].femaleBarangay[i].arrFemaleLocation + " - single female";
-                item["y"] = print[0].femaleBarangay[i].arrFemaleSingle;
-                item["drilldown"] = true;
-                singleFemale.push(item);
-            }
-
-            var marriedMale = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].maleBarangay[i].arrMaleLocation + " - married male";
-                item["y"] = print[0].maleBarangay[i].arrMaleMarried;
-                item["drilldown"] = true;
-                marriedMale.push(item);
-            }
-
-            var marriedFemale = [];
-            for (var i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].femaleBarangay[i].arrFemaleLocation + " - married female";
-                item["y"] = print[0].femaleBarangay[i].arrFemaleMarried;
-                item["drilldown"] = true;
-                marriedFemale.push(item);
-            }
-
-            var divorcedMale = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].maleBarangay[i].arrMaleLocation + " - divorced male";
-                item["y"] = print[0].maleBarangay[i].arrMaleSeparated;
-                item["drilldown"] = true;
-                divorcedMale.push(item);
-            }
-
-            var divorcedFemale = [];
-            for (var i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].femaleBarangay[i].arrFemaleLocation + " - divorced female";
-                item["y"] = print[0].femaleBarangay[i].arrFemaleSeparated;
-                item["drilldown"] = true;
-                divorcedFemale.push(item);
-            }
-
-            var commonLawMale = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].maleBarangay[i].arrMaleLocation + " - common male";
-                item["y"] = print[0].maleBarangay[i].arrMaleLiveIn;
-                item["drilldown"] = true;
-                commonLawMale.push(item);
-            }
-
-            var commonLawFemale = [];
-            for (var i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].femaleBarangay[i].arrFemaleLocation + " - common female";
-                item["y"] = print[0].femaleBarangay[i].arrFemaleLiveIn;
-                item["drilldown"] = true;
-                commonLawFemale.push(item);
-            }
-
-
-            var widowedMale = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].maleBarangay[i].arrMaleLocation + " - widowed male";
-                item["y"] = print[0].maleBarangay[i].arrMaleWidowed;
-                item["drilldown"] = true;
-                widowedMale.push(item);
-            }
-
-            var widowedFemale = [];
-            for (var i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].femaleBarangay[i].arrFemaleLocation + " - widowed female";
-                item["y"] = print[0].femaleBarangay[i].arrFemaleWidowed;
-                item["drilldown"] = true;
-                widowedFemale.push(item);
-            }
-
-            var unknownMale = [];
-            for (var i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].maleBarangay[i].arrMaleLocation + " - unknown male";
-                item["y"] = print[0].maleBarangay[i].arrMaleUnknown;
-                item["drilldown"] = true;
-                unknownMale.push(item);
-            }
-
-            var unknownFemale = [];
-            for (var i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = print[0].femaleBarangay[i].arrFemaleLocation + " - unknown female";
-                item["y"] = print[0].femaleBarangay[i].arrFemaleUnknown;
-                item["drilldown"] = true;
-                unknownFemale.push(item);
-            }
-
-            var maritalStatus =
-                    {'Single': {
-                            name: 'Male',
-                            type: 'column',
-                            data: singleMale
-                        },
-                        'Single2': {
-                            name: 'Female',
-                            type: 'column',
-                            color: '#FF9999',
-                            data: singleFemale
-                        },
-                        'Married': {
-                            name: 'Male',
-                            type: 'column',
-                            data: marriedMale
-                        },
-                        'Married2': {
-                            name: 'Female',
-                            type: 'column',
-                            color: 'red',
-                            data: marriedFemale
-                        },
-                        'Divorced': {
-                            name: 'Male',
-                            type: 'column',
-                            data: divorcedMale
-                        },
-                        'Divorced2': {
-                            name: 'Female',
-                            type: 'column',
-                            color: '#bada55',
-                            data: divorcedFemale
-                        },
-                        'Common Law/Live-in': {
-                            name: 'Male',
-                            type: 'column',
-                            data: commonLawMale
-                        },
-                        'Common Law/Live-in2': {
-                            name: 'Female',
-                            type: 'column',
-                            color: '#FF9999',
-                            data: commonLawFemale
-                        },
-                        'Widowed': {
-                            name: 'Male',
-                            type: 'column',
-                            data: widowedMale
-                        },
-                        'Widowed2': {
-                            name: 'Female',
-                            type: 'column',
-                            color: '#FF9999',
-                            data: widowedFemale
-                        },
-                        'Unknown': {
-                            name: 'Male',
-                            type: 'column',
-                            data: unknownMale
-                        },
-                        'Unknown2': {
-                            name: 'Female',
-                            type: 'column',
-                            color: '#FF9999',
-                            data: unknownFemale
-                        }};
-
-            for (i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].maleAgeGroup.length; x++) {
-                    if (print[0].maleBarangay[i].arrMaleLocation == print[0].maleAgeGroup[x].arrMaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].maleAgeGroup[x].arrMaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].maleAgeGroup[x].arrMaleAgeGroupSingle;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].maleBarangay[i].arrMaleLocation + " - single male"] = item;
-            }
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Female';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupFemaleSingle;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].femaleBarangay[i].arrFemaleLocation + " - single female"] = item;
-            }
-
-            for (i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].maleAgeGroup.length; x++) {
-                    if (print[0].maleBarangay[i].arrMaleLocation == print[0].maleAgeGroup[x].arrMaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].maleAgeGroup[x].arrMaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].maleAgeGroup[x].arrMaleAgeGroupMarried;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].maleBarangay[i].arrMaleLocation + " - married male"] = item;
-            }
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Female';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupFemaleMarried;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].femaleBarangay[i].arrFemaleLocation + " - married female"] = item;
-            }
-
-
-            for (i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].maleAgeGroup.length; x++) {
-                    if (print[0].maleBarangay[i].arrMaleLocation == print[0].maleAgeGroup[x].arrMaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].maleAgeGroup[x].arrMaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].maleAgeGroup[x].arrMaleAgeGroupSeparated;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].maleBarangay[i].arrMaleLocation + " - divorced male"] = item;
-            }
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Female';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupFemaleSeparated;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].femaleBarangay[i].arrFemaleLocation + " - divorced female"] = item;
-            }
-
-            for (i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].maleAgeGroup.length; x++) {
-                    if (print[0].maleBarangay[i].arrMaleLocation == print[0].maleAgeGroup[x].arrMaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].maleAgeGroup[x].arrMaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].maleAgeGroup[x].arrMaleAgeGroupWidowed;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].maleBarangay[i].arrMaleLocation + " - widowed male"] = item;
-            }
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Female'
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupFemaleWidowed;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].femaleBarangay[i].arrFemaleLocation + " - widowed female"] = item;
-            }
-
-            for (i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].maleAgeGroup.length; x++) {
-                    if (print[0].maleBarangay[i].arrMaleLocation == print[0].maleAgeGroup[x].arrMaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].maleAgeGroup[x].arrMaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].maleAgeGroup[x].arrMaleAgeGroupLiveIn;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].maleBarangay[i].arrMaleLocation + " - common male"] = item;
-            }
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Female';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupFemaleLiveIn;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].femaleBarangay[i].arrFemaleLocation + " - common female"] = item;
-            }
-
-            for (i = 0; i < print[0].maleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].maleAgeGroup.length; x++) {
-                    if (print[0].maleBarangay[i].arrMaleLocation == print[0].maleAgeGroup[x].arrMaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].maleAgeGroup[x].arrMaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].maleAgeGroup[x].arrMaleAgeGroupUnknown;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].maleBarangay[i].arrMaleLocation + " - unknown male"] = item;
-            }
-            for (i = 0; i < print[0].femaleBarangay.length; i++) {
-                item = {};
-                item["name"] = 'Female';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].femaleAgeGroup.length; x++) {
-                    if (print[0].femaleBarangay[i].arrFemaleLocation == print[0].femaleAgeGroup[x].arrFemaleAgeGroupLocation) {
-                        item2 = {}
-                        item2["name"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupAgeGroup;
-                        item2["y"] = print[0].femaleAgeGroup[x].arrFemaleAgeGroupFemaleUnknown;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                maritalStatus[print[0].femaleBarangay[i].arrFemaleLocation + " - unknown female"] = item;
-            }
-
-            console.log(JSON.stringify(maritalStatus));
-
-            $('#output').highcharts({
-                chart: {
-                    type: 'pie',
-                    zoomType: 'x',
-                    panning: true,
-                    panKey: 'shift',
-                    events: {
-                        drilldown: function (e) {
-                            if (!e.seriesOptions) {
-                                var chart = this,
-                                        drilldowns = maritalStatus,
-                                        series = [drilldowns[e.point.name], drilldowns[e.point.name + '2']];
-                                chart.addSingleSeriesAsDrilldown(e.point, series[0]);
-                                chart.addSingleSeriesAsDrilldown(e.point, series[1]);
-                                chart.applyDrilldown();
-                                counter++;
-                                if (counter === 1) {
-                                    chart.xAxis[0].update({categories: barangays});
-                                } else if (counter === 2) {
-                                    chart.xAxis[0].update({categories: ageGroups});
-                                }
-                            }
-                        },
-                        drillup: function (e) {
-
-                            var chart = this;
-                            if (counter == 2) {
-                                counter--;
-                            }
-                            if (counter === 1) {
-                                chart.xAxis[0].update({categories: barangays});
+    function drawMaritalStatusBar(print, year, chart){
+            var total = [];
+            widowedItem = {};
+            var widowedTotal = 0;
+            widowedItem["name"] = 'Widowed';
+            widowedItem["drilldown"] = 'widowed';
+            for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[i].district == print[0].districts[y].district){
+                            if(print[0].people[i].year == year){
+                                widowedTotal+=print[0].people[i].widowed;
                             }
                         }
                     }
+            }
+            widowedItem["y"] = widowedTotal;
+            widowedItem["drilldown"] = true;
+            total.push(widowedItem);
+            
+            unknownItem = {};
+            var unknownTotal = 0;
+            unknownItem["name"] = 'Unknown';
+            unknownItem["drilldown"] = 'unknown';
+            for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[i].district == print[0].districts[y].district){
+                            if(print[0].people[i].year == year){
+                                unknownTotal+=print[0].people[i].unknown;
+                            }
+                        }
+                    }
+            }
+            unknownItem["y"] = unknownTotal;
+            unknownItem["drilldown"] = true;
+            total.push(unknownItem);
+            
+            marriedItem = {};
+            var marriedTotal = 0;
+            marriedItem["name"] = 'Married';
+            marriedItem["drilldown"] = 'married';
+            for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[i].district == print[0].districts[y].district){
+                            if(print[0].people[i].year == year){
+                                marriedTotal+=print[0].people[i].married;
+                            }
+                        }
+                    }
+            }
+            marriedItem["y"] = marriedTotal;
+            marriedItem["drilldown"] = true;
+            total.push(marriedItem);
+            
+            divorcedItem = {};
+            var divorcedTotal = 0;
+            divorcedItem["name"] = 'Divorced';
+            divorcedItem["drilldown"] = 'divorced';
+            for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[i].district == print[0].districts[y].district){
+                            if(print[0].people[i].year == year){
+                                divorcedTotal+=print[0].people[i].divorced;
+                            }
+                        }
+                    }
+            }
+            divorcedItem["y"] = divorcedTotal;
+            divorcedItem["drilldown"] = true;
+            total.push(divorcedItem);
+            
+            liveInItem = {};
+            var liveInTotal = 0;
+            liveInItem["name"] = 'Live-In';
+            liveInItem["drilldown"] = 'liveIn';
+            for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[i].district == print[0].districts[y].district){
+                            if(print[0].people[i].year == year){
+                                liveInTotal+=print[0].people[i].liveIn;
+                            }
+                        }
+                    }
+            }
+            liveInItem["y"] = liveInTotal;
+            liveInItem["drilldown"] = true;
+            total.push(liveInItem);
+            
+            singleItem = {};
+            var singleTotal = 0;
+            singleItem["name"] = 'Single';
+            singleItem["drilldown"] = 'single';
+            for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[i].district == print[0].districts[y].district){
+                            if(print[0].people[i].year == year){
+                                singleTotal+=print[0].people[i].single;
+                            }
+                        }
+                    }
+            }
+            singleItem["y"] = singleTotal;
+            singleItem["drilldown"] = true;
+            total.push(singleItem);
+            
+
+            $('#output').highcharts({
+                chart: {
+                    type: chart,
+                    drilled: false,
+                    zoomType: 'xy',
+                    panning: true,
+                    panKey: 'shift'
                 },
                 title: {
-                    text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status for ' + print[0].Total.censusYear
+                    text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status for ' + year
                 },
                 subtitle: {
                     text: 'Click and drag to zoom in. Hold down shift key to pan.'
@@ -709,33 +392,16 @@ function setHHPopAgeGroupSex (){
                     series: {
                         borderWidth: 0,
                         dataLabels: {
-                            enabled: true
+                            enabled: true,
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
                         }
                     }
                 },
                 series: [{
                         name: 'Caloocan City',
-                        colorByPoint: true,
-                        data: [{
-                                name: 'Single',
-                                y: print[0].Total.maritalStatusSingle,
-                                drilldown: true}, {
-                                name: 'Common Law/Live-in',
-                                y: print[0].Total.maritalStatusCommonLaw,
-                                drilldown: true}, {
-                                name: 'Divorced',
-                                y: print[0].Total.maritalStatusDivorced,
-                                drilldown: true}, {
-                                name: 'Married',
-                                y: print[0].Total.maritalStatusMaried,
-                                drilldown: true}, {
-                                name: 'Unknown',
-                                y: print[0].Total.maritalStatusUnknown,
-                                drilldown: true}, {
-                                name: 'Widowed',
-                                y: print[0].Total.maritalStatusWidowed,
-                                drilldown: true
-                            }]
+                        data:total
                     }],
                 drilldown: {
                     series: []
@@ -955,7 +621,6 @@ function setEnrollmentTeacherClassroom(){
             },
             plotOptions: {
                 column: {
-//        stacking: 'normal'
                     dataLabels: {
                         enabled: true
                     },

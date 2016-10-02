@@ -110,6 +110,16 @@ public class SetMaritalStatusServlet extends HttpServlet {
                 }
             }
             
+            for(int i = 0; i < district.size(); i++){
+                JSONObject objBgy = new JSONObject();
+                try {
+                    objBgy.put("district", district.get(i));
+                    jarrayDistrict.put(objBgy);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
             ObjectAll.put("years", jarrayYears);
             ObjectAll.put("people", jarrayPeople);
             ObjectAll.put("barangays", jarrayBarangays);

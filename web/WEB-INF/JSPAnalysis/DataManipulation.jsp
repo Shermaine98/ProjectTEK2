@@ -318,7 +318,7 @@
                                                 <div class='col-md-5'>\n\
                                                     <table>\n\
                                                         <tr>\n\
-                                                            <select id='charts' name='charts' class='form-control'>\n\
+                                                            <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
                                                             </select>\n\
                                                             </br>\n\
                                                         </tr>\n\
@@ -486,6 +486,37 @@
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Pie Chart','Table'];
                     addWithChartSelections('getFactPeople()',charts);
+                }
+                else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
+                    setClassroomRequirement();
+                    var chart ='Bar Chart';
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Table'];
+                    addWithChartSelections('getFactEducation()',charts);
+                }
+                else if(conceptName=='Data on Enrollment, Teachers and Classrooms'){
+                    setEnrollmentTeacherClassroom();
+                    var chart ='Bar Chart';
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Table'];
+                    addWithChartSelections('getFactEducation()',charts);
+                    
+                }
+            }
+            
+            function changeChart(){
+                var conceptName = $('#commonReports').find(":selected").text();
+                var chartSelected = $('#charts').find(":selected").text();
+                if(conceptName=='Household Population by Age Group and Sex'){
+                    setHHPopAgeGroupSex();
+                    addWithoutChartSelections('getFactPeople()');
+                }
+                else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
+                    setMaritalStatus(chart);
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Pie Chart','Table'];
+                    addWithChartSelections('getFactPeople()',charts);
+                    setMaritalStatus(chartSelected);
                 }
                 else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
                     setClassroomRequirement();
