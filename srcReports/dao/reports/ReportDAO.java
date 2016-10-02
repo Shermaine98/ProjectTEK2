@@ -32,7 +32,7 @@ public class ReportDAO {
             int rows;
             try (Connection conn = myFactory.getConnection()) {
 
-                String query2 = "INSERT INTO report_analysis "
+                String query2 = "INSERT INTO analysis_report "
                         + "(year,sector ,ChartName,text, isDraft, createdBy)"
                         + " values (?,?,?,?,?,?);";
                 PreparedStatement pstmt2 = conn.prepareStatement(query2);
@@ -64,7 +64,7 @@ public class ReportDAO {
             int rows;
             try (Connection conn = myFactory.getConnection()) {
 
-                String query2 = "INSERT INTO IntegratedReport "
+                String query2 = "INSERT INTO integrated_report "
                         + "(year,sector, text, isDraft, createdBy)"
                         + " values (?,?,?,?,?);";
                 PreparedStatement pstmt2 = conn.prepareStatement(query2);
@@ -95,7 +95,7 @@ public class ReportDAO {
             int rows;
             try (Connection conn = myFactory.getConnection()) {
 
-                String query2 = " INSERT INTO Matrix "
+                String query2 = " INSERT INTO matrix_report "
                         + " (year, sector, ChartName,"
                         + "Implications,observations,explanations, interventions, isDraft, createdBy) "
                         + "values (?,?,?,?,?,?,?,?,?);";
@@ -128,7 +128,7 @@ public class ReportDAO {
         Integer i;
         try (Connection conn = myFactory.getConnection()) {
             i = 0;
-            String query = "SELECT MAX(counter) as `counter` from Matrix;";
+            String query = "SELECT MAX(counter) as `counter` from matrix_report;";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                 rs = pstmt.executeQuery();
@@ -148,7 +148,7 @@ public class ReportDAO {
         Integer i;
         try (Connection conn = myFactory.getConnection()) {
             i = 0;
-            String query = "SELECT MAX(counter) as `counter` from report_analysis;";
+            String query = "SELECT MAX(counter) as `counter` from analysis_report;";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                 rs = pstmt.executeQuery();
@@ -168,7 +168,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM report_analysis WHERE sector = ? and `year` = ?) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM analysis_report WHERE sector = ? and `year` = ?) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -197,7 +197,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM IntegratedReport WHERE sector = ? and `year` = ?) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM integrated_report WHERE sector = ? and `year` = ?) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -225,7 +225,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM IntegratedReport WHERE sector = ? and `year` = ? and `isDraft` = 1) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM integrated_report WHERE sector = ? and `year` = ? and `isDraft` = 1) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -254,7 +254,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM IntegratedReport WHERE sector = ? and `year` = ? and `isDraft` = 0) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM integrated_report WHERE sector = ? and `year` = ? and `isDraft` = 0) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -283,7 +283,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM report_analysis WHERE sector = ? and `year` = ? and `isDraft` = 1) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM analysis_report WHERE sector = ? and `year` = ? and `isDraft` = 1) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -312,7 +312,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM Matrix WHERE sector = ? and `year` = ? ) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM matrix_report WHERE sector = ? and `year` = ? ) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -343,7 +343,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM Matrix WHERE sector = ? and `year` = ?  and `isDraft` = 0) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM matrix_report WHERE sector = ? and `year` = ?  and `isDraft` = 0) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -372,7 +372,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM report_analysis WHERE sector = ? and `year` = ?  and `isDraft` = 0) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM analysis_report WHERE sector = ? and `year` = ?  and `isDraft` = 0) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -401,7 +401,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             int i;
             try (Connection conn = myFactory.getConnection()) {
-                String checkExist = "SELECT EXISTS(SELECT * FROM Matrix WHERE sector = ? and `year` = ?  and `isDraft` = 1) AS `EXISTS`;";
+                String checkExist = "SELECT EXISTS(SELECT * FROM matrix_report WHERE sector = ? and `year` = ?  and `isDraft` = 1) AS `EXISTS`;";
                 PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                 pstmt1.setString(1, sector);
                 pstmt1.setInt(2, year);
@@ -425,28 +425,28 @@ public class ReportDAO {
         return false;
     }
 
-    public boolean saveReportDraft(int formID, int user) throws SQLException {
-        try {
-            DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
-            PreparedStatement pstmt;
-            int rows;
-            try (Connection conn = myFactory.getConnection()) {
-                String updateValidation = "UPDATE report  SET `isDraft`= ?, WHERE `reportID` = ?;";
-                pstmt = conn.prepareStatement(updateValidation);
-                pstmt.setBoolean(1, true);
-                pstmt.setInt(2, user);
-                pstmt.setInt(3, formID);
-                rows = pstmt.executeUpdate();
-
-                pstmt.close();
-                conn.close();
-            }
-            return rows == 1;
-        } catch (SQLException ex) {
-            getLogger(ReportDAO.class.getName()).log(SEVERE, null, ex);
-        }
-        return false;
-    }
+//    public boolean saveReportDraft(int formID, int user) throws SQLException {
+//        try {
+//            DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
+//            PreparedStatement pstmt;
+//            int rows;
+//            try (Connection conn = myFactory.getConnection()) {
+//                String updateValidation = "UPDATE report  SET `isDraft`= ?, WHERE `reportID` = ?;";
+//                pstmt = conn.prepareStatement(updateValidation);
+//                pstmt.setBoolean(1, true);
+//                pstmt.setInt(2, user);
+//                pstmt.setInt(3, formID);
+//                rows = pstmt.executeUpdate();
+//
+//                pstmt.close();
+//                conn.close();
+//            }
+//            return rows == 1;
+//        } catch (SQLException ex) {
+//            getLogger(ReportDAO.class.getName()).log(SEVERE, null, ex);
+//        }
+//        return false;
+//    }
 
     public ArrayList<Integer> SearchYearAnylsis(String year, String sector) throws ParseException {
         try {
@@ -455,7 +455,7 @@ public class ReportDAO {
             try (Connection conn = myFactory.getConnection()) {
                 records = new ArrayList<>();
                 String search = year + "%";
-                PreparedStatement pstmt = conn.prepareStatement("SELECT `year` FROM report_analysis where `year` LIKE ? AND `isDraft` = 0 AND sector = ?;");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT `year` FROM analysis_report where `year` LIKE ? AND `isDraft` = 0 AND sector = ?;");
                 pstmt.setString(1, search);
                 pstmt.setString(2, sector);
                 ResultSet rs = pstmt.executeQuery();
@@ -482,7 +482,7 @@ public class ReportDAO {
             try (Connection conn = myFactory.getConnection()) {
                 records = new ArrayList<>();
                 String search = year + "%";
-                PreparedStatement pstmt = conn.prepareStatement("SELECT `year` FROM IntegratedReport where `year` LIKE ? AND `isDraft` = 0 AND sector = ?;");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT `year` FROM integrated_report where `year` LIKE ? AND `isDraft` = 0 AND sector = ?;");
                 pstmt.setString(1, search);
                 pstmt.setString(2, sector);
                 ResultSet rs = pstmt.executeQuery();
@@ -509,7 +509,7 @@ public class ReportDAO {
             try (Connection conn = myFactory.getConnection()) {
                 records = new ArrayList<>();
                 String search = year + "%";
-                PreparedStatement pstmt = conn.prepareStatement("SELECT `year` FROM Matrix where `year` LIKE ? AND `isDraft` = 0 AND sector = ?;");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT `year` FROM matrix_report where `year` LIKE ? AND `isDraft` = 0 AND sector = ?;");
                 pstmt.setString(1, search);
                 pstmt.setString(2, sector);
                 ResultSet rs = pstmt.executeQuery();
@@ -537,7 +537,7 @@ public class ReportDAO {
         int rows;
         try (Connection conn = myFactory.getConnection()) {
             ArrayList<ReportAnalysis> arrReportAnalysis = new ArrayList<ReportAnalysis>();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.report_analysis WHERE `isDraft` = 1 AND `sector` = ?;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.analysis_report WHERE `isDraft` = 1 AND `sector` = ?;");
             pstmt.setString(1, sector);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -568,7 +568,7 @@ public class ReportDAO {
         int rows;
         try (Connection conn = myFactory.getConnection()) {
             Integrated Integrated = new Integrated();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.IntegratedReport WHERE `isDraft` = 1 AND `sector` = ?;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.integrated_report WHERE `isDraft` = 1 AND `sector` = ?;");
             pstmt.setString(1, sector);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -595,7 +595,7 @@ public class ReportDAO {
         int rows;
         try (Connection conn = myFactory.getConnection()) {
             ArrayList<Matrix> arrMatrix = new ArrayList<Matrix>();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.Matrix WHERE `isDraft` = 1 AND `sector` = ?;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.matrix_report WHERE `isDraft` = 1 AND `sector` = ?;");
             pstmt.setString(1, sector);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -628,7 +628,7 @@ public class ReportDAO {
         int rows;
         try (Connection conn = myFactory.getConnection()) {
             ArrayList<ReportAnalysis> arrReportAnalysis = new ArrayList<ReportAnalysis>();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.report_analysis WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.analysis_report WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
             pstmt.setString(1, sector);
             pstmt.setString(2, year);
             ResultSet rs = pstmt.executeQuery();
@@ -659,7 +659,7 @@ public class ReportDAO {
         int rows;
         try (Connection conn = myFactory.getConnection()) {
             ArrayList<Matrix> arrMatrix = new ArrayList<Matrix>();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.Matrix WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM accounts.matrix_report WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
             pstmt.setString(1, sector);
             pstmt.setString(2, year);
             ResultSet rs = pstmt.executeQuery();
@@ -694,7 +694,7 @@ public class ReportDAO {
         int rows;
         try (Connection conn = myFactory.getConnection()) {
             Integrated Integrated = new   Integrated();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM IntegratedReport WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM integrated_report WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
             pstmt.setString(1, sector);
             pstmt.setString(2, year);
             ResultSet rs = pstmt.executeQuery();
@@ -722,7 +722,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             PreparedStatement pstmt;
             try (Connection conn = myFactory.getConnection()) {
-                String delete = "DELETE FROM IntegratedReport WHERE sector = ? and `year` = ?";
+                String delete = "DELETE FROM integrated_report WHERE sector = ? and `year` = ?";
                 pstmt = conn.prepareStatement(delete);
                 pstmt.setString(1, sector);
                  pstmt.setInt(2, year);
@@ -746,7 +746,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             PreparedStatement pstmt;
             try (Connection conn = myFactory.getConnection()) {
-                String delete = "DELETE FROM report_analysis WHERE sector = ? and `year` = ?";
+                String delete = "DELETE FROM analysis_report WHERE sector = ? and `year` = ?";
                 pstmt = conn.prepareStatement(delete);
                 pstmt.setString(1, sector);
                 pstmt.setInt(2, year);
@@ -770,7 +770,7 @@ public class ReportDAO {
             DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
             PreparedStatement pstmt;
             try (Connection conn = myFactory.getConnection()) {
-                String delete = "DELETE FROM Matrix WHERE sector = ? and `year` = ?";
+                String delete = "DELETE FROM matrix_report WHERE sector = ? and `year` = ?";
                 pstmt = conn.prepareStatement(delete);
                 pstmt.setString(1, sector);
                  pstmt.setInt(2, year);

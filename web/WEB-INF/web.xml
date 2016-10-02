@@ -344,6 +344,10 @@
         <servlet-name>CommentsGetterServlet</servlet-name>
         <servlet-class>servlet.forums.CommentsGetterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HotTopic</servlet-name>
+        <servlet-class>servlet.forums.HotTopic</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -663,6 +667,10 @@
     <servlet-mapping>
         <servlet-name>CommentsGetterServlet</servlet-name>
         <url-pattern>/CommentsGetterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HotTopic</servlet-name>
+        <url-pattern>/HotTopic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

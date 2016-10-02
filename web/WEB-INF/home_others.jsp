@@ -32,36 +32,16 @@
                         <div >
                             <textarea id="forumTitle"  style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"> "title" </textarea>
                             <textarea id="forumBody" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;">"body" </textarea>
+                             <textarea  style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;">"tags" </textarea>
                         </div>
                         <div>
                             <button type="submit" onclick="submitNewForum()" class="btn btn-success" >Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
 
 
                         <!--END MODAL-->                       <div class="col-md-7">
-                            <div class="box box-solid">
-                                <div class="box-body">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="2" style="font-size: medium; font-weight: 600">Top Topics</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">Caloocan City is the greatest city...</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">On the development of the city plan</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:middle; font-size: medium;"><a href="">Lalalalala</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.box-body -->
+                            <div id="hotTopicDiv">
+
                             </div>
                             <!-- /.box -->
 

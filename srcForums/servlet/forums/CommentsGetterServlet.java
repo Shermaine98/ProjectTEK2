@@ -57,6 +57,7 @@ public class CommentsGetterServlet extends HttpServlet {
                 obj.put("commentID", arrComments.get(i).getIdComments());
                 obj.put("comment", arrComments.get(i).getComment());
                 obj.put("commentedBy", arrComments.get(i).getCommentedby());
+                obj.put("commentedByName", arrComments.get(i).getCommentedByName());
                 obj.put("dateCreated", arrComments.get(i).getCommentedDate());
                 obj.put("forumID", arrComments.get(i).getForumID());
                 obj.put("forumTitle", arrComments.get(i).getForumTitle());
