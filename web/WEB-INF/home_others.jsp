@@ -39,7 +39,9 @@
                         </div>
 
 
-                        <!--END MODAL-->                       <div class="col-md-7">
+                        <!--END MODAL-->                       
+                        <div class="col-md-7">
+                            <h3>Hot Topics</h3>
                             <div id="hotTopicDiv">
 
                             </div>
@@ -48,6 +50,8 @@
                             <!--
                                 forumBody
                             -->
+                            
+                            <h3 style="margin-top: 5%">All Topics</h3>
                             <div id="forumDiv">
 
 
@@ -56,7 +60,6 @@
                               /.forumBody
                             -->
 
-                            <!-- /.box -->
                         </div>
 
                         <div class="col-md-5">

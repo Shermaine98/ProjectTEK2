@@ -138,7 +138,7 @@ public class Login extends HttpServlet {
                     session.setAttribute("successful", "successful");
                     if (user.getPosition().equals("External Researchers")) {
                         rd = null;
-                        rd = context.getRequestDispatcher("/ServletAccess?redirect=PublishedReports");
+                        rd = context.getRequestDispatcher("/WEB-INF/home_others.jsp");
                     }
                     rd.forward(request, response);
                 } else {
