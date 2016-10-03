@@ -229,7 +229,6 @@
             </div>
         </div>
 
-
         <!--https://github.com/nicolaskruchten/pivottable-->
         <% if (!reportKind.equalsIgnoreCase("none")) { %>
 
@@ -338,6 +337,53 @@
                                                         </div>\n\
                                                         <div class='box-body'>\n\
                                                             <div id='districts' style=' height: 140px;'>\n\
+                                                            </div>\n\
+                                                        </div>\n\
+                                                    </div>\n\
+                                                </div></div>");
+                $('select[name="charts"]').empty();
+                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+                for (i = 0; i < charts.length; i++) { 
+                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
+                }
+                document.getElementById('commonReports').style.display = "block";
+            }   
+            
+            function addWithChartSelectionsWithBarangays(method, charts){
+                $("#theButtonsForPivot").empty();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").empty();
+                $("#withChartSelection").append("<div style='margin-right:2%'><div class='col-md-2'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <button id='pivot' class='btn btn-default' style='width:100%; height:200px' onclick='"+method+"'>Pivot Table</button>\n\
+                                                    </div>\n\
+                                                </div>\n\
+                                                <div class='col-md-5'>\n\
+                                                    <table>\n\
+                                                        <tr>\n\
+                                                            <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
+                                                            </select>\n\
+                                                            </br>\n\
+                                                        </tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter By Year</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div id='years' style='height: 85px;'>\n\
+                                                                    </div>\n\
+                                                                </div>\n\
+                                                            </div>\n\
+                                                        </tr>\n\
+                                                    </table>\n\
+                                                </div>\n\
+                                                <div class='col-md-5'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                            <h4 class='box-title'>Filter By Barangay</h4>\n\
+                                                        </div>\n\
+                                                        <div class='box-body'>\n\
+                                                            <div  id='barangays' style=' height: 140px; overflow-y: scroll'>\n\
                                                             </div>\n\
                                                         </div>\n\
                                                     </div>\n\
@@ -482,7 +528,7 @@
                     setMaritalStatus(chart);
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Pie Chart','Table'];
-                    addWithChartSelections('getFactPeople()',charts);
+                    addWithChartSelectionsWithBarangays('getFactPeople()',charts);
                 }
                 else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
                     setClassroomRequirement();
@@ -512,7 +558,7 @@
                     setMaritalStatus(chart);
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Pie Chart','Table'];
-                    addWithChartSelections('getFactPeople()',charts);
+                    addWithChartSelectionsWithBarangays('getFactPeople()',charts);
                     setMaritalStatus(chartSelected);
                 }
                 else if(conceptName=='Classroom Requirements in Public Elementary Schools'){
