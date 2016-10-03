@@ -5,20 +5,14 @@
  */
 package servlets.commoncharts;
 
-import dao.RecordDAO;
 import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
 import dao.analysis.DistrictDAO;
 import dao.analysis.FactPeopleDAO;
-import dao.charts.MaritalStatusChart;
-import dao.demo.MaritalStatusDAO;
-import model.Record;
-import model.demo.MaritalStatus;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
-import static java.util.logging.Level.SEVERE;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import static java.util.logging.Level.SEVERE;
 import java.util.logging.Logger;
@@ -84,6 +77,7 @@ public class SetMaritalStatusServlet extends HttpServlet {
                     objPeople.put("single", people.get(i).getTotalNoOfSingle());
                     objPeople.put("liveIn", people.get(i).getTotalNoOfLiveIn());
                     objPeople.put("zone", people.get(i).getZone());
+                    objPeople.put("barangay", people.get(i).getBarangay());
                     jarrayPeople.put(objPeople);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
