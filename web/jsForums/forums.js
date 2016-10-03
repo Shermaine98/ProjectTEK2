@@ -7,7 +7,7 @@
 $(document).ready(function () {
     HotTopic();
     Viewforums();
-   
+
 });
 
 
@@ -26,8 +26,8 @@ function HotTopic() {
             element.appendChild(para);
 
             var table = document.createElement("table");
-            table.setAttribute("class", "table table-hover table-bordered");
-            table.setAttribute("style", " margin: 0 auto;");
+            table.setAttribute("class", "table");
+            table.setAttribute("style", "margin: 0 auto;");
             para.appendChild(table);
 
             var tbody = document.createElement("tbody");
@@ -38,21 +38,20 @@ function HotTopic() {
                 var tbodytr = document.createElement("tr");
 
                 tbody.appendChild(tbodytr);
-                
-             $(tbodytr).append('<td>' + data[i].favoritesCount + '</td>');
-            //    $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
-           //     $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
-                $(tbodytr).append('<td><input type="hidden" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
+
+                $(tbodytr).append('<td>' + data[i].favoritesCount + '</td>');
+                //    $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
+                //     $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
+                $(tbodytr).append('<td><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
                 // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
                 // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
                 $(tbodytr).append('<td>' + data[i].dateCreated + '</td>');
-                $(tbodytr).append('<td> '+ data[i].createdByName + '</td>');
-            //    var tbodytr2 = document.createElement("tr");
-            //    tbody.appendChild(tbodytr2);
-            //    for (var j = 0; data[i].tags.length > j; j++) {
-            //        $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
-            //    }
-                
+                $(tbodytr).append('<td> ' + data[i].createdByName + '</td>');
+                //    var tbodytr2 = document.createElement("tr");
+                //    tbody.appendChild(tbodytr2);
+                //    for (var j = 0; data[i].tags.length > j; j++) {
+                //        $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
+                //    }
 
             }
 
@@ -79,8 +78,8 @@ function Viewforums() {
             element.appendChild(para);
 
             var table = document.createElement("table");
-            table.setAttribute("class", "table table-hover table-bordered");
-            table.setAttribute("style", " margin: 0 auto;");
+            table.setAttribute("class", "table");
+            table.setAttribute("style", "margin: 0 auto;");
             para.appendChild(table);
 
             var tbody = document.createElement("tbody");
@@ -91,21 +90,25 @@ function Viewforums() {
                 var tbodytr = document.createElement("tr");
 
                 tbody.appendChild(tbodytr);
+
+                $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
+                $(tbodytr).append('<td><button class="btn btn-block btn-primary"><i class="glyphicon glyphicon-list-alt" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
+                $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
+                $(tbodytr).append('<td width="70%"><span title="title" class="pull-right"><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
+                    <a class="titleName" style="font-size: 22px;">' + data[i].forumTitle + '</a></span></td>');
                 
-                $(tbodytr).append('<td><button id="btnFavorite" <i class="glyphicon glyphicon-thumbs-up"></i>' + data[i].favoritesCount + '</button> </td>');
-                $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
-                $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
-                $(tbodytr).append('<td><span title="title"><input type="hidden" class="forumId" value='+data[i].forumID+' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
-                // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
-                // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
-                $(tbodytr).append('<td>' + data[i].dateCreated + '</td>');
-                $(tbodytr).append('<td> '+ data[i].createdByName + '</td>');
                 var tbodytr2 = document.createElement("tr");
                 tbody.appendChild(tbodytr2);
+//                $(tbodytr2).append('<td>');
+                var tr2td = document.createElement("td");
+                tr2td.setAttribute("colspan", "3");
+                tbodytr2.appendChild(tr2td);
                 for (var j = 0; data[i].tags.length > j; j++) {
-                    $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
+                    $(tr2td).append('<button style="margin-right: 2%;" class="btn btn-flat btn-default btn-xs"><a class="tagsName">' + data[i].tags[j].tag + '</a></button>');
                 }
-                
+//                $(tbodytr2).append('</td>');
+                $(tbodytr2).append('<td><h5 align="right" style="color: #777; font-size: 13px;">created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
+
 
             }
 
@@ -150,7 +153,7 @@ var ctx = "${pageContext.request.contextPath}";
 $(document).on('click', '.titleName', function () {
     var forumId = $(this).prev().attr('value');
 //    console.log(forumId);
-  window.location.replace("ForumSpecificServlet?forumId="+forumId);
+    window.location.replace("ForumSpecificServlet?forumId=" + forumId);
 
 });
 

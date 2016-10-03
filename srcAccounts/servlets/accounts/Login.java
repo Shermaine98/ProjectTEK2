@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
                 } catch (ParseException ex) {
                     getLogger(Login.class.getName()).log(SEVERE, null, ex);
                 }
-
+                RequestDispatcher rd = null;
                 if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) {
                     DemoDashboard dDAO = new DemoDashboard();
                     HealthDashboard hDAO = new HealthDashboard();
@@ -97,15 +97,10 @@ public class Login extends HttpServlet {
 
                     session.setAttribute("user", user);
                     session.setAttribute("successful", "successful");
-                    RequestDispatcher rd = null;
 //IV - Health
 //II - Education
 //I - Demo
-                    if (user.getPosition().equals("External Researchers")) {
-                        rd = context.getRequestDispatcher("/ServletAccess?redirect=PublishedReports");
-                    } else if (user.getPosition().equals("IT Admin")) {
-                        rd = context.getRequestDispatcher("/WEB-INF/home_IT.jsp");
-                    } else if (user.getPosition().equals("Project Development Officer IV")) {
+                    if (user.getPosition().equals("Project Development Officer IV")) {
                         ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Health");
                         ArrayList<TaskModelUploader> validated = taskDAO.getUploadedValidated(yearInString);
                         ArrayList<TaskModelUploader> approved = taskDAO.getUploadedApprovedReject(yearInString);
@@ -130,10 +125,26 @@ public class Login extends HttpServlet {
                         rd = context.getRequestDispatcher("/WEB-INF/home.jsp");
                     }
                     rd.forward(request, response);
+                } else if (user.getDivision().equalsIgnoreCase("IT")) {
+                    session.setAttribute("user", user);
+                    session.setAttribute("successful", "successful");
+                    if (user.getPosition().equals("IT Admin")) {
+                        rd = null;
+                        rd = context.getRequestDispatcher("/WEB-INF/home_IT.jsp");
+                    }
+                    rd.forward(request, response);
+                } else if (user.getDivision().equalsIgnoreCase("Others")) {
+                    session.setAttribute("user", user);
+                    session.setAttribute("successful", "successful");
+                    if (user.getPosition().equals("External Researchers")) {
+                        rd = null;
+                        rd = context.getRequestDispatcher("/WEB-INF/home_others.jsp");
+                    }
+                    rd.forward(request, response);
                 } else {
                     session.setAttribute("user", user);
                     session.setAttribute("successful", "successful");
-                    RequestDispatcher rd = null;
+                    rd = null;
 
                     rd = context.getRequestDispatcher("/ServletAccess?redirect=PublishedReports");
                     rd.forward(request, response);
