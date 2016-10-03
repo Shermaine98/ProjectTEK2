@@ -29,13 +29,12 @@
                     <div class="row">
                         <!--MODAL-->
 
-                        <div >
-                            <textarea id="forumTitle"  style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"> "title" </textarea>
-                            <textarea id="forumBody" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;">"body" </textarea>
-                             <textarea  style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;">"tags" </textarea>
-                        </div>
-                        <div>
-                            <button type="submit" onclick="submitNewForum()" class="btn btn-success" >Save</button>
+                        <div id="new_topic" class="col-md-7">
+                            <h3>Create New Topic</h3>
+                            <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
+                            <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
+                            <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" /> 
+                            <button type="submit" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
                         </div>
 
 
@@ -50,7 +49,7 @@
                             <!--
                                 forumBody
                             -->
-                            
+
                             <h3 style="margin-top: 5%">All Topics</h3>
                             <div id="forumDiv">
 
