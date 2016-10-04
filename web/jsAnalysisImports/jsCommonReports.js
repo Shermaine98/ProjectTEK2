@@ -636,45 +636,46 @@ function setHHPopAgeGroupSex (){
             item['data'] = data;
             drilldowns.push(item);
 
-            
+            genderLength = print[0].genders.length;
             var zones = ["North", "South"];
             for(var a = 0; a < zones.length; a++){
                 item={};
                 item["id"] = 'liveIn'+zones[a];
                 item["name"] = zones[a]+' Caloocan';
                 data = [];
-                for (var i = 0; i < print[0].people.length; i++) {
-                    for(var y = 0; y < print[0].barangays.length; y++){
-                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
-                            if(print[0].people[i].year == year){
-                                if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
-                                    item2 = {};
-                                    item2["name"] =  'Barangay '+print[0].people[i].barangay;
-                                    item2["y"] = print[0].people[i].liveIn;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
+                var add;
+                if(genderLength === 2 || genderLength == 0){
+                    add = 2;
+                } else {
+                    add = 1;
                 }
-                item['data'] = data;
-                drilldowns.push(item);
-            }
-            
-            for(var a = 0; a < zones.length; a++){
-                item={};
-                item["id"] = 'married'+zones[a];
-                item["name"] = zones[a]+' Caloocan';
-                data = [];
-                for (var i = 0; i < print[0].people.length; i++) {
+                for (var i = 0; i < print[0].people.length; i+=add) {
                     for(var y = 0; y < print[0].barangays.length; y++){
                         if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                             if(print[0].people[i].year == year){
                                 if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
-                                    item2 = {};
-                                    item2["name"] =  'Barangay '+print[0].people[i].barangay;
-                                    item2["y"] = print[0].people[i].married;
-                                    data.push(item2);
+                                    if(genderLength == 2){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = print[0].people[i].liveIn + print[0].people[i+1].liveIn;
+                                        data.push(item2);
+                                    }
+                                    else if(genderLength == 1){
+                                        for(var z = 0; z < print[0].genders.length; z++){
+                                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                                item2 = {};
+                                                item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                                item2["y"] = print[0].people[i].liveIn;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                    else if(genderLength == 0){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = 0;
+                                        data.push(item2);
+                                    }
                                 }
                             }
                         }
@@ -689,15 +690,86 @@ function setHHPopAgeGroupSex (){
                 item["id"] = 'single'+zones[a];
                 item["name"] = zones[a]+' Caloocan';
                 data = [];
-                for (var i = 0; i < print[0].people.length; i++) {
+                var add;
+                if(genderLength === 2 || genderLength == 0){
+                    add = 2;
+                } else {
+                    add = 1;
+                }
+                for (var i = 0; i < print[0].people.length; i+=add) {
                     for(var y = 0; y < print[0].barangays.length; y++){
                         if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                             if(print[0].people[i].year == year){
                                 if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
-                                    item2 = {};
-                                    item2["name"] =  'Barangay '+print[0].people[i].barangay;
-                                    item2["y"] = print[0].people[i].single;
-                                    data.push(item2);
+                                    if(genderLength == 2){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = print[0].people[i].single + print[0].people[i+1].single;
+                                        data.push(item2);
+                                    }
+                                    else if(genderLength == 1){
+                                        for(var z = 0; z < print[0].genders.length; z++){
+                                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                                item2 = {};
+                                                item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                                item2["y"] = print[0].people[i].single;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                    else if(genderLength == 0){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = 0;
+                                        data.push(item2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                item['data'] = data;
+                drilldowns.push(item);
+            }
+            
+            for(var a = 0; a < zones.length; a++){
+                item={};
+                item["id"] = 'married'+zones[a];
+                item["name"] = zones[a]+' Caloocan';
+                data = [];
+                var add;
+                if(genderLength === 2 || genderLength == 0){
+                    add = 2;
+                } else {
+                    add = 1;
+                }
+                for (var i = 0; i < print[0].people.length; i+=add) {
+                    for(var y = 0; y < print[0].barangays.length; y++){
+                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                            if(print[0].people[i].year == year){
+                                if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
+                                    if(genderLength == 2){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = print[0].people[i].married + print[0].people[i+1].married;
+                                        data.push(item2);
+                                    }
+                                    else if(genderLength == 1){
+                                        for(var z = 0; z < print[0].genders.length; z++){
+                                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                                item2 = {};
+                                                item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                                item2["y"] = print[0].people[i].married;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                    else if(genderLength == 0){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = 0;
+                                        data.push(item2);
+                                    }
                                 }
                             }
                         }
@@ -712,15 +784,39 @@ function setHHPopAgeGroupSex (){
                 item["id"] = 'divorced'+zones[a];
                 item["name"] = zones[a]+' Caloocan';
                 data = [];
-                for (var i = 0; i < print[0].people.length; i++) {
+                var add;
+                if(genderLength === 2 || genderLength == 0){
+                    add = 2;
+                } else {
+                    add = 1;
+                }
+                for (var i = 0; i < print[0].people.length; i+=add) {
                     for(var y = 0; y < print[0].barangays.length; y++){
                         if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                             if(print[0].people[i].year == year){
                                 if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
-                                    item2 = {};
-                                    item2["name"] =  'Barangay '+print[0].people[i].barangay;
-                                    item2["y"] = print[0].people[i].divorced;
-                                    data.push(item2);
+                                    if(genderLength == 2){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = print[0].people[i].divorced + print[0].people[i+1].divorced;
+                                        data.push(item2);
+                                    }
+                                    else if(genderLength == 1){
+                                        for(var z = 0; z < print[0].genders.length; z++){
+                                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                                item2 = {};
+                                                item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                                item2["y"] = print[0].people[i].divorced;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                    else if(genderLength == 0){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = 0;
+                                        data.push(item2);
+                                    }
                                 }
                             }
                         }
@@ -735,15 +831,39 @@ function setHHPopAgeGroupSex (){
                 item["id"] = 'unknown'+zones[a];
                 item["name"] = zones[a]+' Caloocan';
                 data = [];
-                for (var i = 0; i < print[0].people.length; i++) {
+                var add;
+                if(genderLength === 2 || genderLength == 0){
+                    add = 2;
+                } else {
+                    add = 1;
+                }
+                for (var i = 0; i < print[0].people.length; i+=add) {
                     for(var y = 0; y < print[0].barangays.length; y++){
                         if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                             if(print[0].people[i].year == year){
                                 if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
-                                    item2 = {};
-                                    item2["name"] =  'Barangay '+print[0].people[i].barangay;
-                                    item2["y"] = print[0].people[i].unknown;
-                                    data.push(item2);
+                                    if(genderLength == 2){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = print[0].people[i].unknown + print[0].people[i+1].unknown;
+                                        data.push(item2);
+                                    }
+                                    else if(genderLength == 1){
+                                        for(var z = 0; z < print[0].genders.length; z++){
+                                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                                item2 = {};
+                                                item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                                item2["y"] = print[0].people[i].unknown;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                    else if(genderLength == 0){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = 0;
+                                        data.push(item2);
+                                    }
                                 }
                             }
                         }
@@ -758,15 +878,39 @@ function setHHPopAgeGroupSex (){
                 item["id"] = 'widowed'+zones[a];
                 item["name"] = zones[a]+' Caloocan';
                 data = [];
-                for (var i = 0; i < print[0].people.length; i++) {
+                var add;
+                if(genderLength === 2 || genderLength == 0){
+                    add = 2;
+                } else {
+                    add = 1;
+                }
+                for (var i = 0; i < print[0].people.length; i+=add) {
                     for(var y = 0; y < print[0].barangays.length; y++){
                         if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                             if(print[0].people[i].year == year){
                                 if(print[0].people[i].zone.toUpperCase() === zones[a].toUpperCase()){
-                                    item2 = {};
-                                    item2["name"] =  'Barangay '+print[0].people[i].barangay;
-                                    item2["y"] = print[0].people[i].widowed;
-                                    data.push(item2);
+                                    if(genderLength == 2){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = print[0].people[i].widowed + print[0].people[i+1].widowed;
+                                        data.push(item2);
+                                    }
+                                    else if(genderLength == 1){
+                                        for(var z = 0; z < print[0].genders.length; z++){
+                                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                                item2 = {};
+                                                item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                                item2["y"] = print[0].people[i].widowed;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                    else if(genderLength == 0){
+                                        item2 = {};
+                                        item2["name"] =  'Barangay '+print[0].people[i].barangay;
+                                        item2["y"] = 0;
+                                        data.push(item2);
+                                    }
                                 }
                             }
                         }
