@@ -179,28 +179,33 @@ function setHHPopAgeGroupSex (){
         type: 'POST',
         dataType: "JSON",
         success: function (data) {
+            
             print = data;
             chartSelected = chart;
             $('#years').empty();
             $('#districts').empty();
             $('#barangays').empty();
-            for (var i = 0; i < print[0].years.length; i++) {
-                    $('#years').append('<input type="checkbox" class="filter" id="year" value="' 
-                            + print[0].years[i].year + '"checked>'
-                            +print[0].years[i].year+'</input></br>');
-                }
-
-                //barangay
-                for (var i = 0; i < print[0].barangays.length; i++) {
-                        $('#barangays').append('<input type="checkbox" class="filter" id="barangayss" value="' 
-                                + print[0].barangays[i].barangay + '" checked>'+'Barangay '+print[0].barangays[i].barangay+'</input></br>');
-                }
-                if(chart=="0"||chart=="Pie Chart"){
-                    drawMaritalStatusBar(print, 2015,'pie');
-                }
-                else if(chart=="0"||chart=="Bar Chart"){
-                    drawMaritalStatusBar(print, 2015,'column');
-                }
+            
+            $('#years').append("<option selected disabled id='year' value='"+print[0].years[print[0].years.length-1].year+"'>Choose Year for Report</option>");
+            for (var i = print[0].years.length-1; i >= 0; i--) {
+                $('#years').append('<option id="year" value="' 
+                        + print[0].years[i].year + '">'
+                        +print[0].years[i].year+'</option></br>');
+            }
+            //barangay
+            for (var i = 0; i < print[0].barangays.length; i++) {
+                    $('#barangays').append('<input type="checkbox" class="filter" id="barangayss" value="' 
+                            + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
+            }
+            
+            var year = $('#years').find(":selected").val();
+            
+            if(chart=="0"||chart=="Pie Chart"){
+                drawMaritalStatusBar(print, year,'pie');
+            }
+            else if(chart=="0"||chart=="Bar Chart"){
+                drawMaritalStatusBar(print, year,'column');
+            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -211,6 +216,17 @@ function setHHPopAgeGroupSex (){
     var district = [];
     var barangay = [];
     var analysischart = []; 
+    
+    function filterYear(){
+        var year = $('#years').find(":selected").text();
+        if(chartSelected=="0"||chartSelected=="Pie Chart"){
+                drawMaritalStatusBar(print, year,'pie');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawMaritalStatusBar(print, year,'column');
+            }
+
+    }
     
     //CLICK location
     $(document).on("click", '.filter', function () {

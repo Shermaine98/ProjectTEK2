@@ -320,7 +320,7 @@
                                                         </tr>\n\
                                                             <div class='box box-solid'>\n\
                                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                                    <h4 class='box-title'>Filter By Year</h4>\n\
+                                                                    <h4 class='box-title'>Filter by Year</h4>\n\
                                                                 </div>\n\
                                                                 <div class='box-body'>\n\
                                                                     <div id='years' style='height: 85px;'>\n\
@@ -333,7 +333,7 @@
                                                 <div class='col-md-5'>\n\
                                                     <div class='box box-solid'>\n\
                                                         <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                            <h4 class='box-title'>Filter By District</h4>\n\
+                                                            <h4 class='box-title'>Filter by District</h4>\n\
                                                         </div>\n\
                                                         <div class='box-body'>\n\
                                                             <div id='districts' style=' height: 140px;'>\n\
@@ -367,10 +367,10 @@
                                                         </tr>\n\
                                                             <div class='box box-solid'>\n\
                                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                                    <h4 class='box-title'>Filter By Year</h4>\n\
+                                                                    <h4 class='box-title'>Filter by Sex</h4>\n\
                                                                 </div>\n\
                                                                 <div class='box-body'>\n\
-                                                                    <div id='years' style='height: 85px;'>\n\
+                                                                    <div id='sex' style='height: 85px;'>\n\
                                                                     </div>\n\
                                                                 </div>\n\
                                                             </div>\n\
@@ -378,16 +378,22 @@
                                                     </table>\n\
                                                 </div>\n\
                                                 <div class='col-md-5'>\n\
-                                                    <div class='box box-solid'>\n\
-                                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                            <h4 class='box-title'>Filter By Barangay</h4>\n\
-                                                        </div>\n\
-                                                        <div class='box-body'>\n\
-                                                            <div  id='barangays' style=' height: 140px; overflow-y: scroll'>\n\
+                                                <table>\n\
+                                                    <tr>\n\
+                                                        <select id='years' class='form-control' onchange='filterYear()' style=''>\n\
+                                                        </select><br>\n\
+                                                    </tr>\n\
+                                                    <tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter by Barangay</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div  id='barangays' style='height: 85px; overflow-y: scroll'>\n\
+                                                                </div>\n\
                                                             </div>\n\
-                                                        </div>\n\
-                                                    </div>\n\
-                                                </div></div>");
+                                                    </tr>\n\
+                                                </table></div></div>");
                 $('select[name="charts"]').empty();
                 $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
                 for (i = 0; i < charts.length; i++) { 
@@ -408,10 +414,10 @@
                                         <div class='col-md-5'>\n\
                                             <div class='box box-solid'>\n\
                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                    <h4 class='box-title'>Filter By Year</h4>\n\
+                                                    <h4 class='box-title'>Filter by Year</h4>\n\
                                                 </div>\n\
                                                 <div class='box-body'>\n\
-                                                    <div id='years' style='height: 140px;'> <!--- overflow-y: scroll; -->\n\
+                                                    <div id='years'  style='height: 140px;'> <!--- overflow-y: scroll; -->\n\
                                                     </div>\n\
                                                 </div>\n\
                                             </div>\n\
@@ -419,7 +425,7 @@
                                         <div class='col-md-5'>\n\
                                             <div class='box box-solid'>\n\
                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                    <h4 class='box-title'>Filter By District</h4>\n\
+                                                    <h4 class='box-title'>Filter by District</h4>\n\
                                                 </div>\n\
                                                 <div class='box-body'>\n\
                                                     <div id='districts' style=' height: 140px;'>\n\
