@@ -16,6 +16,7 @@ public class FactPeople {
     private int barangay;
     private String district;
     private String zone;
+    private String gender;
     private int ageBracket;
     private int totalNoOfPeople;
     private int totalNoOfSingle;
@@ -40,6 +41,14 @@ public class FactPeople {
     private Boolean isOutlier;
     private double growthRate;
     private double participationRate;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public String getZone() {
         return zone;

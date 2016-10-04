@@ -223,7 +223,7 @@ public class FactPeopleDAO {
             DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
             ArrayList<FactPeople> factPeople = new ArrayList<FactPeople>();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT FP.CENSUSYEAR, FP.BARANGAY, \n" +
+                PreparedStatement pstmt = conn.prepareStatement("SELECT GENDER, FP.CENSUSYEAR, FP.BARANGAY, \n" +
 "			 SUM(totalNoOfWidowed) AS 'WIDOWED', \n" +
             "            SUM(totalNoOfUnknown) AS 'UNKNOWN', \n" +
             "            SUM(totalNoOfMarried) AS 'MARRIED', \n" +
@@ -233,8 +233,8 @@ public class FactPeopleDAO {
 "                        DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE'\n" +
 "                FROM FACT_PEOPLE FP JOIN DIM_BARANGAY DB ON DB.BARANGAY = FP.BARANGAY \n" +
 "                		     JOIN LOCATION L ON FP.BARANGAY = L.BARANGAY AND FP.BARANGAY = DB.BARANGAY\n" +
-"                GROUP BY FP.BARANGAY, FP.CENSUSYEAR\n" +
-"                ORDER BY CENSUSYEAR, BARANGAY;");
+"                GROUP BY FP.BARANGAY, GENDER, FP.CENSUSYEAR\n" +
+"                ORDER BY CENSUSYEAR, GENDER, BARANGAY;");
                 ResultSet rs = pstmt.executeQuery();
                 
                 while (rs.next()) {
@@ -249,6 +249,7 @@ public class FactPeopleDAO {
                     temp.setTotalNoOfLiveIn(rs.getInt("LIVE-IN"));
                     temp.setTotalNoOfSingle(rs.getInt("SINGLE"));
                     temp.setZone(rs.getString("ZONE"));
+                    temp.setGender(rs.getString("GENDER"));
                     if(temp.getTotalNoOfPeople()<= 0)
                         temp.setIsOutlier(true);
                     else

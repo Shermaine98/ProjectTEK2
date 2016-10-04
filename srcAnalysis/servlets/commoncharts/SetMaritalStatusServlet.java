@@ -9,6 +9,7 @@ import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
 import dao.analysis.DistrictDAO;
 import dao.analysis.FactPeopleDAO;
+import dao.analysis.GenderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -52,15 +53,17 @@ public class SetMaritalStatusServlet extends HttpServlet {
             DistrictDAO chartsDistrict = new DistrictDAO();
             FactPeopleDAO chartPeople = new FactPeopleDAO();
             BarangayDAO chartsBarangay = new BarangayDAO();
+            GenderDAO chartsGender = new GenderDAO();
             
-            String censusYear = String.valueOf(censusYearDAO.getLatestYear());
             JSONArray jarrayYears = new JSONArray();
             JSONArray jarrayDistrict = new JSONArray();
             JSONArray jarrayPeople = new JSONArray();
             JSONArray jarrayBarangays = new JSONArray();
+            JSONArray jarrayGender = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
             
             ArrayList<Integer> barangays = chartsBarangay.retrieveBarangays();
+            ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
             ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
             ArrayList<String> district = chartsDistrict.retrieveDistricts();
             ArrayList<FactPeople> people = chartPeople.retrieveMaritalStatus();
@@ -78,6 +81,7 @@ public class SetMaritalStatusServlet extends HttpServlet {
                     objPeople.put("liveIn", people.get(i).getTotalNoOfLiveIn());
                     objPeople.put("zone", people.get(i).getZone());
                     objPeople.put("barangay", people.get(i).getBarangay());
+                    objPeople.put("gender", people.get(i).getGender());
                     jarrayPeople.put(objPeople);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
@@ -114,9 +118,20 @@ public class SetMaritalStatusServlet extends HttpServlet {
                 }
             }
             
+            for(int i = 0; i < genders.size(); i++){
+                JSONObject objGender = new JSONObject();
+                try {
+                    objGender.put("gender", genders.get(i));
+                    jarrayGender.put(objGender);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
             ObjectAll.put("years", jarrayYears);
             ObjectAll.put("people", jarrayPeople);
             ObjectAll.put("barangays", jarrayBarangays);
+            ObjectAll.put("genders", jarrayGender);
             ObjectAll.put("districts", jarrayDistrict);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");

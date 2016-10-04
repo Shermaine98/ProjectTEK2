@@ -185,6 +185,7 @@ function setHHPopAgeGroupSex (){
             $('#years').empty();
             $('#districts').empty();
             $('#barangays').empty();
+            $('#sex').empty();
             
             $('#years').append("<option selected disabled id='year' value='"+print[0].years[print[0].years.length-1].year+"'>Choose Year for Report</option>");
             for (var i = print[0].years.length-1; i >= 0; i--) {
@@ -196,6 +197,11 @@ function setHHPopAgeGroupSex (){
             for (var i = 0; i < print[0].barangays.length; i++) {
                     $('#barangays').append('<input type="checkbox" class="filter" id="barangayss" value="' 
                             + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
+            }
+            
+            for (var i = 0; i < print[0].genders.length; i++) {
+                    $('#sex').append('<input type="checkbox" class="filter" id="genders" value="' 
+                            + print[0].genders[i].gender + '" checked>'+'&nbsp; '+print[0].genders[i].gender+'</input></br>');
             }
             
             var year = $('#years').find(":selected").val();
@@ -215,6 +221,7 @@ function setHHPopAgeGroupSex (){
     var year = [];
     var district = [];
     var barangay = [];
+    var gender = [];
     var analysischart = []; 
     
     function filterYear(){
@@ -230,7 +237,7 @@ function setHHPopAgeGroupSex (){
     
     //CLICK location
     $(document).on("click", '.filter', function () {
-        year = [];
+        gender = [];
         barangay = [];
         analysischart[0] = print[0];
 
@@ -238,13 +245,13 @@ function setHHPopAgeGroupSex (){
             var id = $(this).attr('value');
             barangay.push(id);
         });
-
-        $('[id="year"]:checked').each(function (e) {
-            var id = $(this).attr('value');
-            year.push(id);    
-        });
         
-        removeYear(analysischart, year);
+        $('[id="genders"]:checked').each(function (e) {
+            var id = $(this).attr('value');
+            gender.push(id);
+        });
+
+        removeGender(analysischart, gender);
         removeBarangay(analysischart, barangay);
         
         if(chartSelected=="0"||chartSelected=="Pie Chart"){
@@ -255,12 +262,12 @@ function setHHPopAgeGroupSex (){
         }
     });
 
-    function removeYear(analysischart, year){
-        analysischart[0].years.length = 0;
-        for (var x = 0; x < year.length; x++) {
+    function removeGender(analysischart, gender){
+        analysischart[0].genders.length = 0;
+        for (var x = 0; x < gender.length; x++) {
             item = {};
-            item["year"] = year[x];
-            analysischart[0].years.push(item);
+            item['gender'] = gender[x];
+            analysischart[0].genders.push(item);
         }
     }
     
@@ -294,7 +301,11 @@ function setHHPopAgeGroupSex (){
                     for(var y = 0; y < print[0].barangays.length; y++){
                         if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                             if(print[0].people[i].year == year){
-                                widowedTotal+=print[0].people[i].widowed;
+                                for(var z = 0; z < print[0].genders.length; z++){
+                                    if(print[0].people[i].gender == print[0].genders[z].gender){
+                                        widowedTotal+=print[0].people[i].widowed;
+                                    }
+                                }
                             }
                         }
                     }
@@ -307,13 +318,17 @@ function setHHPopAgeGroupSex (){
             unknownItem["name"] = 'Unknown';
             unknownItem["drilldown"] = 'unknown';
             for (var i = 0; i < print[0].people.length; i++) {
-                    for(var y = 0; y < print[0].barangays.length; y++){
-                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
-                            if(print[0].people[i].year == year){
-                                unknownTotal+=print[0].people[i].unknown;
+                for(var y = 0; y < print[0].barangays.length; y++){
+                    if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                        if(print[0].people[i].year == year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    unknownTotal+=print[0].people[i].unknown;
+                                }
                             }
                         }
                     }
+                }
             }
             unknownItem["y"] = unknownTotal;
             total.push(unknownItem);
@@ -323,13 +338,17 @@ function setHHPopAgeGroupSex (){
             marriedItem["name"] = 'Married';
             marriedItem["drilldown"] = 'married';
             for (var i = 0; i < print[0].people.length; i++) {
-                    for(var y = 0; y < print[0].barangays.length; y++){
-                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
-                            if(print[0].people[i].year == year){
-                                marriedTotal+=print[0].people[i].married;
+                for(var y = 0; y < print[0].barangays.length; y++){
+                    if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                        if(print[0].people[i].year == year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    marriedTotal+=print[0].people[i].married;
+                                }
                             }
                         }
                     }
+                }
             }
             marriedItem["y"] = marriedTotal;
             total.push(marriedItem);
@@ -339,13 +358,17 @@ function setHHPopAgeGroupSex (){
             divorcedItem["name"] = 'Divorced';
             divorcedItem["drilldown"] = 'divorced';
             for (var i = 0; i < print[0].people.length; i++) {
-                    for(var y = 0; y < print[0].barangays.length; y++){
-                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
-                            if(print[0].people[i].year == year){
-                                divorcedTotal+=print[0].people[i].divorced;
+                for(var y = 0; y < print[0].barangays.length; y++){
+                    if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                        if(print[0].people[i].year == year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    divorcedTotal+=print[0].people[i].divorced;
+                                }
                             }
                         }
                     }
+                }
             }
             divorcedItem["y"] = divorcedTotal;
             total.push(divorcedItem);
@@ -355,13 +378,17 @@ function setHHPopAgeGroupSex (){
             liveInItem["name"] = 'Live-In';
             liveInItem["drilldown"] = 'liveIn';
             for (var i = 0; i < print[0].people.length; i++) {
-                    for(var y = 0; y < print[0].barangays.length; y++){
-                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
-                            if(print[0].people[i].year == year){
-                                liveInTotal+=print[0].people[i].liveIn;
+                for(var y = 0; y < print[0].barangays.length; y++){
+                    if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                        if(print[0].people[i].year == year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    liveInTotal+=print[0].people[i].liveIn;
+                                }
                             }
                         }
                     }
+                }
             }
             liveInItem["y"] = liveInTotal;
             total.push(liveInItem);
@@ -371,13 +398,17 @@ function setHHPopAgeGroupSex (){
             singleItem["name"] = 'Single';
             singleItem["drilldown"] = 'single';
             for (var i = 0; i < print[0].people.length; i++) {
-                    for(var y = 0; y < print[0].barangays.length; y++){
-                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
-                            if(print[0].people[i].year == year){
-                                singleTotal+=print[0].people[i].single;
+                for(var y = 0; y < print[0].barangays.length; y++){
+                    if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                        if(print[0].people[i].year == year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    singleTotal+=print[0].people[i].single;
+                                }
                             }
                         }
                     }
+                }
             }
             singleItem["y"] = singleTotal;
             total.push(singleItem);
@@ -392,11 +423,15 @@ function setHHPopAgeGroupSex (){
                 for(var y = 0; y < print[0].barangays.length; y++){
                     if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                         if(print[0].people[i].year == year){
-                            if(print[0].people[i].zone==='NORTH'){
-                                north+=print[0].people[i].widowed;
-                            }
-                            else if(print[0].people[i].zone==='SOUTH'){
-                                south+=print[0].people[i].widowed;
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                    if(print[0].people[i].gender == print[0].genders[z].gender){
+                                        if(print[0].people[i].zone==='NORTH'){
+                                        north+=print[0].people[i].widowed;
+                                    }
+                                    else if(print[0].people[i].zone==='SOUTH'){
+                                        south+=print[0].people[i].widowed;
+                                    }
+                                }
                             }
                         }
                     }
@@ -425,11 +460,15 @@ function setHHPopAgeGroupSex (){
                 for(var y = 0; y < print[0].barangays.length; y++){
                     if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                         if(print[0].people[i].year == year){
-                            if(print[0].people[i].zone==='NORTH'){
-                                north+=print[0].people[i].married;
-                            }
-                            else if(print[0].people[i].zone==='SOUTH'){
-                                south+=print[0].people[i].married;
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    if(print[0].people[i].zone==='NORTH'){
+                                        north+=print[0].people[i].married;
+                                    }
+                                    else if(print[0].people[i].zone==='SOUTH'){
+                                        south+=print[0].people[i].married;
+                                    }
+                                }
                             }
                         }
                     }
@@ -458,11 +497,15 @@ function setHHPopAgeGroupSex (){
                 for(var y = 0; y < print[0].barangays.length; y++){
                     if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                         if(print[0].people[i].year == year){
-                            if(print[0].people[i].zone==='NORTH'){
-                                north+=print[0].people[i].unknown;
-                            }
-                            else if(print[0].people[i].zone==='SOUTH'){
-                                south+=print[0].people[i].unknown;
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    if(print[0].people[i].zone==='NORTH'){
+                                        north+=print[0].people[i].unknown;
+                                    }
+                                    else if(print[0].people[i].zone==='SOUTH'){
+                                        south+=print[0].people[i].unknown;
+                                    }
+                                }
                             }
                         }
                     }
@@ -491,11 +534,15 @@ function setHHPopAgeGroupSex (){
                 for(var y = 0; y < print[0].barangays.length; y++){
                     if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                         if(print[0].people[i].year == year){
-                            if(print[0].people[i].zone==='NORTH'){
-                                north+=print[0].people[i].divorced;
-                            }
-                            else if(print[0].people[i].zone==='SOUTH'){
-                                south+=print[0].people[i].divorced;
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    if(print[0].people[i].zone==='NORTH'){
+                                        north+=print[0].people[i].divorced;
+                                    }
+                                    else if(print[0].people[i].zone==='SOUTH'){
+                                        south+=print[0].people[i].divorced;
+                                    }
+                                }
                             }
                         }
                     }
@@ -524,11 +571,15 @@ function setHHPopAgeGroupSex (){
                 for(var y = 0; y < print[0].barangays.length; y++){
                     if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                         if(print[0].people[i].year == year){
-                            if(print[0].people[i].zone==='NORTH'){
-                                north+=print[0].people[i].liveIn;
-                            }
-                            else if(print[0].people[i].zone==='SOUTH'){
-                                south+=print[0].people[i].liveIn;
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    if(print[0].people[i].zone==='NORTH'){
+                                        north+=print[0].people[i].liveIn;
+                                    }
+                                    else if(print[0].people[i].zone==='SOUTH'){
+                                        south+=print[0].people[i].liveIn;
+                                    }
+                                }
                             }
                         }
                     }
@@ -557,11 +608,15 @@ function setHHPopAgeGroupSex (){
                 for(var y = 0; y < print[0].barangays.length; y++){
                     if(print[0].people[i].barangay == print[0].barangays[y].barangay){
                         if(print[0].people[i].year == year){
-                            if(print[0].people[i].zone==='NORTH'){
-                                north+=print[0].people[i].single;
-                            }
-                            else if(print[0].people[i].zone==='SOUTH'){
-                                south+=print[0].people[i].single;
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    if(print[0].people[i].zone==='NORTH'){
+                                        north+=print[0].people[i].single;
+                                    }
+                                    else if(print[0].people[i].zone==='SOUTH'){
+                                        south+=print[0].people[i].single;
+                                    }
+                                }
                             }
                         }
                     }
