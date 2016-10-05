@@ -29,44 +29,23 @@
                     <div class="row">
                         <!--MODAL-->
 
-                        <div id="new_topic" class="col-md-7">
-                            <h3>Create New Topic</h3>
-                            <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
-                            <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
-                            <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" /> 
-                            <button type="submit" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
-                        </div>
-
-
-                        <!--END MODAL-->                       
-                        <div class="col-md-7">
-                            <h3>Hot Topics</h3>
-                            <div id="hotTopicDiv">
-
+                        <div class="col-md-12">  
+                            <div id="new_topic" class="col-md-6">
+                                <div class="box box-solid" style="margin-top: 2%;">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Create New Topic</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
+                                        <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
+                                        <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" /> 
+                                        <button type="submit" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- /.box -->
 
-                            <!--
-                                forumBody
-                            -->
-
-                            <h3 style="margin-top: 5%">All Topics</h3>
-                            <div id="forumDiv">
-
-
-                            </div>
-                            <!--
-                              /.forumBody
-                            -->
-
-                        </div>
-
-                        <div class="col-md-5">
-                            <div class="box box-solid">
-                                <!--                                <div class="box-header with-border">
-                                                                    <h3 class="box-title">Carousel</h3>
-                                                                </div>-->
-                                <!-- /.box-header -->
+                            <div class="col-md-6">
+                                <!--<div class="box">-->
                                 <div class="box-body">
                                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                         <ol class="carousel-indicators">
@@ -76,18 +55,18 @@
                                         </ol>
                                         <div class="carousel-inner">
                                             <div class="item active">
-                                                <img src="img/Caloocan1.jpg" alt="First slide" style="width:100%;height: 400px;object-fit: cover">
+                                                <img src="img/Caloocan1.jpg" alt="First slide" style="width:100%;height: 350px;object-fit: cover">
 
                                             </div>
                                             <div class="item">
-                                                <img src="img/Caloocan2.jpg" alt="Second slide" style="width:100%;height: 400px;object-fit: cover">
+                                                <img src="img/Caloocan2.jpg" alt="Second slide" style="width:100%;height: 350px;object-fit: cover">
 
                                                 <!--                                                <div class="carousel-caption">
                                                                                                     Third Slide
                                                                                                 </div>-->
                                             </div>
                                             <div class="item">
-                                                <img src="img/Caloocan3.jpg" alt="Third slide" style="width:100%;height: 400px;object-fit: cover">
+                                                <img src="img/Caloocan3.jpg" alt="Third slide" style="width:100%;height: 350px;object-fit: cover">
 
                                                 <!--                                                <div class="carousel-caption">
                                                                                                     Third Slide
@@ -101,12 +80,53 @@
                                             <span class="fa fa-angle-right"></span>
                                         </a>
                                     </div>
+                                    <!-- /.box-body -->
+                                    <!--</div>-->
+                                    <!-- /.box -->
                                 </div>
-                                <!-- /.box-body -->
+                                <!--</div>-->
                             </div>
-                            <!-- /.box -->
                         </div>
 
+                        <!--END MODAL-->                
+                        <div class="col-md-12" style="margin-top: 2%;">                      
+                            <div class="col-md-6">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Hot Topics</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div id="hotTopicDiv">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box -->
+
+                            <!--
+                                forumBody
+                            -->                 
+                            <div class="col-md-6">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">All Topics</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div id="forumDiv">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                                  /.forumBody
+                                -->
+
+                            </div>
+
+
+                        </div>
                     </div>
                 </section>
             </div>

@@ -39,19 +39,14 @@ function HotTopic() {
 
                 tbody.appendChild(tbodytr);
 
-                $(tbodytr).append('<td>' + data[i].favoritesCount + '</td>');
-                //    $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
-                //     $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
-                $(tbodytr).append('<td><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
-                // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
-                // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
-                $(tbodytr).append('<td>' + data[i].dateCreated + '</td>');
-                $(tbodytr).append('<td> ' + data[i].createdByName + '</td>');
-                //    var tbodytr2 = document.createElement("tr");
-                //    tbody.appendChild(tbodytr2);
-                //    for (var j = 0; data[i].tags.length > j; j++) {
-                //        $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
-                //    }
+                $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled">\n\
+                                  <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
+                        + data[i].favoritesCount + '</button></td>');
+                $(tbodytr).append('<td><span title="title">\n\
+<input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
+<a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
+<p style="font-size: 13px; color: #a3a3a3;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</p></td>');
+
 
             }
 
@@ -92,11 +87,11 @@ function Viewforums() {
                 tbody.appendChild(tbodytr);
 
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
-                $(tbodytr).append('<td><button class="btn btn-block btn-primary"><i class="glyphicon glyphicon-list-alt" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
+                $(tbodytr).append('<td><button class="btn btn-block btn-primary"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
                 $(tbodytr).append('<td width="70%"><span title="title" class="pull-right"><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
                     <a class="titleName" style="font-size: 22px;">' + data[i].forumTitle + '</a></span></td>');
-                
+
                 var tbodytr2 = document.createElement("tr");
                 tbody.appendChild(tbodytr2);
 //                $(tbodytr2).append('<td>');
