@@ -173,13 +173,14 @@ function setHHPopAgeGroupSex (){
     var print;
     var city = "Caloocan City";
     var chartSelected;
+    var reportSelected; 
     function setMaritalStatus(chart) {
         $.ajax({
         url: "SetMaritalStatusServlet",
         type: 'POST',
         dataType: "JSON",
         success: function (data) {
-            
+            reportSelected = 'maritalStatus';
             print = data;
             chartSelected = chart;
             $('#years').empty();
@@ -226,12 +227,14 @@ function setHHPopAgeGroupSex (){
     
     function filterYear(){
         var year = $('#years').find(":selected").text();
-        if(chartSelected=="0"||chartSelected=="Pie Chart"){
+        if(reportSelected === 'maritalStatus'){
+            if(chartSelected=="0"||chartSelected=="Pie Chart"){
                 drawMaritalStatusBar(print, year,'pie');
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawMaritalStatusBar(print, year,'column');
             }
+        }
 
     }
     
@@ -254,11 +257,13 @@ function setHHPopAgeGroupSex (){
         removeGender(analysischart, gender);
         removeBarangay(analysischart, barangay);
         
-        if(chartSelected=="0"||chartSelected=="Pie Chart"){
-            drawMaritalStatusBar(analysischart, 2015,'pie');
-        }
-        else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-            drawMaritalStatusBar(analysischart, 2015,'column');
+        if(reportSelected === 'maritalStatus'){
+            if(chartSelected=="0"||chartSelected=="Pie Chart"){
+                drawMaritalStatusBar(analysischart, 2015,'pie');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawMaritalStatusBar(analysischart, 2015,'column');
+            }
         }
     });
 
