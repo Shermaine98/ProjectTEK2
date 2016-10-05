@@ -24,7 +24,7 @@ function HotTopic() {
             element.appendChild(para);
 
             var table = document.createElement("table");
-            table.setAttribute("class", "table table-bordered");
+            table.setAttribute("class", "table");
             table.setAttribute("style", "");
             para.appendChild(table);
 
@@ -37,19 +37,13 @@ function HotTopic() {
 
                 tbody.appendChild(tbodytr);
 
-                $(tbodytr).append('<td>' + data[i].favoritesCount + '</td>');
-                //    $(tbodytr).append('<td> <button  <i class="glyphicon glyphicon-list-alt"></i>' + data[i].commentsCount + '</button</td>');
-                //     $(tbodytr).append('<td><button id="btnReport" <i class="glyphicon glyphicon-thumbs-down"></i>' + data[i].reportCounts + '</button</td>');
-                $(tbodytr).append('<td><span title="title"><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  <a class="titleName">' + data[i].forumTitle + '</a></span></td>');
-                // $(tbodytr).append('<td><span title="body">' + data[i].body + '</span></td>');
-                // $(tbodytr).append('<td><span title="createdBy">' + data[i].createdBy + '</span></td>');
-                $(tbodytr).append('<td>' + data[i].dateCreated + '</td>');
-                $(tbodytr).append('<td> ' + data[i].createdByName + '</td>');
-                //    var tbodytr2 = document.createElement("tr");
-                //    tbody.appendChild(tbodytr2);
-                //    for (var j = 0; data[i].tags.length > j; j++) {
-                //        $(tbodytr2).append('<td><a class="tagsName">' + data[i].tags[j].tag + '</a></td>');
-                //    }
+                $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled" style="width: 110%;">\n\
+                                  <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
+                        + data[i].favoritesCount + '</button></td>');
+                $(tbodytr).append('<td><span title="title">\n\
+<input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
+<a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
+<p style="font-size: 13px; color: #a3a3a3;">Created on '+data[i].dateCreated+' by ' + data[i].createdByName + '</p></td>');
 
 
             }
@@ -84,6 +78,9 @@ function ViewComments() {
 
             for (var i = 0; i < data.length; i++) {
 
+                var tbodytrtop = document.createElement("tr");
+                tbodytrtop.setAttribute("style", "background: #5a5a5a; color: #fff; height: 10px; font-size: 12px; ");
+                tbody.appendChild(tbodytrtop);
                 var tbodytr = document.createElement("tr");
                 tbody.appendChild(tbodytr);
                 var td1 = document.createElement("td");
@@ -91,13 +88,18 @@ function ViewComments() {
                 tbodytr.appendChild(td1);
                 var td2 = document.createElement("td");
                 tbodytr.appendChild(td2);
+                
+                var tdTOP = document.createElement("td");
+                tdTOP.setAttribute("colspan", "2");
+                tbodytrtop.appendChild(tdTOP);
 
+                $(tdTOP).append('Posted on ' + data[i].dateCreated);
+                
                 $(td1).append(data[i].commentedByName);
                 $(td2).append(data[i].comment + '<br><br><h5 style="font-size: 13px; text-align:right;"> \n\
-                                                <button class="btn btn-flat btn-primary btn-xs" style="margin-right: 2%;">\n\
+                                                <button class="btn btn-flat btn-primary btn-xs"">\n\
                                                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i> \n\
-                                                    Count </button>\n\
-                                                Posted on ' + data[i].dateCreated + '</h5>');
+                                                    Count </button></h5>');
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
