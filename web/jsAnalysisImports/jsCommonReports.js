@@ -1,89 +1,107 @@
-function setHHPopAgeGroupSex (){
+var print;
+var city = "Caloocan City";
+var chartSelected;
+var reportSelected; 
+
+
+function setHHPopAgeGroupSex (chart){
     $.ajax({
         url: "SetHHPopAgeGroupSex",
         type: 'POST',
         dataType: "JSON",
         success: function(data){
-            var print = data;
-            var malePerBarangay = [];
-            PerBarangay = [];
-            for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
-                item = {};
-                item["name"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation;
-                item["y"] = print[0].arrTotalMFFemale[i].arrTotalMFMale;
-                item["drilldown"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation + 'm';
-                malePerBarangay.push(item);
+            reportSelected = 'ageGroup';
+            print = data;
+            chartSelected = 'Population Pyramid';
+            $('#years').empty();
+            $('#districts').empty();
+            $('#barangays').empty();
+            $('#sex').empty();
+            
+            $('#years').append("<option selected disabled id='year' value='"+print[0].years[print[0].years.length-1].year+"'>Choose Year for Report</option>");
+            for (var i = print[0].years.length-1; i >= 0; i--) {
+                $('#years').append('<option id="year" value="' 
+                        + print[0].years[i].year + '">'
+                        +print[0].years[i].year+'</option></br>');
             }
-            var femalePerBarangay = [];
-            for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
-                item = {};
-                item["name"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation;
-                item["y"] = print[0].arrTotalMFFemale[i].arrTotalMFFemale;
-                item["drilldown"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation + 'f';
-                femalePerBarangay.push(item);
-            }
-
-            var malePerAgeGroup = [];
-            for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-                item = {};
-                item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
-                item["y"] = -print[0].totalAgeGroupSex[i].male;
-                item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'm';
-                malePerAgeGroup.push(item);
-            }
-            var femalePerAgeGroup = [];
-            for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-                item = {};
-                item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
-                item["y"] = print[0].totalAgeGroupSex[i].female;
-                item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'f';
-                femalePerAgeGroup.push(item);
-            }
-
-
-            var male = [];
-            for (i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-                item = {};
-                item["name"] = 'Male';
-                item["id"] = print[0].totalAgeGroupSex[i].ageGroup + 'm';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].ageGroupBarangay.length; x++) {
-                    if (print[0].totalAgeGroupSex[i].ageGroup == print[0].ageGroupBarangay[x].ageGroup) {
-                        item2 = {}
-                        item2["name"] = print[0].ageGroupBarangay[x].location;
-                        item2["y"] = print[0].ageGroupBarangay[x].male;
-                        data.push(item2);
-                    }
-                }
-                item["data"] = data;
-                male.push(item);
-            }
-            var drilldownCategories = [];
-            for (i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-                item = {};
-                item["name"] = 'Female';
-                item["id"] = print[0].totalAgeGroupSex[i].ageGroup + 'f';
-                item["type"] = 'column';
-                data = [];
-                for (x = 0; x < print[0].ageGroupBarangay.length; x++) {
-                    if (print[0].totalAgeGroupSex[i].ageGroup == print[0].ageGroupBarangay[x].ageGroup) {
-                        item2 = {}
-                        item2["name"] = print[0].ageGroupBarangay[x].location;
-                        item2["y"] = print[0].ageGroupBarangay[x].female;
-                        data.push(item2);
-                        drilldownCategories.push(print[0].ageGroupBarangay[x].location);
-                    }
-                }
-                item["data"] = data;
-                male.push(item);
-            }
-            var topCategories = [];
-            for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-                topCategories.push(print[0].totalAgeGroupSex[i].ageGroup);
+            //barangay
+            for (var i = 0; i < print[0].barangays.length; i++) {
+                    $('#barangays').append('<input type="checkbox" class="filter" id="barangayss" value="' 
+                            + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
             }
             
-            // Create the chart
+            for (var i = 0; i < print[0].genders.length; i++) {
+                    $('#sex').append('<input type="checkbox" class="filter" id="genders" value="' 
+                            + print[0].genders[i].gender + '" checked>'+'&nbsp; '+print[0].genders[i].gender+'</input></br>');
+            }
+            
+            var year = $('#years').find(":selected").val();
+            
+            if(chart=="0"||chart=="Population Pyramid"){
+                drawHHPopPyramid(print, year,'column');
+            }
+            else if(chart=="0"||chart=="Pie Chart"){
+                drawHHPopPyramid(print, year,'pie');
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
+        }
+    });}
+            
+    function drawHHPopPyramid(print, year, chart){
+        var topCategories = [];
+        for (var i = 0; i < print[0].ageGroups.length; i++) {
+            topCategories.push(print[0].ageGroups[i].ageGroup);
+        }
+        
+        var male = [];
+        maleItem = {};
+        var maleTotal = 0;
+        maleItem["name"] = 'Male';
+        maleItem["drilldown"] = 'male';
+        for (var i = 0; i < print[0].people.length; i++) {
+            for(var y = 0; y < print[0].barangays.length; y++){
+                if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                    if(print[0].people[i].year == year){
+                        for(var z = 0; z < print[0].genders.length; z++){
+                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                if(print[0].people[i].gender == 'Male'){
+                                    maleTotal+=print[0].people[i].people;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        maleItem["y"] = maleTotal;
+        male.push(maleItem);
+        
+        var female = [];
+        femaleItem = {};
+        var femaleTotal = 0;
+        femaleItem["name"] = 'Female';
+        femaleItem["drilldown"] = 'female';
+        for (var i = 0; i < print[0].people.length; i++) {
+            for(var y = 0; y < print[0].barangays.length; y++){
+                if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                    if(print[0].people[i].year == year){
+                        for(var z = 0; z < print[0].genders.length; z++){
+                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                if(print[0].people[i].gender == 'Female'){
+                                    femaleTotal+=print[0].people[i].people;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        female.push(femaleItem);
+        console.log(JSON.stringify(female));
+    
+        // Create the chart
             $('#output').highcharts({
                 chart: {
                     type: 'bar',
@@ -111,7 +129,7 @@ function setHHPopAgeGroupSex (){
                     }
                 },
                 title: {
-                    text: 'Household Population by Age Group and Sex for ' + print[0].Total.latestYear
+                    text: 'Household Population by Age Group and Sex for ' + year
                 },
                 subtitle: {
                     text: 'Click and drag to zoom in. Hold down shift key to pan.'
@@ -153,27 +171,20 @@ function setHHPopAgeGroupSex (){
                 },
                 series: [{
                         name: 'Male',
-                        data: malePerAgeGroup
+                        data: male
                     }, {
                         name: 'Female',
                         color: '#FF9999',
-                        data: femalePerAgeGroup
-                    }],
-                drilldown: {
-                series: male
-                }
-            })
-        },
-        error: function (XMLHttpRequest, textStatus, exception) {
-            alert(XMLHttpRequest.responseText);
-        }
-    });
-}
+                        data: female
+                    }]//,
+//                drilldown: {
+//                series: male
+//                }
+            });
+    }
+            
 
-    var print;
-    var city = "Caloocan City";
-    var chartSelected;
-    var reportSelected; 
+    
     function setMaritalStatus(chart) {
         $.ajax({
         url: "SetMaritalStatusServlet",
@@ -264,7 +275,7 @@ function setHHPopAgeGroupSex (){
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawMaritalStatusBar(analysischart, 2015,'column');
             }
-        }
+        } 
     });
 
     function removeGender(analysischart, gender){

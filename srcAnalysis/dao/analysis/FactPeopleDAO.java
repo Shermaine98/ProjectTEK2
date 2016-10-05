@@ -264,4 +264,60 @@ public class FactPeopleDAO {
         }
         return null;
     }
+    
+    public ArrayList<FactPeople> retrieveHHPopByAgeGroupSex() throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            ArrayList<FactPeople> factPeople = new ArrayList<FactPeople>();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT GENDER, FP.BARANGAY, FP.CENSUSYEAR, AGEBRACKET,\n" +
+"			 SUM(totalNoOfPeople) AS 'PEOPLE',\n" +
+"                        DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE'\n" +
+"                FROM FACT_PEOPLE FP JOIN DIM_BARANGAY DB ON DB.BARANGAY = FP.BARANGAY \n" +
+"                		     JOIN LOCATION L ON FP.BARANGAY = L.BARANGAY AND FP.BARANGAY = DB.BARANGAY\n" +
+"                GROUP BY  CENSUSYEAR, DISTRICT, FP.BARANGAY, GENDER, AGEBRACKET\n" +
+"                ORDER BY CENSUSYEAR, DISTRICT, FP.BARANGAY, GENDER, length(AGEBRACKET), AGEBRACKET");
+                ResultSet rs = pstmt.executeQuery();
+                
+                while (rs.next()) {
+                    FactPeople temp = new FactPeople();
+                    temp.setCensusYear(rs.getInt("CENSUSYEAR"));
+                    temp.setBarangay(rs.getInt("BARANGAY"));
+                    temp.setDistrict(rs.getString("DISTRICT"));
+                    temp.setTotalNoOfWidowed(rs.getInt("PEOPLE"));
+                    temp.setZone(rs.getString("ZONE"));
+                    temp.setGender(rs.getString("GENDER"));
+                    if(temp.getTotalNoOfPeople()<= 0)
+                        temp.setIsOutlier(true);
+                    else
+                        temp.setIsOutlier(false);
+                    factPeople.add(temp);
+                }
+                pstmt.close();
+            }
+            return factPeople;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList<String> retrieveAgeGroups() throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            ArrayList<String> ageGroups = new ArrayList<String>();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT ageBracket FROM fact_people group by ageBracket order by length(ageBracket), ageBracket");
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    ageGroups.add(rs.getString("ageBracket"));
+                }
+                pstmt.close();
+            }
+            return ageGroups;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
 }

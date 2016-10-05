@@ -8,7 +8,11 @@ package servlet.setdata;
 import dao.charts.ByAgeGroupChart;
 import dao.demo.ByAgeGroupSexDAO;
 import dao.RecordDAO;
+import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
+import dao.analysis.DistrictDAO;
+import dao.analysis.FactPeopleDAO;
+import dao.analysis.GenderDAO;
 import model.demo.ByAgeGroupSex;
 import model.Record;
 import java.io.IOException;
@@ -27,6 +31,7 @@ import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
+import model.analysis.FactPeople;
 
 /**
  *
@@ -48,118 +53,101 @@ public class SetHHPopAgeGroupSex extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
             CensusYearDAO censusYearDAO = new CensusYearDAO();
+            DistrictDAO chartsDistrict = new DistrictDAO();
+            FactPeopleDAO chartPeople = new FactPeopleDAO();
+            BarangayDAO chartsBarangay = new BarangayDAO();
+            GenderDAO chartsGender = new GenderDAO();
             
-            
-            String censusYear = String.valueOf(censusYearDAO.getLatestYear());
-            JSONArray jarrayTable = new JSONArray();
-            JSONArray jarrByAgeGroup = new JSONArray();
-            JSONArray jarrayChartTotalMF = new JSONArray();
-            JSONArray jarrayTotalAgeGroupSex = new JSONArray();
-            JSONArray jarrayAgeGroupPerBarangay = new JSONArray();
-            JSONObject objTotal = new JSONObject();
+            JSONArray jarrayYears = new JSONArray();
+            JSONArray jarrayDistrict = new JSONArray();
+            JSONArray jarrayPeople = new JSONArray();
+            JSONArray jarrayBarangays = new JSONArray();
+            JSONArray jarrayGender = new JSONArray();
+            JSONArray jarrayAgeGroup = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
-            ByAgeGroupChart chart = new ByAgeGroupChart();
+
+            ArrayList<Integer> barangays = chartsBarangay.retrieveBarangays();
+            ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
+            ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
+            ArrayList<String> district = chartsDistrict.retrieveDistricts();
+            ArrayList<FactPeople> people = chartPeople.retrieveHHPopByAgeGroupSex();
+            ArrayList<String> ageGroup = chartPeople.retrieveAgeGroups();
             
-            int formID = 200000000 + parseInt(censusYear);
-            ArrayList<ByAgeGroupSex> ByAgeGroupSexTable = new ByAgeGroupSexDAO().ViewByAgeGroupSexFormID(formID);
-            ByAgeGroupSex byAgeGroupTotal = chart.retrieveTotalFemale(formID);
-            ArrayList<ByAgeGroupSex> arrByAgeGroup = chart.retrieveByAgeGroupSex(formID);
-            ArrayList<ByAgeGroupSex> arrTotalMF = chart.retrieveTotalMaleFemalePerBgy(formID);
-            ArrayList<ByAgeGroupSex> arrTotalAgeGroup = chart.retrieveAgeGroupSex(formID);
-            ArrayList<ByAgeGroupSex> arrAgeGroupPerBarangay = chart.retrieveAgeGroupPerBarangay(formID);
-
-            try {
-                objTotal.put("latestYear", censusYear);
-                objTotal.put("TotalBarangay", byAgeGroupTotal.getBarangay());
-                objTotal.put("TotalMale", byAgeGroupTotal.getMaleCount());
-                objTotal.put("TotalFemale", byAgeGroupTotal.getFemaleCount());
-            } catch (JSONException ex) {
-                getLogger(SetHHPopAgeGroupSex.class.getName()).log(SEVERE, null, ex);
-            }
-
-            for (int i = 0; i < arrByAgeGroup.size(); i++) {
-                JSONObject objArrByAgeGroup = new JSONObject();
+            for(int i = 0; i < people.size(); i++){
+                JSONObject objPeople = new JSONObject();
                 try {
-                    objArrByAgeGroup.put("arrByAgeGrouplocation", arrByAgeGroup.get(i).getBarangay());
-                    objArrByAgeGroup.put("arrByAgeGroupAgeGroup", arrByAgeGroup.get(i).getAgeGroup());
-                    objArrByAgeGroup.put("arrByAgeGroupBothSexes", arrByAgeGroup.get(i).getBothSex());
-                    objArrByAgeGroup.put("arrByAgeGroupMale", arrByAgeGroup.get(i).getMaleCount());
-                    objArrByAgeGroup.put("arrByAgeGroupFemale", arrByAgeGroup.get(i).getFemaleCount());
-                    jarrByAgeGroup.put(objArrByAgeGroup);
+                    objPeople.put("year", people.get(i).getCensusYear());
+                    objPeople.put("district", people.get(i).getDistrict());
+                    objPeople.put("people", people.get(i).getTotalNoOfPeople());
+                    objPeople.put("zone", people.get(i).getZone());
+                    objPeople.put("barangay", people.get(i).getBarangay());
+                    objPeople.put("gender", people.get(i).getGender());
+                    jarrayPeople.put(objPeople);
                 } catch (JSONException ex) {
-                    getLogger(SetHHPopAgeGroupSex.class.getName()).log(SEVERE, null, ex);
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
                 }
             }
-
-            for (int i = 0; i < arrTotalAgeGroup.size(); i++) {
-                JSONObject objArrTotalByAgeGroup = new JSONObject();
-                try {
-                    objArrTotalByAgeGroup.put("ageGroup", arrTotalAgeGroup.get(i).getAgeGroup());
-                    objArrTotalByAgeGroup.put("male", arrTotalAgeGroup.get(i).getMaleCount());
-                    objArrTotalByAgeGroup.put("female", arrTotalAgeGroup.get(i).getFemaleCount());
-                    jarrayTotalAgeGroupSex.put(objArrTotalByAgeGroup);
-                } catch (JSONException ex) {
-                    getLogger(SetHHPopAgeGroupSex.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
-            for (int i = 0; i < arrAgeGroupPerBarangay.size(); i++) {
-                JSONObject objArrTotalByAgeGroup = new JSONObject();
-                try {
-                    objArrTotalByAgeGroup.put("location", arrAgeGroupPerBarangay.get(i).getBarangay());
-                    objArrTotalByAgeGroup.put("ageGroup", arrAgeGroupPerBarangay.get(i).getAgeGroup());
-                    objArrTotalByAgeGroup.put("male", arrAgeGroupPerBarangay.get(i).getMaleCount());
-                    objArrTotalByAgeGroup.put("female", arrAgeGroupPerBarangay.get(i).getFemaleCount());
-                    jarrayAgeGroupPerBarangay.put(objArrTotalByAgeGroup);
-                } catch (JSONException ex) {
-                    getLogger(SetHHPopAgeGroupSex.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
-            for (int i = 0; i < arrTotalMF.size(); i++) {
-                JSONObject objarrTotalMF = new JSONObject();
-                try {
-                    objarrTotalMF.put("arrTotalMFlocation", arrTotalMF.get(i).getBarangay());
-                    objarrTotalMF.put("arrTotalMFAgeGroup", arrTotalMF.get(i).getAgeGroup());
-                    objarrTotalMF.put("arrTotalMFMale", arrTotalMF.get(i).getMaleCount());
-                    objarrTotalMF.put("arrTotalMFFemale", arrTotalMF.get(i).getFemaleCount());
-                    jarrayChartTotalMF.put(objarrTotalMF);
-                } catch (JSONException ex) {
-                    getLogger(SetHHPopAgeGroupSex.class.getName()).log(SEVERE, null, ex);
-                }
-
-            }
-            Record records = new RecordDAO().GetbyFormID(formID);
-
-            for (int i = 0; i < ByAgeGroupSexTable.size(); i++) {
-                JSONObject objTable = new JSONObject();
-                try {
-                    objTable.put("location", ByAgeGroupSexTable.get(i).getBarangay());
-                    objTable.put("AgeGroup", ByAgeGroupSexTable.get(i).getAgeGroup());
-                    objTable.put("BothSexes", ByAgeGroupSexTable.get(i).getBothSex());
-                    objTable.put("Male", ByAgeGroupSexTable.get(i).getMaleCount());
-                    objTable.put("Female", ByAgeGroupSexTable.get(i).getFemaleCount());
-                    objTable.put("UploadedBy", records.getUploadedByByName());
-                    objTable.put("ApprovedBy", records.getApprovedByName());
-                    jarrayTable.put(objTable);
-                } catch (JSONException ex) {
-                    getLogger(SetHHPopAgeGroupSex.class.getName()).log(SEVERE, null, ex);
-                }
-            }
-
             
-            ObjectAll.put("Total", objTotal);
-            ObjectAll.put("arrByAgeGroup", jarrByAgeGroup);
-            ObjectAll.put("arrTotalMFFemale", jarrayChartTotalMF);
-            ObjectAll.put("ByAgeGroupSexTable", jarrayTable);
-            ObjectAll.put("totalAgeGroupSex", jarrayTotalAgeGroupSex);
-            ObjectAll.put("ageGroupBarangay", jarrayAgeGroupPerBarangay);
+            for(int i = 0; i < censusYears.size(); i++){
+                JSONObject objYears = new JSONObject();
+                try {
+                    objYears.put("year", censusYears.get(i));
+                    jarrayYears.put(objYears);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < barangays.size(); i++){
+                JSONObject objBgy = new JSONObject();
+                try {
+                    objBgy.put("barangay", barangays.get(i));
+                    jarrayBarangays.put(objBgy);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < district.size(); i++){
+                JSONObject objBgy = new JSONObject();
+                try {
+                    objBgy.put("district", district.get(i));
+                    jarrayDistrict.put(objBgy);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < genders.size(); i++){
+                JSONObject objGender = new JSONObject();
+                try {
+                    objGender.put("gender", genders.get(i));
+                    jarrayGender.put(objGender);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < ageGroup.size(); i++){
+                JSONObject objAgeGroup = new JSONObject();
+                try {
+                    objAgeGroup.put("ageGroup", ageGroup.get(i));
+                    jarrayAgeGroup.put(objAgeGroup);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            ObjectAll.put("years", jarrayYears);
+            ObjectAll.put("people", jarrayPeople);
+            ObjectAll.put("barangays", jarrayBarangays);
+            ObjectAll.put("genders", jarrayGender);
+            ObjectAll.put("districts", jarrayDistrict);
+            ObjectAll.put("ageGroups", jarrayAgeGroup);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().write("[" + ObjectAll.toString() + "]");
-
         }
     }
 

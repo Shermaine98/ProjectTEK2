@@ -322,7 +322,7 @@ function chart(print) {
             }
         }
         item["data"] = data;
-        male.push(item);
+        //male.push(item);
     }
 
     // Create the chart

@@ -526,8 +526,10 @@
             function getData(){
                 var conceptName = $('#commonReports').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
-                    setHHPopAgeGroupSex();
-                    addWithoutChartSelections('getFactPeople()');
+                    var chart ='Population Pyramid';
+                    setHHPopAgeGroupSex(chart);
+                    var charts=['Population Pyramid','Pie Chart','Table'];
+                    addWithChartSelectionsWithBarangays('getFactPeople()',charts);
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
                     var chart ='Pie Chart';
@@ -557,11 +559,11 @@
                 var conceptName = $('#commonReports').find(":selected").text();
                 var chartSelected = $('#charts').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
-                    setHHPopAgeGroupSex();
-                    addWithoutChartSelections('getFactPeople()');
+                    var charts=['Population Pyramid','Pie Chart','Table'];
+                    addWithChartSelectionsWithBarangays('getFactPeople()',charts);
+                    setHHPopAgeGroupSex(chartSelected);
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
-                    setMaritalStatus(chart);
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Pie Chart','Table'];
                     addWithChartSelectionsWithBarangays('getFactPeople()',charts);
