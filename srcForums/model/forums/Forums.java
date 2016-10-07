@@ -13,10 +13,10 @@ public class Forums {
     private int createdBy;
     private String createdByName;
     private String body;
-    private int reportCount;
     private Date dateCreated;
     private int favoritesCount;
     private int CommentsCount;
+    private boolean isLike;
     private ArrayList<Comments> comments = new ArrayList<Comments>();
     private ArrayList<Tags> tags = new ArrayList<Tags>();
     /**
@@ -75,20 +75,7 @@ public class Forums {
         this.body = body;
     }
 
-    /**
-     * @return the reportCount
-     */
-    public int getReportCount() {
-        return reportCount;
-    }
-
-    /**
-     * @param reportCount the reportCount to set
-     */
-    public void setReportCount(int reportCount) {
-        this.reportCount = reportCount;
-    }
-
+    
     /**
      * @return the comments
      */
@@ -172,6 +159,18 @@ public class Forums {
     public void setCreatedByName(String createdByName) {
         this.createdByName = createdByName;
     }
-   
-    
+
+    /**
+     * @return the isLike
+     */
+    public boolean isIsLike() {
+        return isLike;
+    }
+
+    /**
+     * @param isLike the isLike to set
+     */
+    public void setIsLike(boolean isLike) {
+        this.isLike = isLike;
+    }    
 }

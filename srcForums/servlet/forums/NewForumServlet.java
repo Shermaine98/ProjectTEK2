@@ -48,7 +48,6 @@ public class NewForumServlet extends HttpServlet {
         forum.setForumTitle(forumTitle);
         forum.setBody(body);
         forum.setCreatedBy(chck.getUserID());
-        forum.setReportCount(0);
 
         boolean x = false;
 

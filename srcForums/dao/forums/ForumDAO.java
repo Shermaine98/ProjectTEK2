@@ -29,13 +29,12 @@ public class ForumDAO {
             DBConnectionFactory myFactory = getInstance();
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String query = "INSERT INTO FORUMS (forumTitle, createdBy, body, reportCount) VALUES (?,?,?,?) ";
+                String query = "INSERT INTO FORUMS (forumTitle, createdBy, body) VALUES (?,?,?) ";
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 
                 pstmt.setString(1, forum.getForumTitle());
                 pstmt.setInt(2, forum.getCreatedBy());
                 pstmt.setString(3, forum.getBody());
-                pstmt.setInt(4, forum.getReportCount());
                 
                 rows = pstmt.executeUpdate();
                 conn.close();
@@ -48,7 +47,7 @@ public class ForumDAO {
         return false;
     }
     
-    public ArrayList<Forums> getForums() throws ParseException {
+    public ArrayList<Forums> getForums(int userID) throws ParseException {
         ArrayList<Forums> arrForums = new ArrayList<Forums>();
         RecordDAO recordsDAO = new RecordDAO();
         try {
@@ -63,11 +62,11 @@ public class ForumDAO {
                     forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
-                    forums.setReportCount(rs.getInt("reportCount"));
                     forums.setDateCreated(rs.getDate("dateCreated"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
+                    forums.setIsLike(getUserFavorite(forums.getForumID(),userID));
                     arrForums.add(forums);
                     
                 }
@@ -99,13 +98,13 @@ public class ForumDAO {
                     forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
-                    forums.setReportCount(rs.getInt("reportCount"));
                     forums.setDateCreated(rs.getDate("dateCreated"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
                     forums.setComments(commentsDAO.getComments(forums.getForumID()));
                     forums.setTags(tagsDAO.getTags(forums.getForumID()));
+                    
                 }
                 
                 pstmt.close();
@@ -198,7 +197,6 @@ public class ForumDAO {
                         forums.setCreatedBy(rs2.getInt("createdBy"));
                         forums.setForumTitle(rs2.getString("forumTitle"));
                         forums.setBody(rs2.getString("body"));
-                        forums.setReportCount(rs2.getInt("reportCount"));
                         forums.setDateCreated(rs2.getDate("dateCreated"));
                         forums.setFavoritesCount(getFavorites(forums.getForumID()));
                         forums.setCommentsCount(getCommentsCount(forums.getForumID()));
@@ -218,6 +216,35 @@ public class ForumDAO {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return null;
+    }
+    /**
+     * get if user like
+     * @param forumID
+     * @param UserID
+     * @return
+     * @throws ParseException 
+     */
+     public boolean getUserFavorite(int forumID, int UserID) throws ParseException {        
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM forums_favorite ff WHERE ff.forumID = 1 AND ff.favoriteBy = 100000012");
+                pstmt.setInt(1, forumID);
+                
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                   return true;
+                }
+                
+                pstmt.close();
+                rs.close();
+            }
+            
+            return false;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

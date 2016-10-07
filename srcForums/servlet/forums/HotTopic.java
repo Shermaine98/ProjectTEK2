@@ -59,7 +59,6 @@ public class HotTopic extends BaseServlet {
                     obj.put("body", arrForum.get(i).getBody());
                     obj.put("dateCreated", arrForum.get(i).getDateCreated());
                     obj.put("createdBy", arrForum.get(i).getCreatedBy());
-                    obj.put("reportCounts", arrForum.get(i).getReportCount());
                     obj.put("commentsCount", arrForum.get(i).getCommentsCount());
                     obj.put("favoritesCount", arrForum.get(i).getFavoritesCount());
                     obj.put("createdByName", arrForum.get(i).getCreatedByName());

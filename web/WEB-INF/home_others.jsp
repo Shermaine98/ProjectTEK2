@@ -29,7 +29,7 @@
                     <div class="row">
                         <!--MODAL-->
 
-                        <div class="col-md-12">  
+                        <div class="col-md-12">
                             <div id="new_topic" class="col-md-6">
                                 <div class="box box-solid" style="margin-top: 2%;">
                                     <div class="box-header with-border">
@@ -38,7 +38,7 @@
                                     <div class="box-body">
                                         <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
                                         <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
-                                        <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" /> 
+                                        <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" />
                                         <button type="submit" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
                                     </div>
                                 </div>
@@ -88,8 +88,8 @@
                             </div>
                         </div>
 
-                        <!--END MODAL-->                
-                        <div class="col-md-12" style="margin-top: 2%;">                      
+                        <!--END MODAL-->
+                        <div class="col-md-12" style="margin-top: 2%;">
                             <div class="col-md-6">
                                 <div class="box box-solid">
                                     <div class="box-header with-border">
@@ -106,7 +106,7 @@
 
                             <!--
                                 forumBody
-                            -->                 
+                            -->
                             <div class="col-md-6">
                                 <div class="box box-solid">
                                     <div class="box-header with-border">

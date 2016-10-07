@@ -88,7 +88,7 @@ function Viewforums() {
 
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
-                $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
+            //    $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
                 $(tbodytr).append('<td width="70%"><span title="title" class="pull-right"><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
                     <a class="titleName" style="font-size: 22px;">' + data[i].forumTitle + '</a></span></td>');
 
