@@ -20,6 +20,8 @@ private int createdBy;
 private int forumID;
 private Date commentedDate;
 private String commentedByName;
+private int commentCounts;
+private boolean isLiked;
     /**
      * @return the idComments
      */
@@ -130,5 +132,33 @@ private String commentedByName;
      */
     public void setCommentedByName(String commentedByName) {
         this.commentedByName = commentedByName;
+    }
+
+    /**
+     * @return the commentCounts
+     */
+    public int getCommentCounts() {
+        return commentCounts;
+    }
+
+    /**
+     * @param commentCounts the commentCounts to set
+     */
+    public void setCommentCounts(int commentCounts) {
+        this.commentCounts = commentCounts;
+    }
+
+    /**
+     * @return the isLiked
+     */
+    public boolean isIsLiked() {
+        return isLiked;
+    }
+
+    /**
+     * @param isLiked the isLiked to set
+     */
+    public void setIsLiked(boolean isLiked) {
+        this.isLiked = isLiked;
     }
 }

@@ -15,6 +15,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 import model.forums.Forums;
 
 /**
@@ -40,9 +42,11 @@ public class ForumSpecificServlet extends BaseServlet {
         RequestDispatcher rd = null;
         ForumDAO forumDAO = new ForumDAO();
         Forums forum = new Forums();
-
+        
+         HttpSession session = request.getSession();
+         User chck = (User) session.getAttribute("user");
         try {
-            forum = forumDAO.getForum(Integer.parseInt(forumId));
+            forum = forumDAO.getForum(Integer.parseInt(forumId), chck.getUserID());
         } catch (ParseException ex) {
             Logger.getLogger(ForumSpecificServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

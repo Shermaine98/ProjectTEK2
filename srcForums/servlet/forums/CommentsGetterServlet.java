@@ -16,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 import model.forums.Comments;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +47,11 @@ public class CommentsGetterServlet extends HttpServlet {
         String forumID = request.getParameter("forumID");
 
         ArrayList<Comments> arrComments = new ArrayList<Comments>();
-        arrComments = commentsDAO.getComments(Integer.parseInt(forumID));
+       HttpSession session = request.getSession();
+
+        User chck = (User) session.getAttribute("user");
+        
+        arrComments = commentsDAO.getComments(Integer.parseInt(forumID), chck.getUserID());
 
         JSONArray array = new JSONArray();
 
@@ -60,6 +66,8 @@ public class CommentsGetterServlet extends HttpServlet {
                 obj.put("dateCreated", arrComments.get(i).getCommentedDate());
                 obj.put("forumID", arrComments.get(i).getForumID());
                 obj.put("forumTitle", arrComments.get(i).getForumTitle());
+                obj.put("commentCount", arrComments.get(i).getCommentCounts());
+                obj.put("isLike", arrComments.get(i).isIsLiked());
 
                 array.put(obj);
 

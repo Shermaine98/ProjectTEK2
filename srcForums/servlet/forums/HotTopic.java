@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 import model.forums.Forums;
 import model.forums.Tags;
 import org.json.JSONArray;
@@ -41,11 +43,13 @@ public class HotTopic extends BaseServlet {
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            HttpSession session = request.getSession();
+         User chck = (User) session.getAttribute("user");
+         
             ForumDAO forumDAO = new ForumDAO();
             TagsDAO tagsDAO = new TagsDAO();
             ArrayList<Forums> arrForum = new ArrayList<Forums>();
-            arrForum = forumDAO.getHotTopic();
+            arrForum = forumDAO.getHotTopic(chck.getUserID());
 
             JSONArray array = new JSONArray();
 

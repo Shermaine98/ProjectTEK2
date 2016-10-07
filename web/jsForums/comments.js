@@ -41,9 +41,9 @@ function HotTopic() {
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
                         + data[i].favoritesCount + '</button></td>');
                 $(tbodytr).append('<td><span title="title">\n\
-<input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
-<a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
-<p style="font-size: 13px; color: #a3a3a3;">Created on '+data[i].dateCreated+' by ' + data[i].createdByName + '</p></td>');
+                    <input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
+                    <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
+                    <p style="font-size: 13px; color: #a3a3a3;">Created on '+data[i].dateCreated+' by ' + data[i].createdByName + '</p></td>');
 
 
             }
@@ -99,7 +99,7 @@ function ViewComments() {
                 $(td2).append(data[i].comment + '<br><br><h5 style="font-size: 13px; text-align:right;"> \n\
                                                 <button class="btn btn-flat btn-primary btn-xs"">\n\
                                                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i> \n\
-                                                    Count </button></h5>');
+                                                    '+ data[i].commentCount+' </button></h5>');
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {

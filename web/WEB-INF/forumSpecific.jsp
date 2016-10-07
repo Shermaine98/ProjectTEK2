@@ -66,7 +66,7 @@
                                                 <td><%= forum.getBody()%><br><br>
                                                     <h5 style="font-size: 13px; text-align:right;">
                                                         <button class="btn btn-flat btn-primary btn-xs">
-                                                            <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i> 
+                                                            <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i>
                                                             <%=forum.getFavoritesCount()%> </button></h5></td>
                                             </tr>
                                         </table>
@@ -77,7 +77,6 @@
                                         <input id="commentedById" type="hidden"  value="<%=forum.getCreatedBy()%>" />
                                         <input  type="hidden"  value="<%=forum.getCreatedByName()%>" />
                                         <input type="hidden"  value="<%=forum.getCommentsCount()%>" />
-                                        <input type="hidden"  value="<%=forum.getReportCount()%>" />
                                         <input type="hidden" value="<%=forum.getFavoritesCount()%> "/>
                                         <input type="hidden" value="<%=forum.getDateCreated()%>"/>
                                         <!--<table>

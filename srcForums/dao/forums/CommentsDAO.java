@@ -45,7 +45,7 @@ public class CommentsDAO {
         return false;
     }
 
-    public ArrayList<Comments> getComments(int forumID) throws ParseException {
+    public ArrayList<Comments> getComments(int forumID, int User) throws ParseException {
         ArrayList<Comments> arrComments = new ArrayList<Comments>();
                 RecordDAO recordsDAO = new RecordDAO();
 
@@ -66,6 +66,8 @@ public class CommentsDAO {
                     comments.setForumTitle(rs.getString("forumTitle"));
                     comments.setCreatedBy(rs.getInt("createdBy"));
                     comments.setForumID(rs.getInt("forumID"));
+                    comments.setCommentCounts(getCommentsCount(comments.getIdComments()));
+                    comments.setIsLiked(getUserCommentLike(comments.getIdComments(),User ));
                     arrComments.add(comments);
 
                 }
@@ -81,5 +83,54 @@ public class CommentsDAO {
         return null;
     }
     
+     public int getCommentsCount(int commentID) throws ParseException {
+        int count = 0;
+
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT count(idComment) AS 'CommentCount' FROM comments_favorite WHERE idComment = ?;");
+                pstmt.setInt(1, commentID);
+
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("CommentCount");
+
+                }
+
+                pstmt.close();
+                rs.close();
+            }
+
+            return count;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return 0;
+    }
     
+     
+     public boolean getUserCommentLike(int commentID, int UserID) throws ParseException {
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM comments_favorite cf WHERE cf.idComment = ? AND cf.favoriteBy = ?");
+                pstmt.setInt(1, commentID);
+                pstmt.setInt(2, UserID);
+
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+
+                pstmt.close();
+                rs.close();
+            }
+
+            return false;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
 }
