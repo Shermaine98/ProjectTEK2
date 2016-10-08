@@ -17,7 +17,7 @@ public class FactPeople {
     private String district;
     private String zone;
     private String gender;
-    private int ageBracket;
+    private String ageBracket;
     private int totalNoOfPeople;
     private int totalNoOfSingle;
     private int totalNoOfMarried;
@@ -106,11 +106,11 @@ public class FactPeople {
         this.censusYear = censusYear;
     }
 
-    public int getAgeBracket() {
+    public String getAgeBracket() {
         return ageBracket;
     }
 
-    public void setAgeBracket(int ageBracket) {
+    public void setAgeBracket(String ageBracket) {
         this.ageBracket = ageBracket;
     }
 

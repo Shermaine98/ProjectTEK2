@@ -83,6 +83,7 @@ public class SetHHPopAgeGroupSex extends HttpServlet {
                     objPeople.put("zone", people.get(i).getZone());
                     objPeople.put("barangay", people.get(i).getBarangay());
                     objPeople.put("gender", people.get(i).getGender());
+                    objPeople.put("ageGroup", people.get(i).getAgeBracket());
                     jarrayPeople.put(objPeople);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);

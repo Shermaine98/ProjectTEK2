@@ -284,9 +284,10 @@ public class FactPeopleDAO {
                     temp.setCensusYear(rs.getInt("CENSUSYEAR"));
                     temp.setBarangay(rs.getInt("BARANGAY"));
                     temp.setDistrict(rs.getString("DISTRICT"));
-                    temp.setTotalNoOfWidowed(rs.getInt("PEOPLE"));
+                    temp.setTotalNoOfPeople(rs.getInt("PEOPLE"));
                     temp.setZone(rs.getString("ZONE"));
                     temp.setGender(rs.getString("GENDER"));
+                    temp.setAgeBracket(rs.getString("AGEBRACKET"));
                     if(temp.getTotalNoOfPeople()<= 0)
                         temp.setIsOutlier(true);
                     else
