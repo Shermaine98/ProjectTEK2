@@ -86,8 +86,8 @@ function Viewforums() {
 
                 tbody.appendChild(tbodytr);
 
-                $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
-                $(tbodytr).append('<td><button class="btn btn-block btn-primary"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
+                $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
+                $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
             //    $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
                 $(tbodytr).append('<td width="70%"><span title="title" class="pull-right"><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
                     <a class="titleName" style="font-size: 22px;">' + data[i].forumTitle + '</a></span></td>');
@@ -96,13 +96,13 @@ function Viewforums() {
                 tbody.appendChild(tbodytr2);
 //                $(tbodytr2).append('<td>');
                 var tr2td = document.createElement("td");
-                tr2td.setAttribute("colspan", "3");
+                tr2td.setAttribute("colspan", "2");
                 tbodytr2.appendChild(tr2td);
                 for (var j = 0; data[i].tags.length > j; j++) {
                     $(tr2td).append('<button style="margin-right: 2%;" class="btn btn-flat btn-default btn-xs"><a class="tagsName">' + data[i].tags[j].tag + '</a></button>');
                 }
 //                $(tbodytr2).append('</td>');
-                $(tbodytr2).append('<td><h5 align="right" style="color: #777; font-size: 13px;">created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
+                $(tbodytr2).append('<td width="70%"><h5 align="right" style="color: #777; font-size: 13px;">created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
 
 
             }
