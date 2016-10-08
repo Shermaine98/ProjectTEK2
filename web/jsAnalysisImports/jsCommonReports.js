@@ -1,7 +1,91 @@
-var print;
-var city = "Caloocan City";
-var chartSelected;
-var reportSelected; 
+    var print;
+    var city = "Caloocan City";
+    var chartSelected;
+    var reportSelected; 
+    var year = [];
+    var district = [];
+    var barangay = [];
+    var gender = [];
+    var analysischart = []; 
+
+    function filterYear(){
+        var year = $('#years').find(":selected").text();
+        if(reportSelected === 'maritalStatus'){
+            if(chartSelected=="0"||chartSelected=="Pie Chart"){
+                drawMaritalStatusBar(print, year,'pie');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawMaritalStatusBar(print, year,'column');
+            }
+        }
+        
+        if(reportSelected === 'ageGroup'){
+            if(chartSelected=="0"||chartSelected=="Population Pyramid"){
+                drawHHPopPyramid(print, year);
+            }
+            else if(chartSelected=="0"||chartSelected=="Pie Chart"){
+                drawMaritalStatusBar(print, year);
+            }
+        }
+    }
+    
+    //CLICK location
+    $(document).on("click", '.filter', function () {
+        gender = [];
+        barangay = [];
+        analysischart[0] = print[0];
+
+        $('[id="barangayss"]:checked').each(function (e) {
+            var id = $(this).attr('value');
+            barangay.push(id);
+        });
+        
+        $('[id="genders"]:checked').each(function (e) {
+            var id = $(this).attr('value');
+            gender.push(id);
+        });
+
+        removeGender(analysischart, gender);
+        removeBarangay(analysischart, barangay);
+        
+        if(reportSelected === 'maritalStatus'){
+            if(chartSelected=="0"||chartSelected=="Pie Chart"){
+                drawMaritalStatusBar(analysischart, 2015,'pie');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawMaritalStatusBar(analysischart, 2015,'column');
+            }
+        } 
+    });
+
+    function removeGender(analysischart, gender){
+        analysischart[0].genders.length = 0;
+        for (var x = 0; x < gender.length; x++) {
+            item = {};
+            item['gender'] = gender[x];
+            analysischart[0].genders.push(item);
+        }
+    }
+    
+    function removeDistrict(analysischart, district){
+        analysischart[0].districts.length = 0;
+        for (var x = 0; x < district.length; x++) {
+            item = {};
+            item['district'] = district[x];
+            analysischart[0].districts.push(item);
+        }
+    }
+    
+    function removeBarangay(analysischart, barangay){
+        analysischart[0].barangays.length = 0;
+        for (var x = 0; x < barangay.length; x++) {
+            item = {};
+            item["barangay"] = barangay[x];
+            analysischart[0].barangays.push(item);
+            
+        }
+    }
+
 
 
 function setHHPopAgeGroupSex (chart){
@@ -21,9 +105,10 @@ function setHHPopAgeGroupSex (chart){
             $('#years').append("<option selected disabled id='year' value='"+print[0].years[print[0].years.length-1].year+"'>Choose Year for Report</option>");
             for (var i = print[0].years.length-1; i >= 0; i--) {
                 $('#years').append('<option id="year" value="' 
-                        + print[0].years[i].year + '">'
+                        +print[0].years[i].year+ '">'
                         +print[0].years[i].year+'</option></br>');
             }
+            console.log(JSON.stringify(print[0].years));
             //barangay
             for (var i = 0; i < print[0].barangays.length; i++) {
                     $('#barangays').append('<input type="checkbox" class="filter" id="barangayss" value="' 
@@ -38,10 +123,10 @@ function setHHPopAgeGroupSex (chart){
             var year = $('#years').find(":selected").val();
             
             if(chart=="0"||chart=="Population Pyramid"){
-                drawHHPopPyramid(print, 2015,'column');
+                drawHHPopPyramid(print, print[0].years[print[0].years.length-1].year);
             }
             else if(chart=="0"||chart=="Pie Chart"){
-                drawHHPopPyramid(print, 2015,'pie');
+                drawHHPopPyramid(print, print[0].years[print[0].years.length-1].year);
             }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
@@ -49,7 +134,7 @@ function setHHPopAgeGroupSex (chart){
         }
     });}
             
-    function drawHHPopPyramid(print, year, chart){
+    function drawHHPopPyramid(print, year){
         var topCategories = [];
         for (var i = 0; i < print[0].ageGroups.length; i++) {
             topCategories.push(print[0].ageGroups[i].ageGroup);
@@ -63,13 +148,13 @@ function setHHPopAgeGroupSex (chart){
             item["name"] = print[0].ageGroups[a].ageGroup;
             //item["drilldown"] = 'unknown';
             for(var i = 0; i < print[0].people.length; i++){
-                if(print[0].people[i].year === year){
-                    if(print[0].ageGroups[a].ageGroup === print[0].people[i].ageGroup){
+                if(print[0].people[i].year == year){
+                    if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
                         for(var c = 0; c < print[0].genders.length; c++){
-                            if(print[0].people[i].gender === print[0].genders[c].gender){
-                                if(print[0].people[i].gender === 'Male'){
+                            if(print[0].people[i].gender == print[0].genders[c].gender){
+                                if(print[0].people[i].gender == 'Male'){
                                     for(var b = 0; b < print[0].barangays.length; b++){
-                                        if(print[0].people[i].barangay === print[0].barangays[b].barangay){
+                                        if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                             total+=print[0].people[i].people;
                                         }
                                     }
@@ -92,13 +177,14 @@ function setHHPopAgeGroupSex (chart){
             item["name"] = print[0].ageGroups[a].ageGroup;
             //item["drilldown"] = 'unknown';
             for(var i = 0; i < print[0].people.length; i++){
-                if(print[0].people[i].year === year){
-                    if(print[0].ageGroups[a].ageGroup === print[0].people[i].ageGroup){
+                
+                if(print[0].people[i].year == year){
+                    if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
                         for(var c = 0; c < print[0].genders.length; c++){
                             if(print[0].people[i].gender === print[0].genders[c].gender){
-                                if(print[0].people[i].gender === 'Female'){
+                                if(print[0].people[i].gender == 'Female'){
                                     for(var b = 0; b < print[0].barangays.length; b++){
-                                        if(print[0].people[i].barangay === print[0].barangays[b].barangay){
+                                        if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                             total+=print[0].people[i].people;
                                         }
                                     }
@@ -194,8 +280,7 @@ function setHHPopAgeGroupSex (chart){
 //                }
             });
     }
-            
-
+    
     
     function setMaritalStatus(chart) {
         $.ajax({
@@ -231,10 +316,10 @@ function setHHPopAgeGroupSex (chart){
             var year = $('#years').find(":selected").val();
             
             if(chart=="0"||chart=="Pie Chart"){
-                drawMaritalStatusBar(print, year,'pie');
+                drawMaritalStatusBar(print, year, 'pie');
             }
             else if(chart=="0"||chart=="Bar Chart"){
-                drawMaritalStatusBar(print, year,'column');
+                drawMaritalStatusBar(print, year, 'column');
             }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
@@ -242,82 +327,6 @@ function setHHPopAgeGroupSex (chart){
         }
     });
     }
-    var year = [];
-    var district = [];
-    var barangay = [];
-    var gender = [];
-    var analysischart = []; 
-    
-    function filterYear(){
-        var year = $('#years').find(":selected").text();
-        if(reportSelected === 'maritalStatus'){
-            if(chartSelected=="0"||chartSelected=="Pie Chart"){
-                drawMaritalStatusBar(print, year,'pie');
-            }
-            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-                drawMaritalStatusBar(print, year,'column');
-            }
-        }
-
-    }
-    
-    //CLICK location
-    $(document).on("click", '.filter', function () {
-        gender = [];
-        barangay = [];
-        analysischart[0] = print[0];
-
-        $('[id="barangayss"]:checked').each(function (e) {
-            var id = $(this).attr('value');
-            barangay.push(id);
-        });
-        
-        $('[id="genders"]:checked').each(function (e) {
-            var id = $(this).attr('value');
-            gender.push(id);
-        });
-
-        removeGender(analysischart, gender);
-        removeBarangay(analysischart, barangay);
-        
-        if(reportSelected === 'maritalStatus'){
-            if(chartSelected=="0"||chartSelected=="Pie Chart"){
-                drawMaritalStatusBar(analysischart, 2015,'pie');
-            }
-            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-                drawMaritalStatusBar(analysischart, 2015,'column');
-            }
-        } 
-    });
-
-    function removeGender(analysischart, gender){
-        analysischart[0].genders.length = 0;
-        for (var x = 0; x < gender.length; x++) {
-            item = {};
-            item['gender'] = gender[x];
-            analysischart[0].genders.push(item);
-        }
-    }
-    
-    function removeDistrict(analysischart, district){
-        analysischart[0].districts.length = 0;
-        for (var x = 0; x < district.length; x++) {
-            item = {};
-            item['district'] = district[x];
-            analysischart[0].districts.push(item);
-        }
-    }
-    
-    function removeBarangay(analysischart, barangay){
-        analysischart[0].barangays.length = 0;
-        for (var x = 0; x < barangay.length; x++) {
-            item = {};
-            item["barangay"] = barangay[x];
-            analysischart[0].barangays.push(item);
-            
-        }
-    }
-    
     
     function drawMaritalStatusBar(print, year, chart){
             var total = [];
@@ -948,8 +957,6 @@ function setHHPopAgeGroupSex (chart){
                 drilldowns.push(item);
             }
             
-            
-            console.log(JSON.stringify(drilldowns));
             $('#output').highcharts({
                 chart: {
                     type: chart,
