@@ -5,12 +5,10 @@
  */
 package servlet.forums;
 
-import com.google.gson.Gson;
-import dao.forums.ForumDAO;
 import dao.forums.TagsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,16 +16,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.accounts.User;
-import model.forums.Forums;
 import model.forums.Tags;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author Shermaine
  */
-public class NewForumServlet extends HttpServlet {
+public class TagServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,49 +37,32 @@ public class NewForumServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        TagsDAO tagDAO = new TagsDAO();
-        ForumDAO forumDAO = new ForumDAO();
+         PrintWriter out = response.getWriter();
+        TagsDAO TagsDAO = new TagsDAO();
 
-        String forumTitle = request.getParameter("forumTitle");
-        String body = request.getParameter("forumBody");
-        String[] tags = request.getParameterValues("tags[]");
-        HttpSession session = request.getSession();
-        User chck = (User) session.getAttribute("user");
 
-        ArrayList<String> arrSTags = new ArrayList<String>();
-        ArrayList<Tags> arrtags = new ArrayList<Tags>();
-        for (int i = 0; i < tags.length; i++) {
-            arrSTags.add(tags[i].replaceAll("\\s", ""));
-            Tags tag = new Tags();
-            tag.setCreatedBy(chck.getUserID());
-            tag.setTag(tags[i].replaceAll("\\s", ""));
-            tag.setForumTitle(forumTitle);
-            tag.setForumID(forumDAO.getForumID());
-            arrtags.add(tag);
+        ArrayList<Tags> arrTags = new ArrayList<Tags>();
+        arrTags = TagsDAO.getAllRefTags();
+
+        JSONArray array = new JSONArray();
+
+        for (int i = 0; i < arrTags.size(); i++) {
+            JSONObject obj = new JSONObject();
+
+            try {
+                obj.put("tag", arrTags.get(i).getTag());
+               
+                array.put(obj);
+            } catch (JSONException ex) {
+                Logger.getLogger(ServletForums.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
-        tagDAO.addTagRef(arrSTags);
 
-        Forums forum = new Forums();
-        forum.setForumTitle(forumTitle);
-        forum.setBody(body);
-        forum.setCreatedBy(chck.getUserID());
-
-        boolean x = false;
-
-        x = forumDAO.addForum(forum);
-
-        if (x) {
-            tagDAO.addTag(arrtags);
-        }
-
-        String json = new Gson().toJson(x);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        response.getWriter().write(json);
+        out.print(array);
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,8 +79,8 @@ public class NewForumServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(NewForumServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(TagServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -116,8 +97,8 @@ public class NewForumServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(NewForumServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(TagServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

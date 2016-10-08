@@ -348,6 +348,10 @@
         <servlet-name>HotTopic</servlet-name>
         <servlet-class>servlet.forums.HotTopic</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TagServlet</servlet-name>
+        <servlet-class>servlet.forums.TagServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -671,6 +675,10 @@
     <servlet-mapping>
         <servlet-name>HotTopic</servlet-name>
         <url-pattern>/HotTopic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TagServlet</servlet-name>
+        <url-pattern>/TagServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

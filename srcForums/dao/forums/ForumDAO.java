@@ -29,12 +29,12 @@ public class ForumDAO {
             DBConnectionFactory myFactory = getInstance();
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String query = "INSERT INTO FORUMS (forumTitle, createdBy, body) VALUES (?,?,?) ";
+                String query = "INSERT INTO FORUMS (forumID, forumTitle, createdBy, body) VALUES (?,?,?,?) ";
                 PreparedStatement pstmt = conn.prepareStatement(query);
-
-                pstmt.setString(1, forum.getForumTitle());
-                pstmt.setInt(2, forum.getCreatedBy());
-                pstmt.setString(3, forum.getBody());
+                pstmt.setInt(1, getForumID());
+                pstmt.setString(2, forum.getForumTitle());
+                pstmt.setInt(3, forum.getCreatedBy());
+                pstmt.setString(4, forum.getBody());
 
                 rows = pstmt.executeUpdate();
                 conn.close();
@@ -251,4 +251,23 @@ public class ForumDAO {
         return false;
     }
 
+    public Integer getForumID() throws SQLException {
+        DBConnectionFactory myFactory = getInstance();
+        Integer i = 88888;
+        try (Connection conn = myFactory.getConnection()) {
+            String query = "SELECT MAX(forumID) as `forumID` from forums";
+            ResultSet rs;
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                rs = pstmt.executeQuery();
+                if (rs.next()) { 
+                    i =0;
+                    i = rs.getInt("forumID") + 1;
+                    return i;
+                }
+                conn.close();
+            }
+            rs.close();
+        }
+        return i;
+    }
 }

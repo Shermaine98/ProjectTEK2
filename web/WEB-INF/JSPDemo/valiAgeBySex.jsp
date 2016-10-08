@@ -163,8 +163,10 @@
             <!--TABLE-->
             <p style="margin-left: 5%;">Please provide the correct inputs for the missing and incorrect fields as seen in the table below.</p>
             <div id="printTable" style="width: 90%; margin-left: auto; margin-right: auto;">
-
             </div>
+            <footer>
+                <div style='text-align:center;'>Page <span class="pageCounter"></span>/<span class="totalPages"></span></div>
+            </footer>
         </div>
 
         <script>

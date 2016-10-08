@@ -12,6 +12,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Project TEK | Home </title>
+        <link href="cssImported/jquery.tagit.css" rel="stylesheet" type="text/css"/>
+        <link href="cssImported/tagit.ui-zendesk.css" rel="stylesheet" type="text/css"/>
+        <script src="jsForums/tag-it.js" type="text/javascript"></script>
         <script src="jsForums/forums.js" type="text/javascript"></script>
 
         <style>
@@ -38,7 +41,7 @@
                                     <div class="box-body">
                                         <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
                                         <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
-                                        <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" />
+                                        <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" id="tagInput" />
                                         <button type="submit" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
                                     </div>
                                 </div>

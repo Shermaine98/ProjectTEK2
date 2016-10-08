@@ -7,9 +7,9 @@
 $(document).ready(function () {
     HotTopic();
     Viewforums();
+    getTags();
 
 });
-
 
 function HotTopic() {
     $.ajax({
@@ -88,7 +88,7 @@ function Viewforums() {
 
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
-            //    $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
+                //    $(tbodytr).append('<td><button class="btn btn-block btn-primary" id="btnReport"> <i class="glyphicon glyphicon-thumbs-down" style="margin-right: 23%;"></i>' + data[i].reportCounts + '</button></td>');
                 $(tbodytr).append('<td width="70%"><span title="title" class="pull-right"><input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
                     <a class="titleName" style="font-size: 22px;">' + data[i].forumTitle + '</a></span></td>');
 
@@ -119,6 +119,11 @@ function submitNewForum() {
 
     var forumTitle = document.getElementById('forumTitle').value;
     var forumBody = document.getElementById('forumBody').value;
+    var tags = [];
+    var x = document.getElementsByClassName("tagit-label");
+    for (var i = 0; i < x.length; i++) {
+        tags.push(x[i].innerText);
+    }
 
     $.ajax({
         url: "NewForumServlet",
@@ -126,14 +131,19 @@ function submitNewForum() {
         dataType: "JSON",
         data: {
             forumTitle: forumTitle,
-            forumBody: forumBody
+            forumBody: forumBody,
+            tags: tags
         },
         success: function (data) {
-
             console.log(data);
             if (data === true) {
                 HotTopic();
                 Viewforums();
+                getTags();
+                $("#forumTitle").val('');
+                $("#forumBody").val('');
+                $('#tagInput').tagit('removeAll');
+                return false;
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -142,6 +152,47 @@ function submitNewForum() {
     });
 
 }
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+var tags = [];
+
+
+
+
+function getTags() {
+    $.ajax({
+        url: "TagServlet",
+        type: 'POST',
+        dataType: "JSON",
+        success: function (data) {
+            tags = [];
+            $.each(data, function (key, value) {
+                tags.push(value.tag);
+            });
+
+
+
+        }, error: function (XMLHttpRequest, textStatus, exception) {
+            console.log(exception);
+        }
+    });
+}
+$(function () {
+    $('#tagInput').tagit({
+        availableTags: tags
+    });
+
+
+
+
+});
+
+
+
 var ctx = "${pageContext.request.contextPath}";
 // if title is clicked - redirect get TitleName and redirect to specific forum page
 
