@@ -117,7 +117,7 @@
                                         <h3 class="box-title">All Topics</h3>
                                     </div>
                                     <div class="box-body" id="searchDiv" >
-                                    <input class="search" placeholder="Search by tags or by topic name" />
+                                        <input style="margin-bottom: 2%;" class="search form-control" placeholder="Search by tags or by topic" />
                                         <div id="forumDiv">
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
         </div>
         <script>
 
-           </script>
+        </script>
     </body>
 
 </html>

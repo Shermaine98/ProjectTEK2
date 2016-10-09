@@ -116,7 +116,7 @@ function HotTopic() {
 
                 }
 
-                $(tbodytr).append('<div class="forumId" style="visibility: hidden;">' + data[i].forumID + '</div> \n\
+                $(tbodytr).append('<div class="forumId" style="display:none;">' + data[i].forumID + '</div> \n\
                     <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
                     <p style="font-size: 13px; color: #a3a3a3;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</p></td>');
 
@@ -159,14 +159,14 @@ function Viewforums() {
 
                 tbody.appendChild(tbodytr);
                 if (data[i].isLike === false) {
-                    $(tbodytr).append('<td><button  class="btn btn-block btn-default btn-sm nDefault" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
+                    $(tbodytr).append('<td><button class="btn btn-block btn-default btn-sm nDefault" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
                 } else {
                     $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm nPrimary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 23%;"></i>' + data[i].favoritesCount + '</button></td>');
 
                 }
 
 
-                $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
+                $(tbodytr).append('<td><button class="btn btn-block btn-default btn-sm"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
                 $(tbodytr).append('<td class="forumTitleSearch"><span style="display: none;" class="createdBy">' + data[i].createdBy + '</span><span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
                     <a class="titleName" style="font-size: 22px;"><span class="forumTitle">' + data[i].forumTitle + '</span></a></td>');
 
