@@ -6,6 +6,7 @@
 package servlet.forums;
 
 import com.google.gson.Gson;
+import dao.forums.CommentsDAO;
 import dao.forums.ForumDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,6 +43,7 @@ public class FavoriteServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User chck = (User) session.getAttribute("user");
         ForumDAO forumDAO = new ForumDAO();
+        CommentsDAO commentsDAO = new CommentsDAO();
 
         boolean x = false;
         if (decision.equalsIgnoreCase("forum")) {
@@ -56,14 +58,15 @@ public class FavoriteServlet extends HttpServlet {
                 forumFavorite.setFavoriteBy(chck.getUserID());
                 x = forumDAO.addFavorite(forumFavorite);
             } else if (isLike.equalsIgnoreCase("false")) {
-                x = forumDAO.deleteFavorite(chck.getUserID());
+                x = forumDAO.deleteFavorite(chck.getUserID(), Integer.parseInt(forumId));
             }
 
         } else if (decision.equalsIgnoreCase("comment")) {
             String commentId = request.getParameter("commentID");
             if (isLike.equalsIgnoreCase("true")) {
-
-            } else {
+                x = commentsDAO.addCommentFavorite(Integer.parseInt(commentId.trim()), chck.getUserID());
+            } else if (isLike.equalsIgnoreCase("false")) {
+                x = commentsDAO.deleteCommentFavorite(chck.getUserID(), Integer.parseInt(commentId));
 
             }
         }

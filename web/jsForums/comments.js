@@ -7,6 +7,63 @@
 $(document).ready(function () {
     HotTopic();
     ViewComments();
+
+    var decision = "comment";
+    var isLike;
+    $(document).on("click", '.nDefault', function () {
+
+        var commentID = $(this).closest("tr").find("span.commentID").text();
+
+        isLike = "true";
+        $.ajax({
+            context: this,
+            url: "FavoriteServlet",
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+                decision: decision,
+                commentID: commentID,
+                isLike: isLike
+            },
+            success: function (data) {
+                if (data === true) {
+                HotTopic();
+                ViewComments();
+            }
+            }, error: function (XMLHttpRequest, textStatus, exception) {
+                console.log(exception);
+            }
+        });
+    });
+
+//remove like
+    $(document).on("click", '.nPrimary', function () {
+                var commentID = $(this).closest("tr").find("span.commentID").text();
+
+        isLike = "false";
+        $.ajax({
+            url: "FavoriteServlet",
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+                commentID: commentID,
+                decision: decision,
+                isLike: isLike
+            },
+            success: function (data) {
+                if (data === true) {
+                HotTopic();
+                ViewComments();
+            }
+
+            }, error: function (XMLHttpRequest, textStatus, exception) {
+                console.log(exception);
+            }
+        });
+
+
+
+    });
 });
 
 function HotTopic() {
@@ -40,10 +97,11 @@ function HotTopic() {
                 $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled" style="width: 110%;">\n\
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
                         + data[i].favoritesCount + '</button></td>');
+                
                 $(tbodytr).append('<td><span title="title">\n\
                     <input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
                     <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
-                    <p style="font-size: 13px; color: #a3a3a3;">Created on '+data[i].dateCreated+' by ' + data[i].createdByName + '</p></td>');
+                    <p style="font-size: 13px; color: #a3a3a3;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</p></td>');
 
 
             }
@@ -88,18 +146,28 @@ function ViewComments() {
                 tbodytr.appendChild(td1);
                 var td2 = document.createElement("td");
                 tbodytr.appendChild(td2);
-                
+
                 var tdTOP = document.createElement("td");
                 tdTOP.setAttribute("colspan", "2");
                 tbodytrtop.appendChild(tdTOP);
 
                 $(tdTOP).append('Posted on ' + data[i].dateCreated);
-                
+
                 $(td1).append(data[i].commentedByName);
-                $(td2).append(data[i].comment + '<br><br><h5 style="font-size: 13px; text-align:right;"> \n\
-                                                <button class="btn btn-flat btn-primary btn-xs"">\n\
+
+                if (data[i].isLike === false) {
+                    
+                     $(td2).append(data[i].comment + '<br><br><span style="display: none;" class="commentID">' + data[i].commentID + '</span><h5 style="font-size: 13px; text-align:right;"> \n\
+                                                <button class="btn btn-flat btn-default btn-xs nDefault">\n\
                                                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i> \n\
-                                                    '+ data[i].commentCount+' </button></h5>');
+                                                    ' + data[i].commentCount + ' </button></h5>');
+                 
+                } else {
+                    $(td2).append(data[i].comment + '<br><br><span style="display: none;" class="commentID">' + data[i].commentID + '</span><h5 style="font-size: 13px; text-align:right;"> \n\
+                                                <button class="btn btn-flat btn-primary btn-xs nPrimary">\n\
+                                                    <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i> \n\
+                                                    ' + data[i].commentCount + ' </button></h5>');
+                }
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -130,6 +198,7 @@ function submitNewComment() {
             if (data === true) {
                 HotTopic();
                 ViewComments();
+                $("#comment").val('');
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {

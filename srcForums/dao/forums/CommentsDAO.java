@@ -29,13 +29,14 @@ public class CommentsDAO {
             DBConnectionFactory myFactory = getInstance();
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String query = "INSERT INTO COMMENTS (comment, commentedBy, forumTitle, createdBy, forumID) values (?,?,?,?,?)";
+                String query = "INSERT INTO COMMENTS (idComment, comment, commentedBy, forumTitle, createdBy, forumID) values (?, ?,?,?,?,?)";
                 PreparedStatement pstmt = conn.prepareStatement(query);
-                pstmt.setString(1, comments.getComment());
-                pstmt.setInt(2, comments.getCommentedby());
-                pstmt.setString(3, comments.getForumTitle());
-                pstmt.setInt(4, comments.getCreatedBy());
-                pstmt.setInt(5, comments.getForumID());
+                pstmt.setInt(1, getCommentID());
+                pstmt.setString(2, comments.getComment());
+                pstmt.setInt(3, comments.getCommentedby());
+                pstmt.setString(4, comments.getForumTitle());
+                pstmt.setInt(5, comments.getCreatedBy());
+                pstmt.setInt(6, comments.getForumID());
                 rows = pstmt.executeUpdate();
             }
             return rows == 1;
@@ -47,7 +48,7 @@ public class CommentsDAO {
 
     public ArrayList<Comments> getComments(int forumID, int User) throws ParseException {
         ArrayList<Comments> arrComments = new ArrayList<Comments>();
-                RecordDAO recordsDAO = new RecordDAO();
+        RecordDAO recordsDAO = new RecordDAO();
 
         try {
             DBConnectionFactory myFactory = getInstance();
@@ -67,7 +68,7 @@ public class CommentsDAO {
                     comments.setCreatedBy(rs.getInt("createdBy"));
                     comments.setForumID(rs.getInt("forumID"));
                     comments.setCommentCounts(getCommentsCount(comments.getIdComments()));
-                    comments.setIsLiked(getUserCommentLike(comments.getIdComments(),User ));
+                    comments.setIsLiked(getUserCommentLike(comments.getIdComments(), User));
                     arrComments.add(comments);
 
                 }
@@ -82,8 +83,8 @@ public class CommentsDAO {
         }
         return null;
     }
-    
-     public int getCommentsCount(int commentID) throws ParseException {
+
+    public int getCommentsCount(int commentID) throws ParseException {
         int count = 0;
 
         try {
@@ -108,9 +109,8 @@ public class CommentsDAO {
         }
         return 0;
     }
-    
-     
-     public boolean getUserCommentLike(int commentID, int UserID) throws ParseException {
+
+    public boolean getUserCommentLike(int commentID, int UserID) throws ParseException {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
@@ -132,5 +132,68 @@ public class CommentsDAO {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
+    }
+
+    public Integer getCommentID() throws SQLException {
+        DBConnectionFactory myFactory = getInstance();
+        Integer i = 11111;
+        try (Connection conn = myFactory.getConnection()) {
+            String query = "SELECT MAX(idComment) as `idComment` from comments";
+            ResultSet rs;
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    i = 0;
+                    i = rs.getInt("idComment") + 1;
+                    return i;
+                }
+                conn.close();
+            }
+            rs.close();
+        }
+        return i;
+    }
+
+    public boolean addCommentFavorite(int commentID, int userID) {
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            int rows;
+            try (Connection conn = myFactory.getConnection()) {
+                String query = "INSERT INTO `comments_favorite` (idComment, favoriteBy) VALUES (?,?) ";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, commentID);
+                pstmt.setInt(2, userID);
+                rows = pstmt.executeUpdate();
+                conn.close();
+            }
+
+            return rows == 1;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean deleteCommentFavorite(int userId, int commentID) {
+        boolean x = false;
+        try {
+            DBConnectionFactory myFactory = getInstance();
+
+            try (Connection conn = myFactory.getConnection()) {
+                String query = "DELETE FROM `comments_favorite` WHERE favoriteBy = ? AND idComment = ?";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, userId);
+                pstmt.setInt(2, commentID);
+
+                int isDeleted = pstmt.executeUpdate();
+                if (isDeleted > 0) {
+                    return true;
+                }
+
+            }
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return x;
     }
 }

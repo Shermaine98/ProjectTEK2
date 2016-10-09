@@ -260,8 +260,8 @@ public class ForumDAO {
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                 rs = pstmt.executeQuery();
-                if (rs.next()) { 
-                    i =0;
+                if (rs.next()) {
+                    i = 0;
                     i = rs.getInt("forumID") + 1;
                     return i;
                 }
@@ -271,7 +271,7 @@ public class ForumDAO {
         }
         return i;
     }
-    
+
     public boolean addFavorite(ForumsFavorite forumsFavorite) {
         try {
             DBConnectionFactory myFactory = getInstance();
@@ -293,29 +293,28 @@ public class ForumDAO {
         }
         return false;
     }
-    
-    
-    public boolean deleteFavorite(int userId) {
+
+    public boolean deleteFavorite(int userId, int forumID) {
         boolean x = false;
         try {
             DBConnectionFactory myFactory = getInstance();
-            
+
             try (Connection conn = myFactory.getConnection()) {
-                String query = "DELETE FROM `forums_favorite` WHERE favoriteBy = ? ";
+                String query = "DELETE FROM `forums_favorite` WHERE favoriteBy = ? AND forumID = ? ";
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 pstmt.setInt(1, userId);
+                pstmt.setInt(2, forumID);
 
-                 int isDeleted = pstmt.executeUpdate();
+                int isDeleted = pstmt.executeUpdate();
                 if (isDeleted > 0) {
                     return true;
                 }
 
-                    
             }
         } catch (SQLException ex) {
             getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
         }
         return x;
     }
-    
+
 }

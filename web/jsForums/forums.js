@@ -13,13 +13,13 @@ $(document).ready(function () {
     var decision = "forum";
     var isLike;
     $(document).on("click", '.nDefault', function () {
-        
+
         var forumId = $(this).closest("tr").find("span.forumId").text();
         var forumTitle = $(this).closest("tr").find("span.forumTitle").text();
         var createdby = $(this).closest("tr").find("span.createdBy").text();
         isLike = "true";
         $.ajax({
-            context:this,
+            context: this,
             url: "FavoriteServlet",
             type: 'POST',
             dataType: "JSON",
@@ -31,12 +31,13 @@ $(document).ready(function () {
                 isLike: isLike
             },
             success: function (data) {
-                console.log("like" + forumId);
-                console.log("like" + forumTitle);
-                console.log("like" + createdby);
-                  getTags();
+
+                if (data === true) {
+                    getTags();
                     Viewforums();
                     HotTopic();
+                }
+
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 console.log(exception);
             }
@@ -45,26 +46,24 @@ $(document).ready(function () {
 
 //remove like
     $(document).on("click", '.nPrimary', function () {
-        var forumId = $(this).closest("tr").find("span.forumId").text();
-        var forumTitle = $(this).closest("tr").find("span.forumTitle").text();
-        var createdby = $(this).closest("tr").find("span.createdBy").text();
+                var forumId = $(this).closest("tr").find("span.forumId").text();
+
         isLike = "false";
         $.ajax({
             url: "FavoriteServlet",
             type: 'POST',
             dataType: "JSON",
             data: {
-                 decision: decision,
-                 isLike: isLike
+                decision: decision,
+                isLike: isLike,
+                forumId: forumId
             },
             success: function (data) {
-
-                console.log("like" + forumId);
-                console.log("like" + forumTitle);
-                console.log("like" + createdby);
-  getTags();
+                if (data === true) {
+                    getTags();
                     Viewforums();
                     HotTopic();
+                }
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 console.log(exception);
             }
@@ -101,7 +100,7 @@ function HotTopic() {
 
                 var tbodytr = document.createElement("tr");
                 tbody.appendChild(tbodytr);
-                if (data[i].isLike === "false") {
+                if (data[i].isLike === false) {
                     $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled">\n\
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
                             + data[i].favoritesCount + '</button></td>');
