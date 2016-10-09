@@ -93,7 +93,7 @@
                                 <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
                                    href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
                                     Approve All</a>
-                                    <% }%>
+                                <% }%>
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="external">
@@ -104,14 +104,14 @@
                                 <% } else {%>
 
                                 <table class="table">
-                                    <!--                                    <thead><tr>
-                                                                                <th>Full Name</th>
-                                                                                <th>Email</th>
-                                                                                <th>Username</th>
-                                                                                <th>Reason for Access</th>
-                                                                                <th style="text-align: right;">Actions</th>
-                                                                            </tr>
-                                                                        </thead>-->
+                                    <thead><tr>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Reason for Access</th>
+                                            <th style="text-align: right;">Actions</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         <% for (int i = 0; i < externalUsers.size(); i++) {%>
                                         <tr>
@@ -120,8 +120,9 @@
                                             <td><%= externalUsers.get(i).getEmail()%></td>
                                             <td><%= externalUsers.get(i).getUsername()%></td>
                                             <td><%= externalUsers.get(i).getReason()%></td>
-                                            <td style="float:right;"><button id="clickedApproved" class="btn btn-success"><span class="fa fa-check"></span></button>
-                                                <button id="clickedReject"  class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                            <td style="float:right;">
+                                                <button id="clickedApproved" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
+                                                <button id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
                                         </tr>
                                         <% } %>
                                         <tr>
