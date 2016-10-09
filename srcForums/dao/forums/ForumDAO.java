@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import model.forums.ForumsFavorite;
 
 /**
  *
@@ -270,4 +271,51 @@ public class ForumDAO {
         }
         return i;
     }
+    
+    public boolean addFavorite(ForumsFavorite forumsFavorite) {
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            int rows;
+            try (Connection conn = myFactory.getConnection()) {
+                String query = "INSERT INTO `forums_favorite` (forumID, forumTitle, createdBy, favoriteBy) VALUES (?,?,?,?) ";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, forumsFavorite.getForumID());
+                pstmt.setString(2, forumsFavorite.getForumTitle());
+                pstmt.setInt(3, forumsFavorite.getCreatedBy());
+                pstmt.setInt(4, forumsFavorite.getFavoriteBy());
+                rows = pstmt.executeUpdate();
+                conn.close();
+            }
+
+            return rows == 1;
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    
+    public boolean deleteFavorite(int userId) {
+        boolean x = false;
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            
+            try (Connection conn = myFactory.getConnection()) {
+                String query = "DELETE FROM `forums_favorite` WHERE favoriteBy = ? ";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, userId);
+
+                 int isDeleted = pstmt.executeUpdate();
+                if (isDeleted > 0) {
+                    return true;
+                }
+
+                    
+            }
+        } catch (SQLException ex) {
+            getLogger(ForumDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return x;
+    }
+    
 }

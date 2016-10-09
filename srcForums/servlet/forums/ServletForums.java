@@ -66,6 +66,8 @@ HttpSession session = request.getSession();
                     obj.put("commentsCount", arrForum.get(i).getCommentsCount());
                     obj.put("favoritesCount", arrForum.get(i).getFavoritesCount());
                     obj.put("createdByName", arrForum.get(i).getCreatedByName());
+                    obj.put("isLike", arrForum.get(i).isIsLike());
+                    
 
                     ArrayList<Tags> arrTags = new ArrayList<Tags>();
                     arrTags = tagsDAO.getTags(arrForum.get(i).getForumID());
