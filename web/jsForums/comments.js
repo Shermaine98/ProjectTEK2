@@ -8,13 +8,12 @@ $(document).ready(function () {
     HotTopic();
     ViewComments();
 
-    var decision = "comment";
-    var isLike;
-    $(document).on("click", '.nDefault', function () {
 
+    $(document).on("click", '.nDefault', function () {
+        var decision = "comment";
         var commentID = $(this).closest("tr").find("span.commentID").text();
 
-        isLike = "true";
+        var isLike = "true";
         $.ajax({
             context: this,
             url: "FavoriteServlet",
@@ -27,9 +26,9 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data === true) {
-                HotTopic();
-                ViewComments();
-            }
+                    HotTopic();
+                    ViewComments();
+                }
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 console.log(exception);
             }
@@ -38,9 +37,10 @@ $(document).ready(function () {
 
 //remove like
     $(document).on("click", '.nPrimary', function () {
-                var commentID = $(this).closest("tr").find("span.commentID").text();
+        var decision = "comment";
+        var commentID = $(this).closest("tr").find("span.commentID").text();
 
-        isLike = "false";
+        var isLike = "false";
         $.ajax({
             url: "FavoriteServlet",
             type: 'POST',
@@ -52,10 +52,67 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data === true) {
-                HotTopic();
-                ViewComments();
-            }
+                    HotTopic();
+                    ViewComments();
+                }
 
+            }, error: function (XMLHttpRequest, textStatus, exception) {
+                console.log(exception);
+            }
+        });
+    });
+
+    //FORUM
+
+    $(document).on("click", '.nDefaultS', function () {
+        var decision = "forum";
+        var forumId = document.getElementById("forumID").value;
+        var forumTitle = document.getElementById("forumTitle").value;
+        var createdby = document.getElementById("commentedById").value;
+        var isLike = "true";
+        $.ajax({
+            context: this,
+            url: "FavoriteServlet",
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+                decision: decision,
+                forumId: forumId,
+                forumTitle: forumTitle,
+                createdby: createdby,
+                isLike: isLike
+            },
+            success: function (data) {
+
+                if (data === true) {
+                    location.reload();
+                }
+
+            }, error: function (XMLHttpRequest, textStatus, exception) {
+                console.log(exception);
+            }
+        });
+    });
+
+//remove like
+    $(document).on("click", '.nPrimaryS', function () {
+        var decision = "forum";
+        var forumId = document.getElementById("forumID").value;
+
+        var isLike = "false";
+        $.ajax({
+            url: "FavoriteServlet",
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+                decision: decision,
+                isLike: isLike,
+                forumId: forumId
+            },
+            success: function (data) {
+                if (data === true) {
+                    location.reload();
+                }
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 console.log(exception);
             }
@@ -64,6 +121,8 @@ $(document).ready(function () {
 
 
     });
+
+
 });
 
 function HotTopic() {
@@ -97,7 +156,7 @@ function HotTopic() {
                 $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled" style="width: 110%;">\n\
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
                         + data[i].favoritesCount + '</button></td>');
-                
+
                 $(tbodytr).append('<td><span title="title">\n\
                     <input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
                     <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
@@ -156,12 +215,12 @@ function ViewComments() {
                 $(td1).append(data[i].commentedByName);
 
                 if (data[i].isLike === false) {
-                    
-                     $(td2).append(data[i].comment + '<br><br><span style="display: none;" class="commentID">' + data[i].commentID + '</span><h5 style="font-size: 13px; text-align:right;"> \n\
+
+                    $(td2).append(data[i].comment + '<br><br><span style="display: none;" class="commentID">' + data[i].commentID + '</span><h5 style="font-size: 13px; text-align:right;"> \n\
                                                 <button class="btn btn-flat btn-default btn-xs nDefault">\n\
                                                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i> \n\
                                                     ' + data[i].commentCount + ' </button></h5>');
-                 
+
                 } else {
                     $(td2).append(data[i].comment + '<br><br><span style="display: none;" class="commentID">' + data[i].commentID + '</span><h5 style="font-size: 13px; text-align:right;"> \n\
                                                 <button class="btn btn-flat btn-primary btn-xs nPrimary">\n\

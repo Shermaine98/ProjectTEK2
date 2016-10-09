@@ -52,7 +52,7 @@
                                     <div class="box-body">
                                         <b style="margin-right: 1%; font-weight: normal">Tags:</b>
                                         <% for (int i = 0; i < forum.getTags().size(); i++) {%>
-                                        <button style="margin-right: 1%;" class="btn btn-flat btn-default btn-sm"><%=forum.getTags().get(i).getTag()%></button>
+                                        <p style="margin-right: 1%;" class="btn btn-flat btn-default btn-sm"><%=forum.getTags().get(i).getTag()%></p>
                                         <%}%>
 
 
@@ -64,10 +64,17 @@
                                                 <td width="25%">
                                                     <%=forum.getCreatedByName()%></td>
                                                 <td><%= forum.getBody()%><br><br>
+                                                    <%if (forum.isIsLike()) {%>
                                                     <h5 style="font-size: 13px; text-align:right;">
-                                                        <button class="btn btn-flat btn-primary btn-xs">
+                                                        <button class="btn btn-flat btn-primary btn-xs nPrimaryS">
                                                             <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i>
                                                             <%=forum.getFavoritesCount()%> </button></h5></td>
+                                                            <%} else {%>
+                                                  <h5 style="font-size: 13px; text-align:right;">
+                                                    <button class="btn btn-flat btn-default btn-xs nDefaultS">
+                                                        <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i>
+                                                        <%=forum.getFavoritesCount()%> </button></h5></td>
+                                                        <%}%>
                                             </tr>
                                         </table>
 

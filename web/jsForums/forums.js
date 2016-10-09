@@ -8,8 +8,13 @@ $(document).ready(function () {
     getTags();
     Viewforums();
     HotTopic();
+    
+    //list
+    
 
+    
     //add like
+    
     var decision = "forum";
     var isLike;
     $(document).on("click", '.nDefault', function () {
@@ -46,7 +51,7 @@ $(document).ready(function () {
 
 //remove like
     $(document).on("click", '.nPrimary', function () {
-                var forumId = $(this).closest("tr").find("span.forumId").text();
+        var forumId = $(this).closest("tr").find("span.forumId").text();
 
         isLike = "false";
         $.ajax({
@@ -145,6 +150,7 @@ function Viewforums() {
             para.appendChild(table);
 
             var tbody = document.createElement("tbody");
+             tbody.setAttribute("class", "list");
             table.appendChild(tbody);
 
             for (var i = 0; data.length > i; i++) {
@@ -161,7 +167,7 @@ function Viewforums() {
 
 
                 $(tbodytr).append('<td><button class="btn btn-block btn-primary btn-sm"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
-                $(tbodytr).append('<td><span style="display: none;" class="createdBy">' + data[i].createdBy + '</span><span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
+                $(tbodytr).append('<td class="forumTitleSearch"><span style="display: none;" class="createdBy">' + data[i].createdBy + '</span><span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
                     <a class="titleName" style="font-size: 22px;"><span class="forumTitle">' + data[i].forumTitle + '</span></a></td>');
 
                 var tbodytr2 = document.createElement("tr");
@@ -170,10 +176,16 @@ function Viewforums() {
                 tr2td.setAttribute("colspan", "2");
                 tbodytr2.appendChild(tr2td);
                 for (var j = 0; data[i].tags.length > j; j++) {
-                    $(tr2td).append('<button style="margin-right: 2%;" class="btn btn-flat btn-default btn-xs"><a class="tagsName">' + data[i].tags[j].tag + '</a></button>');
+                    $(tr2td).append('<p style="margin-right: 2%;" class="tagSearch btn btn-flat btn-default btn-xs">' + data[i].tags[j].tag + '</p>');
                 }
                 $(tbodytr2).append('<td width="70%"><h5 align="right" style="color: #777; font-size: 13px;">created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
+                    
+                
+                var options = {
+                    valueNames: [ 'forumTitleSearch', 'tagSearch']
+                  };
 
+                  var userList = new List('searchDiv', options);
 
             }
 
@@ -262,16 +274,5 @@ $(document).on('click', '.titleName', function () {
     var forumId = $(this).closest("tr").find("span.forumId").text();
 //    console.log(forumId);
     window.location.replace("ForumSpecificServlet?forumId=" + forumId);
-
-});
-
-
-// if tags is clicked - redirect get to page with tags
-
-$(document).on('click', '.tagsName', function () {
-    var tagsName = $(this).text();
-
-    window.location.replace("request.getContextPath()/?tagsName=" + tagsName);
-
 
 });

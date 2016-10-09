@@ -16,6 +16,7 @@
         <link href="cssImported/tagit.ui-zendesk.css" rel="stylesheet" type="text/css"/>
         <script src="jsForums/tag-it.js" type="text/javascript"></script>
         <script src="jsForums/forums.js" type="text/javascript"></script>
+        <script src="jsImported/list.min.js" type="text/javascript"></script>
 
         <style>
             tr{
@@ -115,24 +116,24 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">All Topics</h3>
                                     </div>
-                                    <div class="box-body">
+                                    <div class="box-body" id="searchDiv" >
+                                    <input class="search" placeholder="Search by tags or by topic name" />
                                         <div id="forumDiv">
-
-
                                         </div>
                                     </div>
                                 </div>
                                 <!--
                                   /.forumBody
                                 -->
-
                             </div>
-
-
                         </div>
                     </div>
                 </section>
             </div>
         </div>
+        <script>
+
+           </script>
     </body>
+
 </html>
