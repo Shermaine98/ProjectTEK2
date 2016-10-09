@@ -17,6 +17,7 @@
         <script src="Highcharts/modules/data.js"></script>
         <script src="Highcharts/modules/drilldown.js"></script>
         <script src="Highcharts/modules/exporting.js"></script>
+        <script src="pdf/xepOnline.jqPlugin.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="Highcharts/modules/map.js" type="text/javascript"></script>
         <script src="Highcharts/modules/data.js" type="text/javascript"></script>
@@ -35,7 +36,7 @@
         <link href="cssImported/ValidateCSS.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class ="wrapper hidden-print">
+        <div class ="wrapper">
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
 
@@ -124,8 +125,11 @@
                             <div class="box box-solid" style="height:100%; ">
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
-                                    <!--<a href="javascript:window.print();">-->
-                                    <button class="btn btn-primary btn-sm" style="float:right;" onclick="print_div('reports')"><span class="fa fa-print" style="margin-right: 2%"></span> Print</button>
+                                    <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
+                                        <!--onclick="print_div();
+                                                return xepOnline.Formatter.Format('TESTING', {render: 'download'},
+                                                        {embedLocalImages: 'true'});"-->
+                                        <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
                                     <!--</a>-->
                                 </div>
                                 <!-- /.box-header -->
@@ -154,25 +158,39 @@
             </div>
         </div>
 
-        <div class="visible-print" id="TESTING">
+        <div style="display:none;" id="TESTING">
 
             <div style="margin-bottom: 6%;" align="center">
-                <img src="img/Caloocan-Logo.png" alt=""/><br>
-                <h3>City Planning and Development Department</h3><br>
-                <p style="font-size: medium;" id="prepared_by"></p>
-                <p style="font-size: medium;" id="print_year"></p>
-                <p id="DateHere"></p>
+                <!--<img src="img/Caloocan-Logo.png" alt=""/>-->
+                <table style="border: none;">
+                    <tr>
+                        <td>
+                            <img src="http://i65.tinypic.com/uubsl.png" height="100" />
+                        </td>
+                        <td style="padding-left: 2%;">
+                            <h3>City Planning and Development Department</h3>
+                            <p id="prepared_by">Prepared By: Janine Dela Cruz</p>
+                            <p id="print_year"></p>
+                            <p id="DateHere">Retrieved on </p>
+                        </td>
+                    </tr>
+                </table>
 
+                <!-- CHARTS, change id value -->
+                <div id="print" style="width:90%;">
+
+                </div>
+                <!--TABLE-->
             </div>
-
-            <!-- CHARTS, change id value -->
-            <div id="print" style="width:90%;">
-
-            </div>
-            <!--TABLE-->
         </div>
 
         <script>
+            $('#save_pdf').click(function () {
+                print_div();
+                xepOnline.Formatter.Format('TESTING', {render: 'download'},
+                        {embedLocalImages: 'true'});
+                doneyet();
+            });
             var year;
             function updateReport() {
                 var conceptName = $('#category').find(":selected").text();
@@ -265,11 +283,34 @@
                 var today = m_names[curr_month] + " " + curr_date
                         + ", " + curr_year;
 
+                document.getElementById("TESTING").setAttribute("style", "display:block");
                 $('#dataTable').DataTable().destroy(false);
                 document.getElementById("print_year").innerHTML = "Report for the Year " + year;
                 $("#DateHere").html(today);
 
-                window.print();
+//                window.print();
+            }
+
+            function doneyet() {
+                // document.body.onfocus = "";
+                document.getElementById("TESTING").setAttribute("style", "display:none");
+                $('#printTable').empty();
+                $('#printChart').empty();
+                var ary = [];
+                $('#dataTable thead th').each(function () {
+                    ary.push({
+                        "orderDataType": "dom-text",
+                        type: 'string'
+                    });
+                });
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": true,
+                    "info": false, "language": {
+                        "empty2Table": "No Data"
+                    },
+                    "columns": ary
+                });
             }
         </script>
 
