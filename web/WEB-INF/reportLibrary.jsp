@@ -66,7 +66,7 @@
                             <div class="box box-solid" style="height:100%; ">
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
-                                    <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf"> 
+                                    <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
                                             <!--onclick="print_div();
                                                     return xepOnline.Formatter.Format('TESTING', {render: 'download'},
                                                             {embedLocalImages: 'true'});"-->
@@ -99,7 +99,7 @@
                 <table style="border: none;">
                     <tr>
                         <td>
-                            <img src="http://i65.tinypic.com/uubsl.png" height="100px" />
+                            <img src="http://i65.tinypic.com/uubsl.png" height="100" />
                         </td>
                         <td style="padding-left: 2%;">
                             <h3>City Planning and Development Department</h3>
@@ -112,10 +112,10 @@
 
             </div>
 
-            <!-- CHARTS, change id value -->  
+            <!-- CHARTS, change id value -->
             <div id="printChart">
             </div>
-            <!--TABLE-->            
+            <!--TABLE-->
             <div id="printTable" style="margin-top:3%; width: 90%; margin-left: auto; margin-right: auto;">
 
             </div>
@@ -129,8 +129,9 @@
 
             $('#save_pdf').click(function () {
                 print_div();
-                return xepOnline.Formatter.Format('TESTING', {render: 'download'},
+                 xepOnline.Formatter.Format('TESTING', {render: 'download'},
                         {embedLocalImages: 'true'});
+                        doneyet();
             });
 
             var year = 0;
@@ -249,7 +250,8 @@
                 //                document.body.onfocus = doneyet();
             }
             function doneyet() {
-                document.body.onfocus = "";
+               // document.body.onfocus = "";
+                document.getElementById("TESTING").setAttribute("style", "display:none");
                 $('#printTable').empty();
                 $('#printChart').empty();
                 var ary = [];
