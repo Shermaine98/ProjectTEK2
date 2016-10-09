@@ -157,8 +157,7 @@ function HotTopic() {
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
                         + data[i].favoritesCount + '</button></td>');
 
-                $(tbodytr).append('<td><span title="title">\n\
-                    <input type="hidden" class="forumId" value=' + data[i].forumID + ' />  \n\
+                $(tbodytr).append('<td><span style="display: none;" class="forumId">' + data[i].forumID + '</span><span title="title">\n\
                     <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
                     <p style="font-size: 13px; color: #a3a3a3;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</p></td>');
 
@@ -265,3 +264,13 @@ function submitNewComment() {
         }
     });
 }
+
+var ctx = "${pageContext.request.contextPath}";
+// if title is clicked - redirect get TitleName and redirect to specific forum page
+
+$(document).on('click', '.titleName', function () {
+    var forumId = $(this).closest("tr").find("span.forumId").text();
+//    console.log(forumId);
+    window.location.replace("ForumSpecificServlet?forumId=" + forumId);
+
+});

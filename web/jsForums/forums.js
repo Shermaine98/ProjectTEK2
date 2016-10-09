@@ -9,10 +9,6 @@ $(document).ready(function () {
     Viewforums();
     HotTopic();
     
-    //list
-    
-
-    
     //add like
     
     var decision = "forum";
@@ -116,7 +112,7 @@ function HotTopic() {
 
                 }
 
-                $(tbodytr).append('<div class="forumId" style="display:none;">' + data[i].forumID + '</div> \n\
+                $(tbodytr).append('<span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
                     <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
                     <p style="font-size: 13px; color: #a3a3a3;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</p></td>');
 
@@ -137,7 +133,6 @@ function Viewforums() {
         dataType: "JSON",
         success: function (data) {
 
-//            console.log(data);
             var element = document.getElementById("forumDiv");
             $('#forumDiv').empty();
 
