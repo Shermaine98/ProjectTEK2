@@ -245,12 +245,15 @@ function getDataAgeGroup() {
 }
 
 
+
 function chart(print) {
 
     var topCategories = [];
     for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
         topCategories.push(print[0].totalAgeGroupSex[i].ageGroup);
     }
+
+
 
     var malePerBarangay = [];
     for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
@@ -322,7 +325,7 @@ function chart(print) {
             }
         }
         item["data"] = data;
-        //male.push(item);
+        male.push(item);
     }
 
     // Create the chart

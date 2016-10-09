@@ -156,7 +156,7 @@ function setHHPopAgeGroupSex (chart){
             var item = {};
             var total = 0;
             item["name"] = print[0].ageGroups[a].ageGroup;
-            //item["drilldown"] = 'unknown';
+            item["drilldown"] = 'm'+year+print[0].ageGroups[a].ageGroup;
             for(var i = 0; i < print[0].people.length; i++){
                 if(print[0].people[i].year == year){
                     if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
@@ -185,9 +185,8 @@ function setHHPopAgeGroupSex (chart){
             var item = {};
             var total = 0;
             item["name"] = print[0].ageGroups[a].ageGroup;
-            //item["drilldown"] = 'unknown';
+            item["drilldown"] = 'f'+year+print[0].ageGroups[a].ageGroup;
             for(var i = 0; i < print[0].people.length; i++){
-                
                 if(print[0].people[i].year == year){
                     if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
                         for(var c = 0; c < print[0].genders.length; c++){
@@ -208,33 +207,150 @@ function setHHPopAgeGroupSex (chart){
             item["y"] = total;
             female.push(item);
         }
+        
+        
+        var drilldowns = [];
+        for(var a = 0; a < print[0].ageGroups.length; a++){
+            var totalNorth = 0;
+            var totalSouth = 0;
+            var item = {};
+            var total = 0;
+            var data = [];
+            item["name"] = print[0].ageGroups[a].ageGroup;
+            item["id"] = 'f'+year+print[0].ageGroups[a].ageGroup;
+            for(var i = 0; i < print[0].people.length; i++){
+                if(print[0].people[i].year == year){
+                    if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                        for(var c = 0; c < print[0].genders.length; c++){
+                            if(print[0].people[i].gender == print[0].genders[c].gender){
+                                if(print[0].people[i].gender == 'Female'){
+                                    for(var b = 0; b < print[0].barangays.length; b++){
+                                        if(print[0].people[i].barangay == print[0].barangays[b].barangay){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].people;
+                                            }
+                                            else{
+                                                totalSouth+=print[0].people[i].people;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = totalNorth;
+            item2["drilldown"] = 'fn'+year+print[0].ageGroups[a].ageGroup; // fn = female north
+            data.push(item2);
+            
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = totalSouth;
+            item2["drilldown"] = 'fs'+year+print[0].ageGroups[a].ageGroup; // fn = female south
+            data.push(item2);
+            
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+        
+        
+        for(var a = 0; a < print[0].ageGroups.length; a++){
+            var totalNorth = 0;
+            var totalSouth = 0;
+            var item = {};
+            var total = 0;
+            var data = [];
+            item["name"] = print[0].ageGroups[a].ageGroup;
+            item["id"] = 'm'+year+print[0].ageGroups[a].ageGroup;
+            for(var i = 0; i < print[0].people.length; i++){
+                if(print[0].people[i].year == year){
+                    if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                        for(var c = 0; c < print[0].genders.length; c++){
+                            if(print[0].people[i].gender == print[0].genders[c].gender){
+                                if(print[0].people[i].gender == 'Male'){
+                                    for(var b = 0; b < print[0].barangays.length; b++){
+                                        if(print[0].people[i].barangay == print[0].barangays[b].barangay){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].people;
+                                            }
+                                            else if(print[0].people[i].zone == 'SOUTH'){
+                                                totalSouth+=print[0].people[i].people;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = totalNorth;
+            item2["drilldown"] = 'mn'+year+print[0].ageGroups[a].ageGroup; // mn = male north
+            data.push(item2);
+            
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = totalSouth;
+            item2["drilldown"] = 'ms'+year+print[0].ageGroups[a].ageGroup; // ms = male south
+            data.push(item2);
+            
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+        
+        var zoness = ['NORTH', 'SOUTH'];
+        for(var x = 0; x < print[0].genders.length; x++){
+            for(var y = 0; y < zoness.length; y++){
+                for(var a = 0; a < print[0].ageGroups.length; a++){
+                    var item = {};
+                    var data = [];
+                    item["name"] = print[0].ageGroups[a].ageGroup;
+                    item["id"] = (print[0].genders[x].gender.charAt(0)).toLowerCase()
+                            +(zoness[y].charAt(0)).toLowerCase()
+                            +year
+                            +print[0].ageGroups[a].ageGroup; // mn = male north
+                    for(var i = 0; i < print[0].people.length; i++){
+                        if(print[0].people[i].year == year){
+                            if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                                for(var c = 0; c < print[0].genders.length; c++){
+                                    if(print[0].people[i].gender == print[0].genders[c].gender){
+                                        if(print[0].people[i].gender == print[0].genders[x].gender){
+                                            for(var b = 0; b < print[0].barangays.length; b++){
+                                                if(print[0].people[i].barangay == print[0].barangays[b].barangay){
+                                                    if(print[0].people[i].zone == zoness[y]){
+                                                        item2 = {};
+                                                        item2["name"] = 'Barangay ' + print[0].people[i].barangay;
+                                                        item2["y"] = print[0].people[i].people;
+                                                        data.push(item2);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    item['data'] = data;
+                    drilldowns.push(item);
+                }
+            }
+        }
+        
+        console.log(JSON.stringify(drilldowns));
     
         // Create the chart
             $('#output').highcharts({
                 chart: {
                     type: 'bar',
-                    zoomType: 'x',
+                    zoomType: 'xy',
                     panning: true,
                     panKey: 'shift'
-//                    events: {
-//                        drilldown: function (e) {
-//                            var chart = this;
-//                            Highcharts.charts[0].xAxis[0].update({categories: drilldownCategories,
-//                                reversed: true,
-//                                labels: {
-//                                    step: 1
-//                                }});
-//                        },
-//                        drillup: function (e) {
-//                            var chart = this;
-//                            chart.xAxis[0].update({categories: topCategories,
-//                                reversed: false,
-//                                labels: {
-//                                    step: 1
-//                                }
-//                            });
-//                        }
-//                    }
                 },
                 title: {
                     text: 'Household Population by Age Group and Sex for ' + year
@@ -250,8 +366,8 @@ function setHHPopAgeGroupSex (chart){
                     }
                 },
                 xAxis: [{
-                        categories: topCategories,
-                        reversed: false,
+                        type: 'category',
+                         reversed: false,
                         labels: {
                             step: 1
                         }
@@ -273,7 +389,7 @@ function setHHPopAgeGroupSex (chart){
                 },
                 tooltip: {
                     formatter: function () {
-                        return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                        return '<b>' + this.series.name + ', ' + this.point.name + '</b><br/>' +
                                 'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
                     }
                 },
@@ -284,10 +400,10 @@ function setHHPopAgeGroupSex (chart){
                         name: 'Female',
                         color: '#FF9999',
                         data: female
-                    }]//,
-//                drilldown: {
-//                series: male
-//                }
+                    }],
+                drilldown: {
+                series: drilldowns
+                }
             });
     }
     
