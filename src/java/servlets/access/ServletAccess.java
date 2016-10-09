@@ -126,21 +126,17 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/home_others.jsp");
                 rd.forward(request, response);
             } //APPROVALS
-            else if (redirect.equalsIgnoreCase("approvalsInternal")) {
-                ArrayList<User> users = new ArrayList<>();
-                users = accountsDAO.getUserForApprovalMember();
+            else if (redirect.equalsIgnoreCase("approvals")) {
+                ArrayList<User> externalUsers = new ArrayList<>();
+                ArrayList<User> internalUsers = new ArrayList<>();
+                externalUsers = accountsDAO.getUserForApprovalOthers();
+                internalUsers = accountsDAO.getUserForApprovalMember();
 
-                request.setAttribute("users_array", users);
-                request.setAttribute("page", "approvalsInternal");
-                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvalsInternal.jsp");
-                rd.forward(request, response);
-            } else if (redirect.equalsIgnoreCase("approvalsExternal")) {
-                ArrayList<User> users = new ArrayList<>();
-                users = accountsDAO.getUserForApprovalOthers();
-
-                request.setAttribute("users_array", users);
-                request.setAttribute("page", "approvalsExternal");
-                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvalsExternal.jsp");
+                request.setAttribute("internalUsers", internalUsers);
+                request.setAttribute("externalUsers", externalUsers);
+                request.setAttribute("notification", "none");
+                request.setAttribute("page", "approvals");
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvals.jsp");
                 rd.forward(request, response);
             } //UPDATES
             else if (redirect.equalsIgnoreCase("updatesInternal")) {

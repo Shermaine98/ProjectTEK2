@@ -125,14 +125,10 @@ and open the template in the editor.
                                 <i class="fa fa-home"></i><span> Home</span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=approvals">
                                 <i class="fa fa-user"></i><span>Account Requests Approval</span>
                             </a>
-                            <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc">
-                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=approvalsInternal" style="color: #cc5200; margin-left: 8%;">Internal Accounts</a></li>
-                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=approvalsExternal" style="color: #cc5200; margin-left: 8%;">External Accounts</a></li>
-                            </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
