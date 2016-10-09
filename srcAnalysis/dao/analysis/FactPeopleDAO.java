@@ -275,8 +275,8 @@ public class FactPeopleDAO {
 "                        DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE'\n" +
 "                FROM FACT_PEOPLE FP JOIN DIM_BARANGAY DB ON DB.BARANGAY = FP.BARANGAY \n" +
 "                		     JOIN LOCATION L ON FP.BARANGAY = L.BARANGAY AND FP.BARANGAY = DB.BARANGAY\n" +
-"                GROUP BY  CENSUSYEAR, DISTRICT, FP.BARANGAY, GENDER, AGEBRACKET\n" +
-"                ORDER BY CENSUSYEAR, DISTRICT, FP.BARANGAY, GENDER, length(AGEBRACKET), AGEBRACKET");
+"                GROUP BY  CENSUSYEAR, DISTRICT, FP.BARANGAY, AGEBRACKET, GENDER\n" +
+"                ORDER BY CENSUSYEAR, DISTRICT, FP.BARANGAY, length(AGEBRACKET), AGEBRACKET, GENDER");
                 ResultSet rs = pstmt.executeQuery();
                 
                 while (rs.next()) {
