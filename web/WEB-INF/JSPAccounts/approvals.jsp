@@ -42,82 +42,78 @@
                     <% } %>
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#internal" data-toggle="tab">Internal Accounts<% if (internalUsers.size() > 0) {%><span class="label label-warning" style="margin-left: 5%;"><%=internalUsers.size()%></span><%}%> </a></li>
-                            <li><a href="#external" data-toggle="tab">External Accounts<% if (externalUsers.size() > 0) {%><span class="label label-warning" style="margin-left: 5%;"><%=externalUsers.size()%></span><%}%></a></li>
+                            <li class="active"><a href="#internal" data-toggle="tab" style="width: 170px;">Internal Accounts<% if (internalUsers.size() > 0) {%><span class="label label-warning" style="margin-left: 5%;"><%=internalUsers.size()%></span><%}%> </a></li>
+                            <li><a href="#external" data-toggle="tab" style="width: 170px;">External Accounts<% if (externalUsers.size() > 0) {%><span class="label label-warning" style="margin-left: 5%;"><%=externalUsers.size()%></span><%}%></a></li>
                         </ul>
 
                         <div class="tab-content">
                             <div class="active tab-pane" id="internal">
 
-                                <table class="table">
-                                    <thead><tr>
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <!--<th>Username</th>-->
-                                            <th>Division</th>
-                                            <th>Position</th>
-                                            <th>Employment Date</th>
-                                            <th style="text-align: right;">Actions</th>
-                                        </tr>
-                                    </thead>
+                                <% if (internalUsers.size() == 0) { %>
+                                <p align="center">There are no new accounts for approval.</p>
+                                <% } else { %>
+                                <table class="table table-bordered">
                                     <tbody>
-                                        <% if (internalUsers.size() == 0) { %>
-                                        <tr>
-                                            <td colspan="7" style="text-align:center">There are no new accounts for approval.</td>
-                                        </tr>
-                                        <% } else {
-                                            for (int i = 0; i < internalUsers.size(); i++) {%>
-                                        <tr>
+                                        <% for (int i = 0; i < internalUsers.size(); i++) {%>
+                                        <tr style="background-color: #454545; color: #fff; font-weight: bold;">
                                             <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
-                                            <td><%= internalUsers.get(i).getFirstName() %> <%= internalUsers.get(i).getLastName()%></td>
-                                            <td><%= internalUsers.get(i).getEmail()%></td>
+                                            <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
+                                            <td colspan="2" style="border-left:none;">
+                                                <button style="float:right; text-align:right;" id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
+                                                <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApproved" class="btn btn-success btn-sm" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>Division</td>
+                                            <td>Position</td>
+                                            <td>Date of Employment</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%"><%= internalUsers.get(i).getEmail()%></td>
                                             <td style="display:none;"><%= internalUsers.get(i).getUsername()%></td>
-                                            <td>
+                                            <td width="35%">
                                                 <select id="division" name="division" class="form-control" onchange="updatePosition()">
                                                     <option disabled selected>Choose Division</option>
                                                     <option value="Social">Social Development Planning Division</option>
                                                     <option value="Physical">Physical Development Planning Division</option>
-                                                    <option value="Others">Others Divisions</option>
+                                                    <!--<option value="Others">Others Divisions</option>-->
                                                     <option value="Institutional">Institutional Development Planning Division</option>
                                                 </select>
                                             </td>
-                                            <td>
-                                                <select id="position_title" name="position" class="form-control" onchange="updateButtons()" style="width: 210px;" disabled>
+                                            <td width="25%">
+                                                <select id="position_title" name="position" class="form-control" onchange="updateButtons()" disabled>
                                                     <option disabled selected>Choose Position</option>
                                                 </select>
                                             </td>
-                                            <td><input type="date" class="form-control" style="padding: 1%; width: 130px" id="employmentDate" name="employmentDate" onchange="updateButtons()" /></td>
-                                            <td><button id="clickedApproved" class="btn btn-success" disabled><span class="fa fa-check"></span></button></td>
-                                            <td><button id="clickedReject"  class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                            <td width="10%"><input type="date" class="form-control" style="padding: 1%;" id="employmentDate" name="employmentDate" onchange="updateButtons()" /></td>
                                         </tr>
                                         <% } %>
-                                        <tr>
-                                            <td colspan="8"><a href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal"><button class="btn btn-success" style="display:block; margin:auto; text-alight: right; float:right;"> Approve All </button></a></td>
-                                        </tr>
-                                        <% }%>
                                     </tbody>
                                 </table>
-
+                                <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
+                                   href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
+                                    Approve All</a>
+                                    <% }%>
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="external">
 
+
+                                <% if (externalUsers.size() == 0) { %>
+                                <p align="center">There are no new accounts for approval.</p>
+                                <% } else {%>
+
                                 <table class="table">
-                                    <thead><tr>
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Username</th>
-                                            <th>Reason for Access</th>
-                                            <th style="text-align: right;">Actions</th>
-                                        </tr>
-                                    </thead>
+                                    <!--                                    <thead><tr>
+                                                                                <th>Full Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Username</th>
+                                                                                <th>Reason for Access</th>
+                                                                                <th style="text-align: right;">Actions</th>
+                                                                            </tr>
+                                                                        </thead>-->
                                     <tbody>
-                                        <% if (externalUsers.size() == 0) { %>
-                                        <tr>
-                                            <td colspan="7" style="text-align:center">There are no new accounts for approval.</td>
-                                        </tr>
-                                        <% } else {
-                                            for (int i = 0; i < externalUsers.size(); i++) {%>
+                                        <% for (int i = 0; i < externalUsers.size(); i++) {%>
                                         <tr>
                                             <td class="nr" style="display:none;"><%= externalUsers.get(i).getUserID()%></td>
                                             <td><%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%></td>
@@ -126,7 +122,6 @@
                                             <td><%= externalUsers.get(i).getReason()%></td>
                                             <td style="float:right;"><button id="clickedApproved" class="btn btn-success"><span class="fa fa-check"></span></button>
                                                 <button id="clickedReject"  class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></td>
-
                                         </tr>
                                         <% } %>
                                         <tr>
@@ -135,9 +130,9 @@
                                                    href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllExternal">
                                                     Approve All</a></td>
                                         </tr>
-                                        <% }%>
                                     </tbody>
                                 </table>
+                                <% }%>
                             </div>
                             <!-- /.tab-pane -->
                         </div>
@@ -146,5 +141,53 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function updatePosition() {
+                var conceptName = $('#division').find(":selected").text();
+                if (conceptName == "Social Development Planning Division") {
+                    $('#position_title')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Position</option>')
+                            .append('<option value="PDOI">Project Development Officer I</option>')
+                            .append('<option value="PDOIII">Project Development Officer III</option>')
+                            .append('<option value="PDOIV">Project Development Officer IV</option>')
+                            .append('<option value="AideVI">Administrative Aide VI</option>')
+//                            .val('whatever')
+                            ;
+                } else if (conceptName == "Physical Development Planning Division") {
+                    $('#position_title')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Position</option>')
+                            .append('<option value="POII">Planning Officer II</option>')
+                            .append('<option value="POIII">Planning Officer III</option>')
+                            .append('<option value="POIV">Planning Officer IV</option>')
+                            .append('<option value="AideVI">Administrative Aide VI</option>')
+//                            .val('whatever')
+                            ;
+                } else if (conceptName == "Institutional Development Planning Division") {
+                    $('#position_title')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Report</option>')
+                            .append('<option value="Statistician">Statistician I</option>')
+//                            .val('whatever')
+                            ;
+                }
+                $('#position_title').removeAttr('disabled');
+            }
+            function updateButtons() {
+                if ($('#position_title').find(":selected").text() != 'Choose Position' &&
+                        !(!Date.parse(document.getElementById('employmentDate').value))) {
+                    $('#clickedApproved').removeAttr('disabled');
+                }
+            }
+        </script>
+
     </body>
 </html>
