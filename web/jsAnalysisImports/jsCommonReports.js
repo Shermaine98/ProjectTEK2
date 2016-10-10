@@ -710,8 +710,7 @@ function setHHPopAgeGroupSex (chart){
                     if(print[0].people[i].year == year){
                         for(var z = 0; z < print[0].genders.length; z++){
                             if(print[0].people[i].gender == print[0].genders[z].gender){
-                                for(var w = 0; print[0].gradeLevels.length; w++){
-                                    alert(print[0].gradeLevels[w].gradeLevel);
+                                for(var w = 0; w < print[0].gradeLevels.length; w++){
                                     if(print[0].gradeLevels[w].gradeLevel == print[0].people[i].gradeLevel){
                                         if(nutritionalStatus[a] == 'Severely Wasted'){
                                             total+=print[0].people[i].severelyWasted;
