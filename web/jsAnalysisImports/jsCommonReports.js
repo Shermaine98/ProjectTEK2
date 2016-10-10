@@ -612,7 +612,161 @@ function setHHPopAgeGroupSex (chart){
                     series: drilldowns
                     }
             });
-        }
+    }
+    
+    function drawNutritionalStatus(print, year, chart){
+            
+            var totals = [];
+            for(var a = 0; a < print[0].ageGroups.length;a++){
+                var item = {};
+                var total = 0;
+                item["name"] = print[0].ageGroups[a].ageGroup;
+                item["drilldown"] = print[0].ageGroups[a].ageGroup+year;
+                for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].barangays.length; y++){
+                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                            if(print[0].people[i].year == year){
+                                for(var z = 0; z < print[0].genders.length; z++){
+                                    if(print[0].people[i].gender == print[0].genders[z].gender){
+                                        if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                                            total+=print[0].people[i].people;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                item["y"] = total;
+                totals.push(item);
+            }
+            
+            var drilldowns = [];
+            var zones = ['NORTH', 'SOUTH'];
+            for(var a = 0; a < print[0].ageGroups.length;a++){
+                var item = {};
+                var totalNorth = 0;
+                var totalSouth = 0;
+                item["name"] = print[0].ageGroups[a].ageGroup;
+                item["id"] = print[0].ageGroups[a].ageGroup+year;
+                var data = [];
+                for (var i = 0; i < print[0].people.length; i++) {
+                    for(var y = 0; y < print[0].barangays.length; y++){
+                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                            if(print[0].people[i].year == year){
+                                for(var z = 0; z < print[0].genders.length; z++){
+                                    if(print[0].people[i].gender == print[0].genders[z].gender){
+                                        if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].people;
+                                            }
+                                            else{
+                                                totalSouth+=print[0].people[i].people;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                var item2 = {};
+                item2['name'] = 'North';
+                item2["y"] = totalNorth;
+                item2["drilldown"] = 'n'+print[0].ageGroups[a].ageGroup+year;
+                data.push(item2);
+
+                var item2 = {};
+                item2['name'] = 'South';
+                item2["y"] = totalSouth
+                item2["drilldown"] = 's'+print[0].ageGroups[a].ageGroup+year;
+                data.push(item2);
+
+                item['data'] = data;
+                drilldowns.push(item);
+            }
+            
+            var zoness = ['NORTH', 'SOUTH'];
+            var genderLength = print[0].genders.length;
+            for(var y = 0; y < zoness.length; y++){
+                for(var a = 0; a < print[0].ageGroups.length; a++){
+                    var add;
+                    if(genderLength == 2 || genderLength == 0){
+                        add = 2;
+                    } else {
+                        add = 1;
+                    }
+                    var item = {};
+                    var data = [];
+                    var total = 0;
+                    item["name"] = print[0].ageGroups[a].ageGroup;
+                    item["id"] = (zoness[y].charAt(0)).toLowerCase()
+                            +print[0].ageGroups[a].ageGroup+year;
+                    for(var i = 0; i < print[0].people.length; i+=add){
+                        for(var b = 0; b < print[0].barangays.length; b++){
+                            if(print[0].people[i].year == year){
+                                if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                                    if(print[0].people[i].barangay == print[0].barangays[b].barangay){
+                                        if(print[0].people[i].zone == zoness[y]){
+                                            if(print[0].genders.length == 2){
+                                                item2 = {};
+                                                item2["name"] = 'Barangay ' + print[0].barangays[b].barangay;
+                                                item2["y"] = print[0].people[i].people + print[0].people[i+1].people;
+                                                data.push(item2);
+                                            } 
+                                            else if(print[0].genders.length == 1){
+                                                for(var c = 0; c < print[0].genders.length; c++){
+                                                    if(print[0].people[i].gender == print[0].genders[c].gender){
+                                                        item2 = {};
+                                                        item2["name"] = 'Barangay ' + print[0].barangays[b].barangay;
+                                                        item2["y"] = print[0].people[i].people;
+                                                        data.push(item2);
+                                                    }
+                                                }
+                                            }
+                                            else{
+                                                item2 = {};
+                                                item2["name"] = 'Barangay ' + print[0].barangays[b].barangay;
+                                                item2["y"] = 0;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    item['data'] = data;
+                    drilldowns.push(item);
+                }
+            }
+            
+            console.log(JSON.stringify(drilldowns));
+            
+            $('#output').highcharts({
+                chart: {
+                    type: chart,
+                    drilled: false,
+                    zoomType: 'xy',
+                    panning: true,
+                    panKey: 'shift'//,
+                },
+                title: {
+                    text: 'Household Population by Age Group and Sex for ' + year
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                series: [{
+                    name: 'Caloocan City',
+                    data: totals
+                }],
+                drilldown: {
+                    series: drilldowns
+                    }
+            });
+    }
     
     function drawMaritalStatusBar(print, year, chart){
             var total = [];
