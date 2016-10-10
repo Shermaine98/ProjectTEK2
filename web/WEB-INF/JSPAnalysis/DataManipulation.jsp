@@ -528,7 +528,7 @@
                 if(conceptName=='Household Population by Age Group and Sex'){
                     var chart ='Population Pyramid';
                     setHHPopAgeGroupSex(chart);
-                    var charts=['Population Pyramid','Pie Chart','Table'];
+                    var charts=['Bar Chart','Pie Chart','Population Pyramid', 'Table'];
                     addWithChartSelectionsWithBarangays('getFactPeople()',charts);
                 }
                 else if(conceptName=='Household Population by Age Group, Sex and Marital Status'){
@@ -559,7 +559,7 @@
                 var conceptName = $('#commonReports').find(":selected").text();
                 var chartSelected = $('#charts').find(":selected").text();
                 if(conceptName=='Household Population by Age Group and Sex'){
-                    var charts=['Population Pyramid','Pie Chart','Table'];
+                    var charts=['Bar Chart','Pie Chart','Population Pyramid', 'Table'];
                     addWithChartSelectionsWithBarangays('getFactPeople()',charts);
                     setHHPopAgeGroupSex(chartSelected);
                 }

@@ -24,7 +24,10 @@
                 drawHHPopPyramid(print, year);
             }
             else if(chartSelected=="0"||chartSelected=="Pie Chart"){
-                drawHHPopAgeGroupSexPie(print, year);
+                drawHHPopAgeGroupSexPie(print, year, 'pie');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawHHPopAgeGroupSexPie(print, year, 'column');
             }
         }
     }
@@ -61,7 +64,10 @@
                 drawHHPopPyramid(print, year);
             }
             else if(chartSelected=="0"||chartSelected=="Pie Chart"){
-                drawHHPopAgeGroupSexPie(print, year);
+                drawHHPopAgeGroupSexPie(print, year, 'pie');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawHHPopAgeGroupSexPie(print, year, 'column');
             }
         }
         
@@ -134,7 +140,10 @@ function setHHPopAgeGroupSex (chart){
                 drawHHPopPyramid(print, print[0].years[print[0].years.length-1].year);
             }
             else if(chart=="0"||chart=="Pie Chart"){
-                drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year);
+                drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year, 'pie');
+            }
+            else if(chart=="0"||chart=="Bar Chart"){
+                drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year, 'column');
             }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
@@ -451,7 +460,7 @@ function setHHPopAgeGroupSex (chart){
     });
     }
     
-    function drawHHPopAgeGroupSexPie(print, year){
+    function drawHHPopAgeGroupSexPie(print, year, chart){
             
             var totals = [];
             for(var a = 0; a < print[0].ageGroups.length;a++){
@@ -583,7 +592,7 @@ function setHHPopAgeGroupSex (chart){
             
             $('#output').highcharts({
                 chart: {
-                    type: 'pie',
+                    type: chart,
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
