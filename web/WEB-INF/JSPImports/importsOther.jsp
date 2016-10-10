@@ -56,14 +56,14 @@ and open the template in the editor.
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <!-- Notifications: style can be found in dropdown.less -->
-                            <li class="dropdown notifications-menu">
+<!--                            <li class="dropdown notifications-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-bell-o"></i>
                                     <span class="label label-danger"></span></a>
                                 <ul class="dropdown-menu">
                                     <li class="header">You have 0 notifications</li>
                                     <li>
-                                        <!-- inner menu: contains the actual data -->
+                                         inner menu: contains the actual data 
                                         <ul class="menu">
                                             <li>
                                                 <a href="#">
@@ -74,7 +74,7 @@ and open the template in the editor.
                                     </li>
                                     <li class="footer"><a href="#">View all</a></li>
                                 </ul>
-                            </li>
+                            </li>-->
                             <!-- User Account: style can be found in dropdown.less -->
                             <% User chck = (User) session.getAttribute("user");%>
 
@@ -117,7 +117,7 @@ and open the template in the editor.
                         <li class="header">MAIN NAVIGATION</li>
                         <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home_guest">
-                                <i class="fa fa-dashboard"></i><span>Home</span>
+                                <i class="fa fa-home"></i><span>Home</span>
                             </a>
                         </li>
                         <li>
