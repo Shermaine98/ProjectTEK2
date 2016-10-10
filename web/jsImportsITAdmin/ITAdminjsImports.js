@@ -16,7 +16,7 @@ $(document).ready(function () {
             var whichtr = $(this).closest("tr");
             whichtr.remove();
             $.ajax({
-                url: "approvals",
+                url: "Approvals",
                 type: 'POST',
                 dataType: "JSON",
                 data: {

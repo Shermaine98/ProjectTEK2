@@ -356,6 +356,10 @@
         <servlet-name>FavoriteServlet</servlet-name>
         <servlet-class>servlet.forums.FavoriteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Approvals</servlet-name>
+        <servlet-class>servlets.accounts.Approvals</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -687,6 +691,10 @@
     <servlet-mapping>
         <servlet-name>FavoriteServlet</servlet-name>
         <url-pattern>/FavoriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Approvals</servlet-name>
+        <url-pattern>/Approvals</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

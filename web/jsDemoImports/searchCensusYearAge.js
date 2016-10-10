@@ -369,7 +369,7 @@ function chart(print) {
             }
         },
         xAxis: [{
-                categories: topCategories,
+                type: "category",
                 reversed: false,
                 labels: {
                     step: 1
