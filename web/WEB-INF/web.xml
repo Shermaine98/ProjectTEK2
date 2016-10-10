@@ -360,6 +360,10 @@
         <servlet-name>Approvals</servlet-name>
         <servlet-class>servlets.accounts.Approvals</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NutritionalStatusServlet</servlet-name>
+        <servlet-class>servlets.commoncharts.NutritionalStatusServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -695,6 +699,10 @@
     <servlet-mapping>
         <servlet-name>Approvals</servlet-name>
         <url-pattern>/Approvals</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NutritionalStatusServlet</servlet-name>
+        <url-pattern>/NutritionalStatusServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

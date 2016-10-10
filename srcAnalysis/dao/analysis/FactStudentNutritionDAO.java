@@ -63,4 +63,64 @@ public class FactStudentNutritionDAO {
         }
         return null;
     }
+    
+    public ArrayList<FactStudentNutrition> retrieveNutritionalStatusCommonChart() throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            ArrayList<FactStudentNutrition> factNutrition = new ArrayList<FactStudentNutrition>();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT 	GENDER, GRADELEVEL, CENSUSYEAR,\n" +
+"                               DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE',\n" +
+"                               totalNoOfSeverelyWasted, totalNoOfWasted, totalNoOfNormal, totalNoOfOverweight, totalNoOfObese\n" +
+                "FROM FACT_STUDENTNUTRITION\n" +
+                "GROUP BY  CENSUSYEAR, DISTRICT, GRADELEVEL, GENDER\n" +
+                "ORDER BY CENSUSYEAR, DISTRICT, GRADELEVEL, GENDER");
+                ResultSet rs = pstmt.executeQuery();
+                
+                while (rs.next()) {
+                    FactStudentNutrition temp = new FactStudentNutrition();
+                    temp.setGender(rs.getString("GENDER"));
+                    temp.setGradeLevel(rs.getString("GRADELEVEL"));
+                    temp.setCensusYear(rs.getInt("CENSUSYEAR"));
+                    temp.setDistrict(rs.getString("DISTRICT"));
+                    temp.setZone(rs.getString("ZONE"));
+                    temp.setTotalNoOfSeverelyWasted(rs.getInt("totalNoOfSeverelyWasted"));
+                    temp.setTotalNoOfWasted(rs.getInt("totalNoOfWasted"));
+                    temp.setTotalNoOfNormal(rs.getInt("totalNoOfNormal"));
+                    temp.setTotalNoOfOverweight(rs.getInt("totalNoOfOverweight"));
+                    temp.setTotalNoOfObese(rs.getInt("totalNoOfObese"));
+                    factNutrition.add(temp);
+                }
+                pstmt.close();
+            }
+            return factNutrition;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    public ArrayList<String> retrieveGradeLevels() throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            ArrayList<String> grades = new ArrayList<String>();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT IF(GRADELEVEL = 'KINDER', 'Pre Elementary', GRADELEVEL) as 'gradeLevel'\n" +
+                "FROM FACT_STUDENTNUTRITION\n" +
+                "GROUP BY GRADELEVEL");
+                ResultSet rs = pstmt.executeQuery();
+                
+                while (rs.next()) {
+                    grades.add(rs.getString("gradeLevel"));
+                }
+                pstmt.close();
+            }
+            return grades;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
 }

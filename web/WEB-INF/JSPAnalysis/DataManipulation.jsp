@@ -400,7 +400,60 @@
                     $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
                 }
                 document.getElementById('commonReports').style.display = "block";
-            }   
+            }  
+            
+            function addWithChartSelectionsWithGradeLevel(method, charts){
+                $("#theButtonsForPivot").empty();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").empty();
+                $("#withChartSelection").append("<div style='margin-right:2%'><div class='col-md-2'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <button id='pivot' class='btn btn-default' style='width:100%; height:200px' onclick='"+method+"'>Pivot Table</button>\n\
+                                                    </div>\n\
+                                                </div>\n\
+                                                <div class='col-md-5'>\n\
+                                                    <table>\n\
+                                                        <tr>\n\
+                                                            <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
+                                                            </select>\n\
+                                                            </br>\n\
+                                                        </tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter by Sex</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div id='sex' style='height: 85px;'>\n\
+                                                                    </div>\n\
+                                                                </div>\n\
+                                                            </div>\n\
+                                                        </tr>\n\
+                                                    </table>\n\
+                                                </div>\n\
+                                                <div class='col-md-5'>\n\
+                                                <table>\n\
+                                                    <tr>\n\
+                                                        <select id='years' class='form-control' onchange='filterYear()' style=''>\n\
+                                                        </select><br>\n\
+                                                    </tr>\n\
+                                                    <tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter by Grade Level</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div  id='gradeLevels' style='height: 85px; overflow-y: scroll'>\n\
+                                                                </div>\n\
+                                                            </div>\n\
+                                                    </tr>\n\
+                                                </table></div></div>");
+                $('select[name="charts"]').empty();
+                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+                for (i = 0; i < charts.length; i++) { 
+                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
+                }
+                document.getElementById('commonReports').style.display = "block";
+            }  
             
             function addWithoutChartSelections(method){
                 $("#theButtonsForPivot").empty();
@@ -551,8 +604,14 @@
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Table'];
                     addWithChartSelections('getFactEducation()',charts);
-                    
                 }
+                else if(conceptName=='Nutritional Status of the Preschool and Elementary Students'){
+                    var chart ='Pie Chart';
+                    setNutritionalStatus(chart);
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Pie Chart','Table'];
+                    addWithChartSelectionsWithGradeLevel('getFactHospital()',charts);
+                } 
             }
             
             function changeChart(){
@@ -582,8 +641,14 @@
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Table'];
                     addWithChartSelections('getFactEducation()',charts);
-                    
-                }
+                } 
+                else if(conceptName=='Nutritional Status of the Preschool and Elementary Students'){
+                    var chart ='Pie Chart';
+                    setNutritionalStatus(chart);
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Pie Chart','Table'];
+                    addWithChartSelectionsWithGradeLevel('getFactHospital()',charts);
+                } 
             }
 
         </script>
