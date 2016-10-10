@@ -7,6 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <head>
+        <title></title>
+    </head>
     <body>
        <div id="notification-modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
