@@ -58,14 +58,14 @@
             gender.push(id);
         });
         
-        $('[id="gradeLevel"]:checked').each(function (e) {
+        $('[id="gradeLevels"]:checked').each(function (e) {
             var id = $(this).attr('value');
-            gender.push(id);
+            gradeLevel.push(id);
         });
 
         removeGender(analysischart, gender);
         removeBarangay(analysischart, barangay);
-        removeGradeLevel(analysischart, barangay);
+        removeGradeLevel(analysischart, gradeLevel);
         
         var year = $('#years').find(":selected").val();
         if(reportSelected == 'maritalStatus'){
@@ -683,8 +683,6 @@ function setHHPopAgeGroupSex (chart){
             }
             
             var year = $('#years').find(":selected").val();
-            
-            
             if(chart=="0"||chart=="Pie Chart"){
                 drawNutritionalStatus(print, year, 'pie');
             }
@@ -711,7 +709,7 @@ function setHHPopAgeGroupSex (chart){
                         for(var z = 0; z < print[0].genders.length; z++){
                             if(print[0].people[i].gender == print[0].genders[z].gender){
                                 for(var b = 0; b < print[0].gradeLevels.length; b++){
-                                    if(print[0].gradeLevels[b].gradeLevel == print[0].people[i].gradeLevel){
+                                    if(print[0].people[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
                                         if(nutritionalStatus[a] == 'Severely Wasted'){
                                             total+=print[0].people[i].severelyWasted;
                                         }

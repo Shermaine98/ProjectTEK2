@@ -643,11 +643,10 @@
                     addWithChartSelections('getFactEducation()',charts);
                 } 
                 else if(conceptName=='Nutritional Status of the Preschool and Elementary Students'){
-                    var chart ='Pie Chart';
-                    setNutritionalStatus(chart);
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Pie Chart','Table'];
                     addWithChartSelectionsWithGradeLevel('getFactHospital()',charts);
+                    setNutritionalStatus(chartSelected);
                 } 
             }
 

@@ -70,7 +70,7 @@ public class FactStudentNutritionDAO {
             ArrayList<FactStudentNutrition> factNutrition = new ArrayList<FactStudentNutrition>();
             try (Connection conn = myFactory.getConnection()) {
                 PreparedStatement pstmt = conn.prepareStatement(
-                "SELECT 	GENDER, GRADELEVEL, CENSUSYEAR,\n" +
+                "SELECT 	GENDER, IF(GRADELEVEL = 'KINDER', 'Pre Elementary', GRADELEVEL) as 'gradeLevel', CENSUSYEAR,\n" +
 "                               DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE',\n" +
 "                               totalNoOfSeverelyWasted, totalNoOfWasted, totalNoOfNormal, totalNoOfOverweight, totalNoOfObese\n" +
                 "FROM FACT_STUDENTNUTRITION\n" +
