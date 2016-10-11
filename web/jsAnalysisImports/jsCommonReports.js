@@ -734,12 +734,107 @@ function setHHPopAgeGroupSex (chart){
                 item["y"] = total;
                 totals.push(item);
             }
-            console.log(JSON.stringify(totals));
             
            
             
-//            var drilldowns = [];
-//            var zones = ['NORTH', 'SOUTH'];
+            var drilldowns = [];
+            var zones = ['NORTH', 'SOUTH', 'SPED'];
+            for(var a = 0; a < nutritionalStatus.length;a++){
+                var item = {};
+                var totalNorth = 0;
+                var totalSouth = 0;
+                var totalSPED = 0;
+                item["name"] = nutritionalStatus[a];
+                item["id"] = nutritionalStatus[a];
+                var data = [];
+                for (var i = 0; i < print[0].people.length; i++) {
+                    if(print[0].people[i].year == year){
+                        for(var z = 0; z < print[0].genders.length; z++){
+                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                for(var b = 0; b < print[0].gradeLevels.length; b++){
+                                    if(print[0].people[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
+                                        if(nutritionalStatus[a] == 'Severely Wasted'){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].severelyWasted;
+                                            }
+                                            else if(print[0].people[i].zone == 'SOUTH'){
+                                                totalSouth+=print[0].people[i].severelyWasted;
+                                            }
+                                            if(print[0].people[i].gradeLevel == 'SPED'){
+                                                totalSPED+=print[0].people[i].severelyWasted;
+                                            }
+                                        }
+                                        else if(nutritionalStatus[a] == 'Wasted'){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].wasted;
+                                            }
+                                            else if(print[0].people[i].zone == 'SOUTH'){
+                                                totalSouth+=print[0].people[i].wasted;
+                                            }
+                                            if(print[0].people[i].gradeLevel == 'SPED'){
+                                                totalSPED+=print[0].people[i].wasted;
+                                            }
+                                        }
+                                        else if(nutritionalStatus[a] == 'Normal'){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].normal;
+                                            }
+                                            else if(print[0].people[i].zone == 'SOUTH'){
+                                                totalSouth+=print[0].people[i].normal;
+                                            }
+                                            if(print[0].people[i].gradeLevel == 'SPED'){
+                                                totalSPED+=print[0].people[i].normal;
+                                            }
+                                        }
+                                        else if(nutritionalStatus[a] == 'Overweight'){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].overweight;
+                                            }
+                                            else if(print[0].people[i].zone == 'SOUTH'){
+                                                totalSouth+=print[0].people[i].overweight;
+                                            }
+                                            if(print[0].people[i].gradeLevel == 'SPED'){
+                                                totalSPED+=print[0].people[i].overweight;
+                                            }
+                                        }
+                                        else if(nutritionalStatus[a] == 'Obese'){
+                                            if(print[0].people[i].zone == 'NORTH'){
+                                                totalNorth+=print[0].people[i].obese;
+                                            }
+                                            else if(print[0].people[i].zone == 'SOUTH'){
+                                                totalSouth+=print[0].people[i].obese;
+                                            }
+                                            if(print[0].people[i].gradeLevel == 'SPED'){
+                                                totalSPED+=print[0].people[i].obese;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                var item2 = {};
+                item2['name'] = 'North';
+                item2["y"] = totalNorth;
+                item2["drilldown"] = 'north'+nutritionalStatus[a];
+                data.push(item2);
+
+                var item2 = {};
+                item2['name'] = 'South';
+                item2["y"] = totalSouth;
+                item2["drilldown"] = 'south'+nutritionalStatus[a];
+                data.push(item2);
+                
+                var item2 = {};
+                item2['name'] = 'SPED';
+                item2["y"] = totalSPED;
+                item2["drilldown"] = 'sped'+nutritionalStatus[a];
+                data.push(item2);
+
+                item['data'] = data;
+                drilldowns.push(item);
+            }
 //            for(var a = 0; a < print[0].ageGroups.length;a++){
 //                var item = {};
 //                var totalNorth = 0;
@@ -858,10 +953,10 @@ function setHHPopAgeGroupSex (chart){
                 series: [{
                     name: 'Caloocan City',
                     data: totals
-                }]//,
-//                drilldown: {
-//                    series: drilldowns
-//                    }
+                }],
+                drilldown: {
+                    series: drilldowns
+                    }
             });
     }
     
