@@ -902,22 +902,25 @@ function setHHPopAgeGroupSex (chart){
                                     item2 = {};
                                     item2["name"] = print[0].districts[b].district;
                                     item2["y"] = total;
+                                    item["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
                                     data.push(item2);
                                 }
                             }
                             else if(zones[y] == 'SPED'){
-                                if(print[0].districts[b].district.toLowerCase().includes('caloocan city')){
+                                if(print[0].districts[b].district.toLowerCase().includes('sped')){
                                     item2 = {};
                                     item2["name"] = 'SPED';
                                     item2["y"] = total;
+                                    item["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+'sped';
                                     data.push(item2);
                                 }
                             }
                             else if(zones[y] == 'SOUTH') {
-                                if(!(print[0].districts[b].district.toLowerCase().includes('caloocan city')) && !(print[0].districts[b].district.toLowerCase().includes('north'))){
+                                if(!(print[0].districts[b].district.toLowerCase().includes('sped')) && !(print[0].districts[b].district.toLowerCase().includes('north'))){
                                     item2 = {};
                                     item2["name"] = print[0].districts[b].district;
                                     item2["y"] = total;
+                                    item["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
                                     data.push(item2);
                                 }
                             }
