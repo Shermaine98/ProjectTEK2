@@ -71,7 +71,9 @@ public class FactStudentNutritionDAO {
             try (Connection conn = myFactory.getConnection()) {
                 PreparedStatement pstmt = conn.prepareStatement(
                 "SELECT 	GENDER, IF(GRADELEVEL = 'KINDER', 'Pre Elementary', GRADELEVEL) as 'gradeLevel', CENSUSYEAR,\n" +
-"                               DISTRICT, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE',\n" +
+"                               DISTRICT, (CASE WHEN SUBSTRING(DISTRICT, 10, 5) = 'NORTH'THEN 'NORTH'\n" +
+                                        "        WHEN DISTRICT = 'CALOOCAN CITY' THEN 'SPED'\n" +
+                                        "        ELSE 'SOUTH' END) AS 'ZONE',\n" +
 "                               totalNoOfSeverelyWasted, totalNoOfWasted, totalNoOfNormal, totalNoOfOverweight, totalNoOfObese\n" +
                 "FROM FACT_STUDENTNUTRITION\n" +
                 "GROUP BY  CENSUSYEAR, DISTRICT, GRADELEVEL, GENDER\n" +
