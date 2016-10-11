@@ -931,9 +931,71 @@ function setHHPopAgeGroupSex (chart){
                 }
             }
             
-            
-            console.log(JSON.stringify(drilldowns));
-            
+            for(var y = 0; y < zones.length; y++){
+                for(var a = 0; a < nutritionalStatus.length;a++){
+                    for(var b = 0; b < print[0].districts.length; b++){
+                        var add;
+                        if(genderLength == 2 || genderLength == 0){
+                            add = 2;
+                        } else {
+                            add = 1;
+                        }
+                        var item = {};
+                        var data = [];
+
+                        item["name"] = nutritionalStatus[a];
+                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a];
+                        if(nutritionalStatus[a] == 'SPED'){
+                            item["id"] = 'sped'+nutritionalStatus[a]+print[0].districts[b].district;;
+                        }
+                        var total = 0;
+                        for (var i = 0; i < print[0].people.length; i+=add) {
+                            if(print[0].people[i].year == year){
+                                    if(print[0].people[i].district == print[0].districts[b].district){
+                                        if(print[0].people[i].zone == zones[y]){
+                                            if(print[0].genders.length == 2){
+                                                if(nutritionalStatus[a] == 'Severely Wasted'){
+                                                    total+= print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
+                                                } else if(nutritionalStatus[a] == 'Wasted'){
+                                                    total+= print[0].people[i].wasted + print[0].people[i+1].wasted;
+                                                } else if(nutritionalStatus[a] == 'Normal'){
+                                                    total+= print[0].people[i].normal + print[0].people[i+1].normal;
+                                                } else if(nutritionalStatus[a] == 'Overweight'){
+                                                    total+= print[0].people[i].overweight + print[0].people[i+1].overweight;
+                                                } else if(nutritionalStatus[a] == 'Obese'){
+                                                    total+= print[0].people[i].obese + print[0].people[i+1].obese;
+                                                }
+                                            }
+                                            else if(print[0].genders.length == 1){
+                                                for(var c = 0; c < print[0].genders.length; c++){
+                                                    if(print[0].people[i].gender == print[0].genders[c].gender){
+                                                        if(nutritionalStatus[a] == 'Severely Wasted'){
+                                                            total+= print[0].people[i].severelyWasted;
+                                                        } else if(nutritionalStatus[a] == 'Wasted'){
+                                                            total+= print[0].people[i].wasted;
+                                                        } else if(nutritionalStatus[a] == 'Normal'){
+                                                            total+= print[0].people[i].normal;
+                                                        } else if(nutritionalStatus[a] == 'Overweight'){
+                                                            total+= print[0].people[i].overweight;
+                                                        } else if(nutritionalStatus[a] == 'Obese'){
+                                                            total+= print[0].people[i].obese;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else{
+                                                total = 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    item['data'] = data;
+                    drilldowns.push(item);
+                }
+            }
+             
             $('#output').highcharts({
                 chart: {
                     type: chart,
