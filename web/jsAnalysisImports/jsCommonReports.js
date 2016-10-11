@@ -928,9 +928,9 @@ function setHHPopAgeGroupSex (chart){
                                 }
                             }
                         }
-                    }
-                item['data'] = data;
-                drilldowns.push(item);
+                    item['data'] = data;
+                    drilldowns.push(item);
+                }
             }
             
             
