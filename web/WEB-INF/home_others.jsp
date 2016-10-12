@@ -40,7 +40,7 @@
                                     <ol class="carousel-indicators">
                                         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                                         <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                                        <!--<li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>-->
                                     </ol>
                                     <div class="carousel-inner">
                                         <div class="item active">
@@ -49,18 +49,10 @@
                                         </div>
                                         <div class="item">
                                             <img src="img/Caloocan2.jpg" alt="Second slide" style="width:100%;height: 200px;object-fit: cover">
-
-                                            <!--                                                <div class="carousel-caption">
-                                                                                                Third Slide
-                                                                                            </div>-->
                                         </div>
-                                        <div class="item">
+<!--                                        <div class="item">
                                             <img src="img/Caloocan3.jpg" alt="Third slide" style="width:100%;height: 200px;object-fit: cover">
-
-                                            <!--                                                <div class="carousel-caption">
-                                                                                                Third Slide
-                                                                                            </div>-->
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                         <span class="fa fa-angle-left"></span>
@@ -91,18 +83,27 @@
 
                         <!--END MODAL-->
                         <div class="col-md-7" style="margin-left: 1%; padding-right: 0;">
-                            <div class="callout callout-success">
+<!--                            <div class="callout callout-success">
                                 <h4>Announcements!</h4>
 
                                 <p>Som announcement here</p>
+                            </div>-->
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title" align="center">Announcements!</h3>
+                                </div>
+                                <div class="box-body">
+                                    Some announcement here
+                                </div>
                             </div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Published Reports</h3>
+                                    <h3 class="box-title" align="center">Published Reports</h3>
                                 </div>
                                 <div class="box-body">
-                                    <select>
-                                        <option>Year</option>
+                                    <select class="form-control" style="width: 40%; margin: 0 auto;">
+                                        <option selected disabled>Select Year</option>
+                                        <option>2015</option>
                                     </select>
                                 </div>
                             </div>
