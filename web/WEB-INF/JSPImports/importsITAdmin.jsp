@@ -127,17 +127,13 @@ and open the template in the editor.
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=approvals">
-                                <i class="fa fa-user"></i><span>Account Requests Approval</span>
+                                <i class="fa fa-check"></i><span>Account Requests Approval</span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-user"></i><span>Update Accounts</span>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=updates">
+                                <img src="img/edituser.png" width="14" style="margin-right: 3%;"><span>Update Accounts</span>
                             </a>
-                            <ul class="treeview-menu menu-open" style="display:block; background-color: #f9fafc">
-                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=updatesInternal" style="color: #cc5200; margin-left: 8%;">Internal Accounts</a></li>
-                                <li><a href="${pageContext.request.contextPath}/ServletAccess?redirect=updatesExternal" style="color: #cc5200; margin-left: 8%;">External Accounts</a></li>
-                            </ul>
                         </li>
                 </section>
                 <!-- /.sidebar -->

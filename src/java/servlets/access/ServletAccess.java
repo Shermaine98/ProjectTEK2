@@ -139,19 +139,15 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvals.jsp");
                 rd.forward(request, response);
             } //UPDATES
-            else if (redirect.equalsIgnoreCase("updatesInternal")) {
-                ArrayList<User> users = accountsDAO.getApprovedInternalUsers();
-                request.setAttribute("users_array", users);
+            else if (redirect.equalsIgnoreCase("updates")) {
+                ArrayList<User> internalUsers = accountsDAO.getApprovedInternalUsers();
+                ArrayList<User> externalUsers = accountsDAO.getApprovedExternalUsers();
+                request.setAttribute("internalUsers", internalUsers);
+                request.setAttribute("externalUsers", externalUsers);
                 request.setAttribute("page", "updatesInternal");
-                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updatesInternal.jsp");
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updateAccounts.jsp");
                 rd.forward(request, response);
-            } else if (redirect.equalsIgnoreCase("updatesExternal")) {
-                ArrayList<User> users = accountsDAO.getApprovedExternalUsers();
-                request.setAttribute("users_array", users);
-                request.setAttribute("page", "updatesExternal");
-                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updatesExternal.jsp");
-                rd.forward(request, response);
-            } else if (redirect.equalsIgnoreCase("reportsLibrary")) {
+            }  else if (redirect.equalsIgnoreCase("reportsLibrary")) {
                 request.setAttribute("reportSet", "none");
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
                 rd.forward(request, response);
