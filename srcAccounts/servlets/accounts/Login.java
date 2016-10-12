@@ -129,6 +129,16 @@ public class Login extends HttpServlet {
                     session.setAttribute("user", user);
                     session.setAttribute("successful", "successful");
                     if (user.getPosition().equals("IT Admin")) {
+                        Accounts accountsDAO = new Accounts();
+                        ArrayList<User> internalUsers = accountsDAO.getApprovedInternalUsers();
+                        ArrayList<User> externalUsers = accountsDAO.getApprovedExternalUsers();
+                        ArrayList<User> eApprove = accountsDAO.getUserForApprovalOthers();
+                        ArrayList<User> iApprove = accountsDAO.getUserForApprovalMember();
+                        int userReg = internalUsers.size() + externalUsers.size() + eApprove.size() + iApprove.size();
+                        request.setAttribute("page", "homeIT");
+                        request.setAttribute("userRegistrations", userReg);
+                        request.setAttribute("eApprove", eApprove.size());
+                        request.setAttribute("iApprove", iApprove.size());
                         rd = null;
                         rd = context.getRequestDispatcher("/WEB-INF/home_IT.jsp");
                     }

@@ -95,7 +95,15 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
                 rd.forward(request, response);
             }  else if (redirect.equalsIgnoreCase("homeIT")) {
+                ArrayList<User> internalUsers = accountsDAO.getApprovedInternalUsers();
+                ArrayList<User> externalUsers = accountsDAO.getApprovedExternalUsers();
+                ArrayList<User> eApprove = accountsDAO.getUserForApprovalOthers();
+                ArrayList<User> iApprove = accountsDAO.getUserForApprovalMember();
+                int userReg = internalUsers.size() + externalUsers.size() + eApprove.size() + iApprove.size();
                 request.setAttribute("page", "homeIT");
+                request.setAttribute("userRegistrations", userReg);
+                request.setAttribute("eApprove", eApprove.size());
+                request.setAttribute("iApprove", iApprove.size());
                 rd = request.getRequestDispatcher("/WEB-INF/home_IT.jsp");
                 rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("homePDO")) {
