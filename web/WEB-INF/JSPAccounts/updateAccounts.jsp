@@ -55,7 +55,7 @@
                                                     <th>Username</th>
                                                     <th>Division</th>
                                                     <th>Position</th>
-                                                    <th>For Your Action</th>
+                                                    <th style="text-align:right;">For Your Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -87,7 +87,7 @@
                                                     <th>Full Name</th>
                                                     <th>Email</th>
                                                     <th>Username</th>
-                                                    <th>For Your Action</th>
+                                                    <th style="text-align:right;">For Your Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
