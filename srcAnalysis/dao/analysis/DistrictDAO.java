@@ -39,4 +39,23 @@ public class DistrictDAO {
         }
         return null;
     }
+    
+    public ArrayList<String> retrieveDistrictsForNutritionalStatus () throws ParseException {
+        try {
+            DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
+            ArrayList<String> district = new ArrayList<String>();
+            try (Connection conn = myFactory.getConnection()) {
+                PreparedStatement pstmt = conn.prepareStatement("SELECT IF(DISTRICT = 'Caloocan City', 'SPED', DISTRICT) AS 'DISTRICT' FROM DIM_DISTRICT");
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    district.add(rs.getString("DISTRICT"));
+                }
+                pstmt.close();
+            }
+            return district;
+        } catch (SQLException ex) {
+            getLogger(HighestCompletedDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return null;
+    }
 }

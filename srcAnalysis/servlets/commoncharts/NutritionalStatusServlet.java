@@ -64,7 +64,7 @@ public class NutritionalStatusServlet extends HttpServlet {
             
             ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
             ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
-            ArrayList<String> district = chartsDistrict.retrieveDistricts();
+            ArrayList<String> district = chartsDistrict.retrieveDistrictsForNutritionalStatus();
             ArrayList<FactStudentNutrition> studentNutrition = chartStudentNutrition.retrieveNutritionalStatusCommonChart();
             ArrayList<String> gradeLevels = chartStudentNutrition.retrieveGradeLevels();
 
