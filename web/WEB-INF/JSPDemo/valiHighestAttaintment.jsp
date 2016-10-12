@@ -175,10 +175,10 @@
                                 <div style="margin-top: 5%;">
                                     <div style="display:inline; float:left;">
                                         <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted">
-                                            <input type="button" class="btn btn-flat btn-default" style="width: 100px;" value='Back'>
+                                            <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
                                         </a></div>
                                     <div  style="display:inline; float:right;">
-                                        <input  class="btn btn-flat btn-success" type="Submit" value="Submit" /></div>
+                                        <input  class="btn btn-block btn-success" type="Submit" value="Submit" /></div>
                                 </div>
                                 <!--END FOR THE BACK AND SUBMIT BUTTON-->
 

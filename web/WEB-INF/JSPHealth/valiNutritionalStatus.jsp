@@ -192,10 +192,10 @@
                             <div style="width:96%; margin-left: 2%; margin-top: 5%;">
                                 <div style="display:inline; float:left;" class="">
                                     <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist">
-                                        <input type="button" class="btn btn-flat btn-default" style="width: 100px;" value='Back'>
+                                        <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
                                     </a></div>
                                 <div  style="display:inline; float:right;" class="">
-                                    <input  class="btn btn-flat btn-success" type="submit" value="Submit" /></div>
+                                    <input  class="btn btn-block btn-success" type="submit" value="Submit" /></div>
                             </div>
                             <input type="hidden" name="year" class="year" id="year" />
                             <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />

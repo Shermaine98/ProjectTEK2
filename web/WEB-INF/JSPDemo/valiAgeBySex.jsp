@@ -133,10 +133,10 @@
                                         <div style="margin-top: 5%;">
                                             <div style="display:inline; float:left;">
                                                 <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
-                                                    <input type="button" class="btn btn-flat btn-default" style="width: 100px;" value='Back'>
+                                                    <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
                                                 </a></div>
                                             <div  style="display:inline; float:right;">
-                                                <input class="btn btn-flat btn-success" onclick="submitForm()" type="button" value="Submit" /></div>
+                                                <input class="btn btn-block btn-success" onclick="submitForm()" type="button" value="Submit" /></div>
                                         </div>
                                     </div>
                                 </div>
@@ -154,10 +154,10 @@
 
             <div style="margin-bottom: 6%;" align="center">
                 <img src="img/Caloocan-Logo.png" alt=""/><br>
-                <h3>City Planning and Development Department</h3>
-                <p style="font-size: medium; ">Household Population By Age Group and Sex<br>
-                    Errors Summary Report for 2016</p>
-                <p>Prepared By: <%= user.getFirstName()%> <%= user.getLastName()%></p>
+                <h4>City Planning and Development Department</h4>
+                <p>Household Population By Age Group and Sex<br>
+                    Errors Summary Report for 2016<br>
+                    Prepared By: <%= user.getFirstName()%> <%= user.getLastName()%></p>
                 <p id="DateHere"></p>
             </div>
             <!--TABLE-->
@@ -165,7 +165,16 @@
             <div id="printTable" style="width: 90%; margin-left: auto; margin-right: auto;">
             </div>
             <footer>
-                <div style='text-align:center;'>Page <span class="pageCounter"></span>/<span class="totalPages"></span></div>
+                <div style='text-align:center;
+                     position:fixed;
+                     height:50px;
+                     background-color:red;
+                     bottom:0px;
+                     left:0px;
+                     right:0px;
+                     margin-bottom:0px;'>Page 1
+                    <!--<span class="pageCounter"></span>/<span class="totalPages"></span>-->
+                </div>
             </footer>
         </div>
 
