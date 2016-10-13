@@ -77,7 +77,7 @@
                                 <div class="box-body">
                                     <!--CHARTS, change id value-->
                                     <center>
-                                        <div id="byAgeGrpSex" style="width:90%;">
+                                        <div id="byAgeGrpSex" style="width:80%;">
                                             <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
                                         </div>
                                     </center>
@@ -129,8 +129,8 @@
 
             $('#save_pdf').click(function () {
                 print_div();
-                 xepOnline.Formatter.Format('TESTING', {render: 'download'},
-                        {embedLocalImages: 'true'});
+                 xepOnline.Formatter.Format('TESTING', {pageWidth:'11in', pageHeight:'8.5in'}, {render: 'download'},
+                        {embedLocalImages: 'true'} );
                         doneyet();
             });
 
@@ -263,7 +263,7 @@
                 });
                 $("#dataTable").DataTable({
                     "paging": true,
-                    "ordering": true,
+                    "ordering": false,
                     "info": false, "language": {
                         "empty2Table": "No Data"
                     },
