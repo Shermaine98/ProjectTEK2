@@ -119,7 +119,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <p>Input Birthdate:</p>
+                                <p>Input Birthdate (DD/MM/YY)</p>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only">Birthdate</label>
@@ -144,13 +144,13 @@
                             <div class="form-group">
                                 <label class="sr-only">Email</label>
                                 <input required type="text" name="email" onkeyup="registerValidation()" placeholder="Email Address" class="form-username form-control" id="email">
-                                <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"  
+                                <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"
                                        id="emailValidation">*Email has already been taken</label>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
                                 <input required type="text" name="username" onkeyup="registerValidation()" placeholder="Username" class="form-username form-control" id="userName">
-                                <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"  
+                                <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"
                                        id="userNameValidation">*Username has already been taken</label>
                             </div>
                             <div class="form-group">

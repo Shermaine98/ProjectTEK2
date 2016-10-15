@@ -76,6 +76,7 @@ public class Register extends HttpServlet {
                 if (dao.registerOthers(newUser)) {
                     ServletContext context = getServletContext();
                     RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
+                    request.setAttribute("sRegister", "sRegister");
                     rd.forward(request, response);
                 } else {
                     out.print("Something went wrong");
@@ -88,6 +89,7 @@ public class Register extends HttpServlet {
                 if (dao.registerMembers(newUser)) {
                     ServletContext context = getServletContext();
                     RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
+                    request.setAttribute("sRegister", "sRegister");
                     rd.forward(request, response);
                 } else {
                     out.print("Something went wrong");

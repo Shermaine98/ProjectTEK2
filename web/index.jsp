@@ -64,6 +64,10 @@
         <div id="notify" style="background: #444; width: 100%; height: 30px; float: top;">You have successfully logged out!</div>
         <% }%>
 
+         <% if (null != request.getAttribute("sRegister")) { %>
+        <div id="notify" style="background: #444; width: 100%; height: 30px; float: top;">Registration Success! Kindly wait for a confirmation email from the administration</div>
+        <% }%>
+
         <div class="container">
             <div class="col-sm-5">
                 <div class="form-box">
