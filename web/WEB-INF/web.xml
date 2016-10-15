@@ -364,6 +364,10 @@
         <servlet-name>NutritionalStatusServlet</servlet-name>
         <servlet-class>servlets.commoncharts.NutritionalStatusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountsRegistration</servlet-name>
+        <servlet-class>servlets.accounts.AccountsRegistration</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -703,6 +707,10 @@
     <servlet-mapping>
         <servlet-name>NutritionalStatusServlet</servlet-name>
         <url-pattern>/NutritionalStatusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountsRegistration</servlet-name>
+        <url-pattern>/AccountsRegistration</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

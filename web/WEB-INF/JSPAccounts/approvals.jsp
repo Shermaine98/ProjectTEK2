@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : approvals
     Created on : 10 9, 16, 9:20:39 PM
     Author     : Geraldine
@@ -38,12 +38,12 @@
                     <div class="callout callout-success">
                         <h4>Success!</h4>
                         <p>You have successfully approved all internal users.</p>
-                    </div> 
+                    </div>
                     <% } %>
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#internal" data-toggle="tab" style="width: 170px;">Internal Accounts<% if (internalUsers.size() > 0) {%><span class="label label-warning" style="margin-left: 5%;"><%=internalUsers.size()%></span><%}%> </a></li>
-                            <li><a href="#external" data-toggle="tab" style="width: 170px;">External Accounts<% if (externalUsers.size() > 0) {%><span class="label label-warning" style="margin-left: 5%;"><%=externalUsers.size()%></span><%}%></a></li>
+                            <li class="active"><a href="#internal" data-toggle="tab" style="width: 170px;">Internal Accounts <div id="iCount"><span  class="label label-warning" style="margin-left: 5%;"></span></div></a></li>
+                            <li><a href="#external" data-toggle="tab" style="width: 170px;">External Accounts <div id="eCount"> <span class="label label-warning" style="margin-left: 5%;"></span></div></a> </li>
                         </ul>
 
                         <div class="tab-content">
@@ -90,8 +90,7 @@
                                         <% } %>
                                     </tbody>
                                 </table>
-                                <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
-                                   href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
+                                        <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"  href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
                                     Approve All</a>
                                 <% }%>
                             </div>

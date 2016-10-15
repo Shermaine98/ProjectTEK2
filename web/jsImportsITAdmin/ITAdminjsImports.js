@@ -6,6 +6,8 @@
 
 
 $(document).ready(function () {
+    accountsCounts();
+
     $('#clickedApproved, #clickedReject').click(function () {
         if (this.id == 'clickedApproved') {
             var redirect = "approve";
@@ -22,14 +24,14 @@ $(document).ready(function () {
                 data: {
                     redirect: redirect,
                     userID: userID,
-                    division:division,
-                    position:position,
-                    employmentDate:employmentDate
+                    division: division,
+                    position: position,
+                    employmentDate: employmentDate
                 },
                 success: function (data) {
                     if (data === true)
                         alert("Sucess Approval");
-
+                    accountsCounts();
                 }, error: function (XMLHttpRequest, textStatus, exception) {
                     alert(exception);
                 }
@@ -51,6 +53,7 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data === true)
                         alert("Reject Success");
+                    accountsCounts();
                 }, error: function (XMLHttpRequest, textStatus, exception) {
                     alert(exception);
                 }
@@ -59,3 +62,23 @@ $(document).ready(function () {
         }
     });
 });
+
+
+
+function accountsCounts() {
+
+    $.ajax({
+        url: "AccountsRegistration",
+        type: 'POST',
+        dataType: "JSON",
+        success: function (data) {
+            $("#iCount span").text(data.iCount);
+            $("#eCount span").text(data.eCount);
+            //  console.log("coutns" + );
+            // console.log( "coutns" + );
+
+        }, error: function (XMLHttpRequest, textStatus, exception) {
+            alert(exception);
+        }
+    });
+}
