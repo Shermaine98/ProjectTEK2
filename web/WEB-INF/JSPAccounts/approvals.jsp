@@ -52,50 +52,52 @@
                                 <% if (internalUsers.size() == 0) { %>
                                 <p align="center">There are no new accounts for approval.</p>
                                 <% } else { %>
-                                <table class="table table-bordered">
-                                    <% for (int i = 0; i < internalUsers.size(); i++) {%>
-                                    <tbody>
+                                <form>
+                                    <table class="table table-bordered">
+                                        <% for (int i = 0; i < internalUsers.size(); i++) {%>
 
-                                        <tr style="background-color: #454545; color: #fff; font-weight: bold;">
-                                            <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
-                                            <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
-                                            <td class="buttons_class" colspan="2" style="border-left:none;">
-                                                <button style="float:right; text-align:right;" id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
-                                                <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApproved" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email</td>
-                                            <td>Division</td>
-                                            <td>Position</td>
-                                            <td>Date of Employment</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="25%"><%= internalUsers.get(i).getEmail()%></td>
-                                            <td style="display:none;"><%= internalUsers.get(i).getUsername()%></td>
-                                            <td width="35%">
-                                                <select id="division" name="division" class="form-control divisionClass">
-                                                    <option disabled selected>Choose Division</option>
-                                                    <option value="Social">Social Development Planning Division</option>
-                                                    <option value="Physical">Physical Development Planning Division</option>
-                                                    <!--<option value="Others">Others Divisions</option>-->
-                                                    <option value="Institutional">Institutional Development Planning Division</option>
-                                                </select>
-                                            </td>
-                                            <td class="select_position_td" width="25%">
-                                                <select id="position_title"  name="position" class="form-control position_title_class" disabled>
-                                                    <option disabled selected>Choose Position</option>
-                                                </select>
-                                            </td>
-                                            <td width="10%"><input type="date" class="form-control employmentDate_class" style="padding: 1%;" id="employmentDate" name="employmentDate" /></td>
-                                        </tr>
-                                    </tbody>
-                                    <% } %>
+                                        <tbody>
 
-                                </table>
-                                <!--
-                            <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"  href="<${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
-                                Approve All</a>-->
-                                <% }%>
+                                            <tr style="background-color: #454545; color: #fff; font-weight: bold;">
+                                                <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
+                                                <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
+                                                <td class="buttons_class" colspan="2" style="border-left:none;">
+                                                    <button style="float:right; text-align:right;" id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
+                                                    <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApproved" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>Division</td>
+                                                <td>Position</td>
+                                                <td>Date of Employment</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%"><%= internalUsers.get(i).getEmail()%></td>
+                                                <td style="display:none;"><%= internalUsers.get(i).getUsername()%></td>
+                                                <td width="35%">
+                                                    <select required id="division" name="division" class="form-control divisionClass">
+                                                        <option value="" disabled selected>Choose Division</option>
+                                                        <option value="Social">Social Development Planning Division</option>
+                                                        <option value="Physical">Physical Development Planning Division</option>
+                                                        <!--<option value="Others">Others Divisions</option>-->
+                                                        <option value="Institutional">Institutional Development Planning Division</option>
+                                                    </select>
+                                                </td>
+                                                <td class="select_position_td" width="25%">
+                                                    <select  required id="position_title"  name="position" class="form-control position_title_class" disabled>
+                                                        <option disabled selected>Choose Position</option>
+                                                    </select>
+                                                </td>
+                                                <td width="10%"><input type="date" class="form-control employmentDate_class" style="padding: 1%;" id="employmentDate" name="employmentDate"  required/></td>
+                                            </tr>
+                                        </tbody>
+                                        <% } %>
+
+                                    </table>
+
+                                    <input  style="display: block; margin: 0 auto; width: 12%;"  class="btn btn-success" type="submit" value="Approve All" onclick="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal;" />
+                                    <% }%>
+                                </form>
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="external">
@@ -127,12 +129,12 @@
                                                 <button id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
                                         </tr>
                                         <% } %>
-                                        <!--                                        <tr>
-                                                                                    <td colspan="7">
-                                                                                        <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
-                                                                                           href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllExternal">
-                                                                                            Approve All</a></td>
-                                                                                </tr>-->
+                                        <tr>
+                                            <td colspan="7">
+                                                <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
+                                                   href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllExternal">
+                                                    Approve All</a></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <% }%>
