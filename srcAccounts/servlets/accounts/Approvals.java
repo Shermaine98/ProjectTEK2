@@ -16,6 +16,7 @@ import servlets.servlet.BaseServlet;
 import dao.accounts.Accounts;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -50,6 +51,11 @@ public class Approvals extends BaseServlet {
 //(int userID, String division, String position, Date employment) 
         if (redirect.equalsIgnoreCase("approveAllInternal")) {
 
+            String[] userID = request.getParameterValues("userID");
+            String[] division = request.getParameterValues("division");
+            String[] position = request.getParameterValues("position");
+            String[] employmentDate = request.getParameterValues("employmentDate");
+
             try {
                 ArrayList<User> internalUsers = new ArrayList<>();
                 internalUsers = accountsDAO.getUserForApprovalMember();
@@ -57,7 +63,10 @@ public class Approvals extends BaseServlet {
                 externalUsers = accountsDAO.getUserForApprovalOthers();
 
                 for (int i = 0; i < internalUsers.size(); i++) {
-//                    accountsDAO.approveUser(internalUsers.get(i).getUserID());
+                    SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+                    Date parsed = format.parse(employmentDate[i]);
+                    java.sql.Date sql = new java.sql.Date(parsed.getTime());
+                    accountsDAO.approveUser(Integer.parseInt(userID[i]), division[i], position[i], sql);
                 }
 
                 internalUsers = accountsDAO.getUserForApprovalMember();

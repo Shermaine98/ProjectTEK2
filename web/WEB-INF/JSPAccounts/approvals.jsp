@@ -52,12 +52,11 @@
                                 <% if (internalUsers.size() == 0) { %>
                                 <p align="center">There are no new accounts for approval.</p>
                                 <% } else { %>
-                                <form>
+                                <form action="Approvals?redirect=approveAllInternal">
                                     <table class="table table-bordered">
                                         <% for (int i = 0; i < internalUsers.size(); i++) {%>
-
+                                        <input hidden name="userID" value="<%=internalUsers.get(i).getUserID()%>" />
                                         <tbody>
-
                                             <tr style="background-color: #454545; color: #fff; font-weight: bold;">
                                                 <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
                                                 <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
@@ -88,14 +87,16 @@
                                                         <option disabled selected>Choose Position</option>
                                                     </select>
                                                 </td>
-                                                <td width="10%"><input type="date" class="form-control employmentDate_class" style="padding: 1%;" id="employmentDate" name="employmentDate"  required/></td>
+                                                <td width="10%">
+                                                    <input type="date" class="form-control employmentDate_class" style="padding: 1%;" 
+                                                           id="employmentDate" name="employmentDate" required/></td>
                                             </tr>
                                         </tbody>
-                                        <% } %>
+                                        <% }%>
 
                                     </table>
 
-                                    <input  style="display: block; margin: 0 auto; width: 12%;"  class="btn btn-success" type="submit" value="Approve All" onclick="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal;" />
+                                    <input  class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;" type="submit" value="Approve All" />
                                     <% }%>
                                 </form>
                             </div>
