@@ -53,14 +53,15 @@
                                 <p align="center">There are no new accounts for approval.</p>
                                 <% } else { %>
                                 <table class="table table-bordered">
+                                    <% for (int i = 0; i < internalUsers.size(); i++) {%>
                                     <tbody>
-                                        <% for (int i = 0; i < internalUsers.size(); i++) {%>
+
                                         <tr style="background-color: #454545; color: #fff; font-weight: bold;">
                                             <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
                                             <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
-                                            <td colspan="2" style="border-left:none;">
+                                            <td class="buttons_class" colspan="2" style="border-left:none;">
                                                 <button style="float:right; text-align:right;" id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
-                                                <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApproved" class="btn btn-success btn-sm" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
+                                                <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApproved" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
                                         </tr>
                                         <tr>
                                             <td>Email</td>
@@ -72,7 +73,7 @@
                                             <td width="25%"><%= internalUsers.get(i).getEmail()%></td>
                                             <td style="display:none;"><%= internalUsers.get(i).getUsername()%></td>
                                             <td width="35%">
-                                                <select id="division" name="division" class="form-control" onchange="updatePosition()">
+                                                <select id="division" name="division" class="form-control divisionClass">
                                                     <option disabled selected>Choose Division</option>
                                                     <option value="Social">Social Development Planning Division</option>
                                                     <option value="Physical">Physical Development Planning Division</option>
@@ -80,18 +81,20 @@
                                                     <option value="Institutional">Institutional Development Planning Division</option>
                                                 </select>
                                             </td>
-                                            <td width="25%">
-                                                <select id="position_title" name="position" class="form-control" onchange="updateButtons()" disabled>
+                                            <td class="select_position_td" width="25%">
+                                                <select id="position_title"  name="position" class="form-control position_title_class" disabled>
                                                     <option disabled selected>Choose Position</option>
                                                 </select>
                                             </td>
-                                            <td width="10%"><input type="date" class="form-control" style="padding: 1%;" id="employmentDate" name="employmentDate" onchange="updateButtons()" /></td>
+                                            <td width="10%"><input type="date" class="form-control employmentDate_class" style="padding: 1%;" id="employmentDate" name="employmentDate" /></td>
                                         </tr>
-                                        <% } %>
                                     </tbody>
+                                    <% } %>
+
                                 </table>
-                                        <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"  href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
-                                    Approve All</a>
+                                <!--
+                            <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"  href="<${pageContext.request.contextPath}/Approvals?redirect=approvalAllInternal">
+                                Approve All</a>-->
                                 <% }%>
                             </div>
                             <!-- /.tab-pane -->
@@ -119,17 +122,17 @@
                                             <td><%= externalUsers.get(i).getEmail()%></td>
                                             <td><%= externalUsers.get(i).getUsername()%></td>
                                             <td><%= externalUsers.get(i).getReason()%></td>
-                                            <td style="float:right;">
+                                            <td  style="float:right;">
                                                 <button id="clickedApproved" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
                                                 <button id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
                                         </tr>
                                         <% } %>
-                                        <tr>
-                                            <td colspan="7">
-                                                <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
-                                                   href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllExternal">
-                                                    Approve All</a></td>
-                                        </tr>
+                                        <!--                                        <tr>
+                                                                                    <td colspan="7">
+                                                                                        <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
+                                                                                           href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllExternal">
+                                                                                            Approve All</a></td>
+                                                                                </tr>-->
                                     </tbody>
                                 </table>
                                 <% }%>
@@ -143,23 +146,23 @@
         </div>
 
         <script>
-            function updatePosition() {
-                var conceptName = $('#division').find(":selected").text();
+
+            $(document).on("change", ".divisionClass", function () {
+                var conceptName = $(this).find("option:selected").text();
+                console.log("SELECTED" + conceptName);
+                var x = $(this).closest('tr').find('.select_position_td').find('#position_title');
+                console.log(x);
                 if (conceptName == "Social Development Planning Division") {
-                    $('#position_title')
-                            .find('option')
-                            .remove()
-                            .end()
+                    x.find('option').remove().end()
                             .append('<option disabled selected>Choose Position</option>')
                             .append('<option value="PDOI">Project Development Officer I</option>')
                             .append('<option value="PDOIII">Project Development Officer III</option>')
                             .append('<option value="PDOIV">Project Development Officer IV</option>')
                             .append('<option value="AideVI">Administrative Aide VI</option>')
-//                            .val('whatever')
+//                         .val('whatever')
                             ;
                 } else if (conceptName == "Physical Development Planning Division") {
-                    $('#position_title')
-                            .find('option')
+                    x.find('option')
                             .remove()
                             .end()
                             .append('<option disabled selected>Choose Position</option>')
@@ -170,8 +173,7 @@
 //                            .val('whatever')
                             ;
                 } else if (conceptName == "Institutional Development Planning Division") {
-                    $('#position_title')
-                            .find('option')
+                    x.find('option')
                             .remove()
                             .end()
                             .append('<option disabled selected>Choose Report</option>')
@@ -179,14 +181,22 @@
 //                            .val('whatever')
                             ;
                 }
-                $('#position_title').removeAttr('disabled');
-            }
-            function updateButtons() {
-                if ($('#position_title').find(":selected").text() != 'Choose Position' &&
-                        !(!Date.parse(document.getElementById('employmentDate').value))) {
-                    $('#clickedApproved').removeAttr('disabled');
+
+                $(this).closest('tr').find('.select_position_td').find('#position_title').removeAttr('disabled');
+            });
+
+
+            $(document).on("change", ".employmentDate_class", function () {
+                console.log("Date changed: ");
+
+                var x = $(this).closest('tr').find('.select_position_td').find('#position_title').find("option:selected").text();
+                var buttons = $(this).closest('tbody').find('tr').find('.buttons_class').find('.clickedApproved');
+
+                if (x != 'Choose Position' && !(!Date.parse($(this).val())))
+                {
+                    buttons.removeAttr('disabled');
                 }
-            }
+            });
         </script>
 
     </body>
