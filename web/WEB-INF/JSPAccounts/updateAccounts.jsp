@@ -66,11 +66,16 @@
                                                 <% } else {
                                                     for (int i = 0; i < internalUsers.size(); i++) {%>
                                                 <tr>
-                                                    <td><input name="name" readonly value="<%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%>"/></td>
-                                                    <td><input name="email" readonly value="<%= internalUsers.get(i).getEmail()%>"/></td>
-                                                    <td><input name="username" readonly value="<%= internalUsers.get(i).getUsername()%>"/></td>
-                                                    <td><input name="division" readonly value="<%= internalUsers.get(i).getDivision()%>"/></td>
-                                                    <td><input name="position" readonly value="<%= internalUsers.get(i).getPosition()%>"/></td>
+                                                    <td><input name="name" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%>"/></td>
+                                                    <td><input name="email" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= internalUsers.get(i).getEmail()%>"/></td>
+                                                    <td><input name="username" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= internalUsers.get(i).getUsername()%>"/></td>
+                                                    <td><input name="division" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= internalUsers.get(i).getDivision()%>"/></td>
+                                                    <td><input name="position" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= internalUsers.get(i).getPosition()%>"/></td>
                                                     <td>
                                                         <button class="btn btn-success" style="float:right">Update</button>
                                                     </td>
@@ -98,9 +103,12 @@
                                                 <% } else {
                                                     for (int i = 0; i < externalUsers.size(); i++) {%>
                                                 <tr>
-                                                    <td name="name"><input readonly value="<%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%>"/></td>
-                                                    <td name="email"><input readonly value="<%= externalUsers.get(i).getEmail()%>"/></td>
-                                                    <td name="username"><input readonly value="<%= externalUsers.get(i).getUsername()%>"/></td>
+                                                    <td><input name="name" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%>"/></td>
+                                                    <td><input name="email" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= externalUsers.get(i).getEmail()%>"/></td>
+                                                    <td><input name="username" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                               value="<%= externalUsers.get(i).getUsername()%>"/></td>
                                                     <td>
                                                         <button class="btn btn-success" style="float:right">Update</button>
                                                     </td>
