@@ -474,4 +474,58 @@ public class Accounts {
         }
         return false;
     }
+    
+    public boolean updateExternalUser(String firstName, String lastName, String email, String username){
+        boolean rows = false;
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            PreparedStatement pstmt;
+            try (Connection conn = myFactory.getConnection()) {
+                String update = "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, USERNAME = ? WHERE EMAIL = ?;";
+                pstmt = conn.prepareStatement(update);
+                pstmt.setString(1, firstName);
+                pstmt.setString(2, lastName);
+                pstmt.setString(3, username);
+                pstmt.setString(4, email);
+                int isChanged = pstmt.executeUpdate();
+                if (isChanged > 0) {
+                    rows = true;
+                }
+            }
+            pstmt.close();
+            return rows;
+        } catch (SQLException ex) {
+            getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean updateInternalUser(String firstName, String lastName, String email, 
+            String username, String division, String position){
+        boolean rows = false;
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            PreparedStatement pstmt;
+            try (Connection conn = myFactory.getConnection()) {
+                String update = "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, "
+                        + "USERNAME = ?, DIVISION = ?, POSITION = ? WHERE EMAIL = ?;";
+                pstmt = conn.prepareStatement(update);
+                pstmt.setString(1, firstName);
+                pstmt.setString(2, lastName);
+                pstmt.setString(3, username);
+                pstmt.setString(4, division);
+                pstmt.setString(5, position);
+                pstmt.setString(6, email);
+                int isChanged = pstmt.executeUpdate();
+                if (isChanged > 0) {
+                    rows = true;
+                }
+            }
+            pstmt.close();
+            return rows;
+        } catch (SQLException ex) {
+            getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
+        }
+        return false;
+    }
 }

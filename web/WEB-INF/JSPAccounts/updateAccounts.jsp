@@ -81,7 +81,7 @@
                                     </div>
                                     <!-- /.tab-pane -->
                                     <div class="tab-pane" id="external">
-                                        <table class="uk-table uk-table-hover uk-table-striped" id="externalTable">
+                                        <table class="uk-table uk-table-hover uk-table-striped" cellspacing="0" width="100%" id="externalTable">
                                             <thead>
                                                 <tr>
                                                     <th>Full Name</th>
@@ -93,7 +93,7 @@
                                             <tbody>
                                                 <% if (externalUsers.size() == 0) { %>
                                                 <tr>
-                                                    <td colspan="7" style="text-align:center">There are currently no external accounts.</td>
+                                                    <td colspan="4" style="text-align:center">There are currently no external accounts.</td>
                                                 </tr>
                                                 <% } else {
                                                     for (int i = 0; i < externalUsers.size(); i++) {%>
@@ -107,7 +107,8 @@
                                                 </tr>
                                                 <% }
                                                     }%>
-                                            </tbody></table>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <!-- /.tab-pane -->
                                 </div>
