@@ -17,13 +17,14 @@ function integrate() {
             , success: function (data) {
                 if (data === true) {
                     $("#integrateLoad").modal("hide");
-                    $("#notificationModal").addClass("modal-success");
-                    $("#notificationHeader").text("Success");
-                    $("#notificationBodyModal").append("<p>You have successfully integrated the data.</p>");
+                    $("#notificationHeader").text("Success!");
+                    $("#modal_Header").css({background: "#00a65a"});
+                    $("#notificationHeader").css({color: "#FFFFFF"});
+                    $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
                     $("#notificationModal").modal("show");
                     // Set a timeout to hide the element again
                     setTimeout(function () {
-                        $("#notificationModal").removeClass("modal-success");
+                        $("#modal_Header").css({background: ""});
                         $("#notificationModal").modal("hide");
                         $("#notificationHeader").text("");
                         $("#notificationBodyModal").empty();

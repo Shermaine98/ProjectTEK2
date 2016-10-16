@@ -29,7 +29,7 @@ $(document).ready(function () {
                         $("#notificationHeader").text("Success!");
                         $("#modal_Header").css({background: "#00a65a"});
                         $("#notificationHeader").css({color: "#FFFFFF"});
-                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> Successfully Approved! </p>");
+                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> You have successfully approved the account! </p>");
                         $("#notificationModal").modal("show");
                         // Set a timeout to hide the element again
                         setTimeout(function () {
@@ -68,7 +68,7 @@ $(document).ready(function () {
                         $("#notificationHeader").text("Success!");
                         $("#modal_Header").css({background: "#00a65a"});
                         $("#notificationHeader").css({color: "#FFFFFF"});
-                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> Succesfully Rejected! </p>");
+                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> You have successfully rejected the account! </p>");
                         $("#notificationModal").modal("show");
                         // Set a timeout to hide the element again
                         setTimeout(function () {

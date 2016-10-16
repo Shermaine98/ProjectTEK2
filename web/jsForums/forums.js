@@ -8,9 +8,9 @@ $(document).ready(function () {
     getTags();
     Viewforums();
     HotTopic();
-    
+
     //add like
-    
+
     var decision = "forum";
     var isLike;
     $(document).on("click", '.nDefault', function () {
@@ -64,8 +64,8 @@ $(document).ready(function () {
                     getTags();
                     Viewforums();
                     HotTopic();
-                    
-                    
+
+
                 }
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 console.log(exception);
@@ -147,7 +147,7 @@ function Viewforums() {
             para.appendChild(table);
 
             var tbody = document.createElement("tbody");
-             tbody.setAttribute("class", "list");
+            tbody.setAttribute("class", "list");
             table.appendChild(tbody);
 
             for (var i = 0; data.length > i; i++) {
@@ -176,13 +176,13 @@ function Viewforums() {
                     $(tr2td).append('<p style="margin-right: 2%;" class="tagSearch btn btn-flat btn-default btn-xs">' + data[i].tags[j].tag + '</p>');
                 }
                 $(tbodytr2).append('<td width="70%"><h5 align="right" style="color: #777; font-size: 13px;">created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
-                    
-                
-                var options = {
-                    valueNames: [ 'forumTitleSearch', 'tagSearch']
-                  };
 
-                  var userList = new List('searchDiv', options);
+
+                var options = {
+                    valueNames: ['forumTitleSearch', 'tagSearch']
+                };
+
+                var userList = new List('searchDiv', options);
 
             }
 
@@ -221,19 +221,20 @@ function submitNewForum() {
                 $("#forumTitle").val('');
                 $("#forumBody").val('');
                 $('#tagInput').tagit('removeAll');
-                
-                
-                $("#notificationModal").addClass("modal-success");
-                    $("#notificationHeader").text("Success");
-                    $("#notificationBodyModal").append("<p>You have successfully created a new Topic!</p>");
-                    $("#notificationModal").modal("show");
-                    // Set a timeout to hide the element again
-                    setTimeout(function () {
-                        $("#notificationModal").removeClass("modal-success");
-                        $("#notificationModal").modal("hide");
-                        $("#notificationHeader").text("");
-                        $("#notificationBodyModal").empty();
-                    }, 4000);
+
+
+                $("#notificationHeader").text("Success!");
+                $("#modal_Header").css({background: "#00a65a"});
+                $("#notificationHeader").css({color: "#FFFFFF"});
+                $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully created a new topic!</p>");
+                $("#notificationModal").modal("show");
+                // Set a timeout to hide the element again
+                setTimeout(function () {
+                    $("#modal_Header").css({background: ""});
+                    $("#notificationModal").modal("hide");
+                    $("#notificationHeader").text("");
+                    $("#notificationBodyModal").empty();
+                }, 4000);
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
