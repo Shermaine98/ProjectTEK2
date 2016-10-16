@@ -107,19 +107,22 @@
                                 </div>
                                 <div style=" margin: 0 auto; display:block; text-align: center">
                             <div class="form-inline">
+                                <form action="ServletAccess" method="post">
+                                 <input name="redirect" type="hidden" value="ReportSearchForum" />
                                 <div class="form-group">
-                                    <select id="category" name="category" class="form-control" onchange="updateReport()">
+                                    <select id="category" name="sectorReport" class="form-control" onchange="updateReport()">
                                         <option disabled selected>Choose Sector</option>
                                         <option value="Education">Education</option>
                                         <option value="Demographics">Demographics</option>
                                         <option value="Health">Health</option>
                                     </select>
-                                    <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" style="width:800px">
+                                    <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:800px">
                                         <option disabled selected>Choose Report</option>
                                     </select>
-                                    <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="censusYear"  id="searchCensusYear" placeholder="Census Year" />
-                                    <button disabled id="button" type="button" class="btn btn-default" name="submitBtn" onClick="getData()"><span class="glyphicon glyphicon-search"></span></button>
+                                    <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
+                                    <button disabled id="button" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                             </div>

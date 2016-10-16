@@ -61,17 +61,7 @@
                     </div>
                     <%}%>
 
-                    <!--Specific Report-->
-                     <% if (null != request.getAttribute("ReportSearch")) {
-                        String reportYear = (String) request.getAttribute("yearReport");
-                        String reportTitle = (String) request.getAttribute("reportTitle");
-                        String reportSector = (String) request.getAttribute("sectorReport");
-                     %>
-                     <input type="hidden" id="reporTitle" value="<%=reportTitle%>" />
-                     <input type="hidden" id="reportYear" value="<%=reportYear%>" />
-                     <input type="hidden" id="reportSector" value="<%=reportSector%>" />
-                      <% }%>
-                        <!--END Specific Report-->
+
 
                     <div class="row">
                         <div id="report" style="margin: 0 auto; float:none;" align="center">

@@ -94,7 +94,7 @@ public class ServletAccess extends BaseServlet {
                 request.setAttribute("page", "home");
                 rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
                 rd.forward(request, response);
-            }  else if (redirect.equalsIgnoreCase("homeIT")) {
+            } else if (redirect.equalsIgnoreCase("homeIT")) {
                 ArrayList<User> internalUsers = accountsDAO.getApprovedInternalUsers();
                 ArrayList<User> externalUsers = accountsDAO.getApprovedExternalUsers();
                 ArrayList<User> eApprove = accountsDAO.getUserForApprovalOthers();
@@ -130,7 +130,7 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
                 rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("home_guest")) {
-              //  request.setAttribute("", "");
+                //  request.setAttribute("", "");
                 rd = request.getRequestDispatcher("/WEB-INF/home_others.jsp");
                 rd.forward(request, response);
             } //APPROVALS
@@ -155,7 +155,7 @@ public class ServletAccess extends BaseServlet {
                 request.setAttribute("page", "updatesInternal");
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updateAccounts.jsp");
                 rd.forward(request, response);
-            }  else if (redirect.equalsIgnoreCase("reportsLibrary")) {
+            } else if (redirect.equalsIgnoreCase("reportsLibrary")) {
                 request.setAttribute("reportSet", "none");
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
                 rd.forward(request, response);
@@ -183,8 +183,20 @@ public class ServletAccess extends BaseServlet {
                 request.setAttribute("reportSet", "ageGroup");
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
                 rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("ReportSearchForum")) {
+                String yearReport = request.getParameter("yearReport");
+                String sectorReport = request.getParameter("sectorReport");
+                String reportTitle = request.getParameter("reportTitle");
+
+                request.setAttribute("savedMessage", "none");
+                request.setAttribute("ReportSearch", "ReportSearch");
+                request.setAttribute("yearReport", yearReport);
+                request.setAttribute("sectorReport", sectorReport);
+                request.setAttribute("reportTitle", reportTitle);
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAnalysis/PublishedReports.jsp");
+                rd.forward(request, response);
             } else {
-                request.getRequestDispatcher("login.html").include(request, response);
+                request.getRequestDispatcher("index.jsp").include(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);

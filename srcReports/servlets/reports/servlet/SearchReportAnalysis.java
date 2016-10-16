@@ -36,7 +36,6 @@ public class SearchReportAnalysis extends BaseServlet {
 
         String year = request.getParameter("query");
           String sector = request.getParameter("sector");
-          System.out.print("SECTOR  " + sector);
         ReportDAO ReportDAO = new ReportDAO();
         ArrayList<Integer> arrYear = new ArrayList<>();
         try {
