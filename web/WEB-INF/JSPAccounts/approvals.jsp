@@ -53,17 +53,17 @@
                                 <% if (internalUsers.size() == 0) { %>
                                 <p align="center">There are no new accounts for approval.</p>
                                 <% } else { %>
-                                <form action="Approvals?redirect=approveAllInternal">
+                                <form method="post" action="Approvals">
+                                    <input hidden name="redirect" value="approveAllInternal"/>
                                     <table class="table table-bordered">
                                         <% for (int i = 0; i < internalUsers.size(); i++) {%>
-                                        <input hidden name="userID" value="<%=internalUsers.get(i).getUserID()%>" />
                                         <tbody>
                                             <tr style="background-color: #454545; color: #fff; font-weight: bold;">
-                                                <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
-                                                <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
+                                                <td class="Inr" style="display:none;"><%=internalUsers.get(i).getUserID()%></td>
+                                                <td colspan="2" style="border-right:none;"><input hidden name="userID" value="<%=internalUsers.get(i).getUserID()%>"/><%=internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
                                                 <td class="buttons_class" colspan="2" style="border-left:none;">
-                                                    <button style="float:right; text-align:right;" id="clickedRejectI"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
-                                                    <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApprovedI" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
+                                                    <button type="button" style="float:right; text-align:right;" id="clickedRejectI"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
+                                                    <button type="button" style="float:right; text-align:right; margin-right: 2%;" id="clickedApprovedI" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
                                             </tr>
                                             <tr>
                                                 <td>Email</td>
@@ -77,15 +77,15 @@
                                                 <td width="35%">
                                                     <select required id="division" name="division" class="form-control divisionClass">
                                                         <option value="" disabled selected>Choose Division</option>
-                                                        <option value="Social">Social Development Planning Division</option>
-                                                        <option value="Physical">Physical Development Planning Division</option>
+                                                        <option value="Social Development Planning Division">Social Development Planning Division</option>
+                                                        <option value="Physical Development Planning Division">Physical Development Planning Division</option>
                                                         <!--<option value="Others">Others Divisions</option>-->
-                                                        <option value="Institutional">Institutional Development Planning Division</option>
+                                                        <option value="Institutional Development Planning Division">Institutional Development Planning Division</option>
                                                     </select>
                                                 </td>
                                                 <td class="select_position_td" width="25%">
-                                                    <select  required id="position_title"  name="position" class="form-control position_title_class" disabled>
-                                                        <option disabled selected>Choose Position</option>
+                                                    <select required id="position_title"  name="position" class="form-control position_title_class" disabled>
+                                                        <option value="" disabled selected>Choose Position</option>
                                                     </select>
                                                 </td>
                                                 <td width="10%">
@@ -108,38 +108,35 @@
                                 <% if (externalUsers.size() == 0) { %>
                                 <p align="center">There are no new accounts for approval.</p>
                                 <% } else {%>
-
-                                <table class="table">
-                                    <thead><tr>
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Username</th>
-                                            <th>Reason for Access</th>
-                                            <th style="text-align: right;">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% for (int i = 0; i < externalUsers.size(); i++) {%>
-                                        <tr>
-                                            <td class="nr" style="display:none;"><%= externalUsers.get(i).getUserID()%></td>
-                                            <td><%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%></td>
-                                            <td><%= externalUsers.get(i).getEmail()%></td>
-                                            <td><%= externalUsers.get(i).getUsername()%></td>
-                                            <td><%= externalUsers.get(i).getReason()%></td>
-                                            <td  style="float:right;">
-                                                <button id="clickedApprovedE" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
-                                                <button id="clickedRejectE"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
-                                        </tr>
-                                        <% } %>
-                                        <tr>
-                                            <td colspan="7">
-                                                <a class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;"
-                                                   href="${pageContext.request.contextPath}/Approvals?redirect=approvalAllExternal">
-                                                    Approve All</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <% }%>
+                                <form method="post" action="Approvals">
+                                    <input hidden name="redirect" value="approvalAllExternal"/>
+                                    <table class="table">
+                                        <thead><tr>
+                                                <th>Full Name</th>
+                                                <th>Email</th>
+                                                <th>Username</th>
+                                                <th>Reason for Access</th>
+                                                <th style="text-align: right;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for (int i = 0; i < externalUsers.size(); i++) {%>
+                                            <tr>
+                                                <td class="nr" style="display:none;"><%= externalUsers.get(i).getUserID()%></td>
+                                                <td><%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%></td>
+                                                <td><%= externalUsers.get(i).getEmail()%></td>
+                                                <td><%= externalUsers.get(i).getUsername()%></td>
+                                                <td><%= externalUsers.get(i).getReason()%></td>
+                                                <td  style="float:right;">
+                                                    <button type="button" id="clickedApprovedE" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
+                                                    <button type="button" id="clickedRejectE"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
+                                            </tr>
+                                            <% }%>
+                                        </tbody>
+                                    </table>
+                                    <input  class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;" type="submit" value="Approve All" />
+                                    <% }%>
+                                </form>
                             </div>
                             <!-- /.tab-pane -->
                         </div>
@@ -157,10 +154,10 @@
                 if (conceptName == "Social Development Planning Division") {
                     x.find('option').remove().end()
                             .append('<option disabled selected>Choose Position</option>')
-                            .append('<option value="PDOI">Project Development Officer I</option>')
-                            .append('<option value="PDOIII">Project Development Officer III</option>')
-                            .append('<option value="PDOIV">Project Development Officer IV</option>')
-                            .append('<option value="AideVI">Administrative Aide VI</option>')
+                            .append('<option value="Project Development Officer I">Project Development Officer I</option>')
+                            .append('<option value="Project Development Officer III">Project Development Officer III</option>')
+                            .append('<option value="Project Development Officer IV">Project Development Officer IV</option>')
+                            .append('<option value="Administrative Aide VI">Administrative Aide VI</option>')
 //                         .val('whatever')
                             ;
                 } else if (conceptName == "Physical Development Planning Division") {
@@ -168,10 +165,10 @@
                             .remove()
                             .end()
                             .append('<option disabled selected>Choose Position</option>')
-                            .append('<option value="POII">Planning Officer II</option>')
-                            .append('<option value="POIII">Planning Officer III</option>')
-                            .append('<option value="POIV">Planning Officer IV</option>')
-                            .append('<option value="AideVI">Administrative Aide VI</option>')
+                            .append('<option value="Planning Officer II">Planning Officer II</option>')
+                            .append('<option value="Planning Officer III">Planning Officer III</option>')
+                            .append('<option value="Planning Officer IV">Planning Officer IV</option>')
+                            .append('<option value="Administrative Aide VI">Administrative Aide VI</option>')
 //                            .val('whatever')
                             ;
                 } else if (conceptName == "Institutional Development Planning Division") {
@@ -179,7 +176,7 @@
                             .remove()
                             .end()
                             .append('<option disabled selected>Choose Report</option>')
-                            .append('<option value="Statistician">Statistician I</option>')
+                            .append('<option value="Statistician I">Statistician I</option>')
 //                            .val('whatever')
                             ;
                 }

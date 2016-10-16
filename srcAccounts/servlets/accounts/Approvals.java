@@ -42,11 +42,10 @@ public class Approvals extends BaseServlet {
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String redirect = request.getParameter("redirect");
-
-        // ServletContext context= getServletContext();
         RequestDispatcher rd = null;
         Accounts accountsDAO = new Accounts();
-//(int userID, String division, String position, Date employment) 
+        System.out.println("TRIAL" + redirect);
+
         if (redirect.equalsIgnoreCase("approveAllInternal")) {
 
             String[] userID = request.getParameterValues("userID");
@@ -149,7 +148,7 @@ public class Approvals extends BaseServlet {
             String userID = request.getParameter("userID");
             boolean x = false;
             try {
-                x = accountsDAO.diassapproveUser(Integer.parseInt(userID));
+                x = accountsDAO.diassapproveUser(Integer.parseInt(userID.trim()));
             } catch (SQLException ex) {
                 Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -157,6 +156,8 @@ public class Approvals extends BaseServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().write(json);
+        }else{
+        
         }
 
     }

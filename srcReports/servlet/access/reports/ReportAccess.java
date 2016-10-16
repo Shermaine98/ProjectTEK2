@@ -63,7 +63,6 @@ public class ReportAccess extends BaseServlet {
 //health = 30000
 //demo = 50000
 //CREATE REPORT....
-        System.out.println("HELLo");
         String sector = null;
 
         if (chck.getPosition().equals("Project Development Officer IV")) {

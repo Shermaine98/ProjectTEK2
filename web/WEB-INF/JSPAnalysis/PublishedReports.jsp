@@ -55,6 +55,24 @@
                     <p>A problem was encountered while publishing your report</p>
                 </div>
                 <%}%>
+
+
+                <!--Specific Report-->
+
+                     <%
+                         if (null != request.getAttribute("ReportSearch")) {
+                        String reportYear = (String) request.getAttribute("yearReport");
+                        String reportTitle = (String) request.getAttribute("reportTitle");
+                        String reportSector = (String) request.getAttribute("sectorReport");
+                     %>
+                     <input type="hidden" id="reportTitle" value="<%=reportTitle%>" />
+                     <input type="hidden" id="reportYear" value="<%=reportYear%>" />
+                     <input type="hidden" id="reportSector" value="<%=reportSector%>" />
+                      <% }%>
+                        <!--END Specific Report-->
+
+
+
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">

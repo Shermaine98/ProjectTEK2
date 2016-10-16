@@ -18,6 +18,11 @@
         <script src="jsForums/tag-it.js" type="text/javascript"></script>
         <script src="jsForums/forums.js" type="text/javascript"></script>
         <script src="jsImported/list.min.js" type="text/javascript"></script>
+         <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
+        <script src="jsImported/jquery.autocomplete.js" type="text/javascript"></script>
+        <script src="jsReport/searchYearPublish.js" type="text/javascript"></script>
+        <link href="cssImported/search.css" rel="stylesheet" type="text/css"/>
+
 
         <style>
             tr{
@@ -100,12 +105,26 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" align="center">Published Reports</h3>
                                 </div>
-                                <div class="box-body">
-                                    <select class="form-control" style="width: 40%; margin: 0 auto;">
-                                        <option selected disabled>Select Year</option>
-                                        <option>2015</option>
+                                <div style=" margin: 0 auto; display:block; text-align: center">
+                            <div class="form-inline">
+                                <form action="ServletAccess" method="post">
+                                 <input name="redirect" type="hidden" value="ReportSearchForum" />
+                                <div class="form-group">
+                                    <select id="category" name="sectorReport" class="form-control" onchange="updateReport()">
+                                        <option disabled selected>Choose Sector</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Demographics">Demographics</option>
+                                        <option value="Health">Health</option>
                                     </select>
+                                    <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:800px">
+                                        <option disabled selected>Choose Report</option>
+                                    </select>
+                                    <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
+                                    <button disabled id="button" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                                 </div>
+                                </form>
+                            </div>
+                        </div>
                             </div>
                         </div>
 
@@ -126,6 +145,7 @@
                                     <a class="btn btn-flat btn-social btn-vk btn-sm pull-right" style="width: 105px;">
                                         New Topic <i class="glyphicon glyphicon-plus"></i>
                                     </a>
+
                                 </div>
                                 <div class="box-body" id="searchDiv" >
                                     <input style="margin-bottom: 2%;" class="search form-control" placeholder="Search by tags or by topic" />
@@ -140,7 +160,78 @@
             </div>
         </div>
         <script>
+  function updateReport() {
+                var conceptName = $('#category').find(":selected").text();
+                if (conceptName === "Demographics") {
+                    $('#form_name')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Report</option>')
+                            .append('<option value="Matrix">Demographics Analysis Matrix</option>')
+                            .append('<option value="Analysis">Demographics Analysis</option>')
+                            .append('<option value="Integrated">Demographics Integrated Analysis</option>');
 
+                } else if (conceptName === "Education") {
+                    $('#form_name')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Report</option>')
+                            .append('<option value="Matrix">Education Analysis Matrix</option>')
+                            .append('<option value="Analysis">Education Analysis</option>')
+                            .append('<option value="Integrated">Education Integrated Analysis</option>');
+
+                } else if (conceptName === "Health") {
+                    $('#form_name')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Report</option>')
+                            .append('<option value="Matrix">Health Analysis Matrix</option>')
+                            .append('<option value="Analysis">Health Analysis</option>')
+                            .append('<option value="Integrated">Health Integrated Analysis</option>');
+                }
+                $('#form_name').removeAttr('disabled');
+            }
+
+            function updateYear() {
+                var conceptName = $('#form_name').find(":selected").val();
+                if (conceptName == "Matrix") {
+                    $('#searchCensusYear').keypress(searchMatrix());
+                    $('#searchCensusYear').removeAttr('disabled');
+
+                } else if (conceptName == "Analysis") {
+                    $('#searchCensusYear').keypress(searchAnalysis());
+                    $('#searchCensusYear').removeAttr('disabled');
+
+                } else if (conceptName == "Integrated") {
+                    $('#searchCensusYear').keypress(searchIntegrated());
+                    $('#searchCensusYear').removeAttr('disabled');
+
+                }
+            }
+            function getData() {
+                year = $('#searchCensusYear').val();
+                var conceptName = $('#form_name').find(":selected").val();
+                if (conceptName === "Matrix") {
+                    document.getElementById('integrateData').style.display = "none";
+                    document.getElementById('contentHere').style.display = "block";
+                    $('#submitBtn').click(setMatrix());
+                } else if (conceptName === "Analysis") {
+                    document.getElementById('integrateData').style.display = "none";
+                    document.getElementById('contentHere').style.display = "block";
+                    $('#submitBtn').click(setAnalysis());
+                } else if (conceptName === "Integrated") {
+                    document.getElementById('contentHere').style.display = "none";
+                    document.getElementById('integrateData').style.display = "block";
+
+                    $('#submitBtn').click(setIntegrated());
+                }
+            }
+            function updateButton() {
+                $('#button').removeAttr('disabled');
+            }
         </script>
     </body>
 

@@ -257,6 +257,19 @@ function submitNewComment() {
                 HotTopic();
                 ViewComments();
                 $("#comment").val('');
+                
+                 
+                $("#notificationModal").addClass("modal-success");
+                    $("#notificationHeader").text("Success");
+                    $("#notificationBodyModal").append("<p>Comment saved!</p>");
+                    $("#notificationModal").modal("show");
+                    // Set a timeout to hide the element again
+                    setTimeout(function () {
+                        $("#notificationModal").removeClass("modal-success");
+                        $("#notificationModal").modal("hide");
+                        $("#notificationHeader").text("");
+                        $("#notificationBodyModal").empty();
+                    }, 4000);
             }
 
         }, error: function (XMLHttpRequest, textStatus, exception) {

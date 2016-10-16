@@ -61,6 +61,8 @@
                     </div>
                     <%}%>
 
+
+
                     <div class="row">
                         <div id="report" style="margin: 0 auto; float:none;" align="center">
                             <input type="hidden" name="userID" id="userID" value="<%= user.getUserID()%>" />
