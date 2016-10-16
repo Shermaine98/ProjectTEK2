@@ -202,8 +202,8 @@ function getDataAgeGroup() {
 
             for (i = 0; i < print[0].ByAgeGroupSexTable.length; i++) {
                 $('#data').append('<tr> \n\
-                                        <td><input type="text" readonly  value="' + print[0].ByAgeGroupSexTable[i].location + '"/></td>  \n\
-                                        <td><input type="text" readonly value="' + print[0].ByAgeGroupSexTable[i].AgeGroup + '"/></td> \n\
+                                        <td>' + print[0].ByAgeGroupSexTable[i].location + '</td>  \n\
+                                        <td>' + print[0].ByAgeGroupSexTable[i].AgeGroup + '</td> \n\
                                         <td><input class="centerTD number" type="text" readonly value="' + print[0].ByAgeGroupSexTable[i].BothSexes + '" /></td> \n\
                                         <td><input class="centerTD number" type="text" readonly value="' + print[0].ByAgeGroupSexTable[i].Male + '" /></td> \n\
                                         <td><input class="centerTD number" type="text" readonly  value="' + print[0].ByAgeGroupSexTable[i].Female + '" /></td>'
@@ -1593,7 +1593,7 @@ function getEnrollmentData() {
                 "ordering": false,
                 "pageLength": 12,
                 "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
-                "info": false, "language": {
+                "info": false, "language": { 
                     "emptyTable": "No Data"
                 }
             });
