@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
 <%@include file="levelOfAccess.jsp"%>
-<%@include file="JSPViewModal/notifcationModal.jsp" %>
+<%@include file="../JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,24 +60,6 @@
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
-
-                        <!-- Modal -->
-                          <div class="modal fade" id="result" role="dialog">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header green">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Result</h4>
-                                </div>
-                                <div class="modal-body successAlert">
-                                    <center>You have successfully integrated the data.</center>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
 
                         <% ArrayList<TaskModelHead> arrTask = ((ArrayList<TaskModelHead>) request.getAttribute("tasksHead")); %>
 
