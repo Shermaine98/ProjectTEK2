@@ -37,7 +37,7 @@ $(document).ready(function () {
                             $("#notificationModal").modal("hide");
                             $("#notificationHeader").text("");
                             $("#notificationBodyModal").empty();
-                        }, 50000);
+                        }, 3000);
                         accountsCounts();
                     
 
