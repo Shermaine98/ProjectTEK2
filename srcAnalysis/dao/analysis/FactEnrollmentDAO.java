@@ -46,6 +46,63 @@ public class FactEnrollmentDAO {
         return ArrfactEnrollment;
     }
     
+    public ArrayList<FactEnrollment> retrieveKinderEnrollment() throws SQLException   {
+
+        DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();
+        ArrayList<FactEnrollment> ArrfactEnrollment = new ArrayList<>();
+        try (Connection conn = myFactory.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT *, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE'\n" +
+            "FROM starschema.fact_enrollment\n" +
+            "WHERE LEVEL = 'KINDER';;");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                FactEnrollment temp = new FactEnrollment();
+                temp.setCensusYear(rs.getInt("censusYear"));
+                temp.setSchoolName(rs.getString("schoolName"));
+                temp.setDistrict(rs.getString("district"));
+                temp.setType(rs.getString("type"));
+                temp.setLevel(rs.getString("level"));
+                temp.setClassification(rs.getString("classification"));
+                temp.setMaleCount(rs.getInt("maleCount"));
+                temp.setFemaleCount(rs.getInt("femaleCount"));
+                temp.setGenderDisparityIndex(rs.getDouble("genderDisparityIndex"));
+                temp.setZone(rs.getString("zone"));
+                ArrfactEnrollment.add(temp);
+            }
+            pstmt.close();
+        }
+        return ArrfactEnrollment;
+    }
+    
+    public ArrayList<FactEnrollment> retrieveElementaryEnrollment() throws SQLException   {
+
+        DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();
+        ArrayList<FactEnrollment> ArrfactEnrollment = new ArrayList<>();
+        try (Connection conn = myFactory.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * \n" +
+            "FROM starschema.fact_enrollment\n" +
+            "WHERE LEVEL != 'KINDER' AND LEVEL!='SPED';");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                FactEnrollment temp = new FactEnrollment();
+                temp.setCensusYear(rs.getInt("censusYear"));
+                temp.setSchoolName(rs.getString("schoolName"));
+                temp.setDistrict(rs.getString("district"));
+                temp.setType(rs.getString("type"));
+                temp.setLevel(rs.getString("level"));
+                temp.setClassification(rs.getString("classification"));
+                temp.setMaleCount(rs.getInt("maleCount"));
+                temp.setFemaleCount(rs.getInt("femaleCount"));
+                temp.setGenderDisparityIndex(rs.getDouble("genderDisparityIndex"));
+                ArrfactEnrollment.add(temp);
+            }
+            pstmt.close();
+        }
+        return ArrfactEnrollment;
+    }
+    
     public ArrayList<FactEnrollment> retrieveEnrollmentForSchoolGoingAge() throws SQLException   {
 
         DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();

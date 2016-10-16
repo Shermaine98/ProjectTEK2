@@ -1,0 +1,182 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlets.commoncharts;
+
+import dao.analysis.CensusYearDAO;
+import dao.analysis.DistrictDAO;
+import dao.analysis.FactEnrollmentDAO;
+import dao.analysis.FactStudentNutritionDAO;
+import dao.analysis.GenderDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import model.analysis.FactEnrollment;
+import model.analysis.FactStudentNutrition;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import servlet.setdata.SetAnalysisDataServlet;
+
+/**
+ *
+ * @author Gian
+ */
+public class KinderEnrollmentServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            CensusYearDAO censusYearDAO = new CensusYearDAO();
+            DistrictDAO chartsDistrict = new DistrictDAO();
+            FactEnrollmentDAO chartEnrollment = new FactEnrollmentDAO();
+            GenderDAO chartsGender = new GenderDAO();
+            
+            JSONArray jarrayYears = new JSONArray();
+            JSONArray jarrayDistrict = new JSONArray();
+            JSONArray jarrayEnrollment = new JSONArray();
+            JSONArray jarrayGender = new JSONArray();
+            JSONObject ObjectAll = new JSONObject();
+            
+            ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
+            ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
+            ArrayList<String> district = chartsDistrict.retrieveDistrictsForNutritionalStatus();
+            ArrayList<FactEnrollment> enrollment = chartEnrollment.retrieveKinderEnrollment();
+
+            for(int i = 0; i < enrollment.size(); i++){
+                JSONObject objEnrollment = new JSONObject();
+                try {
+                    objEnrollment.put("year", enrollment.get(i).getCensusYear());
+                    objEnrollment.put("schoolName", enrollment.get(i).getSchoolName());
+                    objEnrollment.put("district", enrollment.get(i).getDistrict());
+                    objEnrollment.put("type", enrollment.get(i).getType());
+                    objEnrollment.put("level", enrollment.get(i).getLevel());
+                    objEnrollment.put("classification", enrollment.get(i).getClassification());
+                    objEnrollment.put("male", enrollment.get(i).getMaleCount());
+                    objEnrollment.put("female", enrollment.get(i).getFemaleCount());
+                    objEnrollment.put("schoolName", enrollment.get(i).getSchoolName());
+                    objEnrollment.put("zone", enrollment.get(i).getZone());
+                    jarrayEnrollment.put(enrollment);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < censusYears.size(); i++){
+                JSONObject objYears = new JSONObject();
+                try {
+                    objYears.put("year", censusYears.get(i));
+                    jarrayYears.put(objYears);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < district.size(); i++){
+                JSONObject objBgy = new JSONObject();
+                try {
+                    objBgy.put("district", district.get(i));
+                    jarrayDistrict.put(objBgy);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < genders.size(); i++){
+                JSONObject objGender = new JSONObject();
+                try {
+                    objGender.put("gender", genders.get(i));
+                    jarrayGender.put(objGender);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            JSONObject objGender = new JSONObject();
+            objGender.put("gender", "Both Sexes");
+            jarrayGender.put(objGender);
+            
+            ObjectAll.put("years", jarrayYears);
+            ObjectAll.put("people", jarrayEnrollment);
+            ObjectAll.put("genders", jarrayGender);
+            ObjectAll.put("districts", jarrayDistrict);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().write("[" + ObjectAll.toString() + "]");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(KinderEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(KinderEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(KinderEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(KinderEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
