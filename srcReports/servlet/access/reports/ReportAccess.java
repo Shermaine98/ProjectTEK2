@@ -63,7 +63,6 @@ public class ReportAccess extends BaseServlet {
 //health = 30000
 //demo = 50000
 //CREATE REPORT....
-        System.out.println("HELLo");
         String sector = null;
 
         if (chck.getPosition().equals("Project Development Officer IV")) {
@@ -241,6 +240,17 @@ public class ReportAccess extends BaseServlet {
 
         } else if (redirect.equalsIgnoreCase("submit")) {
             request.setAttribute("savedMessage", "succes");
+            rd = request.getRequestDispatcher("/WEB-INF/JSPAnalysis/PublishedReports.jsp");
+            rd.forward(request, response);
+
+        }else if (redirect.equalsIgnoreCase("ReportSearchForum")) {
+            String yearReport = request.getParameter("year");
+            String sectorReport = request.getParameter("sector");
+            String reportTitle = request.getParameter("report");
+            
+            request.setAttribute("yearReport", yearReport);
+            request.setAttribute("sectorReport", sectorReport);
+            request.setAttribute("reportTitle", reportTitle);
             rd = request.getRequestDispatcher("/WEB-INF/JSPAnalysis/PublishedReports.jsp");
             rd.forward(request, response);
 
