@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
 <%@include file="levelOfAccess.jsp"%>
-<%@include file="../JSPViewModal/notifcationModal.jsp" %>
+<%@include file="JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
