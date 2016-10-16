@@ -26,13 +26,14 @@ $(document).ready(function () {
                 success: function (data) {
                     // @gcla109
                     if (data === true) {
-                        $("#notificationModal").addClass("modal-success");
-                        $("#notificationHeader").text("Success");
-                        $("#notificationBodyModal").append("<p> Succesfuly! Approved </p>");
+                        $("#notificationHeader").text("Success!");
+                        $("#modal_Header").css({background: "#00a65a"});
+                        $("#notificationHeader").css({color: "#FFFFFF"});
+                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> Successfully Approved! </p>");
                         $("#notificationModal").modal("show");
                         // Set a timeout to hide the element again
                         setTimeout(function () {
-                            $("#notificationModal").removeClass("modal-success");
+                            $("#modal_Header").css({background: ""});
                             $("#notificationModal").modal("hide");
                             $("#notificationHeader").text("");
                             $("#notificationBodyModal").empty();
@@ -41,7 +42,7 @@ $(document).ready(function () {
 
                     }
                 }, error: function (XMLHttpRequest, textStatus, exception) {
-                      console.log(XMLHttpRequest);
+                    console.log(XMLHttpRequest);
                 }
             });
 
@@ -50,8 +51,8 @@ $(document).ready(function () {
             var userID = $(this).closest("tr").find(".nr").text();
             var whichtr = $(this).closest("tr");
             whichtr.remove();
-            console.log(userID);            
-            
+            console.log(userID);
+
             $.ajax({
                 url: "Approvals",
                 type: 'POST',
@@ -64,13 +65,14 @@ $(document).ready(function () {
                     // @gcla109
                     console.log("TRIAL" + data);
                     if (data === true) {
-                        $("#notificationModal").addClass("modal-success");
-                        $("#notificationHeader").text("Success");
-                        $("#notificationBodyModal").append("<p> Succesfuly! Rejected </p>");
+                        $("#notificationHeader").text("Success!");
+                        $("#modal_Header").css({background: "#00a65a"});
+                        $("#notificationHeader").css({color: "#FFFFFF"});
+                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> Succesfully Rejected! </p>");
                         $("#notificationModal").modal("show");
                         // Set a timeout to hide the element again
                         setTimeout(function () {
-                            $("#notificationModal").removeClass("modal-success");
+                            $("#modal_Header").css({background: ""});
                             $("#notificationModal").modal("hide");
                             $("#notificationHeader").text("");
                             $("#notificationBodyModal").empty();
@@ -78,7 +80,7 @@ $(document).ready(function () {
                         accountsCounts();
                     }
                 }, error: function (XMLHttpRequest, textStatus, exception) {
-                     console.log(XMLHttpRequest);
+                    console.log(XMLHttpRequest);
                 }
             });
         }
@@ -95,9 +97,9 @@ $(document).ready(function () {
             var employmentDate = $(this).closest('tbody').find('tr').find('#employmentDate').val();
             var whichtr = $(this).closest("tbody");
             console.log(userID);
-             console.log(position);
-             console.log(employmentDate);
-             whichtr.remove();
+            console.log(position);
+            console.log(employmentDate);
+            whichtr.remove();
             $.ajax({
                 url: "Approvals",
                 type: 'POST',
@@ -113,13 +115,14 @@ $(document).ready(function () {
 
                     // @gcla109
                     if (data === true) {
-                        $("#notificationModal").addClass("modal-success");
-                        $("#notificationHeader").text("Success");
-                        $("#notificationBodyModal").append("<p> Succesfuly! Approved </p>");
+                        $("#notificationHeader").text("Success!");
+                        $("#modal_Header").css({background: "#00a65a"});
+                        $("#notificationHeader").css({color: "#FFFFFF"});
+                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> Successfully Approved! </p>");
                         $("#notificationModal").modal("show");
                         // Set a timeout to hide the element again
                         setTimeout(function () {
-                            $("#notificationModal").removeClass("modal-success");
+                            $("#modal_Header").css({background: ""});
                             $("#notificationModal").modal("hide");
                             $("#notificationHeader").text("");
                             $("#notificationBodyModal").empty();
@@ -128,7 +131,7 @@ $(document).ready(function () {
 
                     }
                 }, error: function (XMLHttpRequest, textStatus, exception) {
-                     console.log(XMLHttpRequest);
+                    console.log(XMLHttpRequest);
                 }
             });
 
@@ -148,13 +151,14 @@ $(document).ready(function () {
                 success: function (data) {
                     // @gcla109
                     if (data === true) {
-                        $("#notificationModal").addClass("modal-success");
-                        $("#notificationHeader").text("Success");
-                        $("#notificationBodyModal").append("<p> Succesfuly! Rejected </p>");
+                        $("#notificationHeader").text("Success!");
+                        $("#modal_Header").css({background: "#00a65a"});
+                        $("#notificationHeader").css({color: "#FFFFFF"});
+                        $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'> Successfully Rejected! </p>");
                         $("#notificationModal").modal("show");
                         // Set a timeout to hide the element again
                         setTimeout(function () {
-                            $("#notificationModal").removeClass("modal-success");
+                            $("#modal_Header").css({background: ""});
                             $("#notificationModal").modal("hide");
                             $("#notificationHeader").text("");
                             $("#notificationBodyModal").empty();
@@ -163,7 +167,7 @@ $(document).ready(function () {
 
                     }
                 }, error: function (XMLHttpRequest, textStatus, exception) {
-                     console.log(XMLHttpRequest);
+                    console.log(XMLHttpRequest);
                 }
             });
 
