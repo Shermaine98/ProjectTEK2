@@ -47,6 +47,9 @@
         barangay = [];
         analysischart[0] = print[0];
         gradeLevel = [];
+        yearsCheckboxes = [];
+        genderCheckboxes = [];
+        classificationCheckboxes = [];
 
         $('[id="barangayss"]:checked').each(function (e) {
             var id = $(this).attr('value');
@@ -62,10 +65,40 @@
             var id = $(this).attr('value');
             gradeLevel.push(id);
         });
+        
+        
 
         removeGender(analysischart, gender);
         removeBarangay(analysischart, barangay);
         removeGradeLevel(analysischart, gradeLevel);
+        
+        if(reportSelected == 'kinderEnrollment'){
+            $('[id="yearCheckboxes"]:checked').each(function (e) {
+                var id = $(this).attr('value');
+                yearsCheckboxes.push(id);
+            });
+            //alert(JSON.stringify(yearsCheckboxes));
+
+            $('[id="genderCheckboxes"]:checked').each(function (e) {
+                var id = $(this).attr('value');
+                genderCheckboxes.push(id);
+            });
+
+            $('[id="classificationCheckboxes"]:checked').each(function (e) {
+                var id = $(this).attr('value');
+                classificationCheckboxes.push(id);
+            });
+            removeYearCheckboxes(analysischart, yearsCheckboxes);
+            removeGenderCheckboxes(analysischart, genderCheckboxes);
+            removeClassificationCheckboxes(analysischart, classificationCheckboxes);
+            
+            if(chartSelected=="0"||chartSelected=="Line Chart"){
+                drawKinderEnrollment(analysischart, 'line');
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawKinderEnrollment(analysischart, 'column');
+            }
+        }
         
         var year = $('#years').find(":selected").val();
         if(reportSelected == 'maritalStatus'){
@@ -99,31 +132,35 @@
     });
 
     function removeGender(analysischart, gender){
-        analysischart[0].genders.length = 0;
-        for (var x = 0; x < gender.length; x++) {
-            item = {};
-            item['gender'] = gender[x];
-            analysischart[0].genders.push(item);
+        if(analysischart[0].genders!=null){
+            analysischart[0].genders.length = 0;
+            for (var x = 0; x < gender.length; x++) {
+                item = {};
+                item['gender'] = gender[x];
+                analysischart[0].genders.push(item);
+            }
         }
     }
     
-        function removeGradeLevel(analysischart, gradeLevel){
-            if(analysischart[0].gradeLevels!=null){
-                analysischart[0].gradeLevels.length = 0;
-                for (var x = 0; x < gradeLevel.length; x++) {
-                    item = {};
-                    item['gradeLevel'] = gradeLevel[x];
-                    analysischart[0].gradeLevels.push(item);
-                }
+    function removeGradeLevel(analysischart, gradeLevel){
+        if(analysischart[0].gradeLevels!=null){
+            analysischart[0].gradeLevels.length = 0;
+            for (var x = 0; x < gradeLevel.length; x++) {
+                item = {};
+                item['gradeLevel'] = gradeLevel[x];
+                analysischart[0].gradeLevels.push(item);
             }
         }
+    }
     
     function removeDistrict(analysischart, district){
+        if(analysischart[0].districts!=null){
         analysischart[0].districts.length = 0;
-        for (var x = 0; x < district.length; x++) {
-            item = {};
-            item['district'] = district[x];
-            analysischart[0].districts.push(item);
+            for (var x = 0; x < district.length; x++) {
+                item = {};
+                item['district'] = district[x];
+                analysischart[0].districts.push(item);
+            }
         }
     }
     
@@ -137,8 +174,309 @@
             }
         }
     }
+    
+    function removeYearCheckboxes(analysischart, year){
+        if(analysischart[0].years!=null){
+            analysischart[0].years.length = 0;
+            for (var x = 0; x < year.length; x++) {
+                item = {};
+                item["year"] = year[x];
+                analysischart[0].years.push(item);
+            }
+        }
+    }
+    
+    function removeGenderCheckboxes(analysischart, gender){
+        if(analysischart[0].genders!=null){
+            analysischart[0].genders.length = 0;
+            for (var x = 0; x < gender.length; x++) {
+                item = {};
+                item["gender"] = gender[x];
+                analysischart[0].genders.push(item);
+            }
+        }
+    }
+    
+    function removeClassificationCheckboxes(analysischart, classification){
+        if(analysischart[0].classifications!=null){
+            analysischart[0].classifications.length = 0;
+            for (var x = 0; x < classification.length; x++) {
+                item = {};
+                item["classification"] = classification[x];
+                analysischart[0].classifications.push(item);
+            }
+        }
+    }
 
+function setKinderEnrollments(chart){
+    $.ajax({
+        url: "KinderEnrollmentServlet",
+        type: 'POST',
+        dataType: "JSON",
+        success: function(data){
+            reportSelected = 'kinderEnrollment';
+            print = data;
+            chartSelected = chart;
+            $('#years').empty();
+            $('#genderCheckbox').empty();
+            $('#classificationCheckbox').empty();
+            
+            
+            for (var i =0; i <  print[0].years.length; i++) {
+                $('#yearsCheckbox').append('<input type="checkbox" class="filter" id="yearCheckboxes" value="' 
+                        +print[0].years[i].year+ '" checked>'
+                        +'&nbsp;'+print[0].years[i].year+'</input></br>');
+            }
+            //gender
+            for (var i = 0; i < print[0].genders.length; i++) {
+                    $('#genderCheckbox').append('<input type="checkbox" class="filter" id="genderCheckboxes" value="' 
+                            + print[0].genders[i].gender + '" checked>'+'&nbsp;'+print[0].genders[i].gender+'</input></br>');
+            }
+            
+            for (var i = 0; i < print[0].classifications.length; i++) {
+                    $('#classificationCheckbox').append('<input type="checkbox" class="filter" id="classificationCheckboxes" value="' 
+                            + print[0].classifications[i].classification + '" checked>'+'&nbsp; '+print[0].classifications[i].classification+'</input></br>');
+            }
+            
+            //var year = $('#years').find(":selected").val();
+            
+            if(chart=="0"||chart=="Line Chart"){
+                drawKinderEnrollment(print, 'line');
+            }
+            else if(chart=="0"||chart=="Bar Chart"){
+                drawKinderEnrollment(print, 'column');
+            }
+//            else if(chart=="0"||chart=="Bar Chart"){
+//                drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year, 'column');
+//            }
+        },
+        error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
+        }
+    });}
 
+    function drawKinderEnrollment(print, chart){
+        var ultimateTotal = [];
+        for(var b = 0; b < print[0].genders.length; b++){
+            var totals = {};
+            var total = [];
+            totals['name'] = print[0].genders[b].gender;
+            if(print[0].genders[b].gender == 'Female'){
+                totals['color'] = '#FF9999';
+            }
+            for(var a = 0; a < print[0].years.length;a++){
+                var item = {};
+                var totalSum = 0;
+                item["name"] = print[0].years[a].year;
+                item["drilldown"] = print[0].years[a].year;
+                
+                for (var i = 0; i < print[0].people.length; i++) {
+                    if(print[0].people[i].year == print[0].years[a].year){
+                        for(var y = 0; y < print[0].classifications.length; y++){
+                            if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                if("Male" == print[0].genders[b].gender){
+                                    totalSum += print[0].people[i].male;
+                                }
+                                if("Female" == print[0].genders[b].gender){
+                                    totalSum += print[0].people[i].female;
+                                }
+                                if("Both Sexes" == print[0].genders[b].gender){
+                                    totalSum += print[0].people[i].male + print[0].people[i].female;
+                                }
+                            }
+                        }
+                    }
+                }
+                item["y"] = totalSum;
+                total.push(item);
+            }
+            totals['data'] = total;
+            ultimateTotal.push(totals);
+        }
+        
+        var drilldowns = [];
+        for(var b = 0; b < print[0].genders.length; b++){
+            for(var a = 0; a < print[0].years.length;a++){
+                var item = {};
+                var data = [];
+                var totalNorth = 0;
+                var totalSouth = 0;
+                item["name"] = print[0].years[a].year;
+                item["id"] = print[0].years[a].year;
+                for (var i = 0; i < print[0].people.length; i++) {
+                    if(print[0].people[i].year == print[0].years[a].year){
+                        for(var y = 0; y < print[0].classifications.length; y++){
+                            if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                if("Male" == print[0].genders[b].gender){
+                                    if(print[0].people[i].zone.toLowerCase() == 'north'){
+                                        totalNorth += print[0].people[i].male;
+                                    }
+                                    if(print[0].people[i].zone.toLowerCase() == 'south'){
+                                        totalSouth += print[0].people[i].male;
+                                    }
+                                }
+                                if("Female" == print[0].genders[b].gender){
+                                    if(print[0].people[i].zone.toLowerCase() == 'north'){
+                                        totalNorth += print[0].people[i].female;
+                                    }
+                                    if(print[0].people[i].zone.toLowerCase() == 'south'){
+                                        totalSouth += print[0].people[i].female;
+                                    }
+                                }
+                                if("Both Sexes" == print[0].genders[b].gender){
+                                    if(print[0].people[i].zone.toLowerCase() == 'north'){
+                                        totalNorth += print[0].people[i].male + print[0].people[i].female;
+                                    }
+                                    if(print[0].people[i].zone.toLowerCase() == 'south'){
+                                        totalSouth += print[0].people[i].male + print[0].people[i].female;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                var item2 = {};
+                item2['name'] = 'North';
+                item2["y"] = totalNorth;
+                item2["drilldown"] = 'north'+print[0].genders[b].gender+print[0].years[a].year;
+                data.push(item2);
+
+                var item2 = {};
+                item2['name'] = 'South';
+                item2["y"] = totalSouth;
+                item2["drilldown"] = 'south'+print[0].genders[b].gender+print[0].years[a].year;
+                data.push(item2);
+
+                item['data'] = data;
+                drilldowns.push(item);
+            }
+        }
+        
+        var zones = ['NORTH', 'SOUTH'];
+        for(var c = 0; c < zones.length; c++){
+            for(var b = 0; b < print[0].genders.length; b++){
+                for(var a = 0; a < print[0].years.length;a++){
+                    for(var d = 0; d < print[0].districts.length; d++){
+                        var item = {};
+                        var data = [];
+                        item["name"] = print[0].years[a].year;
+                        item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
+                        var total = 0;
+                        for (var i = 0; i < print[0].people.length; i++) {
+                            if(print[0].people[i].year == print[0].years[a].year){
+                                if(print[0].people[i].district == print[0].districts[d].district){
+                                    for(var y = 0; y < print[0].classifications.length; y++){
+                                        if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                            if("Male" == print[0].genders[b].gender){
+                                                var item2 = {};
+                                                item2['name'] = print[0].people[i].schoolName;
+                                                item2["y"] = print[0].people[i].male;
+                                                data.push(item2);
+                                            }
+                                            if("Female" == print[0].genders[b].gender){
+                                                var item2 = {};
+                                                item2['name'] = print[0].people[i].schoolName;
+                                                item2["y"] = print[0].people[i].female;
+                                                data.push(item2);
+                                            }
+                                            if("Both Sexes" == print[0].genders[b].gender){    
+                                                var item2 = {};
+                                                item2['name'] = print[0].people[i].schoolName;
+                                                item2["y"] = print[0].people[i].male + print[0].people[i].female;;
+                                                data.push(item2);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        item['data'] = data;
+                        drilldowns.push(item);
+                    }
+                }
+            }
+        }
+        
+        
+        var zones = ['NORTH', 'SOUTH'];
+        for(var c = 0; c < zones.length; c++){
+            for(var b = 0; b < print[0].genders.length; b++){
+                for(var a = 0; a < print[0].years.length;a++){
+                    var item = {};
+                    var data = [];
+                    item["name"] = print[0].years[a].year;
+                    item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year;
+                    for(var d = 0; d < print[0].districts.length; d++){
+                        var total = 0;
+                        for (var i = 0; i < print[0].people.length; i++) {
+                            if(print[0].people[i].year == print[0].years[a].year){
+                                if(print[0].people[i].district == print[0].districts[d].district){
+                                    for(var y = 0; y < print[0].classifications.length; y++){
+                                        if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                            if("Male" == print[0].genders[b].gender){
+                                                total += print[0].people[i].male;
+                                            }
+                                            if("Female" == print[0].genders[b].gender){
+                                                total += print[0].people[i].female;
+                                            }
+                                            if("Both Sexes" == print[0].genders[b].gender){    
+                                                total += print[0].people[i].male + print[0].people[i].female;    
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(zones[c] == 'NORTH'){
+                            if(print[0].districts[d].district.toLowerCase().includes(zones[c].toLowerCase())){
+                                item2 = {};
+                                item2["name"] = print[0].districts[d].district;
+                                item2["y"] = total;
+                                item2["drilldown"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
+                                data.push(item2);
+                            }
+                        }
+                        else if(zones[c] == 'SOUTH'){
+                            if(!print[0].districts[d].district.toLowerCase().includes('north')){
+                                item2 = {};
+                                item2["name"] = print[0].districts[d].district;
+                                item2["y"] = total;
+                                item2["drilldown"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
+                                data.push(item2);
+                            }
+                        }
+                    }
+                    item['data'] = data;
+                    drilldowns.push(item);
+                }
+            }
+        }
+        
+        //console.log(JSON.stringify(drilldowns));
+
+            $('#output').highcharts({
+                chart: {
+                    type: chart,
+                    drilled: false,
+                    zoomType: 'xy',
+                    panning: true,
+                    panKey: 'shift'
+                },
+                title: {
+                    text: 'Enrollment in Public and Private Preschools'
+                },
+                xAxis: {
+                    type: 'category',
+                },
+                yAxis:{
+                    title: {text:'Enrollment'}
+                },
+                series: ultimateTotal,
+                drilldown: {
+                    series: drilldowns
+                    }
+            });
+    }
 
 function setHHPopAgeGroupSex (chart){
     $.ajax({
@@ -415,10 +753,8 @@ function setHHPopAgeGroupSex (chart){
                             step: 1
                         }
                     }],
-                yAxis: {
-                    title: {
-                        text: null
-                    },
+                yAxis:{
+                    title: {text:'Population'},
                     labels: {
                         formatter: function () {
                             return Math.abs(this.value);
@@ -639,6 +975,9 @@ function setHHPopAgeGroupSex (chart){
                 },
                 xAxis: {
                     type: 'category'
+                },
+                yAxis:{
+                    title: {text:'Population'}
                 },
                 series: [{
                     name: 'Caloocan City',
@@ -1043,6 +1382,9 @@ function setHHPopAgeGroupSex (chart){
                 },
                 xAxis: {
                     type: 'category'
+                },
+                yAxis:{
+                    title: {text:'Number of Students'}
                 },
                 series: [{
                     name: 'Caloocan City',
@@ -1697,6 +2039,9 @@ function setHHPopAgeGroupSex (chart){
                 xAxis: {
                     type: 'category'
                 },
+                yAxis:{
+                    title: {text:'Population'}
+                },
                 series: [{
                     name: 'Caloocan City',
                     data: total
@@ -1792,6 +2137,9 @@ function setClassroomRequirement(){
             },
             xAxis: {
                 type: 'category'
+            },
+            yAxis:{
+                title: {text:'Values'}
             },
             plotOptions: {
                 column: {
@@ -1916,6 +2264,9 @@ function setEnrollmentTeacherClassroom(){
             },
             xAxis: {
                 type: 'category'
+            },
+            yAxis:{
+                title: {text:'Values'}
             },
             plotOptions: {
                 column: {

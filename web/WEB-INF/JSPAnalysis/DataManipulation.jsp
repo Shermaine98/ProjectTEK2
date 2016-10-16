@@ -508,7 +508,7 @@
                                                                     <h4 class='box-title'>Filter by Classification</h4>\n\
                                                                 </div>\n\
                                                                 <div class='box-body'>\n\
-                                                                    <div  id='classification' style='height: 60px;'>\n\
+                                                                    <div  id='classificationCheckbox' style='height: 60px;'>\n\
                                                                 </div>\n\
                                                             </div>\n\
                                                     </tr>\n\
@@ -697,7 +697,7 @@
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart','Table'];
                     addWithChartSelectionsKinderEnrollment('getFactEducation()', charts);
-                    //setKinderEnrollment(chartSelected);
+                    setKinderEnrollments(chart);
                 }
             }
             
@@ -738,8 +738,8 @@
                 else if(conceptName=='Enrollment in Public and Private Preschools'){
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart','Table'];
-                    addWithChartSelectionsWithGradeLevel('getFactEducation()',charts);
-                    //setKinderEnrollment(chartSelected);
+                    addWithChartSelectionsKinderEnrollment('getFactEducation()',charts);
+                    setKinderEnrollments(chartSelected);
                 } 
             }
 
