@@ -42,7 +42,6 @@ $(document).ready(function () {
                 censusYear: year,
                 page: page
             }, success: function (data) {
-                console.log(data);
                 if (data === "approved") {
                     $("#modal-body").empty();
                     $("#modal-body").append('<p id="alerta">This file has already been uploaded and approved.</p>');
@@ -100,7 +99,6 @@ $(document).ready(function () {
                 page: page,
                 classification:classification
             }, success: function (data) {
-                console.log(data);
                 if (data === "approved") {
                     $("#modal-body").empty();
                     $("#modal-body").append('<p id="alerta">This file has already been uploaded and approved.</p>');

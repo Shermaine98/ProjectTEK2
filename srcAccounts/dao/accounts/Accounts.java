@@ -303,13 +303,12 @@ public class Accounts {
             PreparedStatement pstmt;
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String updateValidation = "UPDATE USERS  SET `approved`= ?"
-                        + "AND DIVISION=? AND POSITION=? AND EMPLOYMENTDATE=? WHERE `USERID` = ?;";
+                String updateValidation = "UPDATE USERS SET APPROVED = ?, `DIVISION` = ?, `POSITION` = ?, `EMPLOYMENTDATE` = ? WHERE `USERID` = ?;";
                 pstmt = conn.prepareStatement(updateValidation);
                 pstmt.setBoolean(1, true);
                 pstmt.setString(2, division);
                 pstmt.setString(3, position);
-                pstmt.setDate(4,  employment);
+                pstmt.setDate(4, employment);
                 pstmt.setInt(5, userID);
                 rows = pstmt.executeUpdate();
             }
@@ -376,7 +375,6 @@ public class Accounts {
     }
 
     public boolean diassapproveUser(int userID) throws SQLException {
-        boolean rows = false;
         try {
             DBConnectionFactory myFactory = getInstance();
             PreparedStatement pstmt;
@@ -386,11 +384,12 @@ public class Accounts {
                 pstmt.setInt(1, userID);
                 int isDeleted = pstmt.executeUpdate();
                 if (isDeleted > 0) {
-                    rows = true;
+                    pstmt.close();
+                    conn.close();
+                    return true;
                 }
+
             }
-            pstmt.close();
-            return rows;
         } catch (SQLException ex) {
             getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
         }
@@ -448,8 +447,8 @@ public class Accounts {
         }
         return false;
     }
-    
-         public boolean emailAvailability(String email) {
+
+    public boolean emailAvailability(String email) {
         boolean rows = false;
         try {
             DBConnectionFactory myFactory = getInstance();

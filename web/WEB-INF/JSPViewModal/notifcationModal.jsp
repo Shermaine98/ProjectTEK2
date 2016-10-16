@@ -12,11 +12,11 @@
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content" style="margin-top:40%;">
-                    <div id="modalHeader" class="modal-header info">
+                    <div id="modal_Header" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 id="notificationHeader" class="notification-header"></h4>
                     </div>
-                    <div id="notificationBodyModal" class="notification_body_modal">
+                    <div  id="notificationBodyModal" class="form-inline notification_body_modal">
                         <!-- Modal content-->
                     </div>
                     <div class="modal-footer">

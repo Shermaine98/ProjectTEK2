@@ -56,14 +56,13 @@
                                 <form action="Approvals?redirect=approveAllInternal">
                                     <table class="table table-bordered">
                                         <% for (int i = 0; i < internalUsers.size(); i++) {%>
-                                        <input hidden name="userID" value="<%=internalUsers.get(i).getUserID()%>" />
                                         <tbody>
                                             <tr style="background-color: #454545; color: #fff; font-weight: bold;">
-                                                <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
-                                                <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
+                                                <td class="Inr" style="display:none;"><%=internalUsers.get(i).getUserID()%></td>
+                                                <td colspan="2" style="border-right:none;"><input hidden name="userID" value="<%=internalUsers.get(i).getUserID()%>"/><%=internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
                                                 <td class="buttons_class" colspan="2" style="border-left:none;">
-                                                    <button style="float:right; text-align:right;" id="clickedRejectI"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
-                                                    <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApprovedI" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
+                                                    <button type="button" style="float:right; text-align:right;" id="clickedRejectI"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
+                                                    <button type="button" style="float:right; text-align:right; margin-right: 2%;" id="clickedApprovedI" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
                                             </tr>
                                             <tr>
                                                 <td>Email</td>
