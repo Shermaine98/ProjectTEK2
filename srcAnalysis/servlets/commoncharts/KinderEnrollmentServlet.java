@@ -8,7 +8,7 @@ package servlets.commoncharts;
 import dao.analysis.CensusYearDAO;
 import dao.analysis.DistrictDAO;
 import dao.analysis.FactEnrollmentDAO;
-import dao.analysis.FactStudentNutritionDAO;
+import dao.analysis.ClassificationDAO;
 import dao.analysis.GenderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.analysis.FactEnrollment;
-import model.analysis.FactStudentNutrition;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,17 +53,20 @@ public class KinderEnrollmentServlet extends HttpServlet {
             DistrictDAO chartsDistrict = new DistrictDAO();
             FactEnrollmentDAO chartEnrollment = new FactEnrollmentDAO();
             GenderDAO chartsGender = new GenderDAO();
+            ClassificationDAO chartsClassification = new ClassificationDAO();
             
             JSONArray jarrayYears = new JSONArray();
             JSONArray jarrayDistrict = new JSONArray();
             JSONArray jarrayEnrollment = new JSONArray();
             JSONArray jarrayGender = new JSONArray();
+            JSONArray jarrayClassification = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
             
             ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
             ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
-            ArrayList<String> district = chartsDistrict.retrieveDistrictsForNutritionalStatus();
+            ArrayList<String> district = chartsDistrict.retrieveDistrictsEnrollment();
             ArrayList<FactEnrollment> enrollment = chartEnrollment.retrieveKinderEnrollment();
+            ArrayList<String> classifications = chartsClassification.retrieveClassifications();
 
             for(int i = 0; i < enrollment.size(); i++){
                 JSONObject objEnrollment = new JSONObject();
@@ -79,7 +81,7 @@ public class KinderEnrollmentServlet extends HttpServlet {
                     objEnrollment.put("female", enrollment.get(i).getFemaleCount());
                     objEnrollment.put("schoolName", enrollment.get(i).getSchoolName());
                     objEnrollment.put("zone", enrollment.get(i).getZone());
-                    jarrayEnrollment.put(enrollment);
+                    jarrayEnrollment.put(objEnrollment);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
                 }
@@ -105,6 +107,16 @@ public class KinderEnrollmentServlet extends HttpServlet {
                 }
             }
             
+            for(int i = 0; i < classifications.size(); i++){
+                JSONObject objClassifications = new JSONObject();
+                try {
+                    objClassifications.put("classification", classifications.get(i));
+                    jarrayClassification.put(objClassifications);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
             for(int i = 0; i < genders.size(); i++){
                 JSONObject objGender = new JSONObject();
                 try {
@@ -119,9 +131,10 @@ public class KinderEnrollmentServlet extends HttpServlet {
             jarrayGender.put(objGender);
             
             ObjectAll.put("years", jarrayYears);
-            ObjectAll.put("people", jarrayEnrollment);
             ObjectAll.put("genders", jarrayGender);
+            ObjectAll.put("people", jarrayEnrollment);
             ObjectAll.put("districts", jarrayDistrict);
+            ObjectAll.put("classifications", jarrayClassification);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().write("[" + ObjectAll.toString() + "]");
