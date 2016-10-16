@@ -131,12 +131,11 @@
                                                     <button type="button" id="clickedApprovedE" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
                                                     <button type="button" id="clickedRejectE"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
                                             </tr>
-                                            <% } %>
+                                            <% }%>
                                         </tbody>
                                     </table>
-                                    <% }%>
                                     <input  class="btn btn-success" style="display: block; margin: 0 auto; width: 12%;" type="submit" value="Approve All" />
-
+                                    <% }%>
                                 </form>
                             </div>
                             <!-- /.tab-pane -->

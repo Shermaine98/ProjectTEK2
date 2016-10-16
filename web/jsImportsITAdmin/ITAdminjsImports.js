@@ -94,7 +94,7 @@ $(document).ready(function () {
             var position = $(this).closest('tbody').find('tr').find('#position_title :selected').text();
             var employmentDate = $(this).closest('tbody').find('tr').find('#employmentDate').val();
             var whichtr = $(this).closest("tbody");
-            console.log(division);
+            console.log(userID);
              console.log(position);
              console.log(employmentDate);
              whichtr.remove();
@@ -134,7 +134,7 @@ $(document).ready(function () {
 
         } else if (this.id == 'clickedRejectI') {
             var redirect = "reject";
-            var userID = $(this).closest("tr").find(".nr").text();
+            var userID = $(this).closest("tbody tr").find(".Inr").text();
             var whichtr = $(this).closest("tbody");
             whichtr.remove();
             $.ajax({
@@ -146,7 +146,6 @@ $(document).ready(function () {
                     userID: userID
                 },
                 success: function (data) {
-
                     // @gcla109
                     if (data === true) {
                         $("#notificationModal").addClass("modal-success");
