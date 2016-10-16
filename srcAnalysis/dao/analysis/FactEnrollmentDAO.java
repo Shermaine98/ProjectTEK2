@@ -80,7 +80,7 @@ public class FactEnrollmentDAO {
         DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();
         ArrayList<FactEnrollment> ArrfactEnrollment = new ArrayList<>();
         try (Connection conn = myFactory.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * \n" +
+            PreparedStatement pstmt = conn.prepareStatement("SELECT *, IF (SUBSTRING(DISTRICT, 10, 5) = 'NORTH', 'NORTH', 'SOUTH') AS 'ZONE' \n" +
             "FROM starschema.fact_enrollment\n" +
             "WHERE LEVEL != 'KINDER' AND LEVEL!='SPED';");
             ResultSet rs = pstmt.executeQuery();
@@ -96,6 +96,7 @@ public class FactEnrollmentDAO {
                 temp.setMaleCount(rs.getInt("maleCount"));
                 temp.setFemaleCount(rs.getInt("femaleCount"));
                 temp.setGenderDisparityIndex(rs.getDouble("genderDisparityIndex"));
+                temp.setZone(rs.getString("zone"));
                 ArrfactEnrollment.add(temp);
             }
             pstmt.close();

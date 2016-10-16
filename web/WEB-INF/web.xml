@@ -372,6 +372,10 @@
         <servlet-name>KinderEnrollmentServlet</servlet-name>
         <servlet-class>servlets.commoncharts.KinderEnrollmentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ElementaryEnrollmentServlet</servlet-name>
+        <servlet-class>servlets.commoncharts.ElementaryEnrollmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -719,6 +723,10 @@
     <servlet-mapping>
         <servlet-name>KinderEnrollmentServlet</servlet-name>
         <url-pattern>/KinderEnrollmentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ElementaryEnrollmentServlet</servlet-name>
+        <url-pattern>/ElementaryEnrollmentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -83,7 +83,7 @@
                                 <br>
                                 <button class="btn btn-default btn-sm" id="b1" type="button" ><span class="glyphicon glyphicon-menu-left"></span></button>
                             </div>
-                            <div style='margin-top: 10px; margin-bottom: 50px; margin-left:1%;'>
+                            <div style='margin-top: 10px; margin-bottom: 70px; margin-left:1%;'>
                                 <div id='divPivotTable'>
                                     <button class="btn btn-primary" id="pivotTable" style='width:100%; height:100%; color: #FFF; display:none'><span class='glyphicon glyphicon-arrow-left' aria-hidden='true'></span>&nbsp;&nbsp;Back to Customized Analytics</button>
                                 </div>
@@ -92,7 +92,6 @@
                                     </select>
                                 </div>
                             </div>
-                            
                             
                             <div id='withoutChartSelection' style='margin-left:1%;margin-right:1%;'>
                             </div>
@@ -519,7 +518,78 @@
                     $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
                 }
                 document.getElementById('commonReports').style.display = "block";
-            }  
+            }
+            
+            function addWithChartSelectionsElementaryEnrollment(method, charts){
+                $("#divPivotTable").attr('class', 'col-md-3');
+                $("#divPivotTable").attr('onclick', method);
+                $("#divCommonReports").attr('class', 'col-md-9');
+                document.getElementById('pivotTable').style.display = "block";
+                
+                $("#theButtonsForPivot").empty();
+                $("#withoutChartSelection").empty();
+                $("#withChartSelection").empty();
+                $("#withChartSelection").append("<div class='col-md-4'>\n\
+                                                    <table>\n\
+                                                        <tr>\n\
+                                                            <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
+                                                            </select>\n\
+                                                            </br>\n\
+                                                        </tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter by Year</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div id='yearsCheckbox' style='height: 146px; overflow-y: scroll'>\n\
+                                                                    </div>\n\
+                                                                </div>\n\
+                                                            </div>\n\
+                                                        </tr>\n\
+                                                    </table>\n\
+                                                </div>\n\
+                                                <div class='col-md-4'>\n\
+                                                <table>\n\
+                                                    <tr>\n\
+                                                        <div class='box box-solid'>\n\
+                                                            <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                <h4 class='box-title'>Filter by Gender</h4>\n\
+                                                            </div>\n\
+                                                            <div class='box-body'>\n\
+                                                                <div  id='genderCheckbox' style='height: 60px;'>\n\
+                                                            </div>\n\
+                                                        </div>\n\
+                                                    </tr>\n\
+                                                    <tr>\n\
+                                                            <div class='box box-solid'>\n\
+                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                                    <h4 class='box-title'>Filter by Classification</h4>\n\
+                                                                </div>\n\
+                                                                <div class='box-body'>\n\
+                                                                    <div  id='classificationCheckbox' style='height: 60px;'>\n\
+                                                                </div>\n\
+                                                            </div>\n\
+                                                    </tr>\n\
+                                                </table>\n\
+                                                </div>\n\
+                                                <div class='col-md-4'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                            <h4 class='box-title'>Filter by Grade Level</h4>\n\
+                                                        </div>\n\
+                                                        <div class='box-body'>\n\
+                                                            <div  id='gradeLevelCheckbox' style='height: 200px;'>\n\
+                                                        </div>\n\
+                                                    </div>\n\
+                                                </div>\n\
+                                            </div>");
+                $('select[name="charts"]').empty();
+                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+                for (i = 0; i < charts.length; i++) { 
+                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
+                }
+                document.getElementById('commonReports').style.display = "block";
+            }
             
             function addWithoutChartSelections(method){
                 $("#divPivotTable").attr('class', 'col-md-3');
@@ -699,6 +769,13 @@
                     addWithChartSelectionsKinderEnrollment('getFactEducation()', charts);
                     setKinderEnrollments(chart);
                 }
+                else if(conceptName=='Enrollment in Public and Private Elementary Schools'){
+                    var chart = 'Line Chart'
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Line Chart','Table'];
+                    addWithChartSelectionsElementaryEnrollment('getFactEducation()', charts);
+                    setElementaryEnrollments(chart);
+                }
             }
             
             function changeChart(){
@@ -741,6 +818,13 @@
                     addWithChartSelectionsKinderEnrollment('getFactEducation()',charts);
                     setKinderEnrollments(chartSelected);
                 } 
+                else if(conceptName=='Enrollment in Public and Private Elementary Schools'){
+                    var chart = 'Line Chart'
+                    $("#theButtonsForPivot").empty();
+                    var charts=['Bar Chart','Line Chart','Table'];
+                    addWithChartSelectionsElementaryEnrollment('getFactEducation()', charts);
+                    setElementaryEnrollments(chart);
+                }
             }
 
         </script>
