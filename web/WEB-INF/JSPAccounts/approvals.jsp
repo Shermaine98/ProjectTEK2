@@ -7,6 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
+<%@include file="../JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -61,8 +62,8 @@
                                                 <td class="nr" style="display:none;"><%= internalUsers.get(i).getUserID()%></td>
                                                 <td colspan="2" style="border-right:none;"><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
                                                 <td class="buttons_class" colspan="2" style="border-left:none;">
-                                                    <button style="float:right; text-align:right;" id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
-                                                    <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApproved" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
+                                                    <button style="float:right; text-align:right;" id="clickedRejectI"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%"></span> Reject</button>
+                                                    <button style="float:right; text-align:right; margin-right: 2%;" id="clickedApprovedI" class="btn btn-success btn-sm clickedApproved" disabled><span class="fa fa-check" style="margin-right: 3%"></span> Approve</button></td>
                                             </tr>
                                             <tr>
                                                 <td>Email</td>
@@ -88,7 +89,7 @@
                                                     </select>
                                                 </td>
                                                 <td width="10%">
-                                                    <input type="date" class="form-control employmentDate_class" style="padding: 1%;" 
+                                                    <input type="date" class="form-control employmentDate_class" style="padding: 1%;"
                                                            id="employmentDate" name="employmentDate" required/></td>
                                             </tr>
                                         </tbody>
@@ -126,8 +127,8 @@
                                             <td><%= externalUsers.get(i).getUsername()%></td>
                                             <td><%= externalUsers.get(i).getReason()%></td>
                                             <td  style="float:right;">
-                                                <button id="clickedApproved" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
-                                                <button id="clickedReject"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
+                                                <button id="clickedApprovedE" class="btn btn-success btn-sm"><span class="fa fa-check" style="margin-right: 3%;"></span> Approve</button>
+                                                <button id="clickedRejectE"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove" style="margin-right: 3%;"></span> Reject</button></td>
                                         </tr>
                                         <% } %>
                                         <tr>
@@ -152,9 +153,7 @@
 
             $(document).on("change", ".divisionClass", function () {
                 var conceptName = $(this).find("option:selected").text();
-                console.log("SELECTED" + conceptName);
                 var x = $(this).closest('tr').find('.select_position_td').find('#position_title');
-                console.log(x);
                 if (conceptName == "Social Development Planning Division") {
                     x.find('option').remove().end()
                             .append('<option disabled selected>Choose Position</option>')
@@ -196,9 +195,7 @@
                 var buttons = $(this).closest('tbody').find('tr').find('.buttons_class').find('.clickedApproved');
 
                 if (x != 'Choose Position' && !(!Date.parse($(this).val())))
-                {
                     buttons.removeAttr('disabled');
-                }
             });
         </script>
 

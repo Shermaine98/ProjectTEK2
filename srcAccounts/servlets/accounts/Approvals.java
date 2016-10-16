@@ -7,9 +7,7 @@ package servlets.accounts;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servlets.servlet.BaseServlet;
@@ -90,7 +88,7 @@ public class Approvals extends BaseServlet {
                 externalUsers = accountsDAO.getUserForApprovalOthers();
 
                 for (int i = 0; i < externalUsers.size(); i++) {
-                    accountsDAO.approveUserExternal(externalUsers.get(i).getUserID());
+                  accountsDAO.approveUserExternal(externalUsers.get(i).getUserID());
                 }
 
                 externalUsers = accountsDAO.getUserForApprovalOthers();
@@ -105,16 +103,41 @@ public class Approvals extends BaseServlet {
             } catch (ParseException ex) {
                 Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (redirect.equalsIgnoreCase("approve")) {
-            //(int userID, String division, String position, Date employment) 
+        } //Internal
+        else if (redirect.equalsIgnoreCase("approveI")) {
+            try {
+                String userID = request.getParameter("userID");
+                String division = request.getParameter("division");
+                String position = request.getParameter("position");
+                String employmentDate = request.getParameter("employmentDate");
 
+                boolean x = false;
+                SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+                Date parsed = format.parse(employmentDate);
+                java.sql.Date sql = new java.sql.Date(parsed.getTime());
+
+                try {
+                  x=  accountsDAO.approveUser(Integer.parseInt(userID), division, position, sql);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                String json = new Gson().toJson(x);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("utf-8");
+                response.getWriter().write(json);
+
+            } //External
+            catch (ParseException ex) {
+                Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (redirect.equalsIgnoreCase("approveE")) {
+            //(int userID, String division, String position, Date employment) 
             String userID = request.getParameter("userID");
-            String division = request.getParameter("division");
-            String position = request.getParameter("position");
-            String employmentDate = request.getParameter("employmentDate");
             boolean x = false;
             try {
-                accountsDAO.approveUserExternal(Integer.parseInt(userID));
+             x =  accountsDAO.approveUserExternal(Integer.parseInt(userID));
             } catch (SQLException ex) {
                 Logger.getLogger(Approvals.class.getName()).log(Level.SEVERE, null, ex);
             }
