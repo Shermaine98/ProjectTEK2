@@ -18,7 +18,7 @@
         <script src="jsForums/tag-it.js" type="text/javascript"></script>
         <script src="jsForums/forums.js" type="text/javascript"></script>
         <script src="jsImported/list.min.js" type="text/javascript"></script>
-         <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
+        <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
         <script src="jsImported/jquery.autocomplete.js" type="text/javascript"></script>
         <script src="jsReport/searchYearPublish.js" type="text/javascript"></script>
         <link href="cssImported/search.css" rel="stylesheet" type="text/css"/>
@@ -55,9 +55,9 @@
                                         <div class="item">
                                             <img src="img/Caloocan2.jpg" alt="Second slide" style="width:100%;height: 200px;object-fit: cover">
                                         </div>
-<!--                                        <div class="item">
-                                            <img src="img/Caloocan3.jpg" alt="Third slide" style="width:100%;height: 200px;object-fit: cover">
-                                        </div>-->
+                                        <!--                                        <div class="item">
+                                                                                    <img src="img/Caloocan3.jpg" alt="Third slide" style="width:100%;height: 200px;object-fit: cover">
+                                                                                </div>-->
                                     </div>
                                     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                         <span class="fa fa-angle-left"></span>
@@ -88,11 +88,11 @@
 
                         <!--END MODAL-->
                         <div class="col-md-7" style="margin-left: 1%; padding-right: 0;">
-<!--                            <div class="callout callout-success">
-                                <h4>Announcements!</h4>
-
-                                <p>Som announcement here</p>
-                            </div>-->
+                            <!--                            <div class="callout callout-success">
+                                                            <h4>Announcements!</h4>
+                            
+                                                            <p>Som announcement here</p>
+                                                        </div>-->
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <h3 class="box-title" align="center">Announcements!</h3>
@@ -105,26 +105,26 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" align="center">Published Reports</h3>
                                 </div>
-                                <div style=" margin: 0 auto; display:block; text-align: center">
-                            <div class="form-inline">
-                                <form action="ServletAccess" method="post">
-                                 <input name="redirect" type="hidden" value="ReportSearchForum" />
-                                <div class="form-group">
-                                    <select id="category" name="sectorReport" class="form-control" onchange="updateReport()">
-                                        <option disabled selected>Choose Sector</option>
-                                        <option value="Education">Education</option>
-                                        <option value="Demographics">Demographics</option>
-                                        <option value="Health">Health</option>
-                                    </select>
-                                    <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:800px">
-                                        <option disabled selected>Choose Report</option>
-                                    </select>
-                                    <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
-                                    <button disabled id="button" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                                <div style=" margin: 0 auto; display:block; text-align: center; padding: 2% 0 ;">
+                                    <div class="form-inline">
+                                        <form action="ServletAccess" method="post">
+                                            <input name="redirect" type="hidden" value="ReportSearchForum" />
+                                            <div class="form-group">
+                                                <select id="category" name="sectorReport" style="width: 200px;" class="form-control" onchange="updateReport()">
+                                                    <option disabled selected>Choose Sector</option>
+                                                    <option value="Education">Education</option>
+                                                    <option value="Demographics">Demographics</option>
+                                                    <option value="Health">Health</option>
+                                                </select>
+                                                <select id="form_name" name="reportTitle" style="width: 350px;" class="form-control" disabled onchange="updateYear()" style="width:800px">
+                                                    <option disabled selected>Choose Report</option>
+                                                </select>
+                                                <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
+                                                <button disabled id="button" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                </form>
-                            </div>
-                        </div>
                             </div>
                         </div>
 
@@ -160,7 +160,7 @@
             </div>
         </div>
         <script>
-  function updateReport() {
+            function updateReport() {
                 var conceptName = $('#category').find(":selected").text();
                 if (conceptName === "Demographics") {
                     $('#form_name')
