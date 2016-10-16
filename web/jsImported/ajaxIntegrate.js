@@ -19,7 +19,7 @@ function integrate() {
                     $("#integrateLoad").modal("hide");
                     $("#notificationModal").addClass("modal-success");
                     $("#notificationHeader").text("Success");
-                    $("#notificationBodyModal").append("<p><center>You have successfully integrated the data.</center></p>");
+                    $("#notificationBodyModal").append("<p>You have successfully integrated the data.</p>");
                     $("#notificationModal").modal("show");
                     // Set a timeout to hide the element again
                     setTimeout(function () {

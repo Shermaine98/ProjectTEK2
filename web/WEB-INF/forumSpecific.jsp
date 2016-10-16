@@ -8,6 +8,8 @@
 <%@page import="model.forums.Forums"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="levelOfAccess.jsp"%>
+<%@include file="../JSPViewModal/notifcationModal.jsp" %>
+
 <!DOCTYPE html>
 <html>
     <head>
