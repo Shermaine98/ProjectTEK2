@@ -7,28 +7,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-    </head>
     <body>
-       <div id="notification-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="notifcation-header">Modal Header</h4>
-      </div>
-      <div class="notification-modal">
-
-      </div>
-      <div class="notification-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+        <div id="notificationModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:40%;">
+                    <div id="modalHeader" class="modal-header info">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="notificationHeader" class="notification-header"></h4>
+                    </div>
+                    <div id="notificationBodyModal" class="notification_body_modal">
+                        <!-- Modal content-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

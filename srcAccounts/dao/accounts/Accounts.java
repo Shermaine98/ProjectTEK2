@@ -309,7 +309,7 @@ public class Accounts {
                 pstmt.setBoolean(1, true);
                 pstmt.setString(2, division);
                 pstmt.setString(3, position);
-                pstmt.setDate(4, employment);
+                pstmt.setDate(4,  employment);
                 pstmt.setInt(5, userID);
                 rows = pstmt.executeUpdate();
             }
@@ -449,7 +449,7 @@ public class Accounts {
         return false;
     }
     
-     public boolean emailAvailability(String email) {
+         public boolean emailAvailability(String email) {
         boolean rows = false;
         try {
             DBConnectionFactory myFactory = getInstance();
