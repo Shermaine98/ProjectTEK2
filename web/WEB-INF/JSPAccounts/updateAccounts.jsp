@@ -66,11 +66,11 @@
                                                 <% } else {
                                                     for (int i = 0; i < internalUsers.size(); i++) {%>
                                                 <tr>
-                                                    <td><%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%></td>
-                                                    <td><%= internalUsers.get(i).getEmail()%></td>
-                                                    <td><%= internalUsers.get(i).getUsername()%></td>
-                                                    <td><%= internalUsers.get(i).getDivision()%></td>
-                                                    <td><%= internalUsers.get(i).getPosition()%></td>
+                                                    <td><input name="name" readonly value="<%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%>"/></td>
+                                                    <td><input name="email" readonly value="<%= internalUsers.get(i).getEmail()%>"/></td>
+                                                    <td><input name="username" readonly value="<%= internalUsers.get(i).getUsername()%>"/></td>
+                                                    <td><input name="division" readonly value="<%= internalUsers.get(i).getDivision()%>"/></td>
+                                                    <td><input name="position" readonly value="<%= internalUsers.get(i).getPosition()%>"/></td>
                                                     <td>
                                                         <button class="btn btn-success" style="float:right">Update</button>
                                                     </td>
@@ -98,9 +98,9 @@
                                                 <% } else {
                                                     for (int i = 0; i < externalUsers.size(); i++) {%>
                                                 <tr>
-                                                    <td><%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%></td>
-                                                    <td><%= externalUsers.get(i).getEmail()%></td>
-                                                    <td><%= externalUsers.get(i).getUsername()%></td>
+                                                    <td name="name"><input readonly value="<%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%>"/></td>
+                                                    <td name="email"><input readonly value="<%= externalUsers.get(i).getEmail()%>"/></td>
+                                                    <td name="username"><input readonly value="<%= externalUsers.get(i).getUsername()%>"/></td>
                                                     <td>
                                                         <button class="btn btn-success" style="float:right">Update</button>
                                                     </td>
