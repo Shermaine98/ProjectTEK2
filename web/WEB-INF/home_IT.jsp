@@ -51,29 +51,33 @@
                         </div>
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3><%=eApprove%></h3>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=eapprovals">
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3><%=eApprove%></h3>
 
-                                    <p>External Registrations for Approval</p>
+                                        <p>External Registrations for Approval</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-check"></i>
+                                    </div>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-check"></i>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3><%=iApprove%></h3>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=iapprovals">
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3><%=iApprove%></h3>
 
-                                    <p>Internal Registrations for Approval</p>
+                                        <p>Internal Registrations for Approval</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-check"></i>
+                                    </div>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-check"></i>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </section>

@@ -140,13 +140,40 @@ public class ServletAccess extends BaseServlet {
                 externalUsers = accountsDAO.getUserForApprovalOthers();
                 internalUsers = accountsDAO.getUserForApprovalMember();
 
+                request.setAttribute("type", "default");
                 request.setAttribute("internalUsers", internalUsers);
                 request.setAttribute("externalUsers", externalUsers);
                 request.setAttribute("notification", "none");
                 request.setAttribute("page", "approvals");
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvals.jsp");
                 rd.forward(request, response);
-            } //UPDATES
+            } else if (redirect.equalsIgnoreCase("eapprovals")) {
+                ArrayList<User> externalUsers = new ArrayList<>();
+                ArrayList<User> internalUsers = new ArrayList<>();
+                externalUsers = accountsDAO.getUserForApprovalOthers();
+                internalUsers = accountsDAO.getUserForApprovalMember();
+
+                request.setAttribute("type", "external");
+                request.setAttribute("internalUsers", internalUsers);
+                request.setAttribute("externalUsers", externalUsers);
+                request.setAttribute("notification", "none");
+                request.setAttribute("page", "approvals");
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvals.jsp");
+                rd.forward(request, response);
+            }else if (redirect.equalsIgnoreCase("iapprovals")) {
+                ArrayList<User> externalUsers = new ArrayList<>();
+                ArrayList<User> internalUsers = new ArrayList<>();
+                externalUsers = accountsDAO.getUserForApprovalOthers();
+                internalUsers = accountsDAO.getUserForApprovalMember();
+
+                request.setAttribute("type", "internal");
+                request.setAttribute("internalUsers", internalUsers);
+                request.setAttribute("externalUsers", externalUsers);
+                request.setAttribute("notification", "none");
+                request.setAttribute("page", "approvals");
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvals.jsp");
+                rd.forward(request, response);
+            }//UPDATES
             else if (redirect.equalsIgnoreCase("updates")) {
                 ArrayList<User> internalUsers = accountsDAO.getApprovedInternalUsers();
                 ArrayList<User> externalUsers = accountsDAO.getApprovedExternalUsers();
