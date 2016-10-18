@@ -104,6 +104,25 @@ public class FactEnrollmentDAO {
         return ArrfactEnrollment;
     }
     
+    public ArrayList<FactEnrollment> retrieveSchools() throws SQLException   {
+
+        DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();
+        ArrayList<FactEnrollment> ArrfactEnrollment = new ArrayList<>();
+        try (Connection conn = myFactory.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT schoolName, district FROM starschema.fact_enrollment group by schoolName,district order by schoolName, district;");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                FactEnrollment temp = new FactEnrollment();
+                temp.setSchoolName(rs.getString("schoolName"));
+                temp.setDistrict(rs.getString("district"));
+                ArrfactEnrollment.add(temp);
+            }
+            pstmt.close();
+        }
+        return ArrfactEnrollment;
+    }
+    
     public ArrayList<FactEnrollment> retrieveEnrollmentForSchoolGoingAge() throws SQLException   {
 
         DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();

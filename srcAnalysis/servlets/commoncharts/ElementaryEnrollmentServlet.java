@@ -63,12 +63,14 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
             JSONArray jarrayGender = new JSONArray();
             JSONArray jarrayClassification = new JSONArray();
             JSONArray jarrayGradeLevel = new JSONArray();
+            JSONArray jarraySchools = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
             
             ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
             ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
             ArrayList<String> district = chartsDistrict.retrieveDistrictsEnrollment();
             ArrayList<FactEnrollment> enrollment = chartEnrollment.retrieveElementaryEnrollment();
+            ArrayList<FactEnrollment> schools = chartEnrollment.retrieveSchools();
             ArrayList<String> classifications = chartsClassification.retrieveClassifications();
             ArrayList<String> gradeLevels = chartsGradeLevel.retrieveElementaryLevels();
             
@@ -144,8 +146,20 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
                 }
             }
             
+            for(int i = 0; i < schools.size(); i++){
+                JSONObject objSchools = new JSONObject();
+                try {
+                    objSchools.put("schoolName", schools.get(i).getSchoolName());
+                    objSchools.put("district", schools.get(i).getDistrict());
+                    jarraySchools.put(objSchools);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
             ObjectAll.put("years", jarrayYears);
             ObjectAll.put("genders", jarrayGender);
+            ObjectAll.put("schools", jarraySchools);
             ObjectAll.put("people", jarrayEnrollment);
             ObjectAll.put("districts", jarrayDistrict);
             ObjectAll.put("gradeLevels", jarrayGradeLevel);
