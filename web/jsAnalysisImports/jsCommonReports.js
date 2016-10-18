@@ -573,12 +573,12 @@ function setElementaryEnrollments(chart){
             for(var b = 0; b < print[0].genders.length; b++){
                 for(var a = 0; a < print[0].years.length;a++){
                     for(var d = 0; d < print[0].districts.length; d++){
-                        var item = {};
-                        var data = [];
-                        item["name"] = print[0].districts[d].district;
-                        item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
                         for(var e = 0; e < print[0].schools.length; e++){
                             if(print[0].schools[e].district == print[0].districts[d].district){
+                                var item = {};
+                                var data = [];
+                                item["name"] = print[0].districts[d].district;
+                                item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
                                 var total = 0;
                                 for (var i = 0; i < print[0].people.length; i++) {
                                     if(print[0].people[i].year == print[0].years[a].year){
