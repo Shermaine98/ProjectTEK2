@@ -819,11 +819,10 @@
                     setKinderEnrollments(chartSelected);
                 } 
                 else if(conceptName=='Enrollment in Public and Private Elementary Schools'){
-                    var chart = 'Line Chart'
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart','Table'];
                     addWithChartSelectionsElementaryEnrollment('getFactEducation()', charts);
-                    setElementaryEnrollments(chart);
+                    setElementaryEnrollments(chartSelected);
                 }
             }
 

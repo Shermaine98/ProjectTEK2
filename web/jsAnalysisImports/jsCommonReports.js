@@ -306,7 +306,6 @@ function setElementaryEnrollments(chart){
     });}
 
     function drawElementaryEnrollment(print, chart){
-        
         var ultimateTotal = [];
         for(var b = 0; b < print[0].genders.length; b++){
             var totals = {};
