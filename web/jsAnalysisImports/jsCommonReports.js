@@ -508,12 +508,67 @@ function setElementaryEnrollments(chart){
                             item2 = {};
                             item2["name"] = print[0].schools[e].schoolName;
                             item2["y"] = total;
-                            item2["drilldown"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district + print[0].schools[e].schoolName;;
+                            item2["drilldown"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district + print[0].schools[e].schoolName;
                             data.push(item2);
                             }
                         }
                         item['data'] = data;
                         drilldowns.push(item);
+                    }
+                }
+            }
+        }
+        
+        
+        for(var c = 0; c < zones.length; c++){
+            for(var b = 0; b < print[0].genders.length; b++){
+                for(var a = 0; a < print[0].years.length;a++){
+                    for(var d = 0; d < print[0].districts.length; d++){
+                        for(var e = 0; e < print[0].schools.length; e++){
+                            var total = 0;
+                            if(print[0].schools[e].district == print[0].districts[d].district){
+                                var item = {};
+                                var data = [];
+                                item["name"] = print[0].schools[e].schoolName;
+                                item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district+print[0].schools[e].schoolName;
+                                for (var i = 0; i < print[0].people.length; i++) {
+                                    if(print[0].people[i].year == print[0].years[a].year){
+                                        for(var j = 0; j < print[0].gradeLevels.length; j++){
+                                            if(print[0].gradeLevels[j].gradeLevel == print[0].people[i].gradeLevel){
+                                                if(print[0].people[i].district == print[0].districts[d].district){
+                                                    for(var y = 0; y < print[0].classifications.length; y++){
+                                                        if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                                            if(print[0].schools[e].schoolName == print[0].people[i].schoolName){
+                                                                if("Male" == print[0].genders[b].gender){
+                                                                    item2 = {};
+                                                                    item2["name"] = print[0].people[i].gradeLevel;
+                                                                    item2["y"] = print[0].people[i].male;
+                                                                    data.push(item2);
+                                                                }
+                                                                if("Female" == print[0].genders[b].gender){
+                                                                    item2 = {};
+                                                                    item2["name"] = print[0].people[i].gradeLevel;
+                                                                    item2["y"] = print[0].people[i].female;
+                                                                    data.push(item2);
+                                                                }
+                                                                if("Both Sexes" == print[0].genders[b].gender){    
+                                                                    item2 = {};
+                                                                    item2["name"] = print[0].people[i].gradeLevel;
+                                                                    item2["y"] = print[0].people[i].male + print[0].people[i].female;
+                                                                    data.push(item2); 
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                item['data'] = data;
+                                drilldowns.push(item);
+                            }
+                        }
                     }
                 }
             }
@@ -532,7 +587,7 @@ function setElementaryEnrollments(chart){
                     panKey: 'shift'
                 },
                 title: {
-                    text: 'Enrollment in Public and Elementary Preschools'
+                    text: 'Enrollment in Public and Elementary Schools'
                 },
                 xAxis: {
                     type: 'category',
@@ -645,7 +700,7 @@ function setKinderEnrollments(chart){
                 var data = [];
                 var totalNorth = 0;
                 var totalSouth = 0;
-                item["name"] = print[0].years[a].year;
+                item["name"] = 'Zones';
                 item["id"] = print[0].years[a].year + print[0].genders[b].gender;
                 for (var i = 0; i < print[0].people.length; i++) {
                     if(print[0].people[i].year == print[0].years[a].year){
@@ -703,7 +758,7 @@ function setKinderEnrollments(chart){
                     for(var d = 0; d < print[0].districts.length; d++){
                         var item = {};
                         var data = [];
-                        item["name"] = print[0].years[a].year;
+                        item["name"] = print[0].districts[d].district;
                         item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
                         var total = 0;
                         for (var i = 0; i < print[0].people.length; i++) {
@@ -748,7 +803,7 @@ function setKinderEnrollments(chart){
                 for(var a = 0; a < print[0].years.length;a++){
                     var item = {};
                     var data = [];
-                    item["name"] = print[0].years[a].year;
+                    item["name"] = zones[c].charAt(0)+zones[c].substring(1).toLowerCase();
                     item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year;
                     for(var d = 0; d < print[0].districts.length; d++){
                         var total = 0;
@@ -811,6 +866,12 @@ function setKinderEnrollments(chart){
                 },
                 xAxis: {
                     type: 'category',
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' 
+                                + this.point.name + ': '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                    }
                 },
                 yAxis:{
                     title: {text:'Enrollment'}
