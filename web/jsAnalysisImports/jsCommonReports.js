@@ -94,10 +94,13 @@
             removeClassificationCheckboxes(analysischart, classificationCheckboxes);
             
             if(chartSelected=="0"||chartSelected=="Line Chart"){
-                drawKinderEnrollment(analysischart, 'line');
+                drawKinderEnrollment(analysischart, 'line', false);
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-                drawKinderEnrollment(analysischart, 'column');
+                drawKinderEnrollment(analysischart, 'column', false);
+            }
+            else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
+                drawKinderEnrollment(analysischart, 'column', true);
             }
         }
         
@@ -127,12 +130,7 @@
             removeGenderCheckboxes(analysischart, genderCheckboxes);
             removeClassificationCheckboxes(analysischart, classificationCheckboxes);
             removeGradeLevelCheckboxes(analysischart, gradeLevelCheckboxes);
-            //if(chartSelected=="0"||chartSelected=="Line Chart"){
-                //drawElementaryEnrollment(analysischart, 'line');
-            //}
-            //else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-            //    drawElementaryEnrollment(analysischart, 'column');
-            //}
+            
             if(chartSelected=="0"||chartSelected=="Line Chart"){
                 drawElementaryEnrollment(analysischart, 'line', false);
             }
@@ -685,6 +683,26 @@ function setKinderEnrollments(chart){
             $('#genderCheckbox').empty();
             $('#classificationCheckbox').empty();
             
+            if(chartSelected == 'Stacked Bar Chart'){
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+            } else{
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+            }
             
             for (var i =0; i <  print[0].years.length; i++) {
                 $('#yearsCheckbox').append('<input type="checkbox" class="filter" id="yearCheckboxes" value="' 
@@ -704,10 +722,13 @@ function setKinderEnrollments(chart){
             
             
             if(chart=="0"||chart=="Line Chart"){
-                drawKinderEnrollment(print, 'line');
+                drawKinderEnrollment(print, 'line', false);
             }
             else if(chart=="0"||chart=="Bar Chart"){
-                drawKinderEnrollment(print, 'column');
+                drawKinderEnrollment(print, 'column', false);
+            }
+            else if(chart=="0"||chart=="Stacked Bar Chart"){
+                drawKinderEnrollment(print, 'column', true);
             }
 //            else if(chart=="0"||chart=="Bar Chart"){
 //                drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year, 'column');
@@ -718,7 +739,7 @@ function setKinderEnrollments(chart){
         }
     });}
 
-    function drawKinderEnrollment(print, chart){
+    function drawKinderEnrollment(print, chart, isStacked){
         var ultimateTotal = [];
         for(var b = 0; b < print[0].genders.length; b++){
             var totals = {};
@@ -915,7 +936,7 @@ function setKinderEnrollments(chart){
             }
         }
         
-
+        if(isStacked == false){
             $('#output').highcharts({
                 chart: {
                     type: chart,
@@ -944,6 +965,42 @@ function setKinderEnrollments(chart){
                     series: drilldowns
                     }
             });
+        } 
+        else{
+            $('#output').highcharts({
+                chart: {
+                    type: chart,
+                    drilled: false,
+                    zoomType: 'xy',
+                    panning: true,
+                    panKey: 'shift'
+                },
+                title: {
+                    text: 'Enrollment in Public and Private Preschools'
+                },
+                xAxis: {
+                    type: 'category',
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' 
+                                + this.point.name + ': '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                    }
+                },
+                yAxis:{
+                    title: {text:'Enrollment'}
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: ultimateTotal,
+                drilldown: {
+                    series: drilldowns
+                    }
+            });
+        }
     }
 
 function setHHPopAgeGroupSex (chart){

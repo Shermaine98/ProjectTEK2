@@ -765,7 +765,7 @@
                 else if(conceptName=='Enrollment in Public and Private Preschools'){
                     var chart = 'Line Chart'
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Line Chart','Table'];
+                    var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsKinderEnrollment('getFactEducation()', charts);
                     setKinderEnrollments(chart);
                 }
@@ -814,7 +814,7 @@
                 } 
                 else if(conceptName=='Enrollment in Public and Private Preschools'){
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Line Chart','Table'];
+                    var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsKinderEnrollment('getFactEducation()',charts);
                     setKinderEnrollments(chartSelected);
                 } 
