@@ -127,13 +127,21 @@
             removeGenderCheckboxes(analysischart, genderCheckboxes);
             removeClassificationCheckboxes(analysischart, classificationCheckboxes);
             removeGradeLevelCheckboxes(analysischart, gradeLevelCheckboxes);
-            
             //if(chartSelected=="0"||chartSelected=="Line Chart"){
-                drawElementaryEnrollment(analysischart, 'line');
+                //drawElementaryEnrollment(analysischart, 'line');
             //}
             //else if(chartSelected=="0"||chartSelected=="Bar Chart"){
             //    drawElementaryEnrollment(analysischart, 'column');
             //}
+            if(chartSelected=="0"||chartSelected=="Line Chart"){
+                drawElementaryEnrollment(analysischart, 'line', false);
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawElementaryEnrollment(analysischart, 'column', false);
+            }
+            else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
+                drawElementaryEnrollment(analysischart, 'column', true);
+            }
         }
         
         var year = $('#years').find(":selected").val();
@@ -274,6 +282,28 @@ function setElementaryEnrollments(chart){
                         +'&nbsp;'+print[0].years[i].year+'</input></br>');
             }
             //gender
+            
+            if(chartSelected == 'Stacked Bar Chart'){
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+            } else{
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+            }
+            
             for (var i = 0; i < print[0].genders.length; i++) {
                     $('#genderCheckbox').append('<input type="checkbox" class="filter" id="genderCheckboxes" value="' 
                             + print[0].genders[i].gender + '" checked>'+'&nbsp;'+print[0].genders[i].gender+'</input></br>');
@@ -291,21 +321,21 @@ function setElementaryEnrollments(chart){
             
             
             if(chart=="0"||chart=="Line Chart"){
-                drawElementaryEnrollment(print, 'line');
+                drawElementaryEnrollment(print, 'line', false);
             }
             else if(chart=="0"||chart=="Bar Chart"){
-                drawElementaryEnrollment(print, 'column');
+                drawElementaryEnrollment(print, 'column', false);
             }
-//            else if(chart=="0"||chart=="Bar Chart"){
-//                drawElementaryEnrollment(print, print[0].years[print[0].years.length-1].year, 'column');
-//            }
+            else if(chart=="0"||chart=="Stacked Bar Chart"){
+                drawElementaryEnrollment(print, 'column', true);
+            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
     });}
 
-    function drawElementaryEnrollment(print, chart){
+    function drawElementaryEnrollment(print, chart, isStacked){
         var ultimateTotal = [];
         for(var b = 0; b < print[0].genders.length; b++){
             var totals = {};
@@ -354,7 +384,7 @@ function setElementaryEnrollments(chart){
                 var data = [];
                 var totalNorth = 0;
                 var totalSouth = 0;
-                item["name"] = 'Zones';
+                item["name"] = print[0].genders[b].gender;
                 item["id"] = print[0].years[a].year + print[0].genders[b].gender;
                 for (var i = 0; i < print[0].people.length; i++) {
                     if(print[0].people[i].year == print[0].years[a].year){
@@ -416,7 +446,7 @@ function setElementaryEnrollments(chart){
                 for(var a = 0; a < print[0].years.length;a++){
                     var item = {};
                     var data = [];
-                    item["name"] = zones[c].charAt(0)+zones[c].substring(1).toLowerCase();
+                    item["name"] = print[0].genders[b].gender;
                     item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year;
                     for(var d = 0; d < print[0].districts.length; d++){
                         var total = 0;
@@ -474,7 +504,7 @@ function setElementaryEnrollments(chart){
                     for(var d = 0; d < print[0].districts.length; d++){
                         var item = {};
                         var data = [];
-                        item["name"] = print[0].districts[d].district;
+                        item["name"] = print[0].genders[b].gender;
                         item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district;
                         for(var e = 0; e < print[0].schools.length; e++){
                             var total = 0;
@@ -528,7 +558,7 @@ function setElementaryEnrollments(chart){
                             if(print[0].schools[e].district == print[0].districts[d].district){
                                 var item = {};
                                 var data = [];
-                                item["name"] = print[0].schools[e].schoolName;
+                                item["name"] = print[0].genders[b].gender;
                                 item["id"] = zones[c].toLowerCase()+print[0].genders[b].gender+print[0].years[a].year + print[0].districts[d].district+print[0].schools[e].schoolName;
                                 for (var i = 0; i < print[0].people.length; i++) {
                                     if(print[0].people[i].year == print[0].years[a].year){
@@ -576,7 +606,7 @@ function setElementaryEnrollments(chart){
         console.log(JSON.stringify(drilldowns));
         
         
-       
+        if(isStacked == false){
             $('#output').highcharts({
                 chart: {
                     type: chart,
@@ -605,6 +635,41 @@ function setElementaryEnrollments(chart){
                     series: drilldowns
                     }
             });
+        }
+        else{
+            $('#output').highcharts({
+                chart: {
+                    type: chart,
+                    drilled: false,
+                    zoomType: 'xy',
+                    panning: true,
+                    panKey: 'shift'
+                },
+                title: {
+                    text: 'Enrollment in Public and Elementary Schools'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' 
+                                + this.point.name + ': '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                    }
+                },plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                yAxis:{
+                    title: {text:'Enrollment'}
+                },
+                series: ultimateTotal,
+                drilldown: {
+                    series: drilldowns
+                    }
+            });
+        }
     }
 
 function setKinderEnrollments(chart){

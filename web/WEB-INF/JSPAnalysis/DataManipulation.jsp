@@ -772,7 +772,7 @@
                 else if(conceptName=='Enrollment in Public and Private Elementary Schools'){
                     var chart = 'Line Chart'
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Line Chart','Table'];
+                    var charts=['Bar Chart','Line Chart', 'Stacked Bar Chart','Table'];
                     addWithChartSelectionsElementaryEnrollment('getFactEducation()', charts);
                     setElementaryEnrollments(chart);
                 }
@@ -820,7 +820,7 @@
                 } 
                 else if(conceptName=='Enrollment in Public and Private Elementary Schools'){
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Line Chart','Table'];
+                    var charts=['Bar Chart','Line Chart', 'Stacked Bar Chart','Table'];
                     addWithChartSelectionsElementaryEnrollment('getFactEducation()', charts);
                     setElementaryEnrollments(chartSelected);
                 }
