@@ -151,6 +151,7 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
                 try {
                     objSchools.put("schoolName", schools.get(i).getSchoolName());
                     objSchools.put("district", schools.get(i).getDistrict());
+                    objSchools.put("classification", schools.get(i).getClassification());
                     jarraySchools.put(objSchools);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);

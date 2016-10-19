@@ -109,13 +109,14 @@ public class FactEnrollmentDAO {
         DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();
         ArrayList<FactEnrollment> ArrfactEnrollment = new ArrayList<>();
         try (Connection conn = myFactory.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT schoolName, district FROM starschema.fact_enrollment group by schoolName,district order by schoolName, district;");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT schoolName, district, classification FROM starschema.fact_enrollment group by schoolName,district, classification order by schoolName, district, classification;");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 FactEnrollment temp = new FactEnrollment();
                 temp.setSchoolName(rs.getString("schoolName"));
                 temp.setDistrict(rs.getString("district"));
+                temp.setClassification(rs.getString("classification"));
                 ArrfactEnrollment.add(temp);
             }
             pstmt.close();
