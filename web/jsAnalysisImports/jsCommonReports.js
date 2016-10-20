@@ -62,16 +62,44 @@
             gender.push(id);
         });
         
-        $('[id="gradeLevels"]:checked').each(function (e) {
-            var id = $(this).attr('value');
-            gradeLevel.push(id);
-        });
+//        $('[id="gradeLevels"]:checked').each(function (e) {
+//            var id = $(this).attr('value');
+//            gradeLevel.push(id);
+//        });
         
-        
-
         removeGender(analysischart, gender);
         removeBarangay(analysischart, barangay);
         removeGradeLevel(analysischart, gradeLevel);
+        
+        if(reportSelected == 'nutritionalStatus'){
+            $('[id="yearCheckboxes"]:checked').each(function (e) {
+                var id = $(this).attr('value');
+                yearsCheckboxes.push(id);
+            });
+
+            $('[id="genders"]:checked').each(function (e) {
+                var id = $(this).attr('value');
+                gender.push(id);
+            });
+
+            $('[id="gradeLevels"]:checked').each(function (e) {
+                var id = $(this).attr('value');
+                gradeLevel.push(id);
+            });
+            removeYearCheckboxes(analysischart, yearsCheckboxes);
+            removeGenderCheckboxes(analysischart, gender);
+            removeGradeLevelCheckboxes(analysischart, gradeLevel);
+            
+            if(chartSelected=="0"||chartSelected=="Line Chart"){
+                drawNutritionalStatus(print, 'line', false);
+            }
+            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+                drawNutritionalStatus(print, 'column',false);
+            }
+            else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
+                drawNutritionalStatus(print, 'column',true);
+            }
+        }
         
         if(reportSelected == 'kinderEnrollment'){
             $('[id="yearCheckboxes"]:checked').each(function (e) {
@@ -162,15 +190,6 @@
                 drawHHPopAgeGroupSexPie(print, year, 'column');
             }
         }
-        if(reportSelected == 'nutritionalStatus'){
-            if(chartSelected=="0"||chartSelected=="Pie Chart"){
-                drawNutritionalStatus(print, year, 'pie');
-            }
-            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-                drawNutritionalStatus(print, year, 'column');
-            }
-        }
-        
     });
 
     function removeGender(analysischart, gender){
@@ -1528,11 +1547,10 @@ function setHHPopAgeGroupSex (chart){
             $('#gradeLevels').empty();
             $('#sex').empty();
             
-            $('#years').append("<option selected disabled id='year' value='"+print[0].years[print[0].years.length-1].year+"'>Choose Year for Report</option>");
-            for (var i = print[0].years.length-1; i >= 0; i--) {
-                $('#years').append('<option id="year" value="' 
-                        + print[0].years[i].year + '">'
-                        +print[0].years[i].year+'</option></br>');
+            for (var i =0; i <  print[0].years.length; i++) {
+                $('#yearsCheckbox').append('<input type="checkbox" class="filter" id="yearCheckboxes" value="' 
+                        +print[0].years[i].year+ '" checked>'
+                        +'&nbsp;'+print[0].years[i].year+'</input></br>');
             }
             //barangay
             for (var i = 0; i < print[0].gradeLevels.length; i++) {
@@ -1545,12 +1563,15 @@ function setHHPopAgeGroupSex (chart){
                             + print[0].genders[i].gender + '" checked>'+'&nbsp; '+print[0].genders[i].gender+'</input></br>');
             }
             
-            var year = $('#years').find(":selected").val();
-            if(chart=="0"||chart=="Pie Chart"){
-                drawNutritionalStatus(print, year, 'pie');
+            var year = 2015;
+            if(chart=="0"||chart=="Line Chart"){
+                drawNutritionalStatus(print, 'line', false);
             }
             else if(chart=="0"||chart=="Bar Chart"){
-                drawNutritionalStatus(print, year, 'column');
+                drawNutritionalStatus(print, 'column', false);
+            }
+            else if(chart=="0"||chart=="Stacked Bar Chart"){
+                drawNutritionalStatus(print, 'column', true);
             }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
@@ -1559,34 +1580,39 @@ function setHHPopAgeGroupSex (chart){
     });
     }
     
-    function drawNutritionalStatus(print, year, chart){
-            var nutritionalStatus = ['Severely Wasted','Wasted', 'Normal', 'Overweight', 'Obese'];
-            var totals = [];
-            for(var a = 0; a < nutritionalStatus.length;a++){
+    function drawNutritionalStatus(print, chart, isStacked){
+        var ultimateTotal = [];
+        var nutritionalStatus = ['Severely Wasted','Wasted', 'Normal', 'Overweight', 'Obese'];
+        var totals = [];
+        for(var a = 0; a < nutritionalStatus.length;a++){
+            var totals = {};
+            var total = [];
+            totals['name'] = nutritionalStatus[a];
+            for(var c = 0; c < print[0].years.length; c++){
                 var item = {};
-                var total = 0;
-                item["name"] = nutritionalStatus[a];
-                item["drilldown"] = nutritionalStatus[a];
+                var totalSum = 0;
+                item["name"] = print[0].years[c].year;
+                item["drilldown"] = nutritionalStatus[a]+print[0].years[c].year;
                 for (var i = 0; i < print[0].people.length; i++) {
-                    if(print[0].people[i].year == year){
+                    if(print[0].people[i].year == print[0].years[c].year){
                         for(var z = 0; z < print[0].genders.length; z++){
                             if(print[0].people[i].gender == print[0].genders[z].gender){
                                 for(var b = 0; b < print[0].gradeLevels.length; b++){
                                     if(print[0].people[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
                                         if(nutritionalStatus[a] == 'Severely Wasted'){
-                                            total+=print[0].people[i].severelyWasted;
+                                            totalSum+=print[0].people[i].severelyWasted;
                                         }
                                         else if(nutritionalStatus[a] == 'Wasted'){
-                                            total+=print[0].people[i].wasted;
+                                            totalSum+=print[0].people[i].wasted;
                                         }
                                         else if(nutritionalStatus[a] == 'Normal'){
-                                            total+=print[0].people[i].normal;
+                                            totalSum+=print[0].people[i].normal;
                                         }
                                         else if(nutritionalStatus[a] == 'Overweight'){
-                                            total+=print[0].people[i].overweight;
+                                            totalSum+=print[0].people[i].overweight;
                                         }
                                         else if(nutritionalStatus[a] == 'Obese'){
-                                            total+=print[0].people[i].obese;
+                                            totalSum+=print[0].people[i].obese;
                                         }
                                     }
                                 }
@@ -1594,24 +1620,26 @@ function setHHPopAgeGroupSex (chart){
                         }
                     }
                 }
-                item["y"] = total;
-                totals.push(item);
+                item["y"] = totalSum;
+                total.push(item);
             }
+        totals['data'] = total;
+        ultimateTotal.push(totals);
+        }
             
-           
-            
-            var drilldowns = [];
-            var zones = ['NORTH', 'SOUTH', 'SPED'];
-            for(var a = 0; a < nutritionalStatus.length;a++){
+        var drilldowns = [];
+        var zones = ['NORTH', 'SOUTH', 'SPED'];
+        for(var a = 0; a < nutritionalStatus.length;a++){
+            for(var c = 0; c < print[0].years.length; c++){
                 var item = {};
                 var totalNorth = 0;
                 var totalSouth = 0;
                 var totalSPED = 0;
                 item["name"] = nutritionalStatus[a];
-                item["id"] = nutritionalStatus[a];
+                item["id"] = nutritionalStatus[a] + print[0].years[c].year;
                 var data = [];
                 for (var i = 0; i < print[0].people.length; i++) {
-                    if(print[0].people[i].year == year){
+                    if(print[0].people[i].year == print[0].years[c].year){
                         for(var z = 0; z < print[0].genders.length; z++){
                             if(print[0].people[i].gender == print[0].genders[z].gender){
                                 for(var b = 0; b < print[0].gradeLevels.length; b++){
@@ -1665,8 +1693,7 @@ function setHHPopAgeGroupSex (chart){
                                                 totalNorth+=print[0].people[i].obese;
                                             }
                                             else if(print[0].people[i].zone == 'SOUTH'){
-                                                totalSouth+=print[0].people[i].obese;
-                                            }
+                                                totalSouth+=print[0].people[i].obese;                                           }
                                             if(print[0].people[i].gradeLevel == 'SPED'){
                                                 totalSPED+=print[0].people[i].obese;
                                             }
@@ -1680,81 +1707,83 @@ function setHHPopAgeGroupSex (chart){
                 var item2 = {};
                 item2['name'] = 'North';
                 item2["y"] = totalNorth;
-                item2["drilldown"] = 'north'+nutritionalStatus[a];
+                item2["drilldown"] = 'north'+nutritionalStatus[a]+print[0].years[c].year;;
                 data.push(item2);
 
                 var item2 = {};
                 item2['name'] = 'South';
                 item2["y"] = totalSouth;
-                item2["drilldown"] = 'south'+nutritionalStatus[a];
+                item2["drilldown"] = 'south'+nutritionalStatus[a]+print[0].years[c].year;;
                 data.push(item2);
-                
+
                 var item2 = {};
                 item2['name'] = 'SPED';
                 item2["y"] = totalSPED;
-                item2["drilldown"] = 'sped'+nutritionalStatus[a];
+                item2["drilldown"] = 'sped'+nutritionalStatus[a]+print[0].years[c].year;;
                 data.push(item2);
 
                 item['data'] = data;
                 drilldowns.push(item);
             }
+        }
             
-            var genderLength = print[0].genders.length;
-            var genderOne = '';
-            if(genderLength == 1){
-                genderOne = print[0].genders[0].gender;
-            }
-            if(genderLength > 0){
-                for(var y = 0; y < zones.length; y++){
-                    for(var a = 0; a < nutritionalStatus.length;a++){
+        var genderLength = print[0].genders.length;
+        var genderOne = '';
+        if(genderLength == 1){
+            genderOne = print[0].genders[0].gender;
+        }
+        if(genderLength > 0){
+            for(var y = 0; y < zones.length; y++){
+                for(var a = 0; a < nutritionalStatus.length;a++){
+                    for(var d = 0; d < print[0].years.length; d++){
                         var add;
                         add = genderLength;
                         var item = {};
                         var data = [];
 
                         item["name"] = nutritionalStatus[a];
-                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a];
+                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].years[d].year;
                         if(nutritionalStatus[a] == 'SPED'){
                             item["id"] = 'sped'+nutritionalStatus[a];
                         }
                         for(var b = 0; b < print[0].districts.length; b++){
-                            var total = 0;
+                            var totalSum = 0;
                             for (var i = 0; i < print[0].people.length; i+=add) {
-                                if(print[0].people[i].year == year){
+                                if(print[0].people[i].year == print[0].years[d].year){
                                         if(print[0].people[i].district == print[0].districts[b].district){
                                             if(print[0].people[i].zone == zones[y]){
                                                 for(var c = 0; c < print[0].gradeLevels.length; c++){
                                                     if(print[0].people[i].gradeLevel == print[0].gradeLevels[c].gradeLevel){
                                                         if(print[0].genders.length == 2){
                                                             if(nutritionalStatus[a] == 'Severely Wasted'){
-                                                                total+= print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
+                                                                totalSum+= print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
                                                             } else if(nutritionalStatus[a] == 'Wasted'){
-                                                                total+= print[0].people[i].wasted + print[0].people[i+1].wasted;
+                                                                totalSum+= print[0].people[i].wasted + print[0].people[i+1].wasted;
                                                             } else if(nutritionalStatus[a] == 'Normal'){
-                                                                total+= print[0].people[i].normal + print[0].people[i+1].normal;
+                                                                totalSum+= print[0].people[i].normal + print[0].people[i+1].normal;
                                                             } else if(nutritionalStatus[a] == 'Overweight'){
-                                                                total+= print[0].people[i].overweight + print[0].people[i+1].overweight;
+                                                                totalSum+= print[0].people[i].overweight + print[0].people[i+1].overweight;
                                                             } else if(nutritionalStatus[a] == 'Obese'){
-                                                                total+= print[0].people[i].obese + print[0].people[i+1].obese;
+                                                                totalSum+= print[0].people[i].obese + print[0].people[i+1].obese;
                                                             }
                                                         }
                                                         else if(print[0].genders.length == 1){
                                                             if(print[0].people[i].gender == genderOne){
                                                                 if(nutritionalStatus[a] == 'Severely Wasted'){
-                                                                    total+= print[0].people[i].severelyWasted;
+                                                                    totalSum+= print[0].people[i].severelyWasted;
                                                                 } else if(nutritionalStatus[a] == 'Wasted'){
-                                                                    total+= print[0].people[i].wasted;
+                                                                    totalSum+= print[0].people[i].wasted;
                                                                 } else if(nutritionalStatus[a] == 'Normal'){
-                                                                    total+= print[0].people[i].normal;
+                                                                    totalSum+= print[0].people[i].normal;
                                                                 } else if(nutritionalStatus[a] == 'Overweight'){
-                                                                    total+= print[0].people[i].overweight;
+                                                                    totalSum+= print[0].people[i].overweight;
                                                                 } else if(nutritionalStatus[a] == 'Obese'){
-                                                                    total+= print[0].people[i].obese;
+                                                                    totalSum+= print[0].people[i].obese;
                                                                 }
                                                             }
                                                         }
                                                         else if (genderLength == 0){
-                                                            total = 0;
+                                                            totalSum = 0;
                                                         }
                                                     }
                                                 }
@@ -1766,7 +1795,7 @@ function setHHPopAgeGroupSex (chart){
                                     if(print[0].districts[b].district.toLowerCase().includes(zones[y].toLowerCase())){
                                         item2 = {};
                                         item2["name"] = print[0].districts[b].district;
-                                        item2["y"] = total;
+                                        item2["y"] = totalSum;
                                         item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
                                         data.push(item2);
                                     }
@@ -1775,7 +1804,7 @@ function setHHPopAgeGroupSex (chart){
                                     if(print[0].districts[b].district==zones[y]) {
                                         item2 = {};
                                         item2["name"] = print[0].districts[b].district;
-                                        item2["y"] = total;
+                                        item2["y"] = totalSum;
                                         item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+'sped';
                                         data.push(item2);
                                     }
@@ -1784,116 +1813,117 @@ function setHHPopAgeGroupSex (chart){
                                     if(print[0].districts[b].district!=='SPED' && !(print[0].districts[b].district.toLowerCase().includes('north')) && print[0].districts[b].district!='Caloocan City'){
                                         item2 = {};
                                         item2["name"] = print[0].districts[b].district;
-                                        item2["y"] = total;
+                                        item2["y"] = totalSum;
                                         item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
                                         data.push(item2);
                                     }
                                 }
-                                total =0;
+                                totalSum =0;
                             }
                         item['data'] = data;
                         drilldowns.push(item);
                     }
                 }
             }
-            
-            var genderLength = print[0].genders.length;
-            if(genderLength > 0){
-            for(var y = 0; y < zones.length; y++){
-                for(var a = 0; a < nutritionalStatus.length;a++){
-                    for(var b = 0; b < print[0].districts.length; b++){
-                        var add;
-                        if(genderLength == 2 || genderLength == 0){
-                            add = 2;
-                        } else {
-                            add = 1;
-                        }
-                        var item = {};
-                        var data = [];
+        }
 
-                        item["name"] = nutritionalStatus[a];
-                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
-                        if(nutritionalStatus[a] == 'SPED'){
-                            item["id"] = 'sped'+nutritionalStatus[a]+print[0].districts[b].district;
-                        }
-                        var total = 0;
-                        for (var i = 0; i < print[0].people.length; i+=add) {
-                            if(print[0].people[i].year == year){
-                                    if(print[0].people[i].district == print[0].districts[b].district){
-                                        if(print[0].people[i].zone == zones[y]){
-                                            for(var c = 0; c < print[0].gradeLevels.length; c++){
-                                                if(print[0].people[i].gradeLevel == print[0].gradeLevels[c].gradeLevel){
-                                                    if(print[0].genders.length == 2){
-                                                        if(nutritionalStatus[a] == 'Severely Wasted'){
-                                                            item2 = {};
-                                                            item2["name"] = print[0].people[i].gradeLevel;
-                                                            item2["y"] = print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
-                                                            data.push(item2);
-                                                        } else if(nutritionalStatus[a] == 'Wasted'){
-                                                            item2 = {};
-                                                            item2["name"] = print[0].people[i].gradeLevel;
-                                                            item2["y"] = print[0].people[i].wasted + print[0].people[i+1].wasted;
-                                                            data.push(item2);
-                                                        } else if(nutritionalStatus[a] == 'Normal'){
-                                                            item2 = {};
-                                                            item2["name"] = print[0].people[i].gradeLevel;
-                                                            item2["y"] = print[0].people[i].normal + print[0].people[i+1].normal;
-                                                            data.push(item2);
-                                                        } else if(nutritionalStatus[a] == 'Overweight'){
-                                                            item2 = {};
-                                                            item2["name"] = print[0].people[i].gradeLevel;
-                                                            item2["y"] = print[0].people[i].overweight + print[0].people[i+1].overweight;
-                                                            data.push(item2);
-                                                        } else if(nutritionalStatus[a] == 'Obese'){
-                                                            item2 = {};
-                                                            item2["name"] = print[0].people[i].gradeLevel;
-                                                            item2["y"] = print[0].people[i].obese + print[0].people[i+1].obese;
-                                                            data.push(item2);
-                                                        }
-                                                    }
-                                                    else if(print[0].genders.length == 1){
-                                                        if(print[0].people[i].gender == genderOne){
-                                                            if(nutritionalStatus[a] == 'Severely Wasted'){
-                                                                item2 = {};
-                                                                item2["name"] = print[0].people[i].gradeLevel;
-                                                                item2["y"] = print[0].people[i].severelyWasted;
-                                                                data.push(item2);
-                                                            } else if(nutritionalStatus[a] == 'Wasted'){
-                                                                item2 = {};
-                                                                item2["name"] = print[0].people[i].gradeLevel;
-                                                                item2["y"] = print[0].people[i].wasted;
-                                                                data.push(item2);
-                                                            } else if(nutritionalStatus[a] == 'Normal'){
-                                                                item2 = {};
-                                                                item2["name"] = print[0].people[i].gradeLevel;
-                                                                item2["y"] = print[0].people[i].normal;
-                                                                data.push(item2);
-                                                            } else if(nutritionalStatus[a] == 'Overweight'){
-                                                                item2 = {};
-                                                                item2["name"] = print[0].people[i].gradeLevel;
-                                                                item2["y"] = print[0].people[i].overweight;
-                                                                data.push(item2);
-                                                            } else if(nutritionalStatus[a] == 'Obese'){
-                                                                item2 = {};
-                                                                item2["name"] = print[0].people[i].gradeLevel;
-                                                                item2["y"] = print[0].people[i].obese;
-                                                                data.push(item2);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            item['data'] = data;
-                            drilldowns.push(item);
-                        }
-                    }
-                }
-            }
-            
+//            var genderLength = print[0].genders.length;
+//            if(genderLength > 0){
+//            for(var y = 0; y < zones.length; y++){
+//                for(var a = 0; a < nutritionalStatus.length;a++){
+//                    for(var b = 0; b < print[0].districts.length; b++){
+//                        var add;
+//                        if(genderLength == 2 || genderLength == 0){
+//                            add = 2;
+//                        } else {
+//                            add = 1;
+//                        }
+//                        var item = {};
+//                        var data = [];
+//
+//                        item["name"] = nutritionalStatus[a];
+//                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
+//                        if(nutritionalStatus[a] == 'SPED'){
+//                            item["id"] = 'sped'+nutritionalStatus[a]+print[0].districts[b].district;
+//                        }
+//                        var total = 0;
+//                        for (var i = 0; i < print[0].people.length; i+=add) {
+//                            if(print[0].people[i].year == year){
+//                                    if(print[0].people[i].district == print[0].districts[b].district){
+//                                        if(print[0].people[i].zone == zones[y]){
+//                                            for(var c = 0; c < print[0].gradeLevels.length; c++){
+//                                                if(print[0].people[i].gradeLevel == print[0].gradeLevels[c].gradeLevel){
+//                                                    if(print[0].genders.length == 2){
+//                                                        if(nutritionalStatus[a] == 'Severely Wasted'){
+//                                                            item2 = {};
+//                                                            item2["name"] = print[0].people[i].gradeLevel;
+//                                                            item2["y"] = print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
+//                                                            data.push(item2);
+//                                                        } else if(nutritionalStatus[a] == 'Wasted'){
+//                                                            item2 = {};
+//                                                            item2["name"] = print[0].people[i].gradeLevel;
+//                                                            item2["y"] = print[0].people[i].wasted + print[0].people[i+1].wasted;
+//                                                            data.push(item2);
+//                                                        } else if(nutritionalStatus[a] == 'Normal'){
+//                                                            item2 = {};
+//                                                            item2["name"] = print[0].people[i].gradeLevel;
+//                                                            item2["y"] = print[0].people[i].normal + print[0].people[i+1].normal;
+//                                                            data.push(item2);
+//                                                        } else if(nutritionalStatus[a] == 'Overweight'){
+//                                                            item2 = {};
+//                                                            item2["name"] = print[0].people[i].gradeLevel;
+//                                                            item2["y"] = print[0].people[i].overweight + print[0].people[i+1].overweight;
+//                                                            data.push(item2);
+//                                                        } else if(nutritionalStatus[a] == 'Obese'){
+//                                                            item2 = {};
+//                                                            item2["name"] = print[0].people[i].gradeLevel;
+//                                                            item2["y"] = print[0].people[i].obese + print[0].people[i+1].obese;
+//                                                            data.push(item2);
+//                                                        }
+//                                                    }
+//                                                    else if(print[0].genders.length == 1){
+//                                                        if(print[0].people[i].gender == genderOne){
+//                                                            if(nutritionalStatus[a] == 'Severely Wasted'){
+//                                                                item2 = {};
+//                                                                item2["name"] = print[0].people[i].gradeLevel;
+//                                                                item2["y"] = print[0].people[i].severelyWasted;
+//                                                                data.push(item2);
+//                                                            } else if(nutritionalStatus[a] == 'Wasted'){
+//                                                                item2 = {};
+//                                                                item2["name"] = print[0].people[i].gradeLevel;
+//                                                                item2["y"] = print[0].people[i].wasted;
+//                                                                data.push(item2);
+//                                                            } else if(nutritionalStatus[a] == 'Normal'){
+//                                                                item2 = {};
+//                                                                item2["name"] = print[0].people[i].gradeLevel;
+//                                                                item2["y"] = print[0].people[i].normal;
+//                                                                data.push(item2);
+//                                                            } else if(nutritionalStatus[a] == 'Overweight'){
+//                                                                item2 = {};
+//                                                                item2["name"] = print[0].people[i].gradeLevel;
+//                                                                item2["y"] = print[0].people[i].overweight;
+//                                                                data.push(item2);
+//                                                            } else if(nutritionalStatus[a] == 'Obese'){
+//                                                                item2 = {};
+//                                                                item2["name"] = print[0].people[i].gradeLevel;
+//                                                                item2["y"] = print[0].people[i].obese;
+//                                                                data.push(item2);
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            item['data'] = data;
+//                            drilldowns.push(item);
+//                        }
+//                    }
+//                }
+//            }
+        if(isStacked==false){   
             $('#output').highcharts({
                 chart: {
                     type: chart,
@@ -1903,7 +1933,7 @@ function setHHPopAgeGroupSex (chart){
                     panKey: 'shift'
                 },
                 title: {
-                    text: 'Nutritional Status of the Preschool and Elementary Students for ' + year
+                    text: 'Nutritional Status of the Preschool and Elementary Students'
                 },
                 xAxis: {
                     type: 'category'
@@ -1911,14 +1941,40 @@ function setHHPopAgeGroupSex (chart){
                 yAxis:{
                     title: {text:'Number of Students'}
                 },
-                series: [{
-                    name: 'Caloocan City',
-                    data: totals
-                }],
+                series: ultimateTotal,
+                    drilldown: {
+                        series: drilldowns
+                        }
+            });
+        }else {
+            $('#output').highcharts({
+                chart: {
+                    type: chart,
+                    drilled: false,
+                    zoomType: 'xy',
+                    panning: true,
+                    panKey: 'shift'
+                },
+                title: {
+                    text: 'Nutritional Status of the Preschool and Elementary Students'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis:{
+                    title: {text:'Number of Students'}
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: ultimateTotal,
                 drilldown: {
                     series: drilldowns
                     }
             });
+        }
     }
     
     function drawMaritalStatusBar(print, year, chart){

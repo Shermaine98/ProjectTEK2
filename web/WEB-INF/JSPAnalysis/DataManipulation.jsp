@@ -417,7 +417,7 @@
                 $("#theButtonsForPivot").empty();
                 $("#withoutChartSelection").empty();
                 $("#withChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-6'>\n\
+                $("#withChartSelection").append("<div class='col-md-4'>\n\
                                                     <table>\n\
                                                         <tr>\n\
                                                             <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
@@ -436,23 +436,28 @@
                                                         </tr>\n\
                                                     </table>\n\
                                                 </div>\n\
-                                                <div class='col-md-6'>\n\
-                                                <table>\n\
-                                                    <tr>\n\
-                                                        <select id='years' class='form-control' onchange='filterYear()' style=''>\n\
-                                                        </select><br>\n\
-                                                    </tr>\n\
-                                                    <tr>\n\
-                                                            <div class='box box-solid'>\n\
-                                                                <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                                    <h4 class='box-title'>Filter by Grade Level</h4>\n\
-                                                                </div>\n\
-                                                                <div class='box-body'>\n\
-                                                                    <div  id='gradeLevels' style='height: 85px; overflow-y: scroll'>\n\
-                                                                </div>\n\
+                                                <div class='col-md-4'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                            <h4 class='box-title'>Filter by Grade Level</h4>\n\
+                                                        </div>\n\
+                                                        <div class='box-body'>\n\
+                                                            <div  id='gradeLevels' style='height: 139px; overflow-y: scroll'>\n\
                                                             </div>\n\
-                                                    </tr>\n\
-                                                </table></div></div>");
+                                                        </div>\n\
+                                                    </div>\n\
+                                                </div>\n\
+                                                <div class='col-md-4'>\n\
+                                                    <div class='box box-solid'>\n\
+                                                        <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
+                                                            <h4 class='box-title'>Filter by Year</h4>\n\
+                                                        </div>\n\
+                                                        <div class='box-body'>\n\
+                                                            <div  id='yearsCheckbox' style='height: 139px; overflow-y: scroll'>\n\
+                                                            </div>\n\
+                                                        </div>\n\
+                                                    </div>\n\
+                                                </div>");
                 $('select[name="charts"]').empty();
                 $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
                 for (i = 0; i < charts.length; i++) { 
@@ -756,10 +761,10 @@
                     addWithChartSelections('getFactEducation()',charts);
                 }
                 else if(conceptName=='Nutritional Status of the Preschool and Elementary Students'){
-                    var chart ='Pie Chart';
+                    var chart ='Line Chart';
                     setNutritionalStatus(chart);
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Pie Chart','Table'];
+                    var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsWithGradeLevel('getFactHospital()', charts);
                 } 
                 else if(conceptName=='Enrollment in Public and Private Preschools'){
@@ -808,7 +813,7 @@
                 } 
                 else if(conceptName=='Nutritional Status of the Preschool and Elementary Students'){
                     $("#theButtonsForPivot").empty();
-                    var charts=['Bar Chart','Pie Chart','Table'];
+                    var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsWithGradeLevel('getFactHospital()',charts);
                     setNutritionalStatus(chartSelected);
                 } 
