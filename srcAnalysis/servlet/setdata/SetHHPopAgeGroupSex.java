@@ -5,16 +5,11 @@
  */
 package servlet.setdata;
 
-import dao.charts.ByAgeGroupChart;
-import dao.demo.ByAgeGroupSexDAO;
-import dao.RecordDAO;
 import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
 import dao.analysis.DistrictDAO;
 import dao.analysis.FactPeopleDAO;
 import dao.analysis.GenderDAO;
-import model.demo.ByAgeGroupSex;
-import model.Record;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -27,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
@@ -73,6 +67,9 @@ public class SetHHPopAgeGroupSex extends HttpServlet {
             ArrayList<String> district = chartsDistrict.retrieveDistricts();
             ArrayList<FactPeople> people = chartPeople.retrieveHHPopByAgeGroupSex();
             ArrayList<String> ageGroup = chartPeople.retrieveAgeGroups();
+            FactPeople factPeople = new FactPeople();
+            
+            factPeople.outliersHHPopSexAgeGroup(censusYears, people);
             
             for(int i = 0; i < people.size(); i++){
                 JSONObject objPeople = new JSONObject();
@@ -84,6 +81,7 @@ public class SetHHPopAgeGroupSex extends HttpServlet {
                     objPeople.put("barangay", people.get(i).getBarangay());
                     objPeople.put("gender", people.get(i).getGender());
                     objPeople.put("ageGroup", people.get(i).getAgeBracket());
+                    objPeople.put("isOutlier", people.get(i).getIsOutlier());
                     jarrayPeople.put(objPeople);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);

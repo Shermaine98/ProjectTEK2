@@ -309,13 +309,76 @@ public class FactPeople {
                                                 }
                                                 else{
                                                     people.get(c).setIsOutlier(true);
+//                                                    System.out.println("------");
+//                                                    System.out.println("Baranagay: " + people.get(c).getBarangay());
+//                                                    System.out.println("Census Year: " + people.get(c).getCensusYear());
+//                                                    System.out.println("Growth Rate: " + growthRate);
+//                                                    System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
+//                                                    System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
+//                                                    System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public void outliersHHPopSexAgeGroup(ArrayList<Integer> years, ArrayList<FactPeople> people){
+        for(int i = 0; i < years.size(); i++){
+            // if + 2 is not null
+            if (i+2 < years.size()){
+                for(int a = 0; a < people.size(); a++){
+                    //false outlier for 2 starting years
+                    if(i == 0 || i == 1){
+                        if(people.get(a).getCensusYear() == years.get(i)){
+                            people.get(a).setIsOutlier(false);
+                        }
+                    }
+                    //gets base population
+                    if(years.get(i) == people.get(a).getCensusYear()){
+                        int firstPopulation = people.get(a).getTotalNoOfPeople();
+                        int firstBarangayNumber = people.get(a).getBarangay();
+                        String firstGender = people.get(a).getGender();
+                        String firstAgeGroup = people.get(a).getAgeBracket();
+                        //gets the second population
+                        for(int b = 0; b < people.size(); b++){
+                            if(people.get(b).getCensusYear() == years.get(i+1)){ //if CensusYear = year after
+                                if(people.get(b).getBarangay() == firstBarangayNumber && people.get(b).getGender().equalsIgnoreCase(firstGender) && people.get(b).getAgeBracket().equalsIgnoreCase(firstAgeGroup)){ //if same barangay
+                                    int secondPopulation = people.get(b).getTotalNoOfPeople();
+                                    int secondBarangayNumber = people.get(b).getBarangay();
+                                    String secondGender = people.get(b).getGender();
+                                    String secondAgeGroup = people.get(b).getAgeBracket() ;
+                                    //gets the third population
+                                    for(int c = 0; c < people.size(); c++){
+                                        if(years.get(i+2) == people.get(c).getCensusYear()){
+                                            if(secondBarangayNumber == people.get(c).getBarangay() && people.get(c).getGender().equalsIgnoreCase(secondGender) && people.get(c).getAgeBracket().equalsIgnoreCase(secondAgeGroup)){
+                                                int thirdPopulation = people.get(c).getTotalNoOfPeople();
+                                                float growthRate = getGrowthRateForTwoYears(secondPopulation, firstPopulation, 1);
+                                                float peopleInTheGrowthRate = Math.abs(((float)secondPopulation * growthRate));
+                                                float minusGrowthRate = secondPopulation - peopleInTheGrowthRate;
+                                                float plusGrowthRate = secondPopulation + peopleInTheGrowthRate;
+                                                if(thirdPopulation >= minusGrowthRate && thirdPopulation <= plusGrowthRate){
+                                                    people.get(c).setIsOutlier(false);
+                                                }
+                                                else{
+                                                    people.get(c).setIsOutlier(true);
                                                     System.out.println("------");
                                                     System.out.println("Baranagay: " + people.get(c).getBarangay());
                                                     System.out.println("Census Year: " + people.get(c).getCensusYear());
                                                     System.out.println("Growth Rate: " + growthRate);
                                                     System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
+                                                    System.out.println("First Population: " +  people.get(a).getTotalNoOfPeople());
+                                                    System.out.println("Second Population: " +  people.get(b).getTotalNoOfPeople());
                                                     System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
                                                     System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
+                                                    System.out.println("Gender: " +  people.get(c).getGender());
+                                                    System.out.println("Age Group: " +  people.get(c).getAgeBracket());
                                                 }
                                             }
                                         }

@@ -1081,6 +1081,7 @@ function setHHPopAgeGroupSex (chart){
         for(var a = 0; a < print[0].ageGroups.length; a++){
             var item = {};
             var total = 0;
+            var isOutlier = false;
             item["name"] = print[0].ageGroups[a].ageGroup;
             item["drilldown"] = 'm'+year+print[0].ageGroups[a].ageGroup;
             for(var i = 0; i < print[0].people.length; i++){
@@ -1092,6 +1093,9 @@ function setHHPopAgeGroupSex (chart){
                                     for(var b = 0; b < print[0].barangays.length; b++){
                                         if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                             total+=print[0].people[i].people;
+                                            if(print[0].people[i].isOutlier == true){
+                                                isOutlier = true;
+                                            }
                                         }
                                     }
                                     
@@ -1100,6 +1104,9 @@ function setHHPopAgeGroupSex (chart){
                         }
                     }
                 }
+            }
+            if(isOutlier){
+                item["color"] = "#FF0000";
             }
             item["y"] = -total;
             male.push(item);
@@ -1110,6 +1117,7 @@ function setHHPopAgeGroupSex (chart){
         for(var a = 0; a < print[0].ageGroups.length; a++){
             var item = {};
             var total = 0;
+            var isOutlier = false;
             item["name"] = print[0].ageGroups[a].ageGroup;
             item["drilldown"] = 'f'+year+print[0].ageGroups[a].ageGroup;
             for(var i = 0; i < print[0].people.length; i++){
@@ -1121,14 +1129,19 @@ function setHHPopAgeGroupSex (chart){
                                     for(var b = 0; b < print[0].barangays.length; b++){
                                         if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                             total+=print[0].people[i].people;
+                                            if(print[0].people[i].isOutlier == true){
+                                                isOutlier = true;
+                                            }
                                         }
                                     }
-                                    
                                 }
                             }
                         }
                     }
                 }
+            }
+            if(isOutlier){
+                item["color"] = "#FF0000";
             }
             item["y"] = total;
             female.push(item);
