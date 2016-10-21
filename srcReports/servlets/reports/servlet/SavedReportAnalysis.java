@@ -92,11 +92,8 @@ public class SavedReportAnalysis extends BaseServlet {
 
         }
 
-        System.out.println("1 " + isDraft);
         if (x) {
-            System.out.println("2 " + isDraft);
             if (isDraft.equalsIgnoreCase("true")) {
-                System.out.println("3 " + isDraft);
                 rd = request.getRequestDispatcher("/ReportAccess?redirect=Saved&savedMessage=success");
                 rd.forward(request, response);
 

@@ -63,7 +63,6 @@ public class ImageUtils {
 		BufferedImage newImg;
 		String imgstr;
 		imgstr = encodeToString(img, "png");
-		System.out.println(imgstr);
 		newImg = decodeToImage(imgstr);
 		ImageIO.write(newImg, "png", new File("files/img/CopyOfTestImage.png"));
 		/* Test image to string and string to image finish */

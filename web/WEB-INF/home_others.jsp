@@ -69,28 +69,29 @@
                             </div>
                             <!--</div>-->
                         </div>
-
-                        <!--                        <div class="col-md-12">
-                                                    <div id="new_topic" class="col-md-6">
-                                                        <div class="box box-solid" style="margin-top: 2%;">
-                                                            <div class="box-header with-border">
-                                                                <h3 class="box-title">Create New Topic</h3>
-                                                            </div>
-                                                            <div class="box-body">
-                                                                <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
-                                                                <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
-                                                                <input class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" id="tagInput" />
-                                                                <button type="submit" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
+                        <div id="forumModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="box box-solid" style="margin-top: 2%;">
+                                    <div class="box-header with-border">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h3 class="box-title">Create New Topic</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <input id="forumTitle" placeholder="Topic Title" class="form-control" style="width:100%; resize: none; margin-bottom: 2%;" />
+                                        <textarea id="forumBody" placeholder="Body" class="form-control" style="width:100%; resize: none; height: 150px; margin-bottom: 2%;"></textarea>
+                                        <input class="tagit-label" style="width:100%; resize: none; margin-bottom: 2%;" placeholder="Tags" id="tagInput" />
+                                        <button type="submit" data-dismiss="modal" onclick="submitNewForum()" class="btn btn-success pull-right" >Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!--END MODAL-->
                         <div class="col-md-7" style="margin-left: 1%; padding-right: 0;">
                             <!--                            <div class="callout callout-success">
                                                             <h4>Announcements!</h4>
-                            
+
                                                             <p>Som announcement here</p>
                                                         </div>-->
                             <div class="box box-success">
@@ -105,18 +106,18 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" align="center">Published Reports</h3>
                                 </div>
-                                <div style=" margin: 0 auto; display:block; text-align: center; padding: 2% 0 ;">
+                                <div style=" margin: 0 auto; display:block; text-align: center">
                                     <div class="form-inline">
                                         <form action="ServletAccess" method="post">
                                             <input name="redirect" type="hidden" value="ReportSearchForum" />
                                             <div class="form-group">
-                                                <select id="category" name="sectorReport" style="width: 200px;" class="form-control" onchange="updateReport()">
+                                                <select id="category" name="sectorReport" class="form-control" onchange="updateReport()">
                                                     <option disabled selected>Choose Sector</option>
                                                     <option value="Education">Education</option>
                                                     <option value="Demographics">Demographics</option>
                                                     <option value="Health">Health</option>
                                                 </select>
-                                                <select id="form_name" name="reportTitle" style="width: 350px;" class="form-control" disabled onchange="updateYear()" style="width:800px">
+                                                <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:800px">
                                                     <option disabled selected>Choose Report</option>
                                                 </select>
                                                 <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
@@ -142,10 +143,7 @@
                             <div class="box box-solid">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">All Topics</h3>
-                                    <a class="btn btn-flat btn-social btn-vk btn-sm pull-right" style="width: 105px;">
-                                        New Topic <i class="glyphicon glyphicon-plus"></i>
-                                    </a>
-
+                                    <button type="button" class="btn btn-flat btn-social btn-vk btn-sm pull-right" data-toggle="modal" data-target="#forumModal">New Topic <i class="glyphicon glyphicon-plus"></i></button>
                                 </div>
                                 <div class="box-body" id="searchDiv" >
                                     <input style="margin-bottom: 2%;" class="search form-control" placeholder="Search by tags or by topic" />

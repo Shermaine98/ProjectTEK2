@@ -88,7 +88,6 @@ public class UploadToDatabaseEducation extends BaseServlet {
                 rd.forward(request, response);
 
             } else if (sheetNumber > -1 && classification.equalsIgnoreCase("ePublic")) {
-                System.out.println("YES 2");
                 ArrayList<EnrollmentTemp> arrTempError = new ArrayList<>();
                 ArrayList<Enrollment> arrTempNoError = new ArrayList<>();
 

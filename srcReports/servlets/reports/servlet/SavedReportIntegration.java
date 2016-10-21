@@ -64,7 +64,6 @@ public class SavedReportIntegration extends BaseServlet {
         boolean x = false;
 
         // IF ANALYSIS  
-        System.out.println("HELLO WORLD");
 
         try {
             //DELETE OLD

@@ -152,7 +152,6 @@ public class ReportAccess extends BaseServlet {
 
             rd.forward(request, response);
         } else if (redirect.equalsIgnoreCase("Saved")) {
-            System.out.println("SAVED");
              int i = 0;
             try {
                 ArrayList<ReportAnalysis> ReportAnalysisSaved = new ArrayList<ReportAnalysis>();

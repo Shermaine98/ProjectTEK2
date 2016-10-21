@@ -12,9 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
 
 /**
  *
@@ -33,12 +30,9 @@ public class DaoEtl {
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 pstmt.setInt(1, year);
                 rows = pstmt.executeUpdate();
-                System.out.println("NUMROWS: "+rows);
             }
-            System.out.println("ETL?");
             if (rows > 0) {
                 Etl etl = new Etl();
-                System.out.println("GOING TO ETL    ");
                 return etl.run();
             }
         } catch (SQLException ex) {

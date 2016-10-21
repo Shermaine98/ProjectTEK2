@@ -36,7 +36,7 @@
     if (position.equalsIgnoreCase("IT Admin")) {
 %>          <%@include file="/WEB-INF/JSPImports/importsITAdmin.jsp"%>
 <%          }
-}else if (division.equalsIgnoreCase("Others")) {
+} else if (division.equalsIgnoreCase("Others")) {
     if (position.equalsIgnoreCase("External Researchers")) {
 %>          <%@include file="/WEB-INF/JSPImports/importsOther.jsp"%>
 <%          } else if (position.equalsIgnoreCase("Other Planning Officers")) {

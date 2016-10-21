@@ -43,7 +43,6 @@ public class ReportDAO {
                     pstmt2.setString(3, reportChart.get(i).getChartName());
                     pstmt2.setString(4, reportChart.get(i).getText());
                     pstmt2.setBoolean(5, reportChart.get(i).isIsDraft());
-                    System.out.println(reportChart.get(i).isIsDraft());
                     pstmt2.setInt(6, reportChart.get(i).getCreatedBy());
                     rows = pstmt2.executeUpdate();
                 }

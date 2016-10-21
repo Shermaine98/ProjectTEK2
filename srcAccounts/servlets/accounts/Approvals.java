@@ -44,7 +44,6 @@ public class Approvals extends BaseServlet {
         String redirect = request.getParameter("redirect");
         RequestDispatcher rd = null;
         Accounts accountsDAO = new Accounts();
-        System.out.println("TRIAL" + redirect);
 
         if (redirect.equalsIgnoreCase("approveAllInternal")) {
 

@@ -37,29 +37,54 @@ import static java.util.logging.Logger.getLogger;
  */
 public class Login extends HttpServlet {
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+      
         try (PrintWriter out = response.getWriter()) {
+            
+            
             String username = request.getParameter("username");
             String pass = request.getParameter("password");
+            
+            HttpSession session = request.getSession();
+            ServletContext context = getServletContext();
+            
+             RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
+//<editor-fold defaultstate="collapsed" desc="comment">
+
             Accounts dao = new Accounts();
             User user = new User();
             TaskDAO taskDAO = new TaskDAO();
-
+//</editor-fold>
+            
+            
+//<editor-fold defaultstate="collapsed" desc="comment">
+            
             Calendar now = Calendar.getInstance();
             int year = now.get(Calendar.YEAR);
             String yearInString = String.valueOf(year);
 
+ //</editor-fold>           
+
+ //<editor-fold defaultstate="collapsed" desc="comment">
+
+            
             if (dao.authenticate(username, pass)) {
-                HttpSession session = request.getSession();
-                ServletContext context = getServletContext();
                 try {
                     user = dao.getUser(username, pass);
                 } catch (ParseException ex) {
                     getLogger(Login.class.getName()).log(SEVERE, null, ex);
                 }
-                RequestDispatcher rd = null;
+               
                 if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) {
                     DemoDashboard dDAO = new DemoDashboard();
                     HealthDashboard hDAO = new HealthDashboard();
@@ -95,8 +120,7 @@ public class Login extends HttpServlet {
                     request.setAttribute("iHealthNutritionalStatus", hDAO.iHealthNutritionalStatus());
                     request.setAttribute("iHealthHospital", hDAO.iHealthHospitals());
 
-                    session.setAttribute("user", user);
-                    session.setAttribute("successful", "successful");
+           
 //IV - Health
 //II - Education
 //I - Demo
@@ -124,49 +148,31 @@ public class Login extends HttpServlet {
                         request.setAttribute("tasks", arrayTask);
                         rd = context.getRequestDispatcher("/WEB-INF/home.jsp");
                     }
-                    rd.forward(request, response);
                 } else if (user.getDivision().equalsIgnoreCase("IT")) {
-                    session.setAttribute("user", user);
-                    session.setAttribute("successful", "successful");
                     if (user.getPosition().equals("IT Admin")) {
-                        Accounts accountsDAO = new Accounts();
-                        ArrayList<User> internalUsers = accountsDAO.getApprovedInternalUsers();
-                        ArrayList<User> externalUsers = accountsDAO.getApprovedExternalUsers();
-                        ArrayList<User> eApprove = accountsDAO.getUserForApprovalOthers();
-                        ArrayList<User> iApprove = accountsDAO.getUserForApprovalMember();
+                        ArrayList<User> internalUsers = dao.getApprovedInternalUsers();
+                        ArrayList<User> externalUsers = dao.getApprovedExternalUsers();
+                        ArrayList<User> eApprove = dao.getUserForApprovalOthers();
+                        ArrayList<User> iApprove = dao.getUserForApprovalMember();
                         int userReg = internalUsers.size() + externalUsers.size() + eApprove.size() + iApprove.size();
                         request.setAttribute("page", "homeIT");
                         request.setAttribute("userRegistrations", userReg);
                         request.setAttribute("eApprove", eApprove.size());
                         request.setAttribute("iApprove", iApprove.size());
-                        rd = null;
-                        rd = context.getRequestDispatcher("/WEB-INF/home_IT.jsp");
                     }
-                    rd.forward(request, response);
+                    rd = context.getRequestDispatcher("/WEB-INF/home_IT.jsp");
                 } else if (user.getDivision().equalsIgnoreCase("Others")) {
-                    session.setAttribute("user", user);
-                    session.setAttribute("successful", "successful");
-                    if (user.getPosition().equals("External Researchers")) {
-                        rd = null;
-                        rd = context.getRequestDispatcher("/WEB-INF/home_others.jsp");
-                    }
-                    rd.forward(request, response);
-                } else {
-                    session.setAttribute("user", user);
-                    session.setAttribute("successful", "successful");
-                    rd = null;
-
-                    rd = context.getRequestDispatcher("/ServletAccess?redirect=PublishedReports");
-                    rd.forward(request, response);
-                }
+                    rd = context.getRequestDispatcher("/WEB-INF/home_others.jsp");
+                } 
+                 session.setAttribute("user", user);
+                 session.setAttribute("successful", "successful");
+                 rd.forward(request, response);
+            
             } else {
-//                request.setAttribute("loginstatus", "wrongUP");
                 request.getRequestDispatcher("/index.jsp").include(request, response);
                 out.print("Sorry, username or password error!");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 

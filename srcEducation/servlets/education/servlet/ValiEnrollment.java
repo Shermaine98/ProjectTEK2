@@ -61,7 +61,6 @@ public class ValiEnrollment extends BaseServlet {
          */
         int cFormID = 0;
         int formID = 0;
-        System.out.println("THIS" + classification);
         if (classification.equalsIgnoreCase("private")) {
 
             cFormID = 140000000;

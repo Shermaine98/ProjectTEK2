@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} Copyright (C) ProjectTEK - DLSU CCS 2016
+${licensePrefix} All right Reserved  ${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>
