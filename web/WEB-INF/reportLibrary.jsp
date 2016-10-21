@@ -28,6 +28,21 @@
                 /*background-color: #FFF;*/
                 border: none;
             }
+
+            #spinner-overlay {
+                background-color: #aaa;
+                opacity: 0.4;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                z-index: 100;
+                height: 100%;
+                width: 80%;
+                overflow: hidden;
+                background-image: url("img/spinner.gif");
+                background-position: center;
+                background-repeat: no-repeat;
+            }
         </style>
 
         <link href="cssImported/ValidateCSS.css" rel="stylesheet" type="text/css"/>
@@ -67,10 +82,10 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
                                     <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
-                                            <!--onclick="print_div();
-                                                    return xepOnline.Formatter.Format('TESTING', {render: 'download'},
-                                                            {embedLocalImages: 'true'});"-->
-                                            <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
+                                        <!--onclick="print_div();
+                                                return xepOnline.Formatter.Format('TESTING', {render: 'download'},
+                                                        {embedLocalImages: 'true'});"-->
+                                        <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
                                     <!--</a>-->
                                 </div>
                                 <!-- /.box-header -->
@@ -124,15 +139,34 @@
                 <p style="text-align: right;"><pagenum/></p>
             </footer>
         </div>
-
+        <div id="spinner-overlay" style="display:none;">
+        </div>
         <script>
+
+
+
+                $(document).on("xepOnlineStatus", function (event, state) {
+                    if (state === "Started") {
+                        var screenTop = $(document).scrollTop();
+                        var screenHeight = $(window).height();
+                        $('#spinner-overlay').css('top', screenTop);
+                        $('#spinner-overlay').css('height', screenHeight);
+                        $('#spinner-overlay').toggle('show');
+                    } else if (state === "Finished") {
+                        console.log("czxcxzczzczx");
+                            $('#spinner-overlay').toggle('show');
+                        doneyet();
+                    }
+
+                });
 
             $('#save_pdf').click(function () {
                 print_div();
-                 xepOnline.Formatter.Format('TESTING', {pageWidth:'11in', pageHeight:'8.5in'}, {render: 'download'},
-                        {embedLocalImages: 'true'} );
-                        doneyet();
+                xepOnline.Formatter.Format('TESTING', {render: 'download'},
+                        {embedLocalImages: 'true'});
+
             });
+
 
             var year = 0;
             function updateReport() {
@@ -226,6 +260,7 @@
             function updateButton() {
                 $('#button').removeAttr('disabled');
             }
+
             function print_div() {
 
                 var m_names = new Array("January", "February", "March",
@@ -246,11 +281,10 @@
                 jQuery('#printChart').html(jQuery("#byAgeGrpSex").html());
                 jQuery('#printTable').html(jQuery("#TableHolder").html());
 
-                //                window.print();
-                //                document.body.onfocus = doneyet();
+
             }
             function doneyet() {
-               // document.body.onfocus = "";
+                // document.body.onfocus = "";
                 document.getElementById("TESTING").setAttribute("style", "display:none");
                 $('#printTable').empty();
                 $('#printChart').empty();
