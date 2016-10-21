@@ -272,9 +272,9 @@
                                                 <td class="name"><%= notUploaded.get(i).getTask()%></td>
                                                 <td class="date"><%= notUploaded.get(i).getsDueDate()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></td>
                                                     <% if (notUploaded.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td  class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= notUploaded.get(i).getStatus()%></span></td>
+                                                <td  class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= notUploaded.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
                                                     <% } else {%>
-                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= notUploaded.get(i).getStatus()%></span></td>
+                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= notUploaded.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
 
                                                 <% }%>
                                             </tr>
@@ -285,9 +285,9 @@
                                                 <td class="name"><%= validated.get(i).getTask()%></td>
                                                 <td class="date"><%= validated.get(i).getsDueDate()%><input type="hidden" value="<%= validated.get(i).getStatus()%>" class="completed"></td>
                                                     <% if (validated.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-default"><%= validated.get(i).getStatus()%></span></td>
+                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-default"><%= validated.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
                                                     <% } else {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-primary status"><%= validated.get(i).getStatus()%></span></td>
+                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-primary status"><%= validated.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
 
                                                 <% }%>
                                             </tr>
@@ -298,9 +298,9 @@
                                                 <td class="name"><%= approved.get(i).getTask()%></td>
                                                 <td class="date"><%= approved.get(i).getsDueDate()%><input type="hidden" value="<%= approved.get(i).getStatus()%>" class="completed"></td>
                                                     <% if (approved.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= approved.get(i).getStatus()%></span></td>
+                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= approved.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
                                                     <% } else {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-success">Completed</span></td>
+                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-success">Completed<input type="hidden" value="Completed" class="completed"></span></td>
 
                                                 <% }%>
                                             </tr>
@@ -324,18 +324,24 @@
         <script>
             $(document).ready(function () {
                 var i = 1;
+                var y = 1;
                 $(".completed").each(function () {
 
                     var x = $(this).val();
                     if (x === "Approved") {
                         i++;
-                    }
+                    }else if(x==="Completed"){
 
+                         y++;
+                    }
                     if (i === 9) {
                         $('#integratetooltip *[title]').tooltip('disable');
                         $('#integrate').removeClass('btn-default');
                         $('#integrate').addClass('btn-primary');
                         $('#integrate').prop('disabled', false);
+                    }else if(y===9){
+                        $('#integrate').addClass('btn-primary');
+                        $('#integrate').prop('disabled', true);
                     }
                 });
 
