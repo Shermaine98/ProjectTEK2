@@ -77,17 +77,17 @@
                 yearsCheckboxes.push(id);
             });
 
-            $('[id="genders"]:checked').each(function (e) {
-                var id = $(this).attr('value');
-                gender.push(id);
-            });
+//            $('[id="genders"]:checked').each(function (e) {
+//                var id = $(this).attr('value');
+//                gender.push(id);
+//            });
 
             $('[id="gradeLevels"]:checked').each(function (e) {
                 var id = $(this).attr('value');
                 gradeLevel.push(id);
             });
             removeYearCheckboxes(analysischart, yearsCheckboxes);
-            removeGenderCheckboxes(analysischart, gender);
+            //removeGenderCheckboxes(analysischart, gender);
             removeGradeLevelCheckboxes(analysischart, gradeLevel);
             
             if(chartSelected=="0"||chartSelected=="Line Chart"){
@@ -1796,7 +1796,7 @@ function setHHPopAgeGroupSex (chart){
                                         item2 = {};
                                         item2["name"] = print[0].districts[b].district;
                                         item2["y"] = totalSum;
-                                        item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
+                                        item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district + print[0].years[d].year;
                                         data.push(item2);
                                     }
                                 }
@@ -1805,7 +1805,7 @@ function setHHPopAgeGroupSex (chart){
                                         item2 = {};
                                         item2["name"] = print[0].districts[b].district;
                                         item2["y"] = totalSum;
-                                        item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+'sped';
+                                        item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+'sped' + print[0].years[d].year;
                                         data.push(item2);
                                     }
                                 }
@@ -1814,7 +1814,7 @@ function setHHPopAgeGroupSex (chart){
                                         item2 = {};
                                         item2["name"] = print[0].districts[b].district;
                                         item2["y"] = totalSum;
-                                        item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
+                                        item2["drilldown"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district + print[0].years[d].year;
                                         data.push(item2);
                                     }
                                 }
@@ -1827,102 +1827,106 @@ function setHHPopAgeGroupSex (chart){
             }
         }
 
-//            var genderLength = print[0].genders.length;
-//            if(genderLength > 0){
-//            for(var y = 0; y < zones.length; y++){
-//                for(var a = 0; a < nutritionalStatus.length;a++){
-//                    for(var b = 0; b < print[0].districts.length; b++){
-//                        var add;
-//                        if(genderLength == 2 || genderLength == 0){
-//                            add = 2;
-//                        } else {
-//                            add = 1;
-//                        }
-//                        var item = {};
-//                        var data = [];
-//
-//                        item["name"] = nutritionalStatus[a];
-//                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district;
-//                        if(nutritionalStatus[a] == 'SPED'){
-//                            item["id"] = 'sped'+nutritionalStatus[a]+print[0].districts[b].district;
-//                        }
-//                        var total = 0;
-//                        for (var i = 0; i < print[0].people.length; i+=add) {
-//                            if(print[0].people[i].year == year){
-//                                    if(print[0].people[i].district == print[0].districts[b].district){
-//                                        if(print[0].people[i].zone == zones[y]){
-//                                            for(var c = 0; c < print[0].gradeLevels.length; c++){
-//                                                if(print[0].people[i].gradeLevel == print[0].gradeLevels[c].gradeLevel){
-//                                                    if(print[0].genders.length == 2){
-//                                                        if(nutritionalStatus[a] == 'Severely Wasted'){
-//                                                            item2 = {};
-//                                                            item2["name"] = print[0].people[i].gradeLevel;
-//                                                            item2["y"] = print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
-//                                                            data.push(item2);
-//                                                        } else if(nutritionalStatus[a] == 'Wasted'){
-//                                                            item2 = {};
-//                                                            item2["name"] = print[0].people[i].gradeLevel;
-//                                                            item2["y"] = print[0].people[i].wasted + print[0].people[i+1].wasted;
-//                                                            data.push(item2);
-//                                                        } else if(nutritionalStatus[a] == 'Normal'){
-//                                                            item2 = {};
-//                                                            item2["name"] = print[0].people[i].gradeLevel;
-//                                                            item2["y"] = print[0].people[i].normal + print[0].people[i+1].normal;
-//                                                            data.push(item2);
-//                                                        } else if(nutritionalStatus[a] == 'Overweight'){
-//                                                            item2 = {};
-//                                                            item2["name"] = print[0].people[i].gradeLevel;
-//                                                            item2["y"] = print[0].people[i].overweight + print[0].people[i+1].overweight;
-//                                                            data.push(item2);
-//                                                        } else if(nutritionalStatus[a] == 'Obese'){
-//                                                            item2 = {};
-//                                                            item2["name"] = print[0].people[i].gradeLevel;
-//                                                            item2["y"] = print[0].people[i].obese + print[0].people[i+1].obese;
-//                                                            data.push(item2);
-//                                                        }
-//                                                    }
-//                                                    else if(print[0].genders.length == 1){
-//                                                        if(print[0].people[i].gender == genderOne){
-//                                                            if(nutritionalStatus[a] == 'Severely Wasted'){
-//                                                                item2 = {};
-//                                                                item2["name"] = print[0].people[i].gradeLevel;
-//                                                                item2["y"] = print[0].people[i].severelyWasted;
-//                                                                data.push(item2);
-//                                                            } else if(nutritionalStatus[a] == 'Wasted'){
-//                                                                item2 = {};
-//                                                                item2["name"] = print[0].people[i].gradeLevel;
-//                                                                item2["y"] = print[0].people[i].wasted;
-//                                                                data.push(item2);
-//                                                            } else if(nutritionalStatus[a] == 'Normal'){
-//                                                                item2 = {};
-//                                                                item2["name"] = print[0].people[i].gradeLevel;
-//                                                                item2["y"] = print[0].people[i].normal;
-//                                                                data.push(item2);
-//                                                            } else if(nutritionalStatus[a] == 'Overweight'){
-//                                                                item2 = {};
-//                                                                item2["name"] = print[0].people[i].gradeLevel;
-//                                                                item2["y"] = print[0].people[i].overweight;
-//                                                                data.push(item2);
-//                                                            } else if(nutritionalStatus[a] == 'Obese'){
-//                                                                item2 = {};
-//                                                                item2["name"] = print[0].people[i].gradeLevel;
-//                                                                item2["y"] = print[0].people[i].obese;
-//                                                                data.push(item2);
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                            item['data'] = data;
-//                            drilldowns.push(item);
-//                        }
-//                    }
-//                }
-//            }
+        var genderLength = print[0].genders.length;
+        if(genderLength > 0){
+        for(var y = 0; y < zones.length; y++){
+            for(var a = 0; a < nutritionalStatus.length;a++){
+                for(var b = 0; b < print[0].districts.length; b++){
+                    for(var d = 0; d < print[0].years.length; d++){
+                        var add;
+                        if(genderLength == 2 || genderLength == 0){
+                            add = 2;
+                        } else {
+                            add = 1;
+                        }
+                        var item = {};
+                        var data = [];
+
+                        item["name"] = nutritionalStatus[a];
+                        item["id"] = zones[y].toLowerCase()+nutritionalStatus[a]+print[0].districts[b].district + print[0].years[d].year;
+                        if(nutritionalStatus[a] == 'SPED'){
+                            item["id"] = 'sped'+nutritionalStatus[a]+print[0].districts[b].district;
+                        }
+                        var total = 0;
+                        for (var i = 0; i < print[0].people.length; i+=add) {
+                            if(print[0].people[i].year == print[0].years[d].year){
+                                    if(print[0].people[i].district == print[0].districts[b].district){
+                                        if(print[0].people[i].zone == zones[y]){
+                                            for(var c = 0; c < print[0].gradeLevels.length; c++){
+                                                if(print[0].people[i].gradeLevel == print[0].gradeLevels[c].gradeLevel){
+                                                    if(print[0].genders.length == 2){
+                                                        if(nutritionalStatus[a] == 'Severely Wasted'){
+                                                            item2 = {};
+                                                            item2["name"] = print[0].people[i].gradeLevel;
+                                                            item2["y"] = print[0].people[i].severelyWasted + print[0].people[i+1].severelyWasted;
+                                                            data.push(item2);
+                                                        } else if(nutritionalStatus[a] == 'Wasted'){
+                                                            item2 = {};
+                                                            item2["name"] = print[0].people[i].gradeLevel;
+                                                            item2["y"] = print[0].people[i].wasted + print[0].people[i+1].wasted;
+                                                            data.push(item2);
+                                                        } else if(nutritionalStatus[a] == 'Normal'){
+                                                            item2 = {};
+                                                            item2["name"] = print[0].people[i].gradeLevel;
+                                                            item2["y"] = print[0].people[i].normal + print[0].people[i+1].normal;
+                                                            data.push(item2);
+                                                        } else if(nutritionalStatus[a] == 'Overweight'){
+                                                            item2 = {};
+                                                            item2["name"] = print[0].people[i].gradeLevel;
+                                                            item2["y"] = print[0].people[i].overweight + print[0].people[i+1].overweight;
+                                                            data.push(item2);
+                                                        } else if(nutritionalStatus[a] == 'Obese'){
+                                                            item2 = {};
+                                                            item2["name"] = print[0].people[i].gradeLevel;
+                                                            item2["y"] = print[0].people[i].obese + print[0].people[i+1].obese;
+                                                            data.push(item2);
+                                                        }
+                                                    }
+                                                    else if(print[0].genders.length == 1){
+                                                        if(print[0].people[i].gender == genderOne){
+                                                            if(nutritionalStatus[a] == 'Severely Wasted'){
+                                                                item2 = {};
+                                                                item2["name"] = print[0].people[i].gradeLevel;
+                                                                item2["y"] = print[0].people[i].severelyWasted;
+                                                                data.push(item2);
+                                                            } else if(nutritionalStatus[a] == 'Wasted'){
+                                                                item2 = {};
+                                                                item2["name"] = print[0].people[i].gradeLevel;
+                                                                item2["y"] = print[0].people[i].wasted;
+                                                                data.push(item2);
+                                                            } else if(nutritionalStatus[a] == 'Normal'){
+                                                                item2 = {};
+                                                                item2["name"] = print[0].people[i].gradeLevel;
+                                                                item2["y"] = print[0].people[i].normal;
+                                                                data.push(item2);
+                                                            } else if(nutritionalStatus[a] == 'Overweight'){
+                                                                item2 = {};
+                                                                item2["name"] = print[0].people[i].gradeLevel;
+                                                                item2["y"] = print[0].people[i].overweight;
+                                                                data.push(item2);
+                                                            } else if(nutritionalStatus[a] == 'Obese'){
+                                                                item2 = {};
+                                                                item2["name"] = print[0].people[i].gradeLevel;
+                                                                item2["y"] = print[0].people[i].obese;
+                                                                data.push(item2);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            item['data'] = data;
+                            drilldowns.push(item);
+                        }
+                    }
+                }
+            }
+        }
+        
+        
         if(isStacked==false){   
             $('#output').highcharts({
                 chart: {
