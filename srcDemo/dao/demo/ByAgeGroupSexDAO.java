@@ -187,7 +187,7 @@ public class ByAgeGroupSexDAO {
 
             String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n" +
                             "FROM age_group \n" +
-                            "WHERE `VALIDATION` = 0 AND formID > 200000000 AND formID < 299999999 \n" +
+                            "WHERE `VALIDATION` != 1 AND formID > 200000000 AND formID < 299999999 \n" +
                             "GROUP BY formID";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -256,11 +256,11 @@ public class ByAgeGroupSexDAO {
         String reasonError = "";
         
         switch (reason) {
-            case 1:  reasonError = "Missing Field/s";
+            case -1:  reasonError = "Missing Field/s";
                      break;
-            case 2:  reasonError = "Format Error";
+            case -2:  reasonError = "Format Error";
                      break;
-            case 3:  reasonError = "Summation Error";
+            case -3:  reasonError = "Summation Error";
                      break;
             default:  reasonError = "None";
                      break;

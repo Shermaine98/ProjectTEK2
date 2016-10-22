@@ -54,7 +54,7 @@ public class ByAgeGroupSexChecker {
                 
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
-                byAgeGroupTemp.setvalidation(1);
+                byAgeGroupTemp.setvalidation(-1);
                 byAgeGroupTemp.setErrorReason("Missing Field/s");
 
                 if (ArrErrorByAgeGroupSex.get(i).getBothSex() == null || ArrErrorByAgeGroupSex.get(i).getBothSex().equalsIgnoreCase("")) {
@@ -82,7 +82,7 @@ public class ByAgeGroupSexChecker {
                 
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
-                byAgeGroupTemp.setvalidation(2);
+                byAgeGroupTemp.setvalidation(-2);
                 byAgeGroupTemp.setErrorReason("Format Error");
 
                 if (isNumeric(ArrErrorByAgeGroupSex.get(i).getBothSex())) {
@@ -112,7 +112,7 @@ public class ByAgeGroupSexChecker {
 
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
-                byAgeGroupTemp.setvalidation(3);
+                byAgeGroupTemp.setvalidation(-3);
                  byAgeGroupTemp.setErrorReason("Summation Error");
                 byAgeGroupTemp.setBothSex(ArrErrorByAgeGroupSex.get(i).getBothSex());
                 byAgeGroupTemp.setMaleCount(ArrErrorByAgeGroupSex.get(i).getMaleCount());
@@ -126,7 +126,7 @@ public class ByAgeGroupSexChecker {
                 ByAgeGroupSex.setBothSex(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getBothSex()));
                 ByAgeGroupSex.setFemaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getFemaleCount()));
                 ByAgeGroupSex.setMaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getMaleCount()));
-                ByAgeGroupSex.setValidation(0);
+                ByAgeGroupSex.setValidation(1);
                 arrayNoError.add(ByAgeGroupSex);
             }
 
@@ -156,7 +156,7 @@ public class ByAgeGroupSexChecker {
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 byAgeGroupTemp.setYear(year);
-                byAgeGroupTemp.setvalidation(1);
+                byAgeGroupTemp.setvalidation(-1);
                 byAgeGroupTemp.setErrorReason("Missing Filed/s");
                 
                 
@@ -188,7 +188,7 @@ public class ByAgeGroupSexChecker {
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 byAgeGroupTemp.setYear(year);
-                byAgeGroupTemp.setvalidation(2);
+                byAgeGroupTemp.setvalidation(-2);
                 byAgeGroupTemp.setErrorReason("Format Error");
                 
                 if (isNumeric(ArrErrorByAgeGroupSex.get(i).getBothSex())) {
@@ -217,7 +217,7 @@ public class ByAgeGroupSexChecker {
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 byAgeGroupTemp.setYear(year);
-                byAgeGroupTemp.setvalidation(3);
+                byAgeGroupTemp.setvalidation(-3);
                 byAgeGroupTemp.setErrorReason("Summation error");
                 byAgeGroupTemp.setBothSex(ArrErrorByAgeGroupSex.get(i).getBothSex());
                 byAgeGroupTemp.setMaleCount(ArrErrorByAgeGroupSex.get(i).getMaleCount());
@@ -233,7 +233,7 @@ public class ByAgeGroupSexChecker {
                 ByAgeGroupSex.setFemaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getFemaleCount()));
                 ByAgeGroupSex.setMaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getMaleCount()));
                 ByAgeGroupSex.setYear(year);
-                ByAgeGroupSex.setValidation(0);
+                ByAgeGroupSex.setValidation(1);
                 arrayNoError.add(ByAgeGroupSex);
             }
 
@@ -262,7 +262,7 @@ public class ByAgeGroupSexChecker {
                     ByAgeGroupSex.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                     ByAgeGroupSex.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                     ByAgeGroupSex.setYear(ArrErrorByAgeGroupSex.get(i).getYear());
-                    ByAgeGroupSex.setValidation(1);
+                    ByAgeGroupSex.setValidation(-1);
                     ByAgeGroupSex.setReasonError("Missing Field/s");
 
                  if (ArrErrorByAgeGroupSex.get(i).getBothSex() == null || ArrErrorByAgeGroupSex.get(i).getBothSex().equalsIgnoreCase("")) {
@@ -294,7 +294,7 @@ public class ByAgeGroupSexChecker {
                     ByAgeGroupSex.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                     ByAgeGroupSex.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                     ByAgeGroupSex.setYear(ArrErrorByAgeGroupSex.get(i).getYear());
-                    ByAgeGroupSex.setValidation(2);
+                    ByAgeGroupSex.setValidation(-2);
                     ByAgeGroupSex.setReasonError("Format Error");
 
                 if (isNumeric(ArrErrorByAgeGroupSex.get(i).getBothSex())) {
@@ -326,7 +326,7 @@ public class ByAgeGroupSexChecker {
                 ByAgeGroupSex.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 ByAgeGroupSex.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 ByAgeGroupSex.setYear(ArrErrorByAgeGroupSex.get(i).getYear());
-                ByAgeGroupSex.setValidation(3);
+                ByAgeGroupSex.setValidation(-3);
                 ByAgeGroupSex.setReasonError("Summation Error");
                 ByAgeGroupSex.setBothSex(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getBothSex()));
                 ByAgeGroupSex.setMaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getMaleCount()));
