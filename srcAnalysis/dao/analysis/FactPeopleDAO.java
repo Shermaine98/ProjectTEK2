@@ -224,7 +224,8 @@ public class FactPeopleDAO {
             ArrayList<FactPeople> factPeople = new ArrayList<FactPeople>();
             try (Connection conn = myFactory.getConnection()) {
                 PreparedStatement pstmt = conn.prepareStatement("SELECT GENDER, FP.CENSUSYEAR, FP.BARANGAY, \n" +
-"			 SUM(totalNoOfWidowed) AS 'WIDOWED', \n" +
+            "   	 SUM(totalNoOfPeople) AS 'PEOPLE', \n" +
+            "   	 SUM(totalNoOfWidowed) AS 'WIDOWED', \n" +
             "            SUM(totalNoOfUnknown) AS 'UNKNOWN', \n" +
             "            SUM(totalNoOfMarried) AS 'MARRIED', \n" +
             "            SUM(totalNoOfDivorced) AS 'DIVORCED', \n" +
@@ -243,6 +244,7 @@ public class FactPeopleDAO {
                     temp.setCensusYear(rs.getInt("CENSUSYEAR"));
                     temp.setBarangay(rs.getInt("BARANGAY"));
                     temp.setDistrict(rs.getString("DISTRICT"));
+                    temp.setTotalNoOfPeople(rs.getInt("PEOPLE"));
                     temp.setTotalNoOfWidowed(rs.getInt("WIDOWED"));
                     temp.setTotalNoOfUnknown(rs.getInt("UNKNOWN"));
                     temp.setTotalNoOfMarried(rs.getInt("MARRIED"));
