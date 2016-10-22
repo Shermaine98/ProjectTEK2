@@ -105,6 +105,9 @@
             else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
                 drawNutritionalStatus(analysischart, 'column',true);
             }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawNutritionalStatusTable(analysischart);
+            }
         }
         
         if(reportSelected == 'kinderEnrollment'){
@@ -456,6 +459,14 @@ function setElementaryEnrollments(chart){
             str+=('</tr>');
             $('#data').append(str);    
         }
+        
+        $("#dataTable").DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false, "language": {
+                "emptyTable": "No Data"
+            }
+        });
     }
 
     function drawElementaryEnrollment(print, chart, isStacked){
@@ -1987,11 +1998,152 @@ function setHHPopAgeGroupSex (chart){
             else if(chart=="0"||chart=="Stacked Bar Chart"){
                 drawNutritionalStatus(print, 'column', true);
             }
+            else if(chart=="0"||chart=="Table"){
+                drawNutritionalStatusTable(print);
+            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
     });
+    }
+    
+    function drawNutritionalStatusTable(print){
+        var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
+                            </thead>\n\
+                            <tbody id="data">\n\
+                            </tbody>\n\
+                            </table>';
+        document.getElementById("output").innerHTML = str;
+        
+        var str = '<tr style="background-color: #454545; color: #fff">\n\
+                                    <th rowspan = "2">NutritionalStatus</th>';
+        for(var i = 0; i < print[0].years.length; i++){
+            str+='<th colspan="2"><b><center>'+print[0].years[i].year+'</center></b></th>';
+        }
+        str+='</tr>';
+        str+='<tr style="background-color: #454545; color: #fff">';
+        
+        for(var i = 0; i < print[0].years.length; i++){
+            str+='<th><b><center>Number</center></b></th>';
+            str+='<th><b><center>%</center></b></th>';
+        }
+        str+='</tr>';
+        $('#thead').append(str);
+        
+        var nutritionalStatus = ['Severely Wasted','Wasted', 'Normal', 'Overweight', 'Obese', 'Total Students Weighed','Established Number Students'];
+        for(var a = 0; a < nutritionalStatus.length;a++){
+            str = '<tr>';
+            str+='<td><b>';
+            str+=nutritionalStatus[a];
+            str+='</b></td>';
+            for(var c = 0; c < print[0].years.length; c++){
+                var total=0;
+                for (var i = 0; i < print[0].people.length; i++) {
+                    if(print[0].people[i].year == print[0].years[c].year){
+                        for(var z = 0; z < print[0].genders.length; z++){
+                            if(print[0].people[i].gender == print[0].genders[z].gender){
+                                for(var b = 0; b < print[0].gradeLevels.length; b++){
+                                    if(print[0].people[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
+                                        if(nutritionalStatus[a] == 'Severely Wasted'){
+                                            total+=print[0].people[i].severelyWasted;
+                                        }
+                                        else if(nutritionalStatus[a] == 'Wasted'){
+                                            total+=print[0].people[i].wasted;
+                                        }
+                                        else if(nutritionalStatus[a] == 'Normal'){
+                                            total+=print[0].people[i].normal;
+                                        }
+                                        else if(nutritionalStatus[a] == 'Overweight'){
+                                            total+=print[0].people[i].overweight;
+                                        }
+                                        else if(nutritionalStatus[a] == 'Obese'){
+                                            total+=print[0].people[i].obese;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if(nutritionalStatus[a]==  'Total Students Weighed'){
+                    var ultimateTotal = 0;
+                    for (var i = 0; i < print[0].people.length; i++) {
+                        if(print[0].people[i].year == print[0].years[c].year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    for(var b = 0; b < print[0].gradeLevels.length; b++){
+                                        if(print[0].people[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
+                                            ultimateTotal+=print[0].people[i].obese + print[0].people[i].overweight + print[0].people[i].normal + print[0].people[i].wasted + print[0].people[i].severelyWasted;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    str+=('<td>');
+                    str+=(ultimateTotal);
+                    str+=('</td>');
+
+                    str+=('<td>');
+                    str+=('</td>');
+                }
+                else if(nutritionalStatus[a]==  'Established Number Students'){
+                    var ultimateTotal = 0;
+                    for (var i = 0; i < print[0].enrollments.length; i++) {
+                        if(print[0].enrollments[i].year == print[0].years[c].year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                for(var b = 0; b < print[0].gradeLevels.length; b++){
+                                    if(print[0].enrollments[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
+                                        if(print[0].genders[z].gender == 'Male'){
+                                            ultimateTotal += print[0].enrollments[i].maleCount;
+                                        }
+                                        else if(print[0].genders[z].gender == 'Female'){
+                                            ultimateTotal += print[0].enrollments[i].femaleCount;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    str+=('<td>');
+                    str+=(ultimateTotal);
+                    str+=('</td>');
+
+                    str+=('<td>');
+                    str+=('</td>');
+                }
+                else{
+                    var ultimateTotal = 0;
+                    for (var i = 0; i < print[0].people.length; i++) {
+                        if(print[0].people[i].year == print[0].years[c].year){
+                            for(var z = 0; z < print[0].genders.length; z++){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    for(var b = 0; b < print[0].gradeLevels.length; b++){
+                                        if(print[0].people[i].gradeLevel == print[0].gradeLevels[b].gradeLevel){
+                                            ultimateTotal+=print[0].people[i].obese + print[0].people[i].overweight + print[0].people[i].normal + print[0].people[i].wasted + print[0].people[i].severelyWasted;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    str+=('<td>');
+                    str+=(total);
+                    str+=('</td>');
+                    
+                    var percentage = (total/ultimateTotal)*100;
+                    if(!isFinite(percentage)){
+                        percentage =0;
+                    }
+                    str+=('<td>');
+                    str+=(percentage.toFixed(2)+'%');
+                    str+=('</td>');
+                } 
+            }
+            str+=('</tr>');
+            $('#data').append(str);  
+        }
     }
     
     function drawNutritionalStatus(print, chart, isStacked){

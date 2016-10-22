@@ -8,11 +8,13 @@ package servlets.commoncharts;
 import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
 import dao.analysis.DistrictDAO;
+import dao.analysis.FactEnrollmentDAO;
 import dao.analysis.FactPeopleDAO;
 import dao.analysis.FactStudentNutritionDAO;
 import dao.analysis.GenderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,6 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.analysis.FactEnrollment;
 import model.analysis.FactPeople;
 import model.analysis.FactStudentNutrition;
 import org.json.JSONArray;
@@ -54,12 +57,14 @@ public class NutritionalStatusServlet extends HttpServlet {
             DistrictDAO chartsDistrict = new DistrictDAO();
             FactStudentNutritionDAO chartStudentNutrition = new FactStudentNutritionDAO();
             GenderDAO chartsGender = new GenderDAO();
+            FactEnrollmentDAO chartsEnrollment = new FactEnrollmentDAO();
             
             JSONArray jarrayYears = new JSONArray();
             JSONArray jarrayDistrict = new JSONArray();
             JSONArray jarrayStudentNutrition = new JSONArray();
             JSONArray jarrayGradeLevel = new JSONArray();
             JSONArray jarrayGender = new JSONArray();
+            JSONArray jarrayEnrollment = new JSONArray();
             JSONObject ObjectAll = new JSONObject();
             
             ArrayList<String> genders = chartsGender.retrieveGenderWithoutBothSexes();
@@ -67,6 +72,12 @@ public class NutritionalStatusServlet extends HttpServlet {
             ArrayList<String> district = chartsDistrict.retrieveDistrictsForNutritionalStatus();
             ArrayList<FactStudentNutrition> studentNutrition = chartStudentNutrition.retrieveNutritionalStatusCommonChart();
             ArrayList<String> gradeLevels = chartStudentNutrition.retrieveGradeLevels();
+            ArrayList<FactEnrollment> enrollments = null;
+            try {
+                enrollments = chartsEnrollment.retrieveEstablishedNumberOfStudents();
+            } catch (SQLException ex) {
+                Logger.getLogger(NutritionalStatusServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             for(int i = 0; i < studentNutrition.size(); i++){
                 JSONObject objStudentNutrition = new JSONObject();
@@ -82,6 +93,20 @@ public class NutritionalStatusServlet extends HttpServlet {
                     objStudentNutrition.put("overweight", studentNutrition.get(i).getTotalNoOfOverweight());
                     objStudentNutrition.put("obese", studentNutrition.get(i).getTotalNoOfObese());
                     jarrayStudentNutrition.put(objStudentNutrition);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            for(int i = 0; i < enrollments.size(); i++){
+                JSONObject objEnrollments = new JSONObject();
+                try {
+                    objEnrollments.put("year", enrollments.get(i).getCensusYear());
+                    objEnrollments.put("district", enrollments.get(i).getDistrict());
+                    objEnrollments.put("gradeLevel", enrollments.get(i).getLevel());
+                    objEnrollments.put("maleCount", enrollments.get(i).getMaleCount());
+                    objEnrollments.put("femaleCount", enrollments.get(i).getFemaleCount());
+                    jarrayEnrollment.put(objEnrollments);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
                 }
@@ -132,6 +157,7 @@ public class NutritionalStatusServlet extends HttpServlet {
             ObjectAll.put("gradeLevels", jarrayGradeLevel);
             ObjectAll.put("genders", jarrayGender);
             ObjectAll.put("districts", jarrayDistrict);
+            ObjectAll.put("enrollments", jarrayEnrollment);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().write("[" + ObjectAll.toString() + "]");

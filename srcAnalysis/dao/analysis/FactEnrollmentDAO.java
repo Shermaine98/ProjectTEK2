@@ -146,4 +146,26 @@ public class FactEnrollmentDAO {
         }
         return ArrfactEnrollment;
     }
+    
+    public ArrayList<FactEnrollment> retrieveEstablishedNumberOfStudents() throws SQLException   {
+
+        DBConnectionFactoryStarSchema myFactory =  DBConnectionFactoryStarSchema.getInstance();
+        ArrayList<FactEnrollment> ArrfactEnrollment = new ArrayList<>();
+        try (Connection conn = myFactory.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT censusYear, district, IF(level = 'KINDER', 'Pre Elementary', level) as 'level', SUM(maleCount) as 'maleCount', SUM(femaleCount) as 'femaleCount' FROM starschema.fact_enrollment group by censusYear, district, level order by censusYear, district, level;");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                FactEnrollment temp = new FactEnrollment();
+                temp.setCensusYear(rs.getInt("censusYear"));
+                temp.setDistrict(rs.getString("DISTRICT"));
+                temp.setLevel(rs.getString("level"));
+                temp.setMaleCount(rs.getInt("maleCount"));
+                temp.setFemaleCount(rs.getInt("femaleCount"));
+                ArrfactEnrollment.add(temp);
+            }
+            pstmt.close();
+        }
+        return ArrfactEnrollment;
+    }
 }
