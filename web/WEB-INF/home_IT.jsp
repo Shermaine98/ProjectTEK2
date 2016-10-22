@@ -31,8 +31,7 @@
                         </div>
                         <br>
 
-                        <%                            
-                            String userReg = request.getAttribute("userRegistrations").toString();
+                        <%                            String userReg = request.getAttribute("userRegistrations").toString();
                             String eApprove = request.getAttribute("eApprove").toString();
                             String iApprove = request.getAttribute("iApprove").toString();%>
 
@@ -48,8 +47,6 @@
                                     <i class="fa fa-users"></i>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=eapprovals">
                                 <div class="small-box bg-yellow">
@@ -63,8 +60,6 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
-                        <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=iapprovals">
                                 <div class="small-box bg-yellow">
@@ -79,6 +74,11 @@
                                 </div>
                             </a>
                         </div>
+
+                        <div class="col-lg-9 col-xs-12">
+                            <!-- CHART HERE -->
+                        </div>
+
                     </div>
                 </section>
             </div>
