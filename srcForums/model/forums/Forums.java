@@ -1,7 +1,6 @@
 package model.forums;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -13,7 +12,7 @@ public class Forums {
     private int createdBy;
     private String createdByName;
     private String body;
-    private Date dateCreated;
+    private String dateCreated;
     private int favoritesCount;
     private int CommentsCount;
     private boolean isLike;
@@ -107,14 +106,14 @@ public class Forums {
     /**
      * @return the dateCreated
      */
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
