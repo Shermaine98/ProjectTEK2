@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -36,7 +37,7 @@ public class ValiAgeByGrpServ extends BaseServlet {
 
         String page = request.getParameter("page");
         PrintWriter out = response.getWriter();
-        String year = request.getParameter("year");
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         ByAgeGroupSexDAO ByAgeGroupSexDAO = new ByAgeGroupSexDAO();
         RecordDAO recordDAO = new RecordDAO();
         String errorMessage = request.getParameter("errorMessage");
@@ -46,15 +47,15 @@ public class ValiAgeByGrpServ extends BaseServlet {
         if (page.equalsIgnoreCase("upload")) {
             boolean reupload = false;
             try {
-                reupload = recordDAO.checkExistRecordForReupload(200000000, Integer.parseInt(year));
+                reupload = recordDAO.checkExistRecordForReupload(200000000, year);
             } catch (SQLException ex) {
                 Logger.getLogger(ValiAgeByGrpServ.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (reupload == true) {
                 try {
-                    ByAgeGroupSexDAO.deleteAgeGroupRecord(200000000 + (Integer.parseInt(year)));
-                    recordDAO.deleteRecord(200000000 + (Integer.parseInt(year)));
+                    ByAgeGroupSexDAO.deleteAgeGroupRecord(200000000 + year);
+                    recordDAO.deleteRecord(200000000 + year);
                 } catch (SQLException ex) {
                     Logger.getLogger(ValiAgeByGrpServ.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -62,8 +63,8 @@ public class ValiAgeByGrpServ extends BaseServlet {
 
         } else if (page.equalsIgnoreCase("edited")) {
             try {
-                ByAgeGroupSexDAO.deleteAgeGroupRecord(200000000 + (Integer.parseInt(year)));
-                recordDAO.deleteRecord(200000000 + (Integer.parseInt(year)));
+                ByAgeGroupSexDAO.deleteAgeGroupRecord(200000000 + year);
+                recordDAO.deleteRecord(200000000 + year);
             } catch (SQLException ex) {
                 Logger.getLogger(ValiAgeByGrpServ.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -71,7 +72,7 @@ public class ValiAgeByGrpServ extends BaseServlet {
 
         int formID = 0;
         try {
-            formID = ByAgeGroupSexDAO.getFormID(Integer.parseInt(year.trim()));
+            formID = ByAgeGroupSexDAO.getFormID(year);
         } catch (SQLException ex) {
             Logger.getLogger(ValiAgeByGrpServ.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,6 +83,7 @@ public class ValiAgeByGrpServ extends BaseServlet {
             String[] bothSexesError = request.getParameterValues("bothSexesError");
             String[] maleError = request.getParameterValues("maleError");
             String[] femaleError = request.getParameterValues("femaleError");
+            String[] reasonError = request.getParameterValues("errorReason");
 
             ArrayList<ByAgeGroupTemp> byAgeGroupTemp = new ArrayList<ByAgeGroupTemp>();
             ArrayList<ByAgeGroupSex> byAgeGroupEditedNoError = new ArrayList<ByAgeGroupSex>();
@@ -92,28 +94,22 @@ public class ValiAgeByGrpServ extends BaseServlet {
             if (locationError != null) {
                 for (int i = 0; i < locationError.length; i++) {
                     ByAgeGroupTemp byAgeGroupTempError = new ByAgeGroupTemp();
-                    //YEAR?
+
                     byAgeGroupTempError.setFormID(formID);
                     byAgeGroupTempError.setBarangay(locationError[i]);
                     byAgeGroupTempError.setAgeGroup(ageGroupError[i]);
-
-//                    if (bothSexesError[i].equalsIgnoreCase("0")
-//                            || maleError[i].equalsIgnoreCase("0")
-//                            || femaleError[i].equalsIgnoreCase("0")) {
-                        byAgeGroupTempError.setBothSex(bothSexesError[i].replaceAll(" ", "").replaceAll(",", ""));
-                        byAgeGroupTempError.setMaleCount(maleError[i].replaceAll(" ", "").replaceAll(",", ""));
-                        byAgeGroupTempError.setFemaleCount(femaleError[i].replaceAll(" ", "").replaceAll(",", ""));
-//                    }
-
-                    byAgeGroupTempError.setYear(Integer.parseInt(year.trim()));
-                    byAgeGroupTempError.setvalidation(false);
+                    byAgeGroupTempError.setBothSex(bothSexesError[i].replaceAll(" ", "").replaceAll(",", ""));
+                    byAgeGroupTempError.setMaleCount(maleError[i].replaceAll(" ", "").replaceAll(",", ""));
+                    byAgeGroupTempError.setFemaleCount(femaleError[i].replaceAll(" ", "").replaceAll(",", ""));
+                    byAgeGroupTempError.setYear(year);
+                    byAgeGroupTempError.setvalidation(Integer.parseInt(reasonError[i]));
 
                     byAgeGroupTemp.add(byAgeGroupTempError);
                 }
 
                 //TEMP GET ERROR THEN FIX VARIABLES TO BE SAVE IN DB / NO ERROR ADD IN ArrByAgeGroupSex
-                byAgeGroupEditedNoError = new ByAgeGroupSexChecker(byAgeGroupTemp, Integer.parseInt(year), formID).getArrayNoError();
-                byAgeGroupEditedError = new ByAgeGroupSexChecker(byAgeGroupTemp, Integer.parseInt(year), formID).getArrayError();
+                byAgeGroupEditedNoError = new ByAgeGroupSexChecker(byAgeGroupTemp, year, formID).getArrayNoError();
+                byAgeGroupEditedError = new ByAgeGroupSexChecker(byAgeGroupTemp, year, formID).getArrayError();
 
                 ByAgeGroupSexChecker toDb = new ByAgeGroupSexChecker();
                 trnasoformedData = toDb.TransformData(byAgeGroupEditedError);
@@ -123,6 +119,7 @@ public class ValiAgeByGrpServ extends BaseServlet {
             }
         }
         //END FOR ERROR
+        
         String[] location = request.getParameterValues("location");
         String[] ageGroup = request.getParameterValues("ageGroup");
         String[] bothSexes = request.getParameterValues("bothSexes");
@@ -133,17 +130,17 @@ public class ValiAgeByGrpServ extends BaseServlet {
         ByAgeGroupSex byAgeGroupSex;
 
         boolean x = false;
-        recordDAO.newRecord(formID, Integer.parseInt(year.trim()), Integer.parseInt(uploadedBy));
+        recordDAO.newRecord(formID, year, Integer.parseInt(uploadedBy));
         for (int i = 0; i < location.length; i++) {
             byAgeGroupSex = new ByAgeGroupSex();
             byAgeGroupSex.setFormID(formID);
-            byAgeGroupSex.setYear(Integer.parseInt(year.trim()));
+            byAgeGroupSex.setYear(year);
             byAgeGroupSex.setBarangay(location[i]);
             byAgeGroupSex.setAgeGroup(ageGroup[i]);
             byAgeGroupSex.setBothSex(Integer.parseInt(bothSexes[i].replaceAll(" ", "").replaceAll(",", "")));
             byAgeGroupSex.setFemaleCount(Integer.parseInt(male[i].replaceAll(" ", "").replaceAll(",", "")));
             byAgeGroupSex.setMaleCount(Integer.parseInt(female[i].replaceAll(" ", "").replaceAll(",", "")));
-            byAgeGroupSex.setValidation(true);
+            byAgeGroupSex.setValidation(0);
             ArrByAgeGroupSex.add(byAgeGroupSex);
         }
 
@@ -151,13 +148,12 @@ public class ValiAgeByGrpServ extends BaseServlet {
 
         if (x) {
             try {
-
-                if (recordDAO.runRecordAgeGroupDAO(formID, Integer.parseInt(year.trim()))) {
+                if (recordDAO.runRecordAgeGroupDAO(formID, year))  {
                     request.setAttribute("page", "Upload");
                     request.setAttribute("saveToDB", "successDB");
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
                     rd.forward(request, response);
-                } else if (!recordDAO.runRecordAgeGroupDAO(formID, Integer.parseInt(year.trim()))) {
+                } else if (!recordDAO.runRecordAgeGroupDAO(formID, year))  {
                     request.setAttribute("page", "Upload");
                     request.setAttribute("saveToDB", "SaveWithError");
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataDemoServlet?redirect=byAgeGroupSex");

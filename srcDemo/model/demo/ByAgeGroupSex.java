@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
 package model.demo;
 
@@ -9,7 +8,10 @@ import java.text.DecimalFormat;
 
 /**
  *
- * @author shermainesy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class ByAgeGroupSex {
 
@@ -22,7 +24,8 @@ public class ByAgeGroupSex {
     private int bothSex;
     private int errorline;
     private String uploadedBy;
-    private boolean validation;
+    private int validationNum;
+    private String reasonError;
 //    
 //    private String cBothSex;
 //    private String cMaleCount;
@@ -111,15 +114,15 @@ public class ByAgeGroupSex {
     /**
      * @return the approved
      */
-    public boolean isvalidated() {
+    public int isvalidated() {
         return isValidation();
     }
 
     /**
      * @param approved the approved to set
      */
-    public void setValidation(boolean validation) {
-        this.validation = validation;
+    public void setValidation(int validation) {
+        this.validationNum = validation;
     }
 
     /**
@@ -153,8 +156,8 @@ public class ByAgeGroupSex {
     /**
      * @return the validation
      */
-    public boolean isValidation() {
-        return validation;
+    public int isValidation() {
+        return validationNum;
     }
 
     /**
@@ -175,6 +178,20 @@ public class ByAgeGroupSex {
     public String getFormatcount(int count) {
         String scount = df.format(count);
         return scount;
+    }
+
+    /**
+     * @return the reasonError
+     */
+    public String getReasonError() {
+        return reasonError;
+    }
+
+    /**
+     * @param reasonError the reasonError to set
+     */
+    public void setReasonError(String reasonError) {
+        this.reasonError = reasonError;
     }
 
 }

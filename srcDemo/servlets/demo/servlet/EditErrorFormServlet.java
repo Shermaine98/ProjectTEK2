@@ -53,7 +53,7 @@ public class EditErrorFormServlet extends BaseServlet {
                 ArrayList<ByAgeGroupTemp> arrError = new ArrayList<ByAgeGroupTemp>();
 
                 for (int i = 0; i < byAgeGroupDB.size(); i++) {
-                    if (byAgeGroupDB.get(i).isValidation()) {
+                    if (byAgeGroupDB.get(i).isValidation()==0) {
                         byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getBothSex());
                         byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getMaleCount());
                         byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getFemaleCount());
@@ -69,6 +69,7 @@ public class EditErrorFormServlet extends BaseServlet {
                         byAgeGroupTemp.setUploadedBy(String.valueOf(byAgeGroupDB.get(i).getUploadedBy()));
                         byAgeGroupTemp.setYear(byAgeGroupDB.get(i).getYear());
                         byAgeGroupTemp.setvalidation(byAgeGroupDB.get(i).isvalidated());
+                        byAgeGroupTemp.setErrorReason(byAgeGroupSex.getReason(byAgeGroupDB.get(i).isvalidated()));
                         arrError.add(byAgeGroupTemp);
                     }
                 }

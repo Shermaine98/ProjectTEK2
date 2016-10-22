@@ -1,23 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package checker.demo;
 
 import model.demo.ByAgeGroupSex;
 import model.temp.demo.ByAgeGroupTemp;
-import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 
 /**
  *
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ByAgeGroupSexChecker {
 
     private ArrayList<ByAgeGroupSex> arrayNoError;
@@ -53,7 +54,8 @@ public class ByAgeGroupSexChecker {
                 
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
-                byAgeGroupTemp.setvalidation(false);
+                byAgeGroupTemp.setvalidation(1);
+                byAgeGroupTemp.setErrorReason("Missing Field/s");
 
                 if (ArrErrorByAgeGroupSex.get(i).getBothSex() == null || ArrErrorByAgeGroupSex.get(i).getBothSex().equalsIgnoreCase("")) {
                     byAgeGroupTemp.setBothSex("");
@@ -80,7 +82,8 @@ public class ByAgeGroupSexChecker {
                 
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
-                byAgeGroupTemp.setvalidation(false);
+                byAgeGroupTemp.setvalidation(2);
+                byAgeGroupTemp.setErrorReason("Format Error");
 
                 if (isNumeric(ArrErrorByAgeGroupSex.get(i).getBothSex())) {
                     byAgeGroupTemp.setBothSex("");
@@ -109,7 +112,8 @@ public class ByAgeGroupSexChecker {
 
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
-                byAgeGroupTemp.setvalidation(false);
+                byAgeGroupTemp.setvalidation(3);
+                 byAgeGroupTemp.setErrorReason("Summation Error");
                 byAgeGroupTemp.setBothSex(ArrErrorByAgeGroupSex.get(i).getBothSex());
                 byAgeGroupTemp.setMaleCount(ArrErrorByAgeGroupSex.get(i).getMaleCount());
                 byAgeGroupTemp.setFemaleCount(ArrErrorByAgeGroupSex.get(i).getFemaleCount());
@@ -122,7 +126,7 @@ public class ByAgeGroupSexChecker {
                 ByAgeGroupSex.setBothSex(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getBothSex()));
                 ByAgeGroupSex.setFemaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getFemaleCount()));
                 ByAgeGroupSex.setMaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getMaleCount()));
-                ByAgeGroupSex.setValidation(true);
+                ByAgeGroupSex.setValidation(0);
                 arrayNoError.add(ByAgeGroupSex);
             }
 
@@ -152,8 +156,10 @@ public class ByAgeGroupSexChecker {
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 byAgeGroupTemp.setYear(year);
-                byAgeGroupTemp.setvalidation(false);
-
+                byAgeGroupTemp.setvalidation(1);
+                byAgeGroupTemp.setErrorReason("Missing Filed/s");
+                
+                
                 if (ArrErrorByAgeGroupSex.get(i).getBothSex() == null || ArrErrorByAgeGroupSex.get(i).getBothSex().equalsIgnoreCase("")) {
                     byAgeGroupTemp.setBothSex("");
                 } else {
@@ -182,8 +188,9 @@ public class ByAgeGroupSexChecker {
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 byAgeGroupTemp.setYear(year);
-                byAgeGroupTemp.setvalidation(false);
-
+                byAgeGroupTemp.setvalidation(2);
+                byAgeGroupTemp.setErrorReason("Format Error");
+                
                 if (isNumeric(ArrErrorByAgeGroupSex.get(i).getBothSex())) {
                     byAgeGroupTemp.setBothSex("");
                 } else {
@@ -210,7 +217,8 @@ public class ByAgeGroupSexChecker {
                 byAgeGroupTemp.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 byAgeGroupTemp.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 byAgeGroupTemp.setYear(year);
-                byAgeGroupTemp.setvalidation(false);
+                byAgeGroupTemp.setvalidation(3);
+                byAgeGroupTemp.setErrorReason("Summation error");
                 byAgeGroupTemp.setBothSex(ArrErrorByAgeGroupSex.get(i).getBothSex());
                 byAgeGroupTemp.setMaleCount(ArrErrorByAgeGroupSex.get(i).getMaleCount());
                 byAgeGroupTemp.setFemaleCount(ArrErrorByAgeGroupSex.get(i).getFemaleCount());
@@ -225,7 +233,7 @@ public class ByAgeGroupSexChecker {
                 ByAgeGroupSex.setFemaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getFemaleCount()));
                 ByAgeGroupSex.setMaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getMaleCount()));
                 ByAgeGroupSex.setYear(year);
-                ByAgeGroupSex.setValidation(true);
+                ByAgeGroupSex.setValidation(0);
                 arrayNoError.add(ByAgeGroupSex);
             }
 
@@ -254,7 +262,8 @@ public class ByAgeGroupSexChecker {
                     ByAgeGroupSex.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                     ByAgeGroupSex.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                     ByAgeGroupSex.setYear(ArrErrorByAgeGroupSex.get(i).getYear());
-                    ByAgeGroupSex.setValidation(false);
+                    ByAgeGroupSex.setValidation(1);
+                    ByAgeGroupSex.setReasonError("Missing Field/s");
 
                  if (ArrErrorByAgeGroupSex.get(i).getBothSex() == null || ArrErrorByAgeGroupSex.get(i).getBothSex().equalsIgnoreCase("")) {
                     ByAgeGroupSex.setBothSex(-1);
@@ -285,7 +294,8 @@ public class ByAgeGroupSexChecker {
                     ByAgeGroupSex.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                     ByAgeGroupSex.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                     ByAgeGroupSex.setYear(ArrErrorByAgeGroupSex.get(i).getYear());
-                    ByAgeGroupSex.setValidation(false);
+                    ByAgeGroupSex.setValidation(2);
+                    ByAgeGroupSex.setReasonError("Format Error");
 
                 if (isNumeric(ArrErrorByAgeGroupSex.get(i).getBothSex())) {
                     ByAgeGroupSex.setBothSex(-1);
@@ -316,7 +326,8 @@ public class ByAgeGroupSexChecker {
                 ByAgeGroupSex.setBarangay(ArrErrorByAgeGroupSex.get(i).getBarangay());
                 ByAgeGroupSex.setAgeGroup(ArrErrorByAgeGroupSex.get(i).getAgeGroup());
                 ByAgeGroupSex.setYear(ArrErrorByAgeGroupSex.get(i).getYear());
-                ByAgeGroupSex.setValidation(false);
+                ByAgeGroupSex.setValidation(3);
+                ByAgeGroupSex.setReasonError("Summation Error");
                 ByAgeGroupSex.setBothSex(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getBothSex()));
                 ByAgeGroupSex.setMaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getMaleCount()));
                 ByAgeGroupSex.setFemaleCount(Integer.parseInt(ArrErrorByAgeGroupSex.get(i).getFemaleCount()));

@@ -8,9 +8,11 @@ $(document).ready(function () {
     $('td.bothSexesError').css('background-color', '#a93e3e');
     $('td.maleSexesError').css('background-color', '#a93e3e');
     $('td.femaleSexesError').css('background-color', '#a93e3e');
+    $('td.reasonNum').css('background-color', '#a93e3e');
     $('td.bothSexesError').css('color', '#fff');
     $('td.maleSexesError').css('color', '#fff');
     $('td.femaleSexesError').css('color', '#fff');
+    $('td.reasonNum').css('color', '#fff');
    
     $('#error-ageGroup tbody tr').each(function () {
 
@@ -59,6 +61,7 @@ $(document).ready(function () {
         row.find(".bothSexesError").css('background-color', 'green');
         row.find(".maleSexesError").css('background-color', 'green');
         row.find(".femaleSexesError").css('background-color', 'green');
+        row.find(".reasonNum").css('background-color', 'green');
 
         var x = row.find("#bothSexesError").val();
         var y = row.find("#maleSexesError").val();
