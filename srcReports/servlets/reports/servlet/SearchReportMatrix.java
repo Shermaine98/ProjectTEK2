@@ -5,7 +5,6 @@
  */
 package servlets.reports.servlet;
 
-;
 import dao.reports.ReportDAO;
 import servlets.servlet.BaseServlet;
 import com.google.gson.Gson;

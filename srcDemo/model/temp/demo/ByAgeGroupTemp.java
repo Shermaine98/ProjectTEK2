@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
 package model.temp.demo;
 
@@ -9,8 +8,12 @@ import java.text.DecimalFormat;
 
 /**
  *
- * @author shermainesy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ByAgeGroupTemp {
 
     private int formID;
@@ -20,8 +23,9 @@ public class ByAgeGroupTemp {
     private String femaleCount;
     private String maleCount;
     private String bothSex;
-    private boolean validation;
+    private int validationNum;
     private String uploadedBy;
+    private String errorReason;
 
     DecimalFormat df = new DecimalFormat("#,###");
 
@@ -112,15 +116,15 @@ public class ByAgeGroupTemp {
     /**
      * @return the approved
      */
-    public boolean getvalidation() {
-        return validation;
+    public int getvalidation() {
+        return validationNum;
     }
 
     /**
      * @param approved the approved to set
      */
-    public void setvalidation(boolean validation) {
-        this.validation = validation;
+    public void setvalidation(int validation) {
+        this.validationNum = validation;
     }
 
     /**
@@ -158,5 +162,19 @@ public class ByAgeGroupTemp {
         String x = null;
         return x = df.format(num);
 
+    }
+
+    /**
+     * @return the errorReason
+     */
+    public String getErrorReason() {
+        return errorReason;
+    }
+
+    /**
+     * @param errorReason the errorReason to set
+     */
+    public void setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
     }
 }

@@ -22,6 +22,7 @@ $(function () {
             {"orderDataType": "dom-text", type: 'string'},
             {"orderDataType": "dom-text", type: 'string'},
             {"orderDataType": "dom-text", type: 'string'},
+            {"orderDataType": "dom-text", type: 'string'},
             {"orderDataType": "dom-text", type: 'string'}
         ]
     });

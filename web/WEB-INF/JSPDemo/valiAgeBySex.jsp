@@ -79,6 +79,7 @@
                                                     <th class="centerTD">Both Sex</th>
                                                     <th class="centerTD">Male Count</th>
                                                     <th class="centerTD">Female Count</th>
+                                                    <th class="centerTD">Reason</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="whitebg">
@@ -89,6 +90,7 @@
                                                     <td class='bothSexesError' ><input  class="centerTD" name="bothSexesError" id="bothSexesError" type="text" value=" <%=byAgeGroupError.get(i).getBothSex()%> "  readonly/></td>
                                                     <td class='maleSexesError' ><input  class="centerTD" name="maleError" id="maleSexesError" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value=" <%=byAgeGroupError.get(i).getMaleCount()%> "  /></td>
                                                     <td class='femaleSexesError'><input class="centerTD" name="femaleError" id="femaleSexesError" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value=" <%=byAgeGroupError.get(i).getFemaleCount()%> "  /></td>
+                                                    <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=byAgeGroupError.get(i).getvalidation()%>"/><input type="text" id="reasonNum"  value="<%=byAgeGroupError.get(i).getErrorReason()%>"/></td>
                                                 </tr>
                                                 <%}%>
                                             </tbody>

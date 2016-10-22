@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
 package dao.demo;
 
@@ -21,7 +20,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author shermainesy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class ByAgeGroupSexDAO {
 
@@ -42,7 +44,7 @@ public class ByAgeGroupSexDAO {
                     temp.setBothSex(rs.getInt("bothSexes"));
                     temp.setMaleCount(rs.getInt("totalMale"));
                     temp.setFemaleCount(rs.getInt("totalFemale"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
                     temp.setUploadedBy(RecordDAO.GetUserNamebyFormID(temp.getFormID()));
                     ArrByAgeGroupSex.add(temp);
                 }
@@ -75,7 +77,7 @@ public class ByAgeGroupSexDAO {
                     temp.setBothSex(rs.getInt("bothSexes"));
                     temp.setMaleCount(rs.getInt("totalMale"));
                     temp.setFemaleCount(rs.getInt("totalFemale"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
                     temp.setUploadedBy(dao.GetUserNamebyFormID(temp.getFormID()));
                     ArrByAgeGroupSex.add(temp);
                 }
@@ -106,7 +108,7 @@ public class ByAgeGroupSexDAO {
                     temp.setBarangay(rs.getString("location"));
                     temp.setMaleCount(rs.getInt("totalMale"));
                     temp.setFemaleCount(rs.getInt("totalFemale"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
                     ArrByAgeGroupSex.add(temp);
                 }
                 pstmt.close();
@@ -136,7 +138,7 @@ public class ByAgeGroupSexDAO {
                     pstmt.setInt(5, object.getBothSex());
                     pstmt.setInt(6, object.getMaleCount());
                     pstmt.setInt(7, object.getFemaleCount());
-                    pstmt.setBoolean(8, object.isvalidated());
+                    pstmt.setInt(8, object.isvalidated());
 
                     pstmt.addBatch();
                     i++;
@@ -248,5 +250,21 @@ public class ByAgeGroupSexDAO {
             getLogger(ByAgeGroupSexDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public String getReason(int reason){
+        String reasonError = "";
+        
+        switch (reason) {
+            case 1:  reasonError = "Missing Field/s";
+                     break;
+            case 2:  reasonError = "Format Error";
+                     break;
+            case 3:  reasonError = "Summation Error";
+                     break;
+            default:  reasonError = "None";
+                     break;
+        }
+            return reasonError;
     }
 }
