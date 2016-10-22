@@ -5,8 +5,6 @@
  */
 package model.forums;
 
-import java.util.Date;
-
 /**
  *
  * @author Shermaine
@@ -18,7 +16,7 @@ public class Comments {
 private String forumTitle;
 private int createdBy;
 private int forumID;
-private Date commentedDate;
+private String commentedDate;
 private String commentedByName;
 private int commentCounts;
 private boolean isLiked;
@@ -109,14 +107,14 @@ private boolean isLiked;
     /**
      * @return the commentedDate
      */
-    public Date getCommentedDate() {
+    public String getCommentedDate() {
         return commentedDate;
     }
 
     /**
      * @param commentedDate the commentedDate to set
      */
-    public void setCommentedDate(Date commentedDate) {
+    public void setCommentedDate(String commentedDate) {
         this.commentedDate = commentedDate;
     }
 

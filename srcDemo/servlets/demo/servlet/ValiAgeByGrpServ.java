@@ -140,7 +140,7 @@ public class ValiAgeByGrpServ extends BaseServlet {
             byAgeGroupSex.setBothSex(Integer.parseInt(bothSexes[i].replaceAll(" ", "").replaceAll(",", "")));
             byAgeGroupSex.setFemaleCount(Integer.parseInt(male[i].replaceAll(" ", "").replaceAll(",", "")));
             byAgeGroupSex.setMaleCount(Integer.parseInt(female[i].replaceAll(" ", "").replaceAll(",", "")));
-            byAgeGroupSex.setValidation(0);
+            byAgeGroupSex.setValidation(1);
             ArrByAgeGroupSex.add(byAgeGroupSex);
         }
 

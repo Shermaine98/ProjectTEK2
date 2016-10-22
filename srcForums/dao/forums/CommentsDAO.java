@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import model.forums.Comments;
@@ -23,6 +24,7 @@ import static java.util.logging.Logger.getLogger;
  * @author Shermaine
  */
 public class CommentsDAO {
+    SimpleDateFormat formatters = new SimpleDateFormat("MMM. dd, yyyy hh:mm a");
 
     public boolean addComment(Comments comments) {
         try {
@@ -60,7 +62,7 @@ public class CommentsDAO {
                 while (rs.next()) {
                     Comments comments = new Comments();
                     comments.setIdComments(rs.getInt("idComment"));
-                    comments.setCommentedDate(rs.getDate("commentedDate"));
+                    comments.setCommentedDate(formatters.format(rs.getDate("commentedDate")));
                     comments.setComment(rs.getString("comment"));
                     comments.setCommentedby(rs.getInt("commentedBy"));
                     comments.setCommentedByName(recordsDAO.GetUserName(comments.getCommentedby()));
