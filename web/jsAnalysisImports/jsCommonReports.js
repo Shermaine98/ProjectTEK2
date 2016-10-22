@@ -97,13 +97,13 @@
             removeGradeLevelCheckboxes(analysischart, gradeLevel);
             
             if(chartSelected=="0"||chartSelected=="Line Chart"){
-                drawNutritionalStatus(print, 'line', false);
+                drawNutritionalStatus(analysischart, 'line', false);
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-                drawNutritionalStatus(print, 'column',false);
+                drawNutritionalStatus(analysischart, 'column',false);
             }
             else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
-                drawNutritionalStatus(print, 'column',true);
+                drawNutritionalStatus(analysischart, 'column',true);
             }
         }
         
@@ -135,6 +135,9 @@
             }
             else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
                 drawKinderEnrollment(analysischart, 'column', true);
+            }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawKinderEnrollmentTable(analysischart);
             }
         }
         
@@ -174,6 +177,9 @@
             else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
                 drawElementaryEnrollment(analysischart, 'column', true);
             }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawElementaryEnrollmentTable(analysischart);
+            }
         }
         
         var year = $('#years').find(":selected").val();
@@ -190,16 +196,16 @@
         } 
         if(reportSelected == 'ageGroup'){
             if(chartSelected=="0"||chartSelected=="Population Pyramid"){
-                drawHHPopPyramid(print, year);
+                drawHHPopPyramid(analysischart, year);
             }
             else if(chartSelected=="0"||chartSelected=="Pie Chart"){
-                drawHHPopAgeGroupSexPie(print, year, 'pie');
+                drawHHPopAgeGroupSexPie(analysischart, year, 'pie');
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
-                drawHHPopAgeGroupSexPie(print, year, 'column');
+                drawHHPopAgeGroupSexPie(analysischart, year, 'column');
             }
             else if(chartSelected=="0"||chartSelected=="Table"){
-                drawHHPopTable(print, year);
+                drawHHPopTable(analysischart, year);
             }
         }
     });
@@ -358,11 +364,99 @@ function setElementaryEnrollments(chart){
             else if(chart=="0"||chart=="Stacked Bar Chart"){
                 drawElementaryEnrollment(print, 'column', true);
             }
+            else if(chart=="0"||chart=="Table"){
+                drawElementaryEnrollmentTable(print);
+            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
     });}
+
+    function drawElementaryEnrollmentTable(print){
+        var zones = ["SOUTH", "NORTH"];
+        var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
+                            </thead>\n\
+                            <tbody id="data">\n\
+                            </tbody>\n\
+                            </table>';
+        document.getElementById("output").innerHTML = str;
+        var zonesColspan = print[0].classifications.length*print[0].genders.length;
+        var classificationColSpan = print[0].genders.length;
+        var str = '<tr style="background-color: #454545; color: #fff">\n\
+                                    <th rowspan="3"><center>School Year</center></th>';
+        for(var c = 0; c < zones.length; c++){
+            str+='<th colspan="'+zonesColspan+'"><center>'+zones[c].charAt(0)+zones[c].substring(1).toLowerCase()+' Caloocan</center></th>';
+        }
+        
+        str+='</tr>';
+        if(classificationColSpan > 0){
+            str+='<tr style="background-color: #454545; color: #fff">';
+            for(var i = 0; i < 2; i++){
+                for(var c = 0; c < print[0].classifications.length; c++){
+                    str+='<th colspan="'+classificationColSpan+'"><center>'+print[0].classifications[c].classification+'</center></th>';
+                }
+            }
+            str+='</tr>';
+        }
+        str+='<tr style="background-color: #454545; color: #fff">';
+        for(var i = 0; i < print[0].classifications.length*2; i++){
+            for(var c = 0; c < print[0].genders.length; c++){
+                if(print[0].genders[c].gender != 'Both Sexes'){
+                    str+='<th><center>'+print[0].genders[c].gender+'</center></th>';
+                } else{
+                    str+='<th><center>Total</center></th>';
+                }
+            }
+        }
+        str+='</tr>';       
+        $('#thead').append(str);
+        
+        
+        
+        for(var a = 0; a < print[0].years.length;a++){
+            str = '<tr>';
+            str+='<td><b>';
+            str+=print[0].years[a].year+' - '+(parseInt(print[0].years[a].year)+1);
+            str+='</b></td>';
+            var totalMale = 0;
+            var totalFemale = 0;
+            for(var c = 0; c < zones.length; c++){
+                for(var y = 0; y < print[0].classifications.length; y++){
+                    for(var b = 0; b < print[0].genders.length; b++){
+                        var total = 0;
+                        for (var i = 0; i < print[0].people.length; i++) {
+                            for(var j = 0; j < print[0].gradeLevels.length; j++){
+                                if(print[0].gradeLevels[j].gradeLevel == print[0].people[i].gradeLevel){
+                                    if(print[0].people[i].year == print[0].years[a].year){
+                                        if(zones[c] == print[0].people[i].zone){
+                                            if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                                if("Male" == print[0].genders[b].gender){
+                                                    total += print[0].people[i].male;
+                                                }
+                                                if("Female" == print[0].genders[b].gender){
+                                                    total += print[0].people[i].female;
+                                                }
+                                                if("Both Sexes" == print[0].genders[b].gender){
+                                                    total += print[0].people[i].male + print[0].people[i].female;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        str+=('<td>');
+                        str+=(total);
+                        str+=('</td>');
+                    }
+                }
+                
+            }
+            str+=('</tr>');
+            $('#data').append(str);    
+        }
+    }
 
     function drawElementaryEnrollment(print, chart, isStacked){
         var ultimateTotal = [];
@@ -761,15 +855,95 @@ function setKinderEnrollments(chart){
             else if(chart=="0"||chart=="Stacked Bar Chart"){
                 drawKinderEnrollment(print, 'column', true);
             }
-//            else if(chart=="0"||chart=="Table"){
-//                drawHHPopAgeGroupSexTable(print, print[0].years[print[0].years.length-1].year, 'column');
-//            }
+            else if(chart=="0"||chart=="Table"){
+                drawKinderEnrollmentTable(print);
+            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
     });}
 
+
+    function drawKinderEnrollmentTable(print){
+        var zones = ["SOUTH", "NORTH"];
+        var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
+                            </thead>\n\
+                            <tbody id="data">\n\
+                            </tbody>\n\
+                            </table>';
+        document.getElementById("output").innerHTML = str;
+        var zonesColspan = print[0].classifications.length*print[0].genders.length;
+        var classificationColSpan = print[0].genders.length;
+        var str = '<tr style="background-color: #454545; color: #fff">\n\
+                                    <th rowspan="3"><center>School Year</center></th>';
+        for(var c = 0; c < zones.length; c++){
+            str+='<th colspan="'+zonesColspan+'"><center>'+zones[c].charAt(0)+zones[c].substring(1).toLowerCase()+' Caloocan</center></th>';
+        }
+        
+        str+='</tr>';
+        if(classificationColSpan > 0){
+            str+='<tr style="background-color: #454545; color: #fff">';
+            for(var i = 0; i < 2; i++){
+                for(var c = 0; c < print[0].classifications.length; c++){
+                    str+='<th colspan="'+classificationColSpan+'"><center>'+print[0].classifications[c].classification+'</center></th>';
+                }
+            }
+            str+='</tr>';
+        }
+        str+='<tr style="background-color: #454545; color: #fff">';
+        for(var i = 0; i < print[0].classifications.length*2; i++){
+            for(var c = 0; c < print[0].genders.length; c++){
+                if(print[0].genders[c].gender != 'Both Sexes'){
+                    str+='<th><center>'+print[0].genders[c].gender+'</center></th>';
+                } else{
+                    str+='<th><center>Total</center></th>';
+                }
+            }
+        }
+        str+='</tr>';       
+        $('#thead').append(str);
+        
+        
+        
+        for(var a = 0; a < print[0].years.length;a++){
+            str = '<tr>';
+            str+='<td><b>';
+            str+=print[0].years[a].year+' - '+(parseInt(print[0].years[a].year)+1);
+            str+='</b></td>';
+            for(var c = 0; c < zones.length; c++){
+                for(var y = 0; y < print[0].classifications.length; y++){
+                    for(var b = 0; b < print[0].genders.length; b++){
+                        var total = 0;
+                        for (var i = 0; i < print[0].people.length; i++) {
+                            if(print[0].people[i].year == print[0].years[a].year){
+                                if(zones[c] == print[0].people[i].zone){
+                                    if(print[0].classifications[y].classification == print[0].people[i].classification){
+                                        if("Male" == print[0].genders[b].gender){
+                                            total += print[0].people[i].male;
+                                        }
+                                        if("Female" == print[0].genders[b].gender){
+                                            total += print[0].people[i].female;
+                                        }
+                                        if("Both Sexes" == print[0].genders[b].gender){
+                                            total += print[0].people[i].male + print[0].people[i].female;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        str+=('<td>');
+                        str+=(total);
+                        str+=('</td>');
+                    }
+                }
+                
+            }
+            str+=('</tr>');
+            $('#data').append(str);    
+        }
+    }
+    
     function drawKinderEnrollment(print, chart, isStacked){
         var ultimateTotal = [];
         for(var b = 0; b < print[0].genders.length; b++){
@@ -1136,6 +1310,11 @@ function setHHPopAgeGroupSex (chart){
             item = {};
             item["ageGroup"] = '80 and Over';
             print[0].ageGroups.push(item);
+            if(chart=="0"||chart=="Table"){
+                item = {};
+                item["ageGroup"] = 'Caloocan City';
+                print[0].ageGroups.push(item);
+            }
             
             for (var i = 0; i < print[0].genders.length; i++) {
                     $('#sex').append('<input type="checkbox" class="filter" id="genders" value="' 
@@ -1179,7 +1358,8 @@ function setHHPopAgeGroupSex (chart){
         str+='</tr>';       
         $('#thead').append(str);
         
-        
+        var caloocanMale = 0;
+        var caloocanFemale = 0;
         for(var a = 0; a < print[0].ageGroups.length; a++){
             str = '<tr>';
             str+='<td><b>';
@@ -1203,12 +1383,14 @@ function setHHPopAgeGroupSex (chart){
                             for(var b = 0; b < print[0].barangays.length; b++){
                                 if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                         if(print[0].people[i].gender == print[0].genders[c].gender){
-                                        total+=print[0].people[i].people;
+                                            total+=print[0].people[i].people;
                                         if(print[0].people[i].gender == "Male"){
                                             totalMale += print[0].people[i].people;
+                                            caloocanMale +=print[0].people[i].people;
                                         } 
                                         else if(print[0].people[i].gender == "Female"){
                                             totalFemale += print[0].people[i].people;
+                                            caloocanFemale +=print[0].people[i].people;
                                         } 
                                         if(print[0].people[i].isOutlier == true){
                                             isOutlier = true;
@@ -1218,8 +1400,21 @@ function setHHPopAgeGroupSex (chart){
                                         total += print[0].people[i].people + print[0].people[i+1].people;
                                     }
                                 }
-                            }
+                            }  
                         }
+                        else if(print[0].ageGroups[a].ageGroup=="Caloocan City"){
+                            if(print[0].genders[c].gender == "Both Sexes"){
+                                total = caloocanMale + caloocanFemale;
+                            }
+                            else if(print[0].genders[c].gender == "Male"){
+                                total = caloocanMale;
+                                totalMale = total;
+                            }
+                            else if(print[0].genders[c].gender == "Female"){
+                                total = caloocanFemale;
+                                totalFemale = total;
+                            }
+                        } 
                     }
                 }
             str+=('<td>');
@@ -1241,6 +1436,8 @@ function setHHPopAgeGroupSex (chart){
 //                }
             //item["y"] = -total;
         }
+        
+        
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
