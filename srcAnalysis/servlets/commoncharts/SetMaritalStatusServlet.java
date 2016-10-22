@@ -73,6 +73,7 @@ public class SetMaritalStatusServlet extends HttpServlet {
                 try {
                     objPeople.put("year", people.get(i).getCensusYear());
                     objPeople.put("district", people.get(i).getDistrict());
+                    objPeople.put("people", people.get(i).getTotalNoOfPeople());
                     objPeople.put("widowed", people.get(i).getTotalNoOfWidowed());
                     objPeople.put("unknown", people.get(i).getTotalNoOfUnknown());
                     objPeople.put("married", people.get(i).getTotalNoOfMarried());

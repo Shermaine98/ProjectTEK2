@@ -18,6 +18,9 @@
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawMaritalStatusBar(print, year,'column');
             }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawMaritalStatusTable(print, year);
+            }
         }
         
         if(reportSelected == 'ageGroup'){
@@ -29,6 +32,9 @@
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawHHPopAgeGroupSexPie(print, year, 'column');
+            }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawHHPopTable(print, year);
             }
         }
         
@@ -178,6 +184,9 @@
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawMaritalStatusBar(analysischart, year,'column');
             }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawMaritalStatusTable(analysischart, year);
+            }
         } 
         if(reportSelected == 'ageGroup'){
             if(chartSelected=="0"||chartSelected=="Population Pyramid"){
@@ -188,6 +197,9 @@
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawHHPopAgeGroupSexPie(print, year, 'column');
+            }
+            else if(chartSelected=="0"||chartSelected=="Table"){
+                drawHHPopTable(print, year);
             }
         }
     });
@@ -749,8 +761,8 @@ function setKinderEnrollments(chart){
             else if(chart=="0"||chart=="Stacked Bar Chart"){
                 drawKinderEnrollment(print, 'column', true);
             }
-//            else if(chart=="0"||chart=="Bar Chart"){
-//                drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year, 'column');
+//            else if(chart=="0"||chart=="Table"){
+//                drawHHPopAgeGroupSexTable(print, print[0].years[print[0].years.length-1].year, 'column');
 //            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
@@ -1048,6 +1060,83 @@ function setHHPopAgeGroupSex (chart){
                             + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
             }
             
+            if(chartSelected == 'Table'){
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+            } else{
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+            }
+            
+            print[0].ageGroups.length = 0;
+            item = {};
+            item["ageGroup"] = 'Under 1';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '1 - 4';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '5 - 9';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '10 - 14';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '15 - 19';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '20 - 24';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '25 - 29';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '30 - 34';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '35 - 39';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '40 - 44';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '45 - 49';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '50 - 54';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '55 - 59';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '60 - 64';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '65 - 69';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '70 - 74';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '75 - 79';
+            print[0].ageGroups.push(item);
+            item = {};
+            item["ageGroup"] = '80 and Over';
+            print[0].ageGroups.push(item);
+            
             for (var i = 0; i < print[0].genders.length; i++) {
                     $('#sex').append('<input type="checkbox" class="filter" id="genders" value="' 
                             + print[0].genders[i].gender + '" checked>'+'&nbsp; '+print[0].genders[i].gender+'</input></br>');
@@ -1064,12 +1153,103 @@ function setHHPopAgeGroupSex (chart){
             else if(chart=="0"||chart=="Bar Chart"){
                 drawHHPopAgeGroupSexPie(print, print[0].years[print[0].years.length-1].year, 'column');
             }
+            else if(chart=="0"||chart=="Table"){
+                drawHHPopTable(print, print[0].years[print[0].years.length-1].year);
+            }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
     });}
             
+    function drawHHPopTable(print, year){
+        
+        var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
+                            </thead>\n\
+                            <tbody id="data">\n\
+                            </tbody>\n\
+                            </table>';
+        document.getElementById("output").innerHTML = str;
+        var str = '<tr style="background-color: #454545; color: #fff">\n\
+                                    <th>Age Group</th>';
+        for(var c = 0; c < print[0].genders.length; c++){
+            str+='<th>'+print[0].genders[c].gender+'</th>';
+        }
+        str += '<th>Ratio</th>';
+        str+='</tr>';       
+        $('#thead').append(str);
+        
+        
+        for(var a = 0; a < print[0].ageGroups.length; a++){
+            str = '<tr>';
+            str+='<td><b>';
+            str+=print[0].ageGroups[a].ageGroup.replace("-","to");
+            str+='</b></td>';
+            var totalMale = 0;
+            var totalFemale = 0;
+            for(var c = 0; c < print[0].genders.length; c++){
+                var total = 0;
+                var isOutlier = false;
+                var add;
+                if(print[0].genders[c].gender == "Both Sexes"){
+                    add = 2;
+                }
+                else{
+                    add = 1;
+                }
+                for(var i = 0; i < print[0].people.length; i+=add){
+                    if(print[0].people[i].year == year){
+                        if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                            for(var b = 0; b < print[0].barangays.length; b++){
+                                if(print[0].people[i].barangay == print[0].barangays[b].barangay){
+                                        if(print[0].people[i].gender == print[0].genders[c].gender){
+                                        total+=print[0].people[i].people;
+                                        if(print[0].people[i].gender == "Male"){
+                                            totalMale += print[0].people[i].people;
+                                        } 
+                                        else if(print[0].people[i].gender == "Female"){
+                                            totalFemale += print[0].people[i].people;
+                                        } 
+                                        if(print[0].people[i].isOutlier == true){
+                                            isOutlier = true;
+                                        }
+                                    }
+                                    else if(print[0].genders[c].gender == "Both Sexes"){
+                                        total += print[0].people[i].people + print[0].people[i+1].people;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            str+=('<td>');
+            str+=(total);
+            str+=('</td>');
+            }
+            var div = totalMale/totalFemale;
+            var ratio = div*100;
+            if(!isFinite(ratio)){
+                ratio = 0;
+            }
+            str+=('<td>');
+            str+=(ratio.toFixed(3));
+            str+=('</td>');
+            str+=('</tr>');
+            $('#data').append(str);
+//                if(isOutlier){
+//                    item["color"] = "#FF0000";
+//                }
+            //item["y"] = -total;
+        }
+        $("#dataTable").DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false, "language": {
+                "emptyTable": "No Data"
+            }
+        });
+    }
+    
     function drawHHPopPyramid(print, year){
         var topCategories = [];
         for (var i = 0; i < print[0].ageGroups.length; i++) {
@@ -1370,6 +1550,27 @@ function setHHPopAgeGroupSex (chart){
                             + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
             }
             
+            if(chartSelected == 'Table'){
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+            } else{
+                print[0].genders.length = 0;
+                item = {};
+                item["gender"] = 'Male';
+                print[0].genders.push(item);
+                item = {};
+                item["gender"] = 'Female';
+                print[0].genders.push(item);
+            }
+            
             for (var i = 0; i < print[0].genders.length; i++) {
                     $('#sex').append('<input type="checkbox" class="filter" id="genders" value="' 
                             + print[0].genders[i].gender + '" checked>'+'&nbsp; '+print[0].genders[i].gender+'</input></br>');
@@ -1382,6 +1583,9 @@ function setHHPopAgeGroupSex (chart){
             }
             else if(chart=="0"||chart=="Bar Chart"){
                 drawMaritalStatusBar(print, year, 'column');
+            }
+            else if(chart=="0"||chart=="Table"){
+                drawMaritalStatusTable(print, year);
             }
         },
         error: function (XMLHttpRequest, textStatus, exception) {
@@ -1992,6 +2196,120 @@ function setHHPopAgeGroupSex (chart){
                     }
             });
         }
+    }
+    
+    function drawMaritalStatusTable(print, year){
+        var maritalStatuses = ["Total Population 10 Yrs. Old & Over", "Single", "Married","Widowed", "Divorced/Separated", "Common Law/Live In", "Unknown"];
+        var genders = ["Both Sexes", "Male", "Female"];
+        
+        var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
+                            </thead>\n\
+                            <tbody id="data">\n\
+                            </tbody>\n\
+                            </table>';
+        document.getElementById("output").innerHTML = str;
+        var str = '<tr style="background-color: #454545; color: #fff">\n\
+                                    <th>Age Group</th>';
+        for(var i = 0; i < maritalStatuses.length; i++){
+            str+='<th>'+maritalStatuses[i]+'</th>';
+        }
+        str+='</tr>';       
+        $('#thead').append(str);
+        
+        var str;
+        
+        for(var z = 0; z < print[0].genders.length; z++){
+            var add;
+            if(print[0].genders[z].gender == "Both Sexes"){
+                add = 2;
+            } else {
+                add = 1;
+            }
+            str = '<tr>';
+            str+='<td>';
+            str+=print[0].genders[z].gender;
+            str+='</td>';
+            for(var a = 0; a < maritalStatuses.length; a++){
+                var total = 0;
+                for (var i = 0; i < print[0].people.length; i+=add) {
+                    for(var y = 0; y < print[0].barangays.length; y++){
+                        if(print[0].people[i].barangay == print[0].barangays[y].barangay){
+                            if(print[0].people[i].year == year){
+                                if(print[0].people[i].gender == print[0].genders[z].gender){
+                                    if(maritalStatuses[a] == "Total Population 10 Yrs. Old & Over"){
+                                        total+=print[0].people[i].people;
+                                    }
+                                    else if(maritalStatuses[a] == 'Single'){
+                                        total+=print[0].people[i].single;
+                                    }
+                                    else if(maritalStatuses[a] == 'Married'){
+                                        total+=print[0].people[i].married;
+                                    }
+                                    else if(maritalStatuses[a] == 'Widowed'){
+                                        total+=print[0].people[i].widowed;
+                                    }
+                                    else if(maritalStatuses[a] == 'Divorced/Separated'){
+                                        total+=print[0].people[i].divorced;
+                                    }
+                                    else if(maritalStatuses[a] == 'Common Law/Live In'){
+                                        total+=print[0].people[i].liveIn;
+                                    }
+                                    else if(maritalStatuses[a] == 'Unknown'){
+                                        total+=print[0].people[i].unknown;
+                                    }
+                                }
+                                else if(print[0].genders[z].gender == "Both Sexes"){
+                                    if(maritalStatuses[a] == "Total Population 10 Yrs. Old & Over"){
+                                        total+=print[0].people[i].people + print[0].people[i+1].people;
+                                    }
+                                    else if(maritalStatuses[a] == 'Single'){
+                                        total+=print[0].people[i].single + print[0].people[i+1].single;
+                                    }
+                                    else if(maritalStatuses[a] == 'Married'){
+                                        total+=print[0].people[i].married + print[0].people[i+1].married;
+                                    }
+                                    else if(maritalStatuses[a] == 'Widowed'){
+                                        total+=print[0].people[i].widowed + print[0].people[i+1].widowed;
+                                    }
+                                    else if(maritalStatuses[a] == 'Divorced/Separated'){
+                                        total+=print[0].people[i].divorced + print[0].people[i+1].divorced;
+                                    }
+                                    else if(maritalStatuses[a] == 'Common Law/Live In'){
+                                        total+=print[0].people[i].liveIn + print[0].people[i+1].liveIn;
+                                    }
+                                    else if(maritalStatuses[a] == 'Unknown'){
+                                        total+=print[0].people[i].unknown + print[0].people[i+1].unknown;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                str+=('<td>');
+                str+=(total);
+                str+=('</td>');
+            }
+            str+=('</tr>');
+             $('#data').append(str);
+        }
+        
+        $("#dataTable").DataTable({
+            "paging": false,
+            "ordering": true,
+            "info": false, "language": {
+                "emptyTable": "No Data"
+            },
+            "columns": [
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'},
+                {"orderDataType": "dom-text", type: 'string'}
+            ]
+        });
     }
     
     function drawMaritalStatusBar(print, year, chart){
