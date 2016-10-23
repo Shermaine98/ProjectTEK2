@@ -33,21 +33,21 @@
                 background-color: #aaa;
                 opacity: 0.4;
                 position: absolute;
-                left: 0px;
-                top: 0px;
+                left: 0;
+                top: 0;
                 z-index: 100;
                 height: 100%;
-                width: 80%;
+                width: 100%;
                 overflow: hidden;
-                background-image: url("img/spinner.gif");
-                background-position: center;
-                background-repeat: no-repeat;
             }
         </style>
 
         <link href="cssImported/ValidateCSS.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <div id="spinner-overlay" style="display:none;">
+            <center><img src="img/spinner.gif" style="margin-top: 19%; margin-left: 17%; height: 150px;" /></center>
+        </div>
         <div class="wrapper" style="z-index:1;">
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -57,8 +57,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
-                        <%
-                            String reportAction = (String) request.getAttribute("reportSet");
+                        <%                            String reportAction = (String) request.getAttribute("reportSet");
                         %>
                         <input id="reportSet" type="hidden" value="<%=reportAction%>" />
                         <div style=" margin: 0 auto; display:block; text-align: center">
@@ -135,30 +134,28 @@
                 <p style="text-align: right;"><pagenum/></p>
             </footer>
         </div>
-        <div id="spinner-overlay" style="display:none;">
-        </div>
         <script>
 
 
 
-                $(document).on("xepOnlineStatus", function (event, state) {
-                    if (state === "Started") {
-                        var screenTop = $(document).scrollTop();
-                        var screenHeight = $(window).height();
-                        $('#spinner-overlay').css('top', screenTop);
-                        $('#spinner-overlay').css('height', screenHeight);
-                        $('#spinner-overlay').toggle('show');
-                    } else if (state === "Finished") {
-                        console.log("czxcxzczzczx");
-                            $('#spinner-overlay').toggle('show');
-                        doneyet();
-                    }
+            $(document).on("xepOnlineStatus", function (event, state) {
+                if (state === "Started") {
+                    var screenTop = $(document).scrollTop();
+                    var screenHeight = $(document).height();
+                    $('#spinner-overlay').css('top', screenTop);
+                    $('#spinner-overlay').css('height', screenHeight);
+                    $('#spinner-overlay').toggle('show');
+                } else if (state === "Finished") {
+                    console.log("czxcxzczzczx");
+                    $('#spinner-overlay').toggle('show');
+                    doneyet();
+                }
 
-                });
+            });
 
             $('#save_pdf').click(function () {
                 print_div();
-                xepOnline.Formatter.Format('TESTING', {render: 'download'},
+                xepOnline.Formatter.Format('TESTING',
                         {embedLocalImages: 'true'});
 
             });
