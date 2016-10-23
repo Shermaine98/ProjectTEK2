@@ -227,8 +227,17 @@
                     $('#submitBtn').click(setIntegrated());
                 }
             }
+            
             function updateButton() {
-                $('#button').removeAttr('disabled');
+                if ($('#searchCensusYear').val()) {
+                    $('#button').removeClass('btn-default');
+                    $('#button').addClass('btn-primary');
+                    $("#button").prop('disabled', false);
+                } else if (!$('#searchCensusYear').val()) {
+                    $('#button').removeClass('btn-primary');
+                    $('#button').addClass('btn-default');
+                    $("#button").prop('disabled', true);
+                }
             }
         </script>
     </body>
