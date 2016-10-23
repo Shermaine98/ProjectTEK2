@@ -19,7 +19,7 @@
         <script src="Highcharts/modules/exporting.js"></script>
         <script src="jsAnalysisImports/jsCommonReports.js" type="text/javascript"></script>
         <script src="jsPivot/gchart_renderers.js" type="text/javascript"></script>
-        
+
         <title>Customized Analytics</title>
 
         <style>
@@ -72,7 +72,7 @@
                         </div>
                         <div align="center">
                             <br/><br/>
-                            
+
                             <div id="theButtonsForPivot" style="display:none; margin-left: 2%;">
 
                                 <button class="btn btn-default btn-sm" id="b1" type="button" ><span class="glyphicon glyphicon-menu-left"></span></button>
@@ -92,13 +92,13 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div id='withoutChartSelection' style='margin-left:1%;margin-right:1%;'>
                             </div>
-                            
+
                             <div id='withChartSelection' style='margin-left:1%;margin-right:1%;width:100%'>
                             </div>
-                            
+
                             <div class="box-body">
                                 <div id="output" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; ">
                                 </div>
@@ -110,7 +110,7 @@
                             %>
                             <button  type="button" class="btn btn-primary" id="btnMatrix" style="margin-bottom: 3%;" >Add Chart to Sector Analysis Matrix</button>
                             <%
-                                } else if (reportKind.equalsIgnoreCase("analysis")) {
+                            } else if (reportKind.equalsIgnoreCase("analysis")) {
                             %>
                             <button  type="button" class="btn btn-primary"  id="btnReport" style="margin-bottom: 3%;">Add Chart to Report Analysis</button>
                             <%}%>
@@ -131,7 +131,6 @@
                                 <div>
                                     <input type="hidden" name="isDraft" id="reportIsDraft" />
                                     <button class="btn btn-primary button-submit" style="margin-right: 1%;" onClick="setReport('Save')">Save</button>
-                                    <!--                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#publishWarning">Publish</button>-->
                                 </div>
                             </div>
                         </form>
@@ -156,46 +155,15 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                        MODAL CONFIRMATION
-                                                <div id="publishWarning" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog" style="padding: 0; margin-left: 30%; margin-top: 10%;">
-                                                         Modal content
-                                                        <div class="modal-content">
-                                                            <div class="modal-header" style="background: #f39c12;">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title" style="color: #FFF;">Warning!</h4>
-                                                            </div>
-                                                            <div class="modal-body" align="center">
-                                                                <p>You will no longer be able to edit this report once you submit it.
-                                                                    Are you sure you want to proceed?</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-primary button-submit" onClick="setReport('Submit')" value="Submit"/>Submit</button>
-                                                                <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                END MODAL INFORMATION-->
 
                         <!--CHOOSE WHAT DIV-->
                         <div style="display:none;">
                             <div id="report" >
-                                <!--                                <div class="col-md-8" align="center">
-                                                                    <div class="box box-solid">
-                                                                        <div class="box-header with-border">
-                                                                            <h3 class="box-title"></h3>
-                                                                        </div>
-                                                                         /.box-header
-                                                                        <div class="box-body" align="center">-->
                                 <input type="hidden" name="reportType" value="analysis" />
                                 <br>
                                 <label for="findings" style="margin-bottom:none; padding-bottom:none;">Analysis:</label>
                                 <textarea name="findings" class="form-control" rows="3" style="resize:none; width: 70%; margin: 0 auto 3% auto ;" placeholder="Type Analysis Here..." ></textarea>
-                                <!--                                        </div>
-                                                                    </div>
-                                                                </div>-->
+
                             </div>
                         </div>
 
@@ -224,7 +192,6 @@
                                             </tbody>
                                         </table>
 
-                                        <!--                                        <button type="button" class="btn btn-primary pull-right" style="margin-top: 2%;" onclick="addRow()"><span class="fa fa-plus"></span> Add Row</button>-->
                                     </div>
                                 </div>
                             </div>
@@ -240,19 +207,19 @@
 
         <% if (user.getPosition().equals("Project Development Officer III")) { %>
         <script>window.onload = function () {
-                getFactEducation();
+            getFactEducation();
             };
             document.getElementById('analysisbuttons').style.display = "none";
             document.getElementById('theButtonsForPivot').style.display = "block";</script>
             <%} else if (user.getPosition().equals("Project Development Officer IV")) { %>
         <script>window.onload = function () {
-                getFactHospital();
+                    getFactHospital();
             };
             document.getElementById('analysisbuttons').style.display = "none";
             document.getElementById('theButtonsForPivot').style.display = "block";</script>
             <%} else if (user.getPosition().equals("Project Development Officer I")) { %>
         <script>window.onload = function () {
-                getFactPeople();
+            getFactPeople();
             };
             document.getElementById('analysisbuttons').style.display = "none";
             document.getElementById('theButtonsForPivot').style.display = "block";</script>
@@ -261,63 +228,59 @@
         <script>
 
             function deleteRow(a) {
-                $(a).closest("tr").remove();
+            $(a).closest("tr").remove();
             }
 
             function deleteDiv(a) {
-                $(a).closest('.reportDelete').remove();
+            $(a).closest('.reportDelete').remove();
             }
 
             function addRow()
             {
-                $('#matrix tr:last').after('<tr><td><textarea name="observation" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td><textarea name="explanation" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td><textarea name="implication" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td style="border-right: none;"><textarea name="intervention" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td width="1%" style="margin: 0 auto;border-left: none;"><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">X</button></td>');
+            $('#matrix tr:last').after('<tr><td><textarea name="observation" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td><textarea name="explanation" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td><textarea name="implication" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td style="border-right: none;"><textarea name="intervention" style="width:100%; resize: none; height: 150px; border: none; margin: 0; padding: 0;"></textarea></td><td width="1%" style="margin: 0 auto;border-left: none;"><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">X</button></td>');
             }
 
 
             function setReport(z) {
-                if (z === "Save") {
-                    document.getElementById('reportIsDraft').setAttribute('value', "true");
-                    document.getElementById('reportForm').submit();
-                }
+            if (z === "Save") {
+            document.getElementById('reportIsDraft').setAttribute('value', "true");
+            document.getElementById('reportForm').submit();
+            }
             }
 
-            function getSelected() {
-                var conceptName = $('#selected').find(":selected").val();
-                if (conceptName == "1") {
-                    getFactPeople();
-                } else if (conceptName == "2") {
-                    getFactEducation();
-                } else if (conceptName == "3") {
-                    getFactHospital();
-                }
-                document.getElementById('theButtonsForPivot').style.display = "block";
+            function getSelected() {             var conceptName = $('#selected').find(":selected").val();
+            if (conceptName == "1") {
+            getFactPeople();
+            } else if (conceptName == "2") {
+            getFactEducation();
+            } else if (conceptName == "3") {
+            getFactHospital();
+            }
+            document.getElementById('theButtonsForPivot').style.display = "block";
             }
 
             google.load("visualization", "1", {packages: ["corechart", "charteditor"]});
-
             var derivers = $.pivotUtilities.derivers;
             var renderers = $.extend($.pivotUtilities.renderers, $.pivotUtilities.gchart_renderers);
             var utils = $.pivotUtilities;
-            
             function addPivotButtons(){
-                $("#theButtonsForPivot").empty();
-                $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b1' type='button' ><span class='glyphicon glyphicon-menu-left'></span></button>");
-                $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b3' type='button'  >Change Zoom</button>");
-                $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b2' type='button'  ><span class='glyphicon glyphicon-menu-right'></span></button>");
-                $("#theButtonsForPivot").append("&nbsp;&nbsp;");
-                $("#theButtonsForPivot").append("<button type='button' class='btn btn-info  btn-circle' data-toggle='modal' data-target='#instructions'><i class='fa fa-fw fa-info'></i></button>");
-            }   
-            
+            $("#theButtonsForPivot").empty();
+            $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b1' type='button' ><span class='glyphicon glyphicon-menu-left'></span></button>");
+            $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b3' type='button'  >Change Zoom</button>");
+            $("#theButtonsForPivot").append("<button class='btn btn-default btn-sm' id='b2' type='button'  ><span class='glyphicon glyphicon-menu-right'></span></button>");
+            $("#theButtonsForPivot").append("&nbsp;&nbsp;");
+            $("#theButtonsForPivot").append("<button type='button' class='btn btn-info  btn-circle' data-toggle='modal' data-target='#instructions'><i class='fa fa-fw fa-info'></i></button>");
+            }
+
             function addWithChartSelections(method, charts){
-                $("#divPivotTable").attr('class', 'col-md-3');
-                $("#divPivotTable").attr('onclick', method);
-                $("#divCommonReports").attr('class', 'col-md-9');
-                document.getElementById('pivotTable').style.display = "block";
-                
-                $("#theButtonsForPivot").empty();
-                $("#withoutChartSelection").empty();
-                $("#withChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-6'>\n\
+            $("#divPivotTable").attr('class', 'col-md-3');
+            $("#divPivotTable").attr('onclick', method);
+            $("#divCommonReports").attr('class', 'col-md-9');
+            document.getElementById('pivotTable').style.display = "block";
+            $("#theButtonsForPivot").empty();
+            $("#withoutChartSelection").empty();
+            $("#withChartSelection").empty();
+            $("#withChartSelection").append("<div class='col-md-6'>\n\
                                                     <table>\n\
                                                         <tr>\n\
                                                             <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
@@ -341,30 +304,28 @@
                                                         <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
                                                             <h4 class='box-title'>Filter by District</h4>\n\
                                                         </div>\n\
-                                                        <div class='box-body'>\n\
-                                                            <div id='districts' style=' height: 140px;'>\n\
-                                                            </div>\n\
-                                                        </div>\n\
-                                                    </div>\n\
-                                                </div></div>");
-                $('select[name="charts"]').empty();
-                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
-                for (i = 0; i < charts.length; i++) { 
-                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
-                }
-                document.getElementById('commonReports').style.display = "block";
-            }   
-            
+            <div class='box-body'>\n\
+            <div id='districts' style=' height: 140px;'>\n\
+            </div>\n\
+                                                        </div>\ n \
+            </div>\n\
+            </div></div>");             $('select[name="charts"]').empty();
+            $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+            for (i = 0; i < charts.length; i++) {
+            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
+            }
+            document.getElementById('commonReports').style.display = "block";
+            }
+
             function addWithChartSelectionsWithBarangays(method, charts){
-                $("#divPivotTable").attr('class', 'col-md-3');
-                $("#divPivotTable").attr('onclick', method);
-                $("#divCommonReports").attr('class', 'col-md-9');
-                document.getElementById('pivotTable').style.display = "block";
-                
-                $("#theButtonsForPivot").empty();
-                $("#withoutChartSelection").empty();
-                $("#withChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-6'>\n\
+            $("#divPivotTable").attr('class', 'col-md-3');
+            $("#divPivotTable").attr('onclick', method);
+            $("#divCommonReports").attr('class', 'col-md-9');
+            document.getElementById('pivotTable').style.display = "block";
+            $("#theButtonsForPivot").empty();
+            $("#withoutChartSelection").empty();
+            $("#withChartSelection").empty();
+            $("#withChartSelection").append("<div class='col-md-6'>\n\
                                                     <table>\n\
                                                         <tr>\n\
                                                             <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
@@ -395,29 +356,27 @@
                                                                     <h4 class='box-title'>Filter by Barangay</h4>\n\
                                                                 </div>\n\
                                                                 <div class='box-body'>\n\
-                                                                    <div  id='barangays' style='height: 85px; overflow-y: scroll'>\n\
+            <div  id='barangays' style='height: 85px; overflow-y: scroll'>\n\
                                                                 </div>\n\
-                                                            </div>\n\
-                                                    </tr>\n\
-                                                </table></div></div>");
-                $('select[name="charts"]').empty();
-                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
-                for (i = 0; i < charts.length; i++) { 
-                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
-                }
-                document.getElementById('commonReports').style.display = "block";
-            }  
-            
+            </div>\n\
+            </tr>\n\
+            </tab l e></div></div>");
+            $('select[name="charts"]').empty();
+            $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+            for (i = 0; i < charts.length; i++) {
+            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");             }
+            document.getElementById('commonReports').style.display = "block";
+            }
+
             function addWithChartSelectionsWithGradeLevel(method, charts){
-                $("#divPivotTable").attr('class', 'col-md-3');
-                $("#divPivotTable").attr('onclick', method);
-                $("#divCommonReports").attr('class', 'col-md-9');
-                document.getElementById('pivotTable').style.display = "block";
-                
-                $("#theButtonsForPivot").empty();
-                $("#withoutChartSelection").empty();
-                $("#withChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-4'>\n\
+            $("#divPivotTable").attr('class', 'col-md-3');
+            $("#divPivotTable").attr('onclick', method);
+            $("#divCommonReports").attr('class', 'col-md-9');
+            document.getElementById('pivotTable').style.display = "block";
+            $("#theButtonsForPivot").empty();
+            $("#withoutChartSelection").empty();
+            $("#withChartSelection").empty();
+            $("#withChartSelection").append("<div class='col-md-4'>\n\
                                                     <table>\n\
                                                         <tr>\n\
                                                             <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
@@ -458,24 +417,23 @@
                                                         </div>\n\
                                                     </div>\n\
                                                 </div>");
-                $('select[name="charts"]').empty();
-                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
-                for (i = 0; i < charts.length; i++) { 
-                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
-                }
-                document.getElementById('commonReports').style.display = "block";
-            }  
-            
+            $('select[name="charts"]').empty();
+            $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+            for (i = 0; i < charts.length; i++) {
+            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
+            }
+            document.getElementById('commonReports').style.display = "block";
+            }
+
             function addWithChartSelectionsKinderEnrollment(method, charts){
-                $("#divPivotTable").attr('class', 'col-md-3');
-                $("#divPivotTable").attr('onclick', method);
-                $("#divCommonReports").attr('class', 'col-md-9');
-                document.getElementById('pivotTable').style.display = "block";
-                
-                $("#theButtonsForPivot").empty();
-                $("#withoutChartSelection").empty();
-                $("#withChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-6'>\n\
+            $("#divPivotTable").attr('class', 'col-md-3');
+            $("#divPivotTable").attr('onclick', method);
+            $("#divCommonReports").attr('class', 'col-md-9');
+            document.getElementById('pivotTable').style.display = "block";
+            $("#theButtonsForPivot").empty();
+            $("#withoutChartSelection").empty();
+            $("#withChartSelection").empty();
+            $("#withChartSelection").append("<div class='col-md-6'>\n\
                                                     <table>\n\
                                                         <tr>\n\
                                                             <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
@@ -517,24 +475,23 @@
                                                             </div>\n\
                                                     </tr>\n\
                                                 </table></div></div>");
-                $('select[name="charts"]').empty();
-                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
-                for (i = 0; i < charts.length; i++) { 
-                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
-                }
-                document.getElementById('commonReports').style.display = "block";
+            $('select[name="charts"]').empty();
+            $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+            for (i = 0; i < charts.length; i++) {
+            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
             }
-            
+            document.getElementById('commonReports').style.display = "block";
+            }
+
             function addWithChartSelectionsElementaryEnrollment(method, charts){
-                $("#divPivotTable").attr('class', 'col-md-3');
-                $("#divPivotTable").attr('onclick', method);
-                $("#divCommonReports").attr('class', 'col-md-9');
-                document.getElementById('pivotTable').style.display = "block";
-                
-                $("#theButtonsForPivot").empty();
-                $("#withoutChartSelection").empty();
-                $("#withChartSelection").empty();
-                $("#withChartSelection").append("<div class='col-md-4'>\n\
+            $("#divPivotTable").attr('class', 'col-md-3');
+            $("#divPivotTable").attr('onclick', method);
+            $("#divCommonReports").attr('class', 'col-md-9');
+            document.getElementById('pivotTable').style.display = "block";
+            $("#theButtonsForPivot").empty();
+            $("#withoutChartSelection").empty();
+            $("#withChartSelection").empty();
+            $("#withChartSelection").append("<div class='col-md-4'>\n\
                                                     <table>\n\
                                                         <tr>\n\
                                                             <select id='charts' name='charts' class='form-control' onchange='changeChart()'>\n\
@@ -588,24 +545,23 @@
                                                     </div>\n\
                                                 </div>\n\
                                             </div>");
-                $('select[name="charts"]').empty();
-                $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
-                for (i = 0; i < charts.length; i++) { 
-                    $('select[name="charts"]').append("<option value='"+charts[i]+"'>"+charts[i]+"</option>");
-                }
-                document.getElementById('commonReports').style.display = "block";
+            $('select[name="charts"]').empty();
+            $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
+            for (i = 0; i < charts.length; i++) {
+            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
             }
-            
+            document.getElementById('commonReports').style.display = "block";
+            }
+
             function addWithoutChartSelections(method){
-                $("#divPivotTable").attr('class', 'col-md-3');
-                $("#divPivotTable").attr('onclick', 'method');
-                $("#divCommonReports").attr('class', 'col-md-9');
-                document.getElementById('pivotTable').style.display = "block";
-                
-                $("#theButtonsForPivot").empty();
-                $("#withChartSelection").empty();
-                $("#withoutChartSelection").empty();
-                $("#withoutChartSelection").append("<div class='col-md-6'>\n\
+            $("#divPivotTable").attr('class', 'col-md-3');
+            $("#divPivotTable").attr('onclick', 'method');
+            $("#divCommonReports").attr('class', 'col-md-9');
+            document.getElementById('pivotTable').style.display = "block";
+            $("#theButtonsForPivot").empty();
+            $("#withChartSelection").empty();
+            $("#withoutChartSelection").empty();
+            $("#withoutChartSelection").append("<div class='col-md-6'>\n\
                                             <div class='box box-solid'>\n\
                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
                                                     <h4 class='box-title'>Filter by Year</h4>\n\
@@ -668,7 +624,7 @@
                 $("#divPivotTable").attr('onclick', '');
                 $("#divCommonReports").attr('class', 'col-md-12');
                 document.getElementById('pivotTable').style.display = "none";
-                
+
                 $("#output").empty();
                 $(function () {
                     $.getJSON("FactEducationServlet", function (mps) {
@@ -686,7 +642,7 @@
                 addPivotButtons();
                 $("#withoutChartSelection").empty();
                 $("#withChartSelection").empty();
-                
+
                 $('select[name="commonReports"]').empty();
                 $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
                 $('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
@@ -696,7 +652,7 @@
                 $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Elementary Schools</option>");
                 $('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
                 document.getElementById('commonReports').style.display = "block";
-                   
+
             }
 
             function getFactHospital() {
@@ -704,7 +660,7 @@
                 $("#divPivotTable").attr('onclick', '');
                 $("#divCommonReports").attr('class', 'col-md-12');
                 document.getElementById('pivotTable').style.display = "none";
-                
+
                 $("#output").empty();
                 $(function () {
                     $.getJSON("FactHospitalServlet", function (mps) {
@@ -722,7 +678,7 @@
                 addPivotButtons();
                 $("#withoutChartSelection").empty();
                 $("#withChartSelection").empty();
-                
+
                 $('select[name="commonReports"]').empty();
                 $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
                 $('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
@@ -766,7 +722,7 @@
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsWithGradeLevel('getFactHospital()', charts);
-                } 
+                }
                 else if(conceptName=='Enrollment in Public and Private Preschools'){
                     var chart = 'Line Chart'
                     $("#theButtonsForPivot").empty();
@@ -782,7 +738,7 @@
                     setElementaryEnrollments(chart);
                 }
             }
-            
+
             function changeChart(){
                 var conceptName = $('#commonReports').find(":selected").text();
                 var chartSelected = $('#charts').find(":selected").text();
@@ -810,19 +766,19 @@
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Table'];
                     addWithChartSelections('getFactEducation()',charts);
-                } 
+                }
                 else if(conceptName=='Nutritional Status of the Preschool and Elementary Students'){
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsWithGradeLevel('getFactHospital()',charts);
                     setNutritionalStatus(chartSelected);
-                } 
+                }
                 else if(conceptName=='Enrollment in Public and Private Preschools'){
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart','Stacked Bar Chart','Table'];
                     addWithChartSelectionsKinderEnrollment('getFactEducation()',charts);
                     setKinderEnrollments(chartSelected);
-                } 
+                }
                 else if(conceptName=='Enrollment in Public and Private Elementary Schools'){
                     $("#theButtonsForPivot").empty();
                     var charts=['Bar Chart','Line Chart', 'Stacked Bar Chart','Table'];
