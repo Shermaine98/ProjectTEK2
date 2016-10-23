@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package dao.analysis;
 
 import dao.demo.HighestCompletedDAO;
@@ -18,7 +18,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author giancarloroxas
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class GenderDAO {
     public ArrayList<String> retrieveGenderWithoutBothSexes () throws ParseException {

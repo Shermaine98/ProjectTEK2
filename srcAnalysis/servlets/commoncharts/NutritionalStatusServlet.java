@@ -1,15 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package servlets.commoncharts;
 
-import dao.analysis.BarangayDAO;
 import dao.analysis.CensusYearDAO;
 import dao.analysis.DistrictDAO;
 import dao.analysis.FactEnrollmentDAO;
-import dao.analysis.FactPeopleDAO;
 import dao.analysis.FactStudentNutritionDAO;
 import dao.analysis.GenderDAO;
 import java.io.IOException;
@@ -26,7 +24,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.analysis.FactEnrollment;
-import model.analysis.FactPeople;
 import model.analysis.FactStudentNutrition;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +32,10 @@ import servlet.setdata.SetAnalysisDataServlet;
 
 /**
  *
- * @author giancarloroxas
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class NutritionalStatusServlet extends HttpServlet {
 

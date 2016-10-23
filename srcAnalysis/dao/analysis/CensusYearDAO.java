@@ -1,16 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package dao.analysis;
 
-import dao.analysis.FactPeopleDAO;
 import dao.demo.HighestCompletedDAO;
 import db.DBConnectionFactoryStarSchema;
-import model.analysis.FactPeople;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,17 +15,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class CensusYearDAO extends HttpServlet {
 

@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package servlets.search;
 
 import dao.RecordDAO;
@@ -19,16 +19,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static java.lang.String.valueOf;
 import static java.util.logging.Logger.getLogger;
-import static java.lang.String.valueOf;
-import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class SearchPrivateClassroom extends BaseServlet {
 
-        /**
+    /**
      *
      * @param request
      * @param response

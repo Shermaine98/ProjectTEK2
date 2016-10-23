@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package servlets.commoncharts;
 
 import dao.analysis.CensusYearDAO;
@@ -32,7 +32,10 @@ import servlet.setdata.SetAnalysisDataServlet;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class ElementaryEnrollmentServlet extends HttpServlet {
 
