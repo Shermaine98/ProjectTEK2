@@ -57,7 +57,8 @@
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
-                        <%                        String reportAction = (String) request.getAttribute("reportSet");
+                        <%
+                            String reportAction = (String) request.getAttribute("reportSet");
                         %>
                         <input id="reportSet" type="hidden" value="<%=reportAction%>" />
                         <div style=" margin: 0 auto; display:block; text-align: center">
@@ -82,15 +83,11 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
                                     <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
-                                        <!--onclick="print_div();
-                                                return xepOnline.Formatter.Format('TESTING', {render: 'download'},
-                                                        {embedLocalImages: 'true'});"-->
+
                                         <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
-                                    <!--</a>-->
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <!--CHARTS, change id value-->
                                     <center>
                                         <div id="byAgeGrpSex" style="width:80%;">
                                             <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
@@ -108,7 +105,6 @@
         </div>
 
         <div id="TESTING" style="display:none;">
-
             <div style="margin-bottom: 6%;" align="center">
                 <!--<img src="img/Caloocan-Logo.png" alt=""/>-->
                 <table style="border: none;">

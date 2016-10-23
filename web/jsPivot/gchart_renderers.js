@@ -1,5 +1,6 @@
 var wrapper;
 EXPORT_WIDTH = 1000;
+var data;
 
 (function () {
     var callWithJQuery;
@@ -185,7 +186,6 @@ EXPORT_WIDTH = 1000;
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
                                 document.getElementById('showReport').style.display = "block";
 
-
                                 if ($('#commonReports option:selected').text() != "Commonly Used Reports") {
                                     //SVG
                                     var chart = $('#output').highcharts();
@@ -199,19 +199,22 @@ EXPORT_WIDTH = 1000;
                                             sourceHeight: chart.chartHeight
                                         }
                                     });
-
+                                
+                                    
                                     var image = new Image;
                                     var canvas = document.createElement('canvas');
                                     canvas.height = render_height;
                                     canvas.width = render_width;
+                                    
+                                    // this 
+                                    
+                                    image.onload = function () {
+                                        canvas.getContext('2d').drawImage(this, 0, 0, render_width, render_height);
+                                         data = canvas.toDataURL("image/png");
+                                        console.log("this" + data);
+                                    };
 
-//                                    image.onload = function () {
-//                                        canvas.getContext('2d').drawImage(this, 0, 0, render_width, render_height);
-//                                    };
 
-                                    //document.body.appendChild(canvas);
-                                    var data = canvas.toDataURL("image/png");
-                                    console.log(data);
                                     image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
 
                                     //SVG
@@ -224,6 +227,7 @@ EXPORT_WIDTH = 1000;
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
+                                        console.log("HELLLOOOO" + data);
                                         $('div#matrix')                         // grab the media content
                                                 .clone()                          // make a duplicate of it
                                                 .removeAttr('id')               // remove their ID attributes
@@ -232,7 +236,6 @@ EXPORT_WIDTH = 1000;
                                         $('.reportContents').append('<br><br><br><hr/>');
                                         para.setAttribute("class", "reportDelete");
                                     } else if (this.id === "btnReport") {
-
                                         var para = document.createElement("div");
                                         var element = document.getElementById("reportBody");
                                         para.setAttribute("class", "reportContents");
@@ -240,6 +243,7 @@ EXPORT_WIDTH = 1000;
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
+                                        console.log("HELLLOOOO" + data);
                                         $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                         $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
                                         $('.reportContents').append('<br><br><br><hr/>');
@@ -255,6 +259,7 @@ EXPORT_WIDTH = 1000;
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
+                                        
                                         console.log(wrapper.getChart().getImageURI());
                                         $('div#matrix')                         // grab the media content
                                                 .clone()                          // make a duplicate of it
@@ -272,7 +277,7 @@ EXPORT_WIDTH = 1000;
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
-                                         console.log(wrapper.getChart().getImageURI());
+                                        console.log(wrapper.getChart().getImageURI());
                                         $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                         $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
                                         $('.reportContents').append('<br><br><br><hr/>');

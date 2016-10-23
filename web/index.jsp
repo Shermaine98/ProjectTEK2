@@ -9,22 +9,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="cssImported/googleapisfonts.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="cssImported/googleapisfonts.css"  type="text/css"/>
         <link rel="stylesheet" href="index_template/assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="index_template/assets/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="index_template/assets/css/form-elements.css">
         <link rel="stylesheet" href="index_template/assets/css/style.css">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
         <!-- Favicon and touch icons -->
         <link rel="icon" href="index_template/Ph_seal_ncr_caloocan.png">
-
+        <!-- Javascript -->
+        <script src="index_template/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="index_template/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="index_template/assets/js/jquery.backstretch.min.js"></script>
+        <script src="index_template/assets/js/scripts.js"></script>
+        
         <style>
             .container {
                 display: flex;
@@ -64,7 +63,7 @@
         <div id="notify" style="background: #444; width: 100%; height: 30px; float: top;">You have successfully logged out!</div>
         <% }%>
 
-         <% if (null != request.getAttribute("sRegister")) { %>
+        <% if (null != request.getAttribute("sRegister")) { %>
         <div id="notify" style="background: #444; width: 100%; height: 30px; float: top;">Registration Success! Kindly wait for a confirmation email from the administration</div>
         <% }%>
 
@@ -98,15 +97,13 @@
 
 
         <script>
-            setTimeout(function () {
-                $('#notify').fadeOut('fast');
-            }, 4000); // <-- time in milliseconds
+            $(document).ready(function () {
+                if ($("#notify").length != 0) {
+                    setTimeout(function () {
+                        $('#notify').fadeOut('fast');
+                    }, 4000); //} <-- time in milliseconds
+                }
+            });
         </script>
-        <!-- Javascript -->
-        <script src="index_template/assets/js/jquery-1.11.1.min.js"></script>
-        <script src="index_template/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="index_template/assets/js/jquery.backstretch.min.js"></script>
-        <script src="index_template/assets/js/scripts.js"></script>
-
     </body>
 </html>
