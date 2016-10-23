@@ -135,9 +135,6 @@
             </footer>
         </div>
         <script>
-
-
-
             $(document).on("xepOnlineStatus", function (event, state) {
                 if (state === "Started") {
                     var screenTop = $(document).scrollTop();
@@ -146,7 +143,7 @@
                     $('#spinner-overlay').css('height', screenHeight);
                     $('#spinner-overlay').toggle('show');
                 } else if (state === "Finished") {
-                    console.log("czxcxzczzczx");
+                    console.log("Save to PDF Finished Loading");
                     $('#spinner-overlay').toggle('show');
                     doneyet();
                 }
@@ -159,7 +156,6 @@
                         {embedLocalImages: 'true'});
 
             });
-
 
             var year = 0;
             function updateReport() {
