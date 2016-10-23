@@ -1,14 +1,25 @@
+/*
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
+ */
+
 package model.reports;
 
 import java.io.IOException;
-
 import sun.misc.BASE64Encoder;
 import sun.misc.BASE64Decoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+
+/**
+ *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
+ */
 
 public class ImageUtils {
 
@@ -55,16 +66,5 @@ public class ImageUtils {
 			e.printStackTrace();
 		}
 		return imageString;
-	}
-
-	public static void main (String args[]) throws IOException {
-		/* Test image to string and string to image start */
-		BufferedImage img = ImageIO.read(new File("files/img/TestImage.png"));
-		BufferedImage newImg;
-		String imgstr;
-		imgstr = encodeToString(img, "png");
-		newImg = decodeToImage(imgstr);
-		ImageIO.write(newImg, "png", new File("files/img/CopyOfTestImage.png"));
-		/* Test image to string and string to image finish */
 	}
 }

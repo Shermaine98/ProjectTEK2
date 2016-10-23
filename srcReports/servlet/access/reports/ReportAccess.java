@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package servlet.access.reports;
 
 import dao.reports.ReportDAO;
@@ -26,11 +26,12 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ReportAccess extends BaseServlet {
 
     /**
