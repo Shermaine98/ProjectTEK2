@@ -131,7 +131,7 @@ public class CreateReport extends BaseServlet {
                 Matrix Matrix = new Matrix();
 
               
-              BufferedImage  newImg = ImageUtils.decodeToImage(minedata[i].replace("data:image/png;base64,", "").replace("data:image/svg+xml;base64,", ""));
+              BufferedImage  newImg = ImageUtils.decodeToImage(minedata[i].replace("data:image/png;base64,", ""));
                 String name = chartNumber + ".png";
                 File Save = new File(loc, name);
                 ImageIO.write(newImg, "png", Save);
