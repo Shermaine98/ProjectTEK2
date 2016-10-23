@@ -88,7 +88,7 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <center>
-                                        <div id="byAgeGrpSex" style="width:80%;">
+                                        <div id="byAgeGrpSex" style="width:85%;">
                                             <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
                                         </div>
                                     </center>
@@ -153,6 +153,7 @@
             $('#save_pdf').click(function () {
                 print_div();
                 xepOnline.Formatter.Format('TESTING',
+                        {pageWidth: '11in', pageHeight: '8.5in'},
                         {embedLocalImages: 'true'});
 
             });

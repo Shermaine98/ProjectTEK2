@@ -158,9 +158,6 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
                                     <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
-                                        <!--onclick="print_div();
-                                                return xepOnline.Formatter.Format('TESTING', {render: 'download'},
-                                                        {embedLocalImages: 'true'});"-->
                                         <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
                                     <!--</a>-->
                                 </div>
@@ -170,8 +167,6 @@
                                     <div id="info" style="width:90%;">
                                         <!--TABLE -->
                                     </div>
-
-
 
                                     <div id="content" style="width:90%; margin: 0 auto;">
                                         <!--CONTENTHERE -->
@@ -234,6 +229,7 @@
             $('#save_pdf').click(function () {
                 print_div();
                 xepOnline.Formatter.Format('TESTING',
+                        {pageWidth: '11in', pageHeight: '8.5in'},
                         {embedLocalImages: 'true'});
             });
             
