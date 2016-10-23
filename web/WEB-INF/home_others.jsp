@@ -120,7 +120,7 @@
                                                 <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:280px;">
                                                     <option disabled selected>Choose Report</option>
                                                 </select>
-                                                <input style="width: 110px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
+                                                <input style="width: 110px;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
                                                 <button disabled id="button" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                                             </div>
                                         </form>
