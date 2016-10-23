@@ -1,15 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package setdata;
 
-import dao.charts.ByAgeGroupChart;
-import dao.demo.ByAgeGroupSexDAO;
 import dao.RecordDAO;
 import dao.charts.HighestCompletedChart;
-import model.demo.ByAgeGroupSex;
 import model.Record;
 import model.demo.HighestCompleted;
 import model.demo.HighestCompletedAgeGroup;
@@ -30,7 +27,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class SetHighestCompletedData extends HttpServlet {
     String male = "Male";

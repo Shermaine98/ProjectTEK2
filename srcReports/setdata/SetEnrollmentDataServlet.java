@@ -1,16 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package setdata;
 
-import dao.RecordDAO;
-import dao.charts.SchoolDirectory;
 import dao.charts.SchoolEnrollment;
-import model.Record;
 import model.education.EnrollmentDet;
-import model.education.DirectorySchool;
 import model.education.Enrollment;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +25,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class SetEnrollmentDataServlet extends HttpServlet {
 

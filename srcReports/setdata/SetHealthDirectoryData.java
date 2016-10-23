@@ -1,15 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package setdata;
 
 import dao.RecordDAO;
 import dao.charts.ListOfHospitalDAO;
-import dao.charts.SchoolDirectory;
 import model.Record;
-import model.education.DirectorySchool;
 import model.health.DirectoryHealth;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +26,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class SetHealthDirectoryData extends HttpServlet {
 
@@ -36,13 +37,12 @@ public class SetHealthDirectoryData extends HttpServlet {
     private String publicClassification = "Government Hospital";
     
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * 
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
