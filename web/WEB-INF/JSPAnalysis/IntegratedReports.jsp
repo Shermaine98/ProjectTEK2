@@ -106,8 +106,8 @@
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
-                                        <div id="trial" style="margin: 30px;"></div>
-                                        <textarea name="text" rows="20"></textarea>
+                                        <div id="trial"></div>
+                                        <textarea class="form-control" name="text" rows="10"></textarea>
                                     </div>
                                     <!-- /.box-body -->
                                 </div>

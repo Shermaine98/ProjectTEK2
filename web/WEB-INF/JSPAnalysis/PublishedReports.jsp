@@ -73,17 +73,17 @@
 
                 <!--Specific Report-->
 
-                     <%
-                         if (null != request.getAttribute("ReportSearch")) {
+                <%
+                    if (null != request.getAttribute("ReportSearch")) {
                         String reportYear = (String) request.getAttribute("yearReport");
                         String reportTitle = (String) request.getAttribute("reportTitle");
                         String reportSector = (String) request.getAttribute("sectorReport");
-                     %>
-                     <input type="hidden" id="reportTitle" value="<%=reportTitle%>" />
-                     <input type="hidden" id="reportYear" value="<%=reportYear%>" />
-                     <input type="hidden" id="reportSector" value="<%=reportSector%>" />
-                      <% }%>
-                        <!--END Specific Report-->
+                %>
+                <input type="hidden" id="reportTitle" value="<%=reportTitle%>" />
+                <input type="hidden" id="reportYear" value="<%=reportYear%>" />
+                <input type="hidden" id="reportSector" value="<%=reportSector%>" />
+                <% }%>
+                <!--END Specific Report-->
 
 
 
@@ -137,8 +137,8 @@
                             <div class="col-md-12">
                                 <div class="box box-solid">
                                     <div class="box-body">
-                                        <button class="btn btn-primary btn-sm" style="float:right;" onclick="print_div('integrated')"><span class="fa fa-print" style="margin-right: 2%"></span> Print</button>
-
+                                        <button class="btn btn-primary btn-sm" style="float:right;" id="save_integrated">
+                                            <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
                                         <div id="integrated__reports">
                                             <div id="container"  align="center" style="min-width: 310px; width: 600px; margin: 0 auto"></div>
                                             <div id="container2" align="center" style="min-width: 310px; width: 600px; margin: 0 auto"></div>
@@ -157,9 +157,8 @@
                             <div class="box box-solid" style="height:100%; ">
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
-                                    <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
+                                    <button class="btn btn-primary btn-sm" style="float:right;" id="save_reports">
                                         <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
-                                    <!--</a>-->
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -175,10 +174,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <!---->
-
 
                     </div>
                 </section>
@@ -209,6 +204,10 @@
                 </div>
                 <!--TABLE-->
             </div>
+
+            <footer>
+                <p style="text-align: right;"><pagenum/></p>
+            </footer>
         </div>
 
         <script>
@@ -226,13 +225,19 @@
                 }
 
             });
-            $('#save_pdf').click(function () {
-                print_div();
+            $('#save_integrated').click(function () {
+                print_div('integrated');
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
                         {embedLocalImages: 'true'});
             });
-            
+            $('#save_reports').click(function () {
+                print_div('reports');
+                xepOnline.Formatter.Format('TESTING',
+                        {pageWidth: '11in', pageHeight: '8.5in'},
+                        {embedLocalImages: 'true'});
+            });
+
             var year;
             function updateReport() {
                 var conceptName = $('#category').find(":selected").text();
@@ -328,9 +333,7 @@
                 document.getElementById("TESTING").setAttribute("style", "display:block");
                 $('#dataTable').DataTable().destroy(false);
                 document.getElementById("print_year").innerHTML = "Report for the Year " + year;
-                $("#DateHere").html(today);
-
-//                window.print();
+                $("#DateHere").html("Retrieved on " + today);
             }
 
             function doneyet() {
