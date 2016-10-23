@@ -111,16 +111,16 @@
                                         <form action="ServletAccess" method="post">
                                             <input name="redirect" type="hidden" value="ReportSearchForum" />
                                             <div class="form-group">
-                                                <select id="category" name="sectorReport" class="form-control" onchange="updateReport()">
+                                                <select id="category" name="sectorReport" class="form-control" onchange="updateReport()" style="width:180px;">
                                                     <option disabled selected>Choose Sector</option>
                                                     <option value="Education">Education</option>
                                                     <option value="Demographics">Demographics</option>
                                                     <option value="Health">Health</option>
                                                 </select>
-                                                <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:800px">
+                                                <select id="form_name" name="reportTitle" class="form-control" disabled onchange="updateYear()" style="width:280px;">
                                                     <option disabled selected>Choose Report</option>
                                                 </select>
-                                                <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
+                                                <input style="width: 110px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" disabled name="yearReport"  id="searchCensusYear" placeholder="Census Year" />
                                                 <button disabled id="button" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                                             </div>
                                         </form>
