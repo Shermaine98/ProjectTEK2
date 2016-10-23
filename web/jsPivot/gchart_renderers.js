@@ -206,17 +206,12 @@ var data;
                                     canvas.height = render_height;
                                     canvas.width = render_width;
                                     
-                                    // this 
-                                    
-                                    image.onload = function () {
-                                        canvas.getContext('2d').drawImage(this, 0, 0, render_width, render_height);
-                                         data = canvas.toDataURL("image/png");
-                                        console.log("this" + data);
-                                    };
-
-
                                     image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
-
+                                    
+                                    canvas.getContext('2d').drawImage(image, 0, 0, render_width, render_height);
+                                    data = canvas.toDataURL("image/png");
+                                    
+                                    
                                     //SVG
                                     if (this.id === "btnMatrix") {
                                         var para = document.createElement("div");
