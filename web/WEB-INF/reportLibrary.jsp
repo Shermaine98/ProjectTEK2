@@ -72,7 +72,9 @@
                                     <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" style="width:800px">
                                         <option disabled selected>Choose Report</option>
                                     </select>
-                                    <input style="width: 100px; background: #fff;" type="text" class="form-control" onkeyup="updateButton()" name="censusYear" disabled id="searchCensusYear" placeholder="Census Year" />
+                                    <input style="width: 100px; border: solid; border-color: #d2d6de; border-width: thin" type="text" 
+                                           class="form-control" onkeyup="updateButton()" name="censusYear" disabled 
+                                           id="searchCensusYear" placeholder="Census Year" />
                                     <button disabled id="button" type="button" class="btn btn-default" name="submitBtn" onClick="getData()"><span class="glyphicon glyphicon-search"></span></button>
                                 </div>
                             </div>
@@ -198,6 +200,8 @@
                 $('#form_name').removeAttr('disabled');
             }
             function updateYear() {
+                document.getElementById('searchCensusYear').style.background = "#FFF";
+
                 var conceptName = $('#form_name').find(":selected").text();
                 if (conceptName == "Household Population By Age Group and Sex") {
                     $('#searchCensusYear').keypress(autoCompleteAgeGroup());
@@ -248,7 +252,15 @@
                 }
             }
             function updateButton() {
-                $('#button').removeAttr('disabled');
+                if ($('#searchCensusYear').val()) {
+                    $('#button').removeClass('btn-default');
+                    $('#button').addClass('btn-primary');
+                    $("#button").prop('disabled', false);
+                } else if (!$('#searchCensusYear').val()) {
+                    $('#button').removeClass('btn-primary');
+                    $('#button').addClass('btn-default');
+                    $("#button").prop('disabled', true);
+                }
             }
 
             function print_div() {
