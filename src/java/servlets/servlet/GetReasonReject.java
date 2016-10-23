@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -49,6 +50,7 @@ public class GetReasonReject extends HttpServlet {
 //III - Education
 //I - Demo
             TaskModelUploader newtaskModelUploader = new TaskModelUploader();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM. dd, yyyy");
 
             record = recordDAO.GetForReasons(Integer.parseInt(formID));
             TaskModelUploader taskModelUploader = new TaskModelUploader();
@@ -57,14 +59,14 @@ public class GetReasonReject extends HttpServlet {
             for (int i = 0; i < taskModelUploader.getTaskModel().size(); i++) {
                 if (taskModelUploader.getTaskModel().get(i).getFormID() == record.getFormID()) {
                     newtaskModelUploader.setTask(taskModelUploader.getTaskModel().get(i).getTask());
-                    newtaskModelUploader.setDuedate(taskModelUploader.getTaskModel().get(i).getDuedate());
+                    newtaskModelUploader.setsDueDate(sdf.format(taskModelUploader.getTaskModel().get(i).getDuedate()));
 
                 }
             }
             JSONObject obj = new JSONObject();
             try {
                 obj.put("task", newtaskModelUploader.getTask());
-                obj.put("dueDate", newtaskModelUploader.getDuedate());
+                obj.put("dueDate", newtaskModelUploader.getsDueDate());
                 obj.put("cencusYear", record.getCensusYear());
                 obj.put("reason", record.getReasons());
                 obj.put("uplodedBy", record.getUploadedByByName());

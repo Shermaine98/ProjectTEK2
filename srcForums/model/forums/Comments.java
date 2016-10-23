@@ -5,21 +5,27 @@
  */
 package model.forums;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Shermaine
  */
 public class Comments {
-   private int idComments;
-   private int commentedby;
-   private String comment;
-private String forumTitle;
-private int createdBy;
-private int forumID;
-private String commentedDate;
-private String commentedByName;
-private int commentCounts;
-private boolean isLiked;
+
+    private int idComments;
+    private int commentedby;
+    private String comment;
+    private String forumTitle;
+    private int createdBy;
+    private int forumID;
+    private String commentedDate;
+    private String commentedByName;
+    private int commentCounts;
+    private boolean isLiked;
+    SimpleDateFormat formatters = new SimpleDateFormat("MMM. dd, yyyy hh:mm a");
+
     /**
      * @return the idComments
      */
@@ -114,8 +120,8 @@ private boolean isLiked;
     /**
      * @param commentedDate the commentedDate to set
      */
-    public void setCommentedDate(String commentedDate) {
-        this.commentedDate = commentedDate;
+    public void setCommentedDate(Date commentedDate) {
+        this.commentedDate = formatters.format(commentedDate);
     }
 
     /**

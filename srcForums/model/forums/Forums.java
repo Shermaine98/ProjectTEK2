@@ -1,5 +1,7 @@
 package model.forums;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,8 @@ public class Forums {
     private int favoritesCount;
     private int CommentsCount;
     private boolean isLike;
+    SimpleDateFormat formatters = new SimpleDateFormat("MMM. dd, yyyy hh:mm a");
+
     private ArrayList<Comments> comments = new ArrayList<Comments>();
     private ArrayList<Tags> tags = new ArrayList<Tags>();
     /**
@@ -113,8 +117,8 @@ public class Forums {
     /**
      * @param dateCreated the dateCreated to set
      */
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = formatters.format(dateCreated);
     }
 
     /**

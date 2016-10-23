@@ -175,7 +175,7 @@ function Viewforums() {
                 for (var j = 0; data[i].tags.length > j; j++) {
                     $(tr2td).append('<p style="margin-right: 2%;" class="tagSearch btn btn-flat btn-default btn-xs">' + data[i].tags[j].tag + '</p>');
                 }
-                $(tbodytr2).append('<td width="70%"><h5 align="right" style="color: #777; font-size: 13px;">created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
+                $(tbodytr2).append('<td width="70%"><h5 align="right" style="color: #777; font-size: 13px;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
 
 
                 var options = {

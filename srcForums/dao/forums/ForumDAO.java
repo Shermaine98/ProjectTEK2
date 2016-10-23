@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
@@ -26,7 +25,6 @@ import model.forums.ForumsFavorite;
  */
 public class ForumDAO {
     
-    SimpleDateFormat formatters = new SimpleDateFormat("MMM. dd, yyyy hh:mm a");
 
     public boolean addForum(Forums forum) {
         try {
@@ -66,7 +64,7 @@ public class ForumDAO {
                     forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
-                    forums.setDateCreated(formatters.format(rs.getDate("dateCreated")));
+                    forums.setDateCreated(rs.getDate("dateCreated"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
@@ -102,7 +100,7 @@ public class ForumDAO {
                     forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
-                    forums.setDateCreated(formatters.format(rs.getDate("dateCreated")));
+                    forums.setDateCreated(rs.getDate("dateCreated"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
@@ -202,7 +200,7 @@ public class ForumDAO {
                         forums.setCreatedBy(rs2.getInt("createdBy"));
                         forums.setForumTitle(rs2.getString("forumTitle"));
                         forums.setBody(rs2.getString("body"));
-                        forums.setDateCreated(formatters.format(rs2.getDate("dateCreated")));
+                        forums.setDateCreated(rs2.getDate("dateCreated"));
                         forums.setFavoritesCount(getFavorites(forums.getForumID()));
                         forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                         forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
