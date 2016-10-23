@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package dao.charts;
 
 import dao.demo.HighestCompletedDAO;
@@ -23,7 +23,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class SchoolDirectory {
     public ArrayList<DirectorySchool> retrieveDirectorySchool(int censusyear, String classification) throws ParseException {

@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
  */
+
 package dao.education;
 
 import dao.RecordDAO;
@@ -21,12 +21,15 @@ import java.util.logging.Level;
 import static java.util.logging.Level.SEVERE;
 import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
-import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class DirectorySchoolDAO {
 
     public ArrayList<DirectorySchool> ViewDirectorySchoolRecentPrivate() throws ParseException, SQLException {

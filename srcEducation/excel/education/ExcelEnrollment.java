@@ -1,3 +1,8 @@
+/*
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
+ */
+
 package excel.education;
 
 import checker.education.EnrollmentChecker;
@@ -31,11 +36,13 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 /**
- * Use Apache POI to read an Excel (.xls) file and output an HTML table per
- * sheet.
  *
- * @author gian, shermaine and geraldine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ExcelEnrollment {
 
     private ArrayList<Enrollment> arrayNoError;
