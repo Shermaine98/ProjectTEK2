@@ -25,11 +25,12 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 @MultipartConfig(maxFileSize = 16177215)
 public class UploadToDatabaseHealth extends BaseServlet {
 

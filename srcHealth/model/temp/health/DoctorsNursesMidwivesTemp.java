@@ -7,8 +7,12 @@ package model.temp.health;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class DoctorsNursesMidwivesTemp {
     private int formID;
     private int censusYear;

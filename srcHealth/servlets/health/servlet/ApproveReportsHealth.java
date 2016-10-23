@@ -24,11 +24,12 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ApproveReportsHealth extends BaseServlet {
 
     /**

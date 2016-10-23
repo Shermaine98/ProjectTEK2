@@ -27,8 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Geraldine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ValiNutritionalStatus extends BaseServlet {
 
     /**

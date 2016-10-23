@@ -23,11 +23,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class UpdateHealthDirectory extends BaseServlet {
 
     /**

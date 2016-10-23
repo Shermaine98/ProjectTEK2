@@ -1,3 +1,8 @@
+/*
+ *  Copyright (C) ProjectTEK - DLSU CCS 2016
+ *  All right Reserved   * 
+ */
+
 package servlet.etl;
 
 import com.google.gson.Gson;
@@ -12,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class ServletEtl extends HttpServlet {
 

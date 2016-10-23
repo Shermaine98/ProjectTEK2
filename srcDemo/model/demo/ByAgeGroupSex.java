@@ -2,14 +2,14 @@
  *  Copyright (C) ProjectTEK - DLSU CCS 2016
  *  All right Reserved   * 
  */
-package model.demo;
 
+package model.demo;
 import java.text.DecimalFormat;
 
 /**
  *
  * @author Gian Carlo Roxas
- * @author shermaine Sy
+ * @author Shermaine Sy
  * @author Geraldine Atayan
  * 
  */
@@ -26,10 +26,6 @@ public class ByAgeGroupSex {
     private String uploadedBy;
     private int validationNum;
     private String reasonError;
-//    
-//    private String cBothSex;
-//    private String cMaleCount;
-//    private String cFemaleCount;
 
     DecimalFormat df = new DecimalFormat("#,###");
 

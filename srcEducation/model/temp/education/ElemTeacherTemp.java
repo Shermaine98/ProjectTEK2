@@ -1,7 +1,8 @@
 /*
  *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  All rights Reserved   * 
  */
+
 
 package model.temp.education;
 
