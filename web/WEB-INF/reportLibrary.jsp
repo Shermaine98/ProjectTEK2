@@ -84,13 +84,12 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title" id="reportTitle"></h3>
                                     <button class="btn btn-primary btn-sm" style="float:right;" id="save_pdf">
-
                                         <span class="glyphicon glyphicon-save" style="margin-right: 2%"></span> Save as PDF</button>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <center>
-                                        <div id="byAgeGrpSex" style="width:85%;">
+                                        <div id="byAgeGrpSex" style="width:80%;">
                                             <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
                                         </div>
                                     </center>

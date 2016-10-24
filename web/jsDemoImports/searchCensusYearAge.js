@@ -955,6 +955,9 @@ function chartMarital(print) {
         legend: {
             enabled: true
         },
+        yAxis:{
+            title: {text:'Population'}
+        },
         plotOptions: {
             series: {
                 borderWidth: 0,
@@ -1574,8 +1577,7 @@ function getEnrollmentData() {
                                         <tr class="EditTable">\n\
                                             <th>Male</th>';
                 for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td class="number" style="text-align:center;"><input name="gradeLevel" type="hidden" value="' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGrade + '"  />\n\
-                                                    ' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + '</td>';
+                    lol += '<td class="number" style="text-align:center;">'+ print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + '</td>';
                 }
                 lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalMale + '</td>\n\
                                             </tr>\n\
@@ -1730,6 +1732,9 @@ function chartEnrollment(print) {
         xAxis: {
             type: "category"
         },
+        yAxis:{
+            title: {text:'Number of Students'}
+        },
         series: [{
                 name: 'Male',
                 data: male
@@ -1769,9 +1774,9 @@ function getNutritionalStatus() {
             for (i = 0; i < print[0].total.length; i++) {
                 var table = '<tr style="background-color: #454545; color: #fff">\n\
                                                 <th>Location</th>\n\
-                                                <td colspan="3"><input name="district" type="text" value="' + print[0].total[i].getDistrict + '" readonly/></td>\n\
+                                                <td colspan="3">' + print[0].total[i].getDistrict + '</td>\n\
                                                 <th>Grade Level</th>\n\
-                                                <td colspan="3"><input name="gradeLevel" type="text" value="' + print[0].total[i].getGradeLevel + '" readonly /></td>\n\
+                                                <td colspan="3">' + print[0].total[i].getGradeLevel + '</td>\n\
                                             </tr>\n\
                                             <tr>\n\
                                                 <th rowspan="2" colspan="2" class="centerTD">Enrollment</th>\n\
@@ -1978,6 +1983,9 @@ function chartNutritionalStatus(print) {
         },
         xAxis: {
             type: "category"
+        },
+        yAxis:{
+            title: {text:'Number of Students'}
         },
         series: [{
                 name: 'Male',
@@ -2218,6 +2226,9 @@ function chartHighestCompleted(print) {
         },
         legend: {
             enabled: true
+        },
+        yAxis:{
+            title: {text:'Population'}
         },
         plotOptions: {
             series: {
