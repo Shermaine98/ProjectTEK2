@@ -34,6 +34,7 @@ public class BarangayDAO {
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     bgy.add(rs.getInt("BARANGAY"));
+                    System.out.println(rs.getInt("BARANGAY"));
                 }
                 pstmt.close();
             }

@@ -312,13 +312,15 @@ public class FactPeople {
                                                 }
                                                 else{
                                                     people.get(c).setIsOutlier(true);
-//                                                    System.out.println("------");
-//                                                    System.out.println("Baranagay: " + people.get(c).getBarangay());
-//                                                    System.out.println("Census Year: " + people.get(c).getCensusYear());
-//                                                    System.out.println("Growth Rate: " + growthRate);
-//                                                    System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
-//                                                    System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
-//                                                    System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
+                                                    System.out.println("------");
+                                                    System.out.println("Baranagay: " + people.get(c).getBarangay());
+                                                    System.out.println("Census Year: " + people.get(c).getCensusYear());
+                                                    System.out.println("Growth Rate: " + growthRate);
+                                                    System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
+                                                    System.out.println("First Population: " +  people.get(a).getTotalNoOfPeople());
+                                                    System.out.println("Second Population: " +  people.get(b).getTotalNoOfPeople());
+                                                    System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
+                                                    System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
                                                 }
                                             }
                                         }
@@ -370,18 +372,35 @@ public class FactPeople {
                                                     people.get(c).setIsOutlier(false);
                                                 }
                                                 else{
-                                                    people.get(c).setIsOutlier(true);
-                                                    System.out.println("------");
-                                                    System.out.println("Baranagay: " + people.get(c).getBarangay());
-                                                    System.out.println("Census Year: " + people.get(c).getCensusYear());
-                                                    System.out.println("Growth Rate: " + growthRate);
-                                                    System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
-                                                    System.out.println("First Population: " +  people.get(a).getTotalNoOfPeople());
-                                                    System.out.println("Second Population: " +  people.get(b).getTotalNoOfPeople());
-                                                    System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
-                                                    System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
-                                                    System.out.println("Gender: " +  people.get(c).getGender());
-                                                    System.out.println("Age Group: " +  people.get(c).getAgeBracket());
+                                                    float secondGrowthRate = Math.abs(getGrowthRateForTwoYears(thirdPopulation, secondPopulation, 1));
+                                                    if(Math.abs(growthRate) <= 0){
+                                                        people.get(c).setIsOutlier(false);
+//                                                        System.out.println("------");
+//                                                        System.out.println("Baranagay: " + people.get(c).getBarangay());
+//                                                        System.out.println("Census Year: " + people.get(c).getCensusYear());
+//                                                        System.out.println("Growth Rate: " + growthRate);
+//                                                        System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
+//                                                        System.out.println("First Population: " +  people.get(a).getTotalNoOfPeople());
+//                                                        System.out.println("Second Population: " +  people.get(b).getTotalNoOfPeople());
+//                                                        System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
+//                                                        System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
+//                                                        System.out.println("Gender: " +  people.get(c).getGender());
+//                                                        System.out.println("Age Group: " +  people.get(c).getAgeBracket());
+                                                    } else{
+                                                        people.get(c).setIsOutlier(true);
+                                                        System.out.println("------");
+                                                        System.out.println("Baranagay: " + people.get(c).getBarangay());
+                                                        System.out.println("Census Year: " + people.get(c).getCensusYear());
+                                                        System.out.println("Growth Rate: " + growthRate);
+                                                        System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
+                                                        System.out.println("First Population: " +  people.get(a).getTotalNoOfPeople());
+                                                        System.out.println("Second Population: " +  people.get(b).getTotalNoOfPeople());
+                                                        System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
+                                                        System.out.println("IsOutlier" +  people.get(c).getIsOutlier());
+                                                        System.out.println("Gender: " +  people.get(c).getGender());
+                                                        System.out.println("Age Group: " +  people.get(c).getAgeBracket());
+                                                        System.out.println("Second Growth Rate: " +  secondGrowthRate);
+                                                    }
                                                 }
                                             }
                                         }
@@ -413,54 +432,4 @@ public class FactPeople {
         return growthRate;
     }
     
-    //    public void setOutliers(ArrayList<Integer> years, ArrayList<FactPeople> people){
-//        for(int i = 0; i < years.size(); i++){ //for years
-//            if(i+2 < years.size()){
-//            for(int x = 0; x < people.size(); x++) //for people
-//            if(years.get(i) == people.get(x).getCensusYear()){ //if years = people.years
-//                int barangay1 = people.get(x).getBarangay(); //gets barangay number of people given a year.
-//                int totalPeople1 = people.get(x).getTotalNoOfPeople(); //po //gets the number of people in barnagay 1
-//                if((i+1) < years.size() && years.get(i+1)!=null){
-//                    for(int y = 0; y < people.size(); y++){
-//                        if(people.get(y).getCensusYear() == years.get(i+1)){    
-//                            if(people.get(y).getBarangay() == barangay1){
-//                                int barangay2 = people.get(y).getBarangay();
-//                                int totalPeople2 = people.get(y).getTotalNoOfPeople(); //pa
-//                                double growthRate = getGrowthRateForTwoYears(totalPeople2, totalPeople1, 1);
-//                                if((i+2) < years.size() && years.get(i+2)!=null){
-//                                    for(int z = 0; z < people.size();z++){
-//                                        if(people.get(z).getCensusYear() == years.get(i+2)){
-//                                            if(people.get(z).getBarangay()== barangay2 &&
-//                                                    people.get(z).getBarangay() == barangay1){
-//                                                int totalPeople3 = people.get(z).getTotalNoOfPeople();
-//                                                double peopleInTheGrowthRate = Math.abs(growthRate*totalPeople2);
-//                                                double belowGrowthRate = totalPeople2 - peopleInTheGrowthRate;
-//                                                double aboveGrowthRate = totalPeople2 + peopleInTheGrowthRate;
-//                                                if(totalPeople3 >= belowGrowthRate && totalPeople3 <= aboveGrowthRate){
-//                                                    people.get(z).setIsOutlier(false);
-//                                                }
-//                                                else{
-//                                                    people.get(z).setIsOutlier(true);
-//                                                    System.out.println("------");
-//                                                    System.out.println("Baranagay: " + people.get(z).getBarangay());
-//                                                    System.out.println("Census Year: " + people.get(z).getCensusYear());
-//                                                    System.out.println("Census Year: " + people.get(z).getCensusYear());
-//                                                    System.out.println("Growth Rate: " + growthRate);
-//                                                    System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
-//                                                    System.out.print(belowGrowthRate + " > " + totalPeople3 + " > " + aboveGrowthRate + "\n");
-//                                                    System.out.println("IsOutlier" +  people.get(z).getIsOutlier());
-//                                                }
-//                                                
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            }
-//        }
-//    }
 }

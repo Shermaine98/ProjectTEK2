@@ -1543,7 +1543,9 @@ function setHHPopAgeGroupSex (chart){
             var item = {};
             var total = 0;
             var data = [];
-            item["name"] = print[0].ageGroups[a].ageGroup;
+            var isNorthOutlier = false;
+            var isSouthOutlier = false;
+            item["name"] = 'Female';
             item["id"] = 'f'+year+print[0].ageGroups[a].ageGroup;
             for(var i = 0; i < print[0].people.length; i++){
                 if(print[0].people[i].year == year){
@@ -1555,9 +1557,15 @@ function setHHPopAgeGroupSex (chart){
                                         if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                             if(print[0].people[i].zone == 'NORTH'){
                                                 totalNorth+=print[0].people[i].people;
+                                                if(print[0].people[i].isOutlier == true){
+                                                    isNorthOutlier = true;
+                                                }
                                             }
                                             else{
                                                 totalSouth+=print[0].people[i].people;
+                                                if(print[0].people[i].isOutlier == true){
+                                                    isSouthOutlier = true;
+                                                }
                                             }
                                         }
                                     }
@@ -1567,17 +1575,27 @@ function setHHPopAgeGroupSex (chart){
                     }
                 }
             }
-            item2 = {};
-            item2["name"] = 'North Caloocan';
-            item2["y"] = totalNorth;
-            item2["drilldown"] = 'fn'+year+print[0].ageGroups[a].ageGroup; // fn = female north
-            data.push(item2);
             
             item2 = {};
             item2["name"] = 'South Caloocan';
             item2["y"] = totalSouth;
             item2["drilldown"] = 'fs'+year+print[0].ageGroups[a].ageGroup; // fn = female south
+            if(isSouthOutlier){
+                item2["color"] = "#FF0000";
+            }
             data.push(item2);
+            
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = totalNorth;
+            item2["drilldown"] = 'fn'+year+print[0].ageGroups[a].ageGroup; // fn = female north
+            if(isNorthOutlier){
+                item2["color"] = "#FF0000";
+            } else {
+                item2["color"] = "#FF9999";
+            }
+            data.push(item2);
+            
             
             item['data'] = data;
             drilldowns.push(item);
@@ -1590,7 +1608,9 @@ function setHHPopAgeGroupSex (chart){
             var item = {};
             var total = 0;
             var data = [];
-            item["name"] = print[0].ageGroups[a].ageGroup;
+            var isNorthOutlier = false
+            var isSouthOutlier = false
+            item["name"] = 'Male';
             item["id"] = 'm'+year+print[0].ageGroups[a].ageGroup;
             for(var i = 0; i < print[0].people.length; i++){
                 if(print[0].people[i].year == year){
@@ -1602,9 +1622,15 @@ function setHHPopAgeGroupSex (chart){
                                         if(print[0].people[i].barangay == print[0].barangays[b].barangay){
                                             if(print[0].people[i].zone == 'NORTH'){
                                                 totalNorth+=print[0].people[i].people;
+                                                if(print[0].people[i].isOutlier == true){
+                                                    isNorthOutlier = true;
+                                                }
                                             }
                                             else if(print[0].people[i].zone == 'SOUTH'){
                                                 totalSouth+=print[0].people[i].people;
+                                                if(print[0].people[i].isOutlier == true){
+                                                    isSouthOutlier = true;
+                                                }
                                             }
                                         }
                                     }
@@ -1615,15 +1641,25 @@ function setHHPopAgeGroupSex (chart){
                 }
             }
             item2 = {};
-            item2["name"] = 'North Caloocan';
-            item2["y"] = totalNorth;
-            item2["drilldown"] = 'mn'+year+print[0].ageGroups[a].ageGroup; // mn = male north
-            data.push(item2);
-            
-            item2 = {};
             item2["name"] = 'South Caloocan';
             item2["y"] = totalSouth;
             item2["drilldown"] = 'ms'+year+print[0].ageGroups[a].ageGroup; // ms = male south
+            if(isSouthOutlier){
+                item2["color"] = "#FF0000";
+            } else {
+                item2["color"] = "#7CB5EC";
+            }
+            data.push(item2);
+            
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = totalNorth;
+            item2["drilldown"] = 'mn'+year+print[0].ageGroups[a].ageGroup; // mn = male north
+            if(isNorthOutlier){
+                item2["color"] = "#FF0000";
+            } else {
+                item2["color"] = "#7CB5EC";
+            }
             data.push(item2);
             
             item['data'] = data;
@@ -1636,23 +1672,33 @@ function setHHPopAgeGroupSex (chart){
                 for(var a = 0; a < print[0].ageGroups.length; a++){
                     var item = {};
                     var data = [];
-                    item["name"] = print[0].ageGroups[a].ageGroup;
+                    item["name"] = print[0].genders[x].gender;
                     item["id"] = (print[0].genders[x].gender.charAt(0)).toLowerCase()
                             +(zoness[y].charAt(0)).toLowerCase()
                             +year
                             +print[0].ageGroups[a].ageGroup; // mn = male north
-                    for(var i = 0; i < print[0].people.length; i++){
-                        if(print[0].people[i].year == year){
-                            if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
-                                for(var c = 0; c < print[0].genders.length; c++){
-                                    if(print[0].people[i].gender == print[0].genders[c].gender){
-                                        if(print[0].people[i].gender == print[0].genders[x].gender){
-                                            for(var b = 0; b < print[0].barangays.length; b++){
+                    for(var b = 0; b < print[0].barangays.length; b++){
+                        for(var i = 0; i < print[0].people.length; i++){
+                            if(print[0].people[i].year == year){
+                                if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
+                                    for(var c = 0; c < print[0].genders.length; c++){
+                                        if(print[0].people[i].gender == print[0].genders[c].gender){
+                                            if(print[0].people[i].gender == print[0].genders[x].gender){
                                                 if(print[0].people[i].barangay == print[0].barangays[b].barangay){
+                                                    console.log(print[0].barangays[b].barangay);
                                                     if(print[0].people[i].zone == zoness[y]){
                                                         item2 = {};
                                                         item2["name"] = 'Barangay ' + print[0].people[i].barangay;
                                                         item2["y"] = print[0].people[i].people;
+                                                        if(print[0].people[i].isOutlier == true){
+                                                            item2["color"] = "#FF0000";
+                                                        } else {
+                                                            if(print[0].genders[x].gender == 'Male'){
+                                                                item2["color"] = "#7CB5EC";
+                                                            } else {
+                                                                item2["color"] = "#FF9999";
+                                                            }
+                                                        }
                                                         data.push(item2);
                                                     }
                                                 }
@@ -1719,7 +1765,8 @@ function setHHPopAgeGroupSex (chart){
                 },
                 series: [{
                         name: 'Male',
-                        data: male
+                        data: male,
+                        color: '#7CB5EC'
                     }, {
                         name: 'Female',
                         color: '#FF9999',
@@ -1891,8 +1938,8 @@ function setHHPopAgeGroupSex (chart){
                     item["name"] = print[0].ageGroups[a].ageGroup;
                     item["id"] = (zoness[y].charAt(0)).toLowerCase()
                             +print[0].ageGroups[a].ageGroup+year;
-                    for(var i = 0; i < print[0].people.length; i+=add){
-                        for(var b = 0; b < print[0].barangays.length; b++){
+                    for(var b = 0; b < print[0].barangays.length; b++){
+                        for(var i = 0; i < print[0].people.length; i+=add){
                             if(print[0].people[i].year == year){
                                 if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
                                     if(print[0].people[i].barangay == print[0].barangays[b].barangay){
