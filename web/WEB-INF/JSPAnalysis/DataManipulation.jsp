@@ -612,7 +612,7 @@
                 $('select[name="commonReports"]').empty();
                 //common charts
                 $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                $('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
+                //$('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
                 $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
                 $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
                 document.getElementById('commonReports').style.display = "block";
@@ -645,12 +645,12 @@
 
                 $('select[name="commonReports"]').empty();
                 $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                $('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
-                $('select[name="commonReports"]').append("<option value='Classroom, Teachers Requirements in Public Elementary Schools'>Classroom, Teachers Requirements in Public Elementary Schools</option>");
-                $('select[name="commonReports"]').append("<option value='Data on Enrollment, Teachers and Classrooms'>Data on Enrollment, Teachers and Classrooms</option>");
+                //$('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
+                //$('select[name="commonReports"]').append("<option value='Classroom, Teachers Requirements in Public Elementary Schools'>Classroom, Teachers Requirements in Public Elementary Schools</option>");
+                //$('select[name="commonReports"]').append("<option value='Data on Enrollment, Teachers and Classrooms'>Data on Enrollment, Teachers and Classrooms</option>");
                 $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Preschools'>Enrollment in Public and Private Preschools</option>");
                 $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Elementary Schools</option>");
-                $('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
+                //$('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
                 document.getElementById('commonReports').style.display = "block";
 
             }
@@ -681,8 +681,8 @@
 
                 $('select[name="commonReports"]').empty();
                 $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
-                $('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
-                $('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
+                //$('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
+                //$('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
                 $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
                 document.getElementById('commonReports').style.display = "block";
             }
