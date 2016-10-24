@@ -83,11 +83,11 @@
                                 <br>
                                 <button class="btn btn-default btn-sm" id="b1" type="button" ><span class="glyphicon glyphicon-menu-left"></span></button>
                             </div>
-                            <div style='margin-top: 10px; margin-bottom: 70px; margin-left:1%;'>
+                            <div style='margin-top: 10px; margin-bottom: 70px; margin-left:1%; margin-right:1%'>
                                 <div id='divPivotTable'>
                                     <button class="btn btn-primary" id="pivotTable" style='width:100%; height:100%; color: #FFF; display:none'><span class='glyphicon glyphicon-arrow-left' aria-hidden='true'></span>&nbsp;&nbsp;Back to Customized Analytics</button>
                                 </div>
-                                <div id ='divCommonReports' class="col-md-12">
+                                <div id ='divCommonReports' class="col-md-12" >
                                     <select id="commonReports" name="commonReports" class="form-control" onchange="getData()" style="display:none;">
                                     </select>
                                 </div>
@@ -96,11 +96,11 @@
                             <div id='withoutChartSelection' style='margin-left:1%;margin-right:1%;'>
                             </div>
 
-                            <div id='withChartSelection' style='margin-left:1%;margin-right:1%;width:100%'>
+                            <div id='withChartSelection' style='margin-left:1%;margin-right:2%;width:98%'>
                             </div>
 
                             <div class="box-body">
-                                <div id="output" style="width:95%; margin-left: 2%; margin-top: 1%; margin-bottom: 1%; margin-right: 2%; ">
+                                <div id="output" style="width:97%; margin-left: 1%; margin-top: 1%; margin-bottom: 1%; margin-right: 1%; ">
                                 </div>
                             </div>
 

@@ -23,6 +23,13 @@ function format() {
     });
 }
 
+function formatTDNumber() {
+    $(".number").each(function () {
+        var x = $(this).text();
+        $(this).text(x.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    });
+}
+
 
 function autoCompleteAgeGroup() {
     $("#searchCensusYear").devbridgeAutocomplete({
@@ -204,9 +211,9 @@ function getDataAgeGroup() {
                 $('#data').append('<tr> \n\
                                         <td>' + print[0].ByAgeGroupSexTable[i].location + '</td>  \n\
                                         <td>' + print[0].ByAgeGroupSexTable[i].AgeGroup + '</td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].ByAgeGroupSexTable[i].BothSexes + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].ByAgeGroupSexTable[i].Male + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly  value="' + print[0].ByAgeGroupSexTable[i].Female + '" /></td>'
+                                        <td class="centerTD number">' + print[0].ByAgeGroupSexTable[i].BothSexes + '</td> \n\
+                                        <td class="centerTD number">' + print[0].ByAgeGroupSexTable[i].Male + '</td> \n\
+                                        <td class="centerTD number">' + print[0].ByAgeGroupSexTable[i].Female + '</td>'
                         + '</tr>');
 
             }
@@ -215,7 +222,7 @@ function getDataAgeGroup() {
 
 
             //COMA
-            format();
+            formatTDNumber();
 
             $("#dataTable").DataTable({
                 "paging": true,
@@ -454,36 +461,36 @@ function getMaritalStatusData() {
                             </table>';
             document.getElementById("TableHolder").innerHTML = str;
             $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
-                                    <th>Location</th> \n\
-                                    <th>Sex</th>\n\
-                                    <th>Age Group</th> \n\
-                                    <th>Single</th>\n\
-                                    <th>Married</th> \n\
-                                    <th>Widowed</th> \n\
-                                    <th>Divorced/Separated</th> \n\
-                                    <th>Common Law/Live-in</th> \n\
-                                    <th>Unknown</th> \n\
-                                    <th>Total</th> \n\
+                                    <th style="width:10%">Location</th> \n\
+                                    <th style="width:10%">Sex</th>\n\
+                                    <th style="width:10%">Age Group</th> \n\
+                                    <th style="width:10%">Single</th>\n\
+                                    <th style="width:10%">Married</th> \n\
+                                    <th style="width:10%">Widowed</th> \n\
+                                    <th style="width:10%">Divorced / Separated</th> \n\
+                                    <th style="width:10%">Common Law/Live-in</th> \n\
+                                    <th style="width:10%">Unknown</th> \n\
+                                    <th style="width:10%">Total</th> \n\
                                     </tr>');
 
             for (i = 0; i < print[0].maritalTable.length; i++) {
                 $('#data').append('<tr> \n\
-                                        <td><input type="text" readonly  value="' + print[0].maritalTable[i].location + '"/></td>  \n\
-                                        <td><input type="text" readonly value="' + print[0].maritalTable[i].sex + '"/></td> \n\
-                                        <td><input type="text" readonly value="' + print[0].maritalTable[i].ageGroup + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].single + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].married + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].widowed + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].divorced + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].liveIn + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].unknown + '" /></td> \n\
-                                        <td><input class="centerTD number" type="text" readonly value="' + print[0].maritalTable[i].total + '" /></td>'
+                                        <td>' + print[0].maritalTable[i].location + '</td>  \n\
+                                        <td>' + print[0].maritalTable[i].sex + '</td> \n\
+                                        <td>' + print[0].maritalTable[i].ageGroup + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].single + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].married + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].widowed + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].divorced + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].liveIn + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].unknown + '</td> \n\
+                                        <td class="centerTD number">' + print[0].maritalTable[i].total + '</td>'
                         + '</tr>');
 
             }
 
             //COMA
-            format();
+            formatTDNumber();
             $("#dataTable").DataTable({
                 "paging": true,
                 "ordering": true,
@@ -1021,6 +1028,9 @@ function getSchoolData() {
             document.getElementById("TableHolder").innerHTML = str;
 
             for (i = 0; i < print[0].det.length; i++) {
+                var totalSeats = print[0].det[i].schoolDirectoryKinderSeats + print[0].det[i].schoolDirectoryElemSeats;
+                console.log(print[0].det[i].schoolDirectoryKinderSeats + print[0].det[i].schoolDirectoryElemSeats);
+                console.log(print[0].det[i].schoolDirectoryKinderSeats + '+' + print[0].det[i].schoolDirectoryElemSeats);
                 $('#data').append('<tr style = "background-color: #454545; color: #fff" >\n\
                                         <th style="vertical-align: bottom; text-align: left;" >Name of School</th>\n\
                                         <td class="nr" colspan = "8" style="border-right: none; text-align: left;">' + print[0].det[i].schoolDirectoryName + '</td>\n\
@@ -1052,29 +1062,28 @@ function getSchoolData() {
                                         <th style="text-align:center;">Total</th>\n\
                                     </tr>\n\
                                     <tr>\n\
-                                        <td class="KtMale number" style="text-align:center;">' + print[0].det[i].schoolDirectoryKinderTeachersMale + '</td>\n\
-                                        <td class="KtFemale number" style="text-align:center;">' + print[0].det[i].schoolDirectoryKinderTeachersFemale + '</td>\n\
-                                        <td class="KTotal number" style="text-align:center;">' + print[0].det[i].schoolDirectoryKinderTeachers + '</td>\n\
-                                        <td class="EtMale number" style="text-align:center;">' + print[0].det[i].schoolDirectoryElemTeachersMale + '</td>\n\
-                                        <td class="EtFemale number" style="text-align:center;">' + print[0].det[i].schoolDirectoryElemTeachersFemale + '</td>\n\
-                                        <td class="ETotal number" style="text-align:center;">' + print[0].det[i].schoolDirectoryElemTeachers + '</td>\n\
-                                        <td class="KClassroom number" style="text-align:center;">' + print[0].det[i].schoolDirectoryKinderClassroom + '</td>\n\
-                                        <td class="EClassroom number" style="text-align:center;">' + print[0].det[i].schoolDirectoryElemClassroom + '</td>\n\
-                                        <td class="Kseats number" style="text-align:center;">' + print[0].det[i].schoolDirectoryKinderSeats + '</td>\n\
-                                        <td class="Eseats number" style="text-align:center;">' + print[0].det[i].schoolDirectoryElemSeats + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachersMale   + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachersFemale + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachers       + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachersMale     + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachersFemale   + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachers         + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderClassroom      + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemClassroom        + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderSeats          + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemSeats            + '</td>\n\
                                     </tr>\n\
                                     <tr>\n\
                                         <th colspan="5" style="text-align:right; margin-right: 2%;">Total Teachers</th>\n\
-                                        <td class=" number" style="text-align:center;">' + (print[0].det[i].schoolDirectoryKinderTeachersMale + print[0].det[i].schoolDirectoryKinderTeachersFemale + print[0].det[i].schoolDirectoryElemTeachersMale + print[0].det[i].schoolDirectoryElemTeachersFemale) + '</td>\n\
+                                        <td class="number" style="text-align:center;">' + (print[0].det[i].schoolDirectoryKinderTeachers + print[0].det[i].schoolDirectoryElemTeachers) + '</td>\n\
                                         <th style="text-align:right; margin-right: 2%;">Total Classrooms</th>\n\
-                                        <td class=" number" style="text-align:center;">' + (print[0].det[i].schoolDirectoryKinderClassroom + print[0].det[i].schoolDirectoryElemClassroom) + '</td>\n\
+                                        <td class="number" style="text-align:center;">' + (print[0].det[i].schoolDirectoryKinderClassroom + print[0].det[i].schoolDirectoryElemClassroom) + '</td>\n\
                                         <th style="text-align:right; margin-right: 2%;">Total Seats</th>\n\
-                                        <td class=" number" style="text-align:center;">' + (print[0].det[i].schoolDirectoryElemClassroom + print[0].det[i].schoolDirectoryKinderClassroom) + '</td>\n\
+                                        <td class="number" style="text-align:center;">' + totalSeats + '</td>\n\
                                     </tr>');
             }
-
             //COMA
-            format();
+            formatTDNumber();
             $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
                 "paging": true,
@@ -1085,6 +1094,7 @@ function getSchoolData() {
                     "emptyTable": "No Data"
                 }
             });
+            
             $('#loadingSpinner').hide();
             $('input:text').focus(
                     function () {
@@ -1256,28 +1266,28 @@ function getHospitalData() {
                                 </tr>');
             for (i = 0; i < print[0].privTable.length; i++) {
                 $('#data').append('<tr> \n\
-                                        <td width="35%"><input type="text" readonly  value="' + print[0].privTable[i].privateDirectoryName + '"/></td>  \n\
-                                        <td width="40%"><input type="text" readonly value="' + print[0].privTable[i].privateDirectoryAddress + '" /></td> \n\
-                                        <td><input type="text" readonly value="' + print[0].privTable[i].privateDirectoryTelephone + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].privTable[i].privateDirectoryDoctors + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].privTable[i].privateDirectoryNurses + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].privTable[i].privateDirectoryMidwives + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].privTable[i].privateDirectoryBeds + '" /></td>'
+                                        <td width="35%">' + print[0].privTable[i].privateDirectoryName + '</td>  \n\
+                                        <td width="40%">' + print[0].privTable[i].privateDirectoryAddress + '</td> \n\
+                                        <td>' + print[0].privTable[i].privateDirectoryTelephone + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryDoctors + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryNurses + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryMidwives + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryBeds + '</td>'
                         + '</tr>');
             }
             for (i = 0; i < print[0].pubTable.length; i++) {
                 $('#data2').append('<tr> \n\
-                                        <td width="35%"><input type="text" readonly  value="' + print[0].pubTable[i].publicDirectoryName + '"/></td>  \n\
-                                        <td width="40%"><input type="text" readonly value="' + print[0].pubTable[i].publicDirectoryAddress + '" /></td> \n\
-                                        <td><input type="text" readonly value="' + print[0].pubTable[i].publicDirectoryTelephone + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].pubTable[i].publicDirectoryDoctors + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].pubTable[i].publicDirectoryNurses + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].pubTable[i].publicDirectoryMidwives + '" /></td> \n\
-                                        <td><input class="format number" type="text" readonly value="' + print[0].pubTable[i].publicDirectoryBeds + '" /></td>'
+                                        <td width="35%">' + print[0].pubTable[i].publicDirectoryName + '</td>  \n\
+                                        <td width="40%">' + print[0].pubTable[i].publicDirectoryAddress + '</td> \n\
+                                        <td>' + print[0].pubTable[i].publicDirectoryTelephone + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryDoctors   + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryNurses    + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryMidwives  + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryBeds      + '</td>'
                         + '</tr>');
             }
             //COMA
-            format();
+            formatTDNumber();
 
             $("#dataTable").DataTable({
                 "paging": true,
@@ -1564,28 +1574,28 @@ function getEnrollmentData() {
                                         <tr class="EditTable">\n\
                                             <th>Male</th>';
                 for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td style="text-align:center;"><input name="gradeLevel" type="hidden" value="' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGrade + '"  />\n\
+                    lol += '<td class="number" style="text-align:center;"><input name="gradeLevel" type="hidden" value="' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGrade + '"  />\n\
                                                     ' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + '</td>';
                 }
-                lol += '<td style="text-align:center;">' + print[0].school[i].bySchoolTotalMale + '</td>\n\
+                lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalMale + '</td>\n\
                                             </tr>\n\
                                         <tr>\n\
                                             <th>Female</th>';
                 for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td style="text-align:center;">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale + '</td>';
+                    lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale + '</td>';
                 }
-                lol += '<td style="text-align:center;">' + print[0].school[i].bySchoolTotalFemale + '</td>\n\
+                lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalFemale + '</td>\n\
                                             </tr>\n\
                                         <tr>\n\
                                             <th>Total</th>';
                 for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td style="text-align:center;">' + (print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale) + '</td>';
+                    lol += '<td class="number" style="text-align:center;">' + (print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale) + '</td>';
                 }
-                lol += '<td style="text-align:center;">' + print[0].school[i].bySchoolGrandTotal + '</td>\n\
+                lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGrandTotal + '</td>\n\
                                             </tr>';
                 $('#data').append(lol);
             }
-            format();
+            formatTDNumber();
             //How to hide datatable error
             $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
@@ -1777,31 +1787,31 @@ function getNutritionalStatus() {
                                             </tr>\n\
                                             <tr class="EditTable">\n\
                                                 <th>Male</th>\n\
-                                                <td><input name="totalMale" class="centerTD number" type="text" value="' + print[0].total[i].getTotalMale + '" readonly /></td>\n\
-                                                <td><input name="pupilsWeighedMale" class="centerTD number"  type="text" value="' + print[0].total[i].getPupilsWeighedMale + '" readonly /></td>';
+                                                <td class="centerTD number">' + print[0].total[i].getTotalMale + '</td>\n\
+                                                <td class="centerTD number">' + print[0].total[i].getPupilsWeighedMale + '</td>';
                 for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                    table += '<td><input name="maleCount" class="centerTD number" style="width:70px"  type="text" value="' + print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + '"  readonly/></td>';
+                    table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + '</td>';
                 }
                 table += '</tr>\n\
                                             <tr>\n\
                                                 <th>Female</th>\n\
-                                                <td><input name="totalFemale" class="centerTD number" type="text" value="' + print[0].total[i].getTotalFemale + '" style="width: auto" readonly/></td>\n\
-                                                <td><input name="pupilsWeighedFemale" class="centerTD number"  type="text" value="' + print[0].total[i].getPupilsWeighedFemale + '"  readonly/></td>';
+                                                <td class="centerTD number">' + print[0].total[i].getTotalFemale + '</td>\n\
+                                                <td class="centerTD number">' + print[0].total[i].getPupilsWeighedFemale + '</td>';
                 for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                    table += '<td><input name="femaleCount" class="centerTD number"  style="width:70px"  type="text" value="' + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts + '"  readonly/></td>';
+                    table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts + '</td>';
                 }
                 table += '</tr>\n\
                                             <tr>\n\
                                                 <th>Total</th>\n\
-                                                <td><input name="totalCount" class="centerTD number" type="text" value="' + print[0].total[i].getTotalCount + '" style="width: auto" readonly /></td>\n\
-                                                <td><input name="pupilsWeighedTotal" class="centerTD number"  type="text" value="' + print[0].total[i].getPupilsWeighedTotal + '" readonly/></td>';
+                                                <td class="centerTD number">' + print[0].total[i].getTotalCount + '</td>\n\
+                                                <td class="centerTD number">' + print[0].total[i].getPupilsWeighedTotal + '</td>';
                 for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                    table += '<td><input name="bTotalCount" class="centerTD number" style="width:70px"  type="text" value="' + (print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts) + '"  readonly/></td>';
+                    table += '<td class="centerTD number">' + (print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts) + '</td>';
                 }
                 table += '</tr>';
                 $('#data').append(table);
             }
-            format();
+            formatTDNumber();
             
             $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
@@ -2007,13 +2017,13 @@ function getHighestCompleted() {
             for (i = 0; i < print[0].table.length; i++) {
                 $('#data').append('<tr style="background-color: #454545; color: #fff">\n\
                                             <th>Location</th>\n\
-                                            <td colspan="3"><input type="text" name="location" readonly value="' + print[0].table[i].location + '" /></td>\n\
+                                            <td colspan="3">' + print[0].table[i].location + '</td>\n\
                                         </tr>\n\
                                         <tr style="background-color: #454545; color: #fff">\n\
                                             <th>Sex</th>\n\
-                                            <td><input type="text" name="sex" readonly value="' + print[0].table[i].sex + '" /></td>\n\
+                                            <td>' + print[0].table[i].sex + '</td>\n\
                                             <th>Age Group</th>\n\
-                                            <td><input type="text" name="ageGroup" readonly value="' + print[0].table[i].ageGroup + '" /></td>\n\
+                                            <td>' + print[0].table[i].ageGroup + '</td>\n\
                                         </tr>\n\
                                         <tr>\n\
                                             <th>Highest Grade Completed</th>\n\
@@ -2025,14 +2035,14 @@ function getHighestCompleted() {
                 for (y = 0; y < print[0].table[i].highestCompletedDet.length; y += 2) {
                     if (print[0].table[i].highestCompletedDet[y + 1] != null) {
                         $('#data').append('<tr>\n\
-                                                        <th><input type="text" name="highestCompleted" readonly value="' + print[0].table[i].highestCompletedDet[y].highestCompleted + '"/></th>\n\
-                                                        <td><input type="text" class="centerTD number" name="count" readonly value="' + print[0].table[i].highestCompletedDet[y].count + '"/></td>\n\
-                                                        <th><input type="text" name="highestCompleted" readonly value="' + print[0].table[i].highestCompletedDet[y + 1].highestCompleted + '"/></th>\n\
-                                                        <td><input type="text" class="centerTD number" name="count" readonly value="' + print[0].table[i].highestCompletedDet[y + 1].count + '"/></td></tr>');
+                                                        <th>' + print[0].table[i].highestCompletedDet[y].highestCompleted + '</th>\n\
+                                                        <td class="centerTD number">' + print[0].table[i].highestCompletedDet[y].count + '</td>\n\
+                                                        <th>' + print[0].table[i].highestCompletedDet[y + 1].highestCompleted + '</th>\n\
+                                                        <td class="centerTD number">' + print[0].table[i].highestCompletedDet[y + 1].count + '</td></tr>');
                     } else {
                         $('#data').append('<tr>\n\
-                                                        <th><input type="text" name="highestCompleted" readonly value="' + print[0].table[i].highestCompletedDet[y].highestCompleted + '"/></th>\n\
-                                                        <td><input type="text" class="centerTD number" name="count" readonly value="' + print[0].table[i].highestCompletedDet[y].count + '"/></td>\n\
+                                                        <th>' + print[0].table[i].highestCompletedDet[y].highestCompleted + '</th>\n\
+                                                        <td class="centerTD number">' + print[0].table[i].highestCompletedDet[y].count + '</td>\n\
                                                         <th></th>\n\
                                                         <td></td></tr>');
                     }
@@ -2041,11 +2051,11 @@ function getHighestCompleted() {
                                             <th></th>\n\
                                             <th></th>\n\
                                             <th>Total</th>\n\
-                                            <td><input type="text" class="centerTD number" name="total" style="float:right;" readonly value="' + print[0].table[i].total + '" /></td>\n\
+                                            <td class="centerTD number">' + print[0].table[i].total + '</td>\n\
                                         </tr>\n\
                                         <% }%>');
             }
-            format();
+            formatTDNumber();
             $.fn.dataTable.ext.errMode = 'none';
             $("#dataTable").DataTable({
                 "paging": true,

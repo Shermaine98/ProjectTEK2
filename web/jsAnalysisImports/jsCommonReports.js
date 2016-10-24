@@ -48,6 +48,13 @@
         }
     }
     
+    function format() {
+        $(".number").each(function () {
+            var x = $(this).text();
+            $(this).text(x.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        });
+    }
+    
     $(document).on("click", '.filter', function () {
         gender = [];
         barangay = [];
@@ -449,7 +456,7 @@ function setElementaryEnrollments(chart){
                                 }
                             }
                         }
-                        str+=('<td>');
+                        str+=('<td class="number">');
                         str+=(total);
                         str+=('</td>');
                     }
@@ -459,6 +466,8 @@ function setElementaryEnrollments(chart){
             str+=('</tr>');
             $('#data').append(str);    
         }
+        
+        format();
         
         $("#dataTable").DataTable({
             "paging": false,
@@ -943,7 +952,7 @@ function setKinderEnrollments(chart){
                                 }
                             }
                         }
-                        str+=('<td>');
+                        str+=('<td class="number">');
                         str+=(total);
                         str+=('</td>');
                     }
@@ -953,6 +962,16 @@ function setKinderEnrollments(chart){
             str+=('</tr>');
             $('#data').append(str);    
         }
+        
+        format();
+        
+        $("#dataTable").DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false, "language": {
+                "emptyTable": "No Data"
+            }
+        });
     }
     
     function drawKinderEnrollment(print, chart, isStacked){
@@ -1428,16 +1447,16 @@ function setHHPopAgeGroupSex (chart){
                         } 
                     }
                 }
-            str+=('<td>');
-            str+=(total);
-            str+=('</td>');
+                str+=('<td class="number">');
+                str+=(total);
+                str+=('</td>');
             }
             var div = totalMale/totalFemale;
             var ratio = div*100;
             if(!isFinite(ratio)){
                 ratio = 0;
             }
-            str+=('<td>');
+            str+=('<td class="number">');
             str+=(ratio.toFixed(3));
             str+=('</td>');
             str+=('</tr>');
@@ -1448,7 +1467,7 @@ function setHHPopAgeGroupSex (chart){
             //item["y"] = -total;
         }
         
-        
+        format();
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
@@ -1677,7 +1696,7 @@ function setHHPopAgeGroupSex (chart){
                             +(zoness[y].charAt(0)).toLowerCase()
                             +year
                             +print[0].ageGroups[a].ageGroup; // mn = male north
-                    for(var b = 0; b < print[0].barangays.length; b++){
+                    for(var b = print[0].barangays.length-1; b >= 0; b--){
                         for(var i = 0; i < print[0].people.length; i++){
                             if(print[0].people[i].year == year){
                                 if(print[0].ageGroups[a].ageGroup == print[0].people[i].ageGroup){
@@ -2128,7 +2147,7 @@ function setHHPopAgeGroupSex (chart){
                             }
                         }
                     }
-                    str+=('<td>');
+                    str+=('<td class="number">');
                     str+=(ultimateTotal);
                     str+=('</td>');
 
@@ -2153,7 +2172,7 @@ function setHHPopAgeGroupSex (chart){
                             }
                         }
                     }
-                    str+=('<td>');
+                    str+=('<td class="number">');
                     str+=(ultimateTotal);
                     str+=('</td>');
 
@@ -2175,7 +2194,7 @@ function setHHPopAgeGroupSex (chart){
                             }
                         }
                     }
-                    str+=('<td>');
+                    str+=('<td class="number">');
                     str+=(total);
                     str+=('</td>');
                     
@@ -2183,7 +2202,7 @@ function setHHPopAgeGroupSex (chart){
                     if(!isFinite(percentage)){
                         percentage =0;
                     }
-                    str+=('<td>');
+                    str+=('<td class="number">');
                     str+=(percentage.toFixed(2)+'%');
                     str+=('</td>');
                 } 
@@ -2191,6 +2210,15 @@ function setHHPopAgeGroupSex (chart){
             str+=('</tr>');
             $('#data').append(str);  
         }
+        format();
+        
+        $("#dataTable").DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false, "language": {
+                "emptyTable": "No Data"
+            }
+        });
     }
     
     function drawNutritionalStatus(print, chart, isStacked){
@@ -2681,13 +2709,14 @@ function setHHPopAgeGroupSex (chart){
                         }
                     }
                 }
-                str+=('<td>');
+                str+=('<td class="number">');
                 str+=(total);
                 str+=('</td>');
             }
             str+=('</tr>');
              $('#data').append(str);
         }
+        format();
         
         $("#dataTable").DataTable({
             "paging": false,
