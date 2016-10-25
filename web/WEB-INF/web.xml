@@ -376,6 +376,10 @@
         <servlet-name>ElementaryEnrollmentServlet</servlet-name>
         <servlet-class>servlets.commoncharts.ElementaryEnrollmentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminHome</servlet-name>
+        <servlet-class>servlets.accounts.AdminHome</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -727,6 +731,10 @@
     <servlet-mapping>
         <servlet-name>ElementaryEnrollmentServlet</servlet-name>
         <url-pattern>/ElementaryEnrollmentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHome</servlet-name>
+        <url-pattern>/AdminHome</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
