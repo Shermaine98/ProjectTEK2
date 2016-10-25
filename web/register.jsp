@@ -73,7 +73,7 @@
                 /*COLOR: #1a1a1a*/
             }
             p{
-                COLOR: #f2f2f2;
+                color: #f2f2f2;
                 margin-bottom: -20px;
             }
             a{
