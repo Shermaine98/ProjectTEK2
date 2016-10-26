@@ -136,25 +136,42 @@
             </footer>
         </div>
         <script>
-            $(document).on("xepOnlineStatus", function (event, state) {
-                if (state === "Started") {
-                    var screenTop = $(document).scrollTop();
-                    var screenHeight = $(document).height();
-                    $('#spinner-overlay').css('top', screenTop);
-                    $('#spinner-overlay').css('height', screenHeight);
-                    $('#spinner-overlay').toggle('show');
-                } else if (state === "Finished") {
+
+            jQuery(document).on("xepOnlineStatus", function (event, state) {
+                if (state == "Started") {
+                    var screenTop = jQuery(document).scrollTop();
+                    var screenHeight = jQuery(document).height();
+                    jQuery('#spinner-overlay').css('top', screenTop);
+                    jQuery('#spinner-overlay').css('height', screenHeight);
+                    jQuery('#spinner-overlay').toggle('show');
+                } else if (state == "Finished") {
                     console.log("Save to PDF Finished Loading");
-                    $('#spinner-overlay').toggle('show');
+                    jQuery('#spinner-overlay').toggle('hide');
                     doneyet();
                 }
-
             });
+
+
+//            $(document).on("xepOnlineStatus", function (event, state) {
+//                if (state === "Started") {
+//                    var screenTop = $(document).scrollTop();
+//                    var screenHeight = $(document).height();
+//                    $('#spinner-overlay').css('top', screenTop);
+//                    $('#spinner-overlay').css('height', screenHeight);
+//                    $('#spinner-overlay').toggle('show');
+//                } else if (state === "Finished") {
+//                    console.log("Save to PDF Finished Loading");
+//                    $('#spinner-overlay').toggle('show');
+//                    doneyet();
+//                }
+//
+//            });
 
             $('#save_pdf').click(function () {
                 print_div();
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
+                        {render: 'download'},
                         {embedLocalImages: 'true'});
 
             });

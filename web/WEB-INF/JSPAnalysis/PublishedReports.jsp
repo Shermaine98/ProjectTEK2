@@ -231,12 +231,14 @@
                 print_div('integrated');
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
+                        {render:'download'},
                         {embedLocalImages: 'true'});
             });
             $('#save_reports').click(function () {
                 print_div('reports');
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
+                        {render:'download'},
                         {embedLocalImages: 'true'});
             });
 
