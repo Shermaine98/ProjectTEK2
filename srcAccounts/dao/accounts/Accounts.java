@@ -542,7 +542,6 @@ public class Accounts {
                 while(rs.next()){
                     User temp = new User();
                     temp.setCount(rs.getInt("COUNT"));
-                    System.out.println(rs.getInt("COUNT"));
                     temp.setDateCreated(rs.getString("dateCreated"));
                     user.add(temp);
                 }
