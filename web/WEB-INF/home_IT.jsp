@@ -12,6 +12,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         <link href="cssImported/ionicons.min.css" rel="stylesheet" type="text/css"/>
+        <script src="Highcharts/highcharts.js"></script>
+        <script src="Highcharts/modules/data.js"></script>
+        <script src="Highcharts/modules/drilldown.js"></script>
+        <script src="Highcharts/modules/exporting.js"></script>
+        
+        <script src="jsImportsITAdmin/AdminHome.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="wrapper">
@@ -76,7 +82,7 @@
                         </div>
 
                         <div class="col-lg-9 col-xs-12">
-                            <!-- CHART HERE -->
+                            <div id="container" style="min-width: 310px; height: 343px; margin: 0 auto"></div>
                         </div>
 
                     </div>

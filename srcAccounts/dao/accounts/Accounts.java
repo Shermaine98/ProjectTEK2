@@ -528,4 +528,30 @@ public class Accounts {
         }
         return false;
     }
+    
+    public ArrayList<User> getSignUpCounts() throws ParseException{
+        ArrayList<User> user = new ArrayList<User>();
+        try {
+            DBConnectionFactory myFactory = getInstance();
+            PreparedStatement pstmt;
+            try (Connection conn = myFactory.getConnection()) {
+                String update = "Select COUNT(firstName) as 'count', dateCreated FROM accounts.users group by dateCreated;";
+                pstmt = conn.prepareStatement(update);
+                
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                    User temp = new User();
+                    temp.setCount(rs.getInt("COUNT"));
+                    System.out.println(rs.getInt("COUNT"));
+                    temp.setDateCreated(rs.getString("dateCreated"));
+                    user.add(temp);
+                }
+            }
+            pstmt.close();
+           
+        } catch (SQLException ex) {
+            getLogger(Accounts.class.getName()).log(SEVERE, null, ex);
+        }
+        return user;
+    }
 }
