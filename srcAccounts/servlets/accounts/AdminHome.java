@@ -5,12 +5,24 @@
  */
 package servlets.accounts;
 
+import dao.accounts.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
+import static java.util.logging.Logger.getLogger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.accounts.User;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import servlet.setdata.SetAnalysisDataServlet;
 
 /**
  *
@@ -28,19 +40,34 @@ public class AdminHome extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminHome</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminHome at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            ArrayList<User> users;
+            Accounts accountsChart = new Accounts();
+            
+            users = accountsChart.getSignUpCounts();
+            
+            JSONArray jarrayAccounts = new JSONArray();
+            JSONObject ObjectAll = new JSONObject();
+            
+            for(int i = 0; i < users.size(); i++){
+                JSONObject objAccounts = new JSONObject();
+                try {
+                    objAccounts.put("name", users.get(i).getDateCreated());
+                    objAccounts.put("y", users.get(i).getCount());
+                    System.out.println(users.get(i).getDateCreated() + " " + users.get(i).getCount());
+                    jarrayAccounts.put(objAccounts);
+                } catch (JSONException ex) {
+                    getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
+                }
+            }
+            
+            ObjectAll.put("series", jarrayAccounts);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().write("["+ObjectAll.toString()+"]");
         }
     }
 
@@ -56,7 +83,11 @@ public class AdminHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +101,11 @@ public class AdminHome extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

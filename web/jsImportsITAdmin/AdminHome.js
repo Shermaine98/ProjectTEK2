@@ -5,17 +5,38 @@
  */
 
 
-$(function () {
+$(document).ready(function () {
+    //var print;
 
-    // Get the CSV and create the chart
-    $.getJSON('', function (csv) {
-
+    $.ajax({
+        url: "AdminHome",
+        type: 'POST',
+        dataType: "JSON",
+        success: function (data) {
+            //print = data;
+            //chart(print);
+            setChart(data);
+        }, error: function (XMLHttpRequest, textStatus, exception) {
+            alert(XMLHttpRequest.responseText);
+        }
+    });
+});
+function setChart(print){
+    
+        var data = [];
+        for (var i = 0; i < print[0].series.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].series[i].name;
+            item["y"] = print[0].series[i].y;
+            data.push(item);
+        }
+        
+        console.log(JSON.stringify(data));
+    
         $('#container').highcharts({
-            data: {
-                csv: csv
-            },
             title: {
-                text: 'Daily Visits'
+                text: 'User Sign-Ups'
             },
 
             xAxis: {
@@ -93,17 +114,10 @@ $(function () {
                     }
                 }
             },
-
-            series: [{
-                name: 'All visits',
-                lineWidth: 4,
-                marker: {
-                    radius: 4
-                }
-            }, {
-                name: 'New visitors'
-            }]
+            series:[{
+            name: 'User Sign-Ups',
+            data: data
+        }]
         });
-    });
 
-});
+}

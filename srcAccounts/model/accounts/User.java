@@ -27,7 +27,25 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private int count;
+    private Date dateCreated;
 
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) throws ParseException {
+        this.dateCreated = javaToSQLdate(dateCreated);
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
     /**
      * @return the firstName
      */
@@ -189,6 +207,8 @@ public class User {
         java.sql.Date sqlbirthdate = new java.sql.Date(birthdate.getTime());
         return sqlbirthdate;
     }
+    
+    
 
     /**
      * @return the position
