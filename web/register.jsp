@@ -143,7 +143,18 @@
                             <h4 class="form-title">Account Details</h4>
                             <div class="form-group">
                                 <label class="sr-only">Email</label>
-                                <input required type="email" name="email" onkeyup="registerValidation()" placeholder="Email Address" class="form-username form-control" id="email">
+                                <input required type="email" name="email" onkeyup="registerValidation()" placeholder="Email Address" class="form-username form-control" id="email"
+                                       style="    height: 50px;
+                                       margin: 0;
+                                       padding: 0 20px;
+                                       vertical-align: middle;
+                                       background: #fff;
+                                       border: 3px solid #fff;
+                                       font-family: 'Roboto', sans-serif;
+                                       font-size: 16px;
+                                       font-weight: 300;
+                                       line-height: 50px;
+                                       color: #888;">
                                 <label style="display:none; color: white; font-size: 14px; font-style: italic; font-weight: normal"
                                        id="emailValidation">*Email has already been taken</label>
                             </div>
