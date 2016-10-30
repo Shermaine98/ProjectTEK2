@@ -31,7 +31,7 @@ public class Record {
     }
 
     /**
-     * @param formID
+     * @param formID the formID
      */
     public void setFormID(int formID) {
         this.formID = formID;

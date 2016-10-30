@@ -22,7 +22,7 @@ public class DBConnectionFactoryImplStarSchema extends DBConnectionFactoryStarSc
 
     /**
      *
-     * @return
+     * @return connection
      */
     @Override
     public Connection getConnection() {

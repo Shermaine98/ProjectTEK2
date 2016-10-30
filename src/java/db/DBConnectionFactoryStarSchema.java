@@ -21,7 +21,7 @@ public abstract class  DBConnectionFactoryStarSchema {
 
     /**
      *
-     * @return
+     * @return connection
      */
     public static DBConnectionFactoryStarSchema getInstance() {
         return new DBConnectionFactoryImplStarSchema();
@@ -29,7 +29,7 @@ public abstract class  DBConnectionFactoryStarSchema {
 
     /**
      *
-     * @return
+     * @return new connection
      */
     public abstract Connection getConnection();
 }

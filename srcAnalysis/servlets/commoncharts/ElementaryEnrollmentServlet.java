@@ -46,6 +46,8 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException servlet exception
      * @throws IOException servlet IOException
+     * @throws java.text.ParseException parse exception
+     * @throws java.sql.SQLException sql exception
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException, SQLException {

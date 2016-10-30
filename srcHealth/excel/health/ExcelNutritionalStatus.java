@@ -75,6 +75,7 @@ public class ExcelNutritionalStatus {
      * name in HTML h1 element.
      *
      * @param in InputStream of the Excel file.
+     * @param sheetNumber the sheet number
      * @throws IOException When POI cannot read from the input stream.
      */
     public ExcelNutritionalStatus(final InputStream in, int sheetNumber) throws IOException {

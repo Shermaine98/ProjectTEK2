@@ -128,7 +128,7 @@ public class NutritionalStatusTemp {
     }
 
     /**
-     * @param totaleFemale the totaleFemale to set
+     * @param totalFemale total female
      */
     public void setTotalFemale(String totalFemale) {
         this.totalFemale = totalFemale;
@@ -198,7 +198,7 @@ public class NutritionalStatusTemp {
     }
 
     /**
-     * @param NutritionalStatusTemp the NutritionalStatusTemp to set
+     * @param NutritionalStatusBMITemp the temp nutritional
      */
     public void setNutritionalStatusTemp(ArrayList<NutritionalStatusBMITemp> NutritionalStatusBMITemp) {
         this.NutritionalStatusBMITemp = NutritionalStatusBMITemp;

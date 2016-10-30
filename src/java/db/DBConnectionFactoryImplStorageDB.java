@@ -21,7 +21,7 @@ public class DBConnectionFactoryImplStorageDB extends DBConnectionFactoryStorage
     
  /**
      *
-     * @return
+     * @return connection
      */
     @Override
     public Connection getConnection() {

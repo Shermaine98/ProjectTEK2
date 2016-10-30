@@ -170,6 +170,8 @@ public class EnrollmentChecker {
      *
      * @param arrError temp stored data, all strings, @param classification -
      * public or private
+     * @param year year
+     * @param formID form id
      */
     public EnrollmentChecker(ArrayList<EnrollmentTemp> arrError, int year, int formID) {
 

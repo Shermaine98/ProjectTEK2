@@ -22,7 +22,7 @@ public class DBConnectionFactoryImpl extends DBConnectionFactory {
 
     /**
      *
-     * @return
+     * @return connection
      */
     @Override
     public Connection getConnection() {

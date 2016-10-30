@@ -201,7 +201,7 @@ public class MaritalStatus {
     }
 
     /**
-     * @param validation
+     * @param validation true or false
      */
     public void setValidation(boolean validation) {
         this.validation = validation;

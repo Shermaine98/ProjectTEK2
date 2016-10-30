@@ -228,10 +228,10 @@ public class ForumDAO {
     /**
      * get if user like
      *
-     * @param forumID
-     * @param UserID
-     * @return
-     * @throws ParseException
+     * @param forumID the forumID
+     * @param UserID the user id
+     * @return boolean true or false
+     * @throws ParseException parse exception
      */
     public boolean getUserFavorite(int forumID, int UserID) throws ParseException {
         try {

@@ -20,7 +20,7 @@ public abstract class  DBConnectionFactoryStorageDB {
 
     /**
      *
-     * @return
+     * @return connection
      */
     public static DBConnectionFactoryStorageDB getInstance() {
         return new DBConnectionFactoryImplStorageDB();
@@ -28,7 +28,7 @@ public abstract class  DBConnectionFactoryStorageDB {
 
     /**
      *
-     * @return
+     * @return connection
      */
     public abstract Connection getConnection();
 }
