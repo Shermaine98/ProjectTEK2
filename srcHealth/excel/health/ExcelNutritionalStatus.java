@@ -1,3 +1,8 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package excel.health;
 
 import checker.health.NutritionalStatusChecker;
@@ -29,11 +34,13 @@ import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 
 /**
- * Use Apache POI to read an Excel (.xls) file and output an HTML table per
- * sheet.
  *
- * @author gian, shermaine and geraldine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ExcelNutritionalStatus {
 
     private ArrayList<NutritionalStatus> arrayNoError;
