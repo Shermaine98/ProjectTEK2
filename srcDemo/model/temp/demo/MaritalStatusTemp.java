@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package model.temp.demo;
 
 /**
@@ -10,7 +9,7 @@ package model.temp.demo;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class MaritalStatusTemp {
 
@@ -26,9 +25,10 @@ public class MaritalStatusTemp {
     private String divorcedSeparated;
     private String commonLawLiveIn;
     private String unknown;
-    private boolean validation;
+    private int validation;
     private String uploadedBy;
     private String approvedBy;
+    private String errorReason;
 
     /**
      * @return the year
@@ -198,19 +198,7 @@ public class MaritalStatusTemp {
         this.formID = formID;
     }
 
-    /**
-     * @return the validation
-     */
-    public boolean isValidation() {
-        return validation;
-    }
 
-    /**
-     * @param validation the validation to set
-     */
-    public void setValidation(boolean validation) {
-        this.validation = validation;
-    }
 
     /**
      * @return the uploadedBy
@@ -238,5 +226,33 @@ public class MaritalStatusTemp {
      */
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    /**
+     * @return the validation
+     */
+    public int getValidation() {
+        return validation;
+    }
+
+    /**
+     * @param validation the validation to set
+     */
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
+    /**
+     * @return the errorReason
+     */
+    public String getErrorReason() {
+        return errorReason;
+    }
+
+    /**
+     * @param errorReason the errorReason to set
+     */
+    public void setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
     }
 }

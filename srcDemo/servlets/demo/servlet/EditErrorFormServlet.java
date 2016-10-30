@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package servlets.demo.servlet;
 
 import dao.demo.MaritalStatusDAO;
@@ -28,10 +27,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class EditErrorFormServlet extends BaseServlet {
-   /**
+
+    /**
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -56,7 +56,7 @@ public class EditErrorFormServlet extends BaseServlet {
                 ArrayList<ByAgeGroupTemp> arrError = new ArrayList<ByAgeGroupTemp>();
 
                 for (int i = 0; i < byAgeGroupDB.size(); i++) {
-                    if (byAgeGroupDB.get(i).isValidation()==1) {
+                    if (byAgeGroupDB.get(i).isValidation() == 1) {
                         byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getBothSex());
                         byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getMaleCount());
                         byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getFemaleCount());
@@ -88,11 +88,10 @@ public class EditErrorFormServlet extends BaseServlet {
                 Logger.getLogger(EditErrorFormServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else if (redirect.equalsIgnoreCase("editErrorByHighest")) {
-            
-            
-             MaritalStatusDAO MaritalStatusDAO = new MaritalStatusDAO();
-                ArrayList<MaritalStatus> MaritalStatus = new ArrayList<>();
+        } else if (redirect.equalsIgnoreCase("editErrorByMarital")) {
+
+            MaritalStatusDAO MaritalStatusDAO = new MaritalStatusDAO();
+            ArrayList<MaritalStatus> MaritalStatus = new ArrayList<>();
 
             try {
                 MaritalStatus = MaritalStatusDAO.ViewMaritalStatusFormID(parseInt(formID));
@@ -100,28 +99,41 @@ public class EditErrorFormServlet extends BaseServlet {
                 Logger.getLogger(EditErrorFormServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-                ArrayList<MaritalStatus> arrNoError = new ArrayList<MaritalStatus>();
-                ArrayList<MaritalStatusTemp> arrError = new ArrayList<MaritalStatusTemp>();
+            ArrayList<MaritalStatus> arrNoError = new ArrayList<MaritalStatus>();
+            ArrayList<MaritalStatusTemp> arrError = new ArrayList<MaritalStatusTemp>();
 
-                for (int i = 0; i < MaritalStatus.size(); i++) {
-                    if (MaritalStatus.get(i).getValidation()) {
+            for (int i = 0; i < MaritalStatus.size(); i++) {
+                if (MaritalStatus.get(i).getValidation() == 1) {
 
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getCommonLawLiveIn());
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getDivorcedSeparated());
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getMarried());
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getSingle());
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getTotal());
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getUnknown());
-                        MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getWidowed());
-                        arrNoError.add(MaritalStatus.get(i));
-                    } else {
-                      //  arrError.add(MaritalStatus.get(i));
-                    }
+                    MaritalStatus.get(i).getAgeGroup();
+                    MaritalStatus.get(i).getLocation();
+                    MaritalStatus.get(i).getSex();
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getCommonLawLiveIn());
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getDivorcedSeparated());
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getMarried());
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getSingle());
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getTotal());
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getUnknown());
+                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getWidowed());
+                    arrNoError.add(MaritalStatus.get(i));
+                } else {
+                    MaritalStatusTemp temp = new MaritalStatusTemp();
+                    temp.setSex(MaritalStatus.get(i).getSex());
+                    temp.setLocation(String.valueOf(MaritalStatus.get(i).getLocation()));
+                    temp.setAgeGroup(String.valueOf(MaritalStatus.get(i).getAgeGroup()));
+                    temp.setCommonLawLiveIn(String.valueOf(MaritalStatus.get(i).getCommonLawLiveIn()));
+                    temp.setDivorcedSeparated(String.valueOf(MaritalStatus.get(i).getDivorcedSeparated()));
+                    temp.setMarried(String.valueOf(MaritalStatus.get(i).getMarried()));
+                    temp.setSingle(String.valueOf(MaritalStatus.get(i).getSingle()));
+                    temp.setTotal(String.valueOf(MaritalStatus.get(i).getTotal()));
+                    temp.setUnknown(String.valueOf(MaritalStatus.get(i).getUnknown()));
+                    temp.setWidowed(String.valueOf(MaritalStatus.get(i).getWidowed()));
+                    arrError.add(temp);
                 }
-            
-            
+            }
+
             request.setAttribute("ErrorMessage", "none");
-            rd = request.getRequestDispatcher("/WEB-INF/JSPDemo/valiHighestAttaintment.jsp");
+            rd = request.getRequestDispatcher("/WEB-INF/JSPDemo/valiMaritalStatus.jsp");
             rd.forward(request, response);
 
         } else if (redirect.equalsIgnoreCase("editErrorByMarital")) {

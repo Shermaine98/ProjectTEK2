@@ -49,7 +49,8 @@ public class MaritalStatusDAO {
                     temp.setDivorcedSeparated(rs.getInt("divorcedSeparated"));
                     temp.setCommonLawLiveIn(rs.getInt("commonLawLiveIn"));
                     temp.setUnknown(rs.getInt("unkown"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
+                    temp.setReasons(getReason(rs.getInt("validation")));
                     
                     ArrMaritalStatus.add(temp);
                 }
@@ -86,7 +87,8 @@ public class MaritalStatusDAO {
                     temp.setDivorcedSeparated(rs.getInt("divorcedSeparated"));
                     temp.setCommonLawLiveIn(rs.getInt("commonLawLiveIn"));
                     temp.setUnknown(rs.getInt("unkown"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
+                    temp.setReasons(getReason(rs.getInt("validation")));
                     ArrMaritalStatus.add(temp);
                 }
                 pstmt.close();
@@ -123,7 +125,7 @@ public class MaritalStatusDAO {
                     pstmt.setInt(10, object.getDivorcedSeparated());
                     pstmt.setInt(11, object.getCommonLawLiveIn());
                     pstmt.setInt(12, object.getUnknown());
-                    pstmt.setBoolean(13, object.getValidation());
+                    pstmt.setInt(13, object.getValidation());
                     
                     pstmt.addBatch();
                     i++;
@@ -238,5 +240,21 @@ public class MaritalStatusDAO {
             rs.close();
         }
         return i;
+    }
+   
+    public String getReason(int reason){
+        String reasonError = "";
+        
+        switch (reason) {
+            case -1:  reasonError = "Missing Field/s";
+                     break;
+            case -2:  reasonError = "Format Error";
+                     break;
+            case -3:  reasonError = "Summation Error";
+                     break;
+            default:  reasonError = "None";
+                     break;
+        }
+            return reasonError;
     }
 }

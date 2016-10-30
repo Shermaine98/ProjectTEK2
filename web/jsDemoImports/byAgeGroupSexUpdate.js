@@ -15,9 +15,6 @@ $(document).ready(function () {
     $('td.reasonNum').css('color', '#fff');
    
     $('#error-ageGroup tbody tr').each(function () {
-
-
-
         var $row = $(this);
         var  bothSexes = $row.find(".bothSexesError input").val();
         var femaleErorr = $row.find(".femaleSexesError input").val();
@@ -29,7 +26,6 @@ $(document).ready(function () {
             $row.find(".bothSexesError input").val("");
         } else {
             $row.find("#bothSexesError").val(bothSexes.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
 
         }
 

@@ -28,9 +28,10 @@ public class MaritalStatus {
     private int divorcedSeparated;
     private int commonLawLiveIn;
     private int unknown;
-    private boolean validation;
+    private int validation;
     private String uploadedBy;
     private String approvedBy;
+    private String reasons;
 
     DecimalFormat df = new DecimalFormat("#,###");
     
@@ -196,14 +197,14 @@ public class MaritalStatus {
     /**
      * @return the approved
      */
-    public boolean getValidation() {
+    public int getValidation() {
         return validation;
     }
 
     /**
      * @param validation true or false
      */
-    public void setValidation(boolean validation) {
+    public void setValidation(int validation) {
         this.validation = validation;
     }
 
@@ -247,6 +248,20 @@ public class MaritalStatus {
      */
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    /**
+     * @return the reasons
+     */
+    public String getReasons() {
+        return reasons;
+    }
+
+    /**
+     * @param reasons the reasons to set
+     */
+    public void setReasons(String reasons) {
+        this.reasons = reasons;
     }
 
     

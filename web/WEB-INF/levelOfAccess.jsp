@@ -13,7 +13,6 @@
 } else if (position.equalsIgnoreCase("Project Development Officer III")) {
 %>          <%@include file= "/WEB-INF/JSPImports/importsHead.jsp" %>
 <%          } else if (position.equalsIgnoreCase("Project Development Officer IV")) {
-
 %>           <%@include file= "/WEB-INF/JSPImports/importsHead.jsp" %>
 <%} else if (position.equalsIgnoreCase("Planning Officer II")) {
 %>           <%@include file= "/WEB-INF/JSPImports/importsHead.jsp" %>

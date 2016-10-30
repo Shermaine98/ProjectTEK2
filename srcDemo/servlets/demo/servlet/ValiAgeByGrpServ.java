@@ -81,6 +81,7 @@ public class ValiAgeByGrpServ extends BaseServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ValiAgeByGrpServ.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         if (errorMessage.equalsIgnoreCase("error")) {
 
             String[] locationError = request.getParameterValues("locationError");

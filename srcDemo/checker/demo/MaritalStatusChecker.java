@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package checker.demo;
 
 import model.demo.MaritalStatus;
@@ -16,9 +15,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author Gian Carlo Roxas
  * @author shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class MaritalStatusChecker {
 
     private ArrayList<MaritalStatus> arrayNoError;
@@ -60,45 +58,46 @@ public class MaritalStatusChecker {
                 MaritalStatusTemp.setLocation(ArrError.get(i).getLocation());
                 MaritalStatusTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
                 MaritalStatusTemp.setSex(ArrError.get(i).getSex());
-                MaritalStatusTemp.setValidation(false);
+                MaritalStatusTemp.setValidation(-1);
+                MaritalStatusTemp.setErrorReason("Missing Field/s");
 
                 if (ArrError.get(i).getTotal() == null || ArrError.get(i).getTotal().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setTotal("-1");
+                    MaritalStatusTemp.setTotal("");
                 } else {
                     MaritalStatusTemp.setTotal(ArrError.get(i).getTotal());
                 }
                 if (ArrError.get(i).getSingle() == null || ArrError.get(i).getSingle().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setSingle("-1");
+                    MaritalStatusTemp.setSingle("");
                 } else {
                     MaritalStatusTemp.setSingle(ArrError.get(i).getSingle());
                 }
 
                 if (ArrError.get(i).getMarried() == null || ArrError.get(i).getMarried().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setMarried("-1");
+                    MaritalStatusTemp.setMarried("");
                 } else {
                     MaritalStatusTemp.setMarried(ArrError.get(i).getMarried());
                 }
 
                 if (ArrError.get(i).getWidowed() == null || ArrError.get(i).getWidowed().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setWidowed("-1");
+                    MaritalStatusTemp.setWidowed("");
                 } else {
                     MaritalStatusTemp.setWidowed(ArrError.get(i).getWidowed());
                 }
 
                 if (ArrError.get(i).getCommonLawLiveIn() == null || ArrError.get(i).getCommonLawLiveIn().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setCommonLawLiveIn("-1");
+                    MaritalStatusTemp.setCommonLawLiveIn("");
                 } else {
                     MaritalStatusTemp.setCommonLawLiveIn(ArrError.get(i).getCommonLawLiveIn());
                 }
 
                 if (ArrError.get(i).getDivorcedSeparated() == null || ArrError.get(i).getDivorcedSeparated().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setDivorcedSeparated("-1");
+                    MaritalStatusTemp.setDivorcedSeparated("");
                 } else {
                     MaritalStatusTemp.setDivorcedSeparated(ArrError.get(i).getDivorcedSeparated());
                 }
 
                 if (ArrError.get(i).getUnknown() == null || ArrError.get(i).getUnknown().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setUnknown("-1");
+                    MaritalStatusTemp.setUnknown("");
                 } else {
                     MaritalStatusTemp.setUnknown(ArrError.get(i).getUnknown());
                 }
@@ -115,45 +114,46 @@ public class MaritalStatusChecker {
                 MaritalStatusTemp.setLocation(ArrError.get(i).getLocation());
                 MaritalStatusTemp.setSex(ArrError.get(i).getSex());
                 MaritalStatusTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
-                MaritalStatusTemp.setValidation(false);
+                MaritalStatusTemp.setValidation(-2);
+                MaritalStatusTemp.setErrorReason("Format Error");
 
                 if (isNumeric(ArrError.get(i).getTotal())) {
-                    MaritalStatusTemp.setTotal("-1");
+                    MaritalStatusTemp.setTotal("");
                 } else {
                     MaritalStatusTemp.setTotal(ArrError.get(i).getTotal());
                 }
                 if (isNumeric(ArrError.get(i).getSingle())) {
-                    MaritalStatusTemp.setSingle("-1");
+                    MaritalStatusTemp.setSingle("");
                 } else {
                     MaritalStatusTemp.setSingle(ArrError.get(i).getSingle());
                 }
 
                 if (isNumeric(ArrError.get(i).getMarried())) {
-                    MaritalStatusTemp.setMarried("-1");
+                    MaritalStatusTemp.setMarried("");
                 } else {
                     MaritalStatusTemp.setMarried(ArrError.get(i).getMarried());
                 }
 
                 if (isNumeric(ArrError.get(i).getWidowed())) {
-                    MaritalStatusTemp.setWidowed("-1");
+                    MaritalStatusTemp.setWidowed("");
                 } else {
                     MaritalStatusTemp.setWidowed(ArrError.get(i).getWidowed());
                 }
 
                 if (isNumeric(ArrError.get(i).getCommonLawLiveIn())) {
-                    MaritalStatusTemp.setCommonLawLiveIn("-1");
+                    MaritalStatusTemp.setCommonLawLiveIn("");
                 } else {
                     MaritalStatusTemp.setCommonLawLiveIn(ArrError.get(i).getCommonLawLiveIn());
                 }
 
                 if (isNumeric(ArrError.get(i).getDivorcedSeparated())) {
-                    MaritalStatusTemp.setDivorcedSeparated("-1");
+                    MaritalStatusTemp.setDivorcedSeparated("");
                 } else {
                     MaritalStatusTemp.setDivorcedSeparated(ArrError.get(i).getDivorcedSeparated());
                 }
 
                 if (isNumeric(ArrError.get(i).getUnknown())) {
-                    MaritalStatusTemp.setUnknown("-1");
+                    MaritalStatusTemp.setUnknown("");
                 } else {
                     MaritalStatusTemp.setUnknown(ArrError.get(i).getUnknown());
                 }
@@ -176,10 +176,11 @@ public class MaritalStatusChecker {
                 MaritalStatusTemp.setCommonLawLiveIn((ArrError.get(i).getCommonLawLiveIn()));
                 MaritalStatusTemp.setDivorcedSeparated((ArrError.get(i).getDivorcedSeparated()));
                 MaritalStatusTemp.setUnknown((ArrError.get(i).getUnknown()));
-                MaritalStatusTemp.setValidation(false);
+                MaritalStatusTemp.setValidation(-3);
+                MaritalStatusTemp.setErrorReason("Summation Error");
                 arrayError.add(MaritalStatusTemp);
             } else {
-                
+
                 MaritalStatus = new MaritalStatus();
                 MaritalStatus.setLocation(ArrError.get(i).getLocation());
                 MaritalStatus.setSex(ArrError.get(i).getSex());
@@ -191,7 +192,7 @@ public class MaritalStatusChecker {
                 MaritalStatus.setCommonLawLiveIn(parseInt(ArrError.get(i).getCommonLawLiveIn()));
                 MaritalStatus.setDivorcedSeparated(parseInt(ArrError.get(i).getDivorcedSeparated()));
                 MaritalStatus.setUnknown(parseInt(ArrError.get(i).getUnknown()));
-                MaritalStatus.setValidation(true);
+                MaritalStatus.setValidation(1);
                 arrayNoError.add(MaritalStatus);
             }
 
@@ -206,9 +207,9 @@ public class MaritalStatusChecker {
         arrayError = new ArrayList<>();
 
         for (int i = 0; i < ArrError.size(); i++) {
-            
+
             MaritalStatusTemp = new MaritalStatusTemp();
-            
+
             if (ArrError.get(i).getLocation() == null
                     || ArrError.get(i).getSex() == null
                     || ArrError.get(i).getAgeGroup() == null
@@ -229,51 +230,52 @@ public class MaritalStatusChecker {
                     || ArrError.get(i).getCommonLawLiveIn().equalsIgnoreCase("")
                     || ArrError.get(i).getDivorcedSeparated().equalsIgnoreCase("")
                     || ArrError.get(i).getUnknown().equalsIgnoreCase("")) {
-               
+
                 MaritalStatusTemp.setFormID(formID);
                 MaritalStatusTemp.setYear(year);
                 MaritalStatusTemp.setLocation(ArrError.get(i).getLocation());
                 MaritalStatusTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
                 MaritalStatusTemp.setSex(ArrError.get(i).getSex());
-                MaritalStatusTemp.setValidation(false);
-               
+                MaritalStatusTemp.setValidation(-1);
+                MaritalStatusTemp.setErrorReason("Missing Filed/s");
+
                 if (ArrError.get(i).getTotal() == null || ArrError.get(i).getTotal().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setTotal("-1");
+                    MaritalStatusTemp.setTotal("");
                 } else {
                     MaritalStatusTemp.setTotal(ArrError.get(i).getTotal());
                 }
                 if (ArrError.get(i).getSingle() == null || ArrError.get(i).getSingle().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setSingle("-1");
+                    MaritalStatusTemp.setSingle("");
                 } else {
                     MaritalStatusTemp.setSingle(ArrError.get(i).getSingle());
                 }
 
                 if (ArrError.get(i).getMarried() == null || ArrError.get(i).getMarried().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setMarried("-1");
+                    MaritalStatusTemp.setMarried("");
                 } else {
                     MaritalStatusTemp.setMarried(ArrError.get(i).getMarried());
                 }
 
                 if (ArrError.get(i).getWidowed() == null || ArrError.get(i).getWidowed().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setWidowed("-1");
+                    MaritalStatusTemp.setWidowed("");
                 } else {
                     MaritalStatusTemp.setWidowed(ArrError.get(i).getWidowed());
                 }
 
                 if (ArrError.get(i).getCommonLawLiveIn() == null || ArrError.get(i).getCommonLawLiveIn().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setCommonLawLiveIn("-1");
+                    MaritalStatusTemp.setCommonLawLiveIn("");
                 } else {
                     MaritalStatusTemp.setCommonLawLiveIn(ArrError.get(i).getCommonLawLiveIn());
                 }
 
                 if (ArrError.get(i).getDivorcedSeparated() == null || ArrError.get(i).getDivorcedSeparated().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setDivorcedSeparated("-1");
+                    MaritalStatusTemp.setDivorcedSeparated("");
                 } else {
                     MaritalStatusTemp.setDivorcedSeparated(ArrError.get(i).getDivorcedSeparated());
                 }
 
                 if (ArrError.get(i).getUnknown() == null || ArrError.get(i).getUnknown().equalsIgnoreCase("")) {
-                    MaritalStatusTemp.setUnknown("-1");
+                    MaritalStatusTemp.setUnknown("");
                 } else {
                     MaritalStatusTemp.setUnknown(ArrError.get(i).getUnknown());
                 }
@@ -291,45 +293,47 @@ public class MaritalStatusChecker {
                 MaritalStatusTemp.setLocation(ArrError.get(i).getLocation());
                 MaritalStatusTemp.setSex(ArrError.get(i).getSex());
                 MaritalStatusTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
-                MaritalStatusTemp.setValidation(false);
+
+                MaritalStatusTemp.setValidation(-2);
+                MaritalStatusTemp.setErrorReason("Format Error");
 
                 if (isNumeric(ArrError.get(i).getTotal())) {
-                    MaritalStatusTemp.setTotal("-1");
+                    MaritalStatusTemp.setTotal("");
                 } else {
                     MaritalStatusTemp.setTotal(ArrError.get(i).getTotal());
                 }
                 if (isNumeric(ArrError.get(i).getSingle())) {
-                    MaritalStatusTemp.setSingle("-1");
+                    MaritalStatusTemp.setSingle("");
                 } else {
                     MaritalStatusTemp.setSingle(ArrError.get(i).getSingle());
                 }
 
                 if (isNumeric(ArrError.get(i).getMarried())) {
-                    MaritalStatusTemp.setMarried("-1");
+                    MaritalStatusTemp.setMarried("");
                 } else {
                     MaritalStatusTemp.setMarried(ArrError.get(i).getMarried());
                 }
 
                 if (isNumeric(ArrError.get(i).getWidowed())) {
-                    MaritalStatusTemp.setWidowed("-1");
+                    MaritalStatusTemp.setWidowed("");
                 } else {
                     MaritalStatusTemp.setWidowed(ArrError.get(i).getWidowed());
                 }
 
                 if (isNumeric(ArrError.get(i).getCommonLawLiveIn())) {
-                    MaritalStatusTemp.setCommonLawLiveIn("-1");
+                    MaritalStatusTemp.setCommonLawLiveIn("");
                 } else {
                     MaritalStatusTemp.setCommonLawLiveIn(ArrError.get(i).getCommonLawLiveIn());
                 }
 
                 if (isNumeric(ArrError.get(i).getDivorcedSeparated())) {
-                    MaritalStatusTemp.setDivorcedSeparated("-1");
+                    MaritalStatusTemp.setDivorcedSeparated("");
                 } else {
                     MaritalStatusTemp.setDivorcedSeparated(ArrError.get(i).getDivorcedSeparated());
                 }
 
                 if (isNumeric(ArrError.get(i).getUnknown())) {
-                    MaritalStatusTemp.setUnknown("-1");
+                    MaritalStatusTemp.setUnknown("");
                 } else {
                     MaritalStatusTemp.setUnknown(ArrError.get(i).getUnknown());
                 }
@@ -354,7 +358,8 @@ public class MaritalStatusChecker {
                 MaritalStatusTemp.setCommonLawLiveIn((ArrError.get(i).getCommonLawLiveIn()));
                 MaritalStatusTemp.setDivorcedSeparated((ArrError.get(i).getDivorcedSeparated()));
                 MaritalStatusTemp.setUnknown((ArrError.get(i).getUnknown()));
-                MaritalStatusTemp.setValidation(false);
+                MaritalStatusTemp.setValidation(-3);
+                MaritalStatusTemp.setErrorReason("Summation error");
                 arrayError.add(MaritalStatusTemp);
             } else {
                 MaritalStatus = new MaritalStatus();
@@ -371,7 +376,7 @@ public class MaritalStatusChecker {
                 MaritalStatus.setCommonLawLiveIn(parseInt(ArrError.get(i).getCommonLawLiveIn()));
                 MaritalStatus.setDivorcedSeparated(parseInt(ArrError.get(i).getDivorcedSeparated()));
                 MaritalStatus.setUnknown(parseInt(ArrError.get(i).getUnknown()));
-                MaritalStatus.setValidation(true);
+                MaritalStatus.setValidation(1);
                 arrayNoError.add(MaritalStatus);
             }
 
@@ -383,9 +388,9 @@ public class MaritalStatusChecker {
         ArrayList<MaritalStatus> TransformData = new ArrayList<>();
 
         for (int i = 0; i < ArrErrorA.size(); i++) {
-            
+
             MaritalStatus = new MaritalStatus();
-            
+
             if (ArrErrorA.get(i).getLocation() == null
                     || ArrErrorA.get(i).getSex() == null
                     || ArrErrorA.get(i).getAgeGroup() == null
@@ -406,13 +411,14 @@ public class MaritalStatusChecker {
                     || ArrErrorA.get(i).getCommonLawLiveIn().equalsIgnoreCase("")
                     || ArrErrorA.get(i).getDivorcedSeparated().equalsIgnoreCase("")
                     || ArrErrorA.get(i).getUnknown().equalsIgnoreCase("")) {
-                
+
                 MaritalStatus.setFormID(ArrErrorA.get(i).getFormID());
                 MaritalStatus.setYear(ArrErrorA.get(i).getYear());
                 MaritalStatus.setLocation(ArrErrorA.get(i).getLocation());
                 MaritalStatus.setAgeGroup(ArrErrorA.get(i).getAgeGroup());
                 MaritalStatus.setSex(ArrErrorA.get(i).getSex());
-                MaritalStatus.setValidation(false);
+                MaritalStatus.setValidation(-1);
+                MaritalStatus.setReasons("Missing Field/s");
 
                 if (ArrErrorA.get(i).getTotal() == null || ArrErrorA.get(i).getTotal().equalsIgnoreCase("")) {
                     MaritalStatus.setTotal(-1);
@@ -462,13 +468,14 @@ public class MaritalStatusChecker {
                     || isNumeric(ArrErrorA.get(i).getCommonLawLiveIn())
                     || isNumeric(ArrErrorA.get(i).getDivorcedSeparated())
                     || isNumeric(ArrErrorA.get(i).getUnknown())) {
-                
+
                 MaritalStatus.setFormID(ArrErrorA.get(i).getFormID());
                 MaritalStatus.setLocation(ArrErrorA.get(i).getLocation());
                 MaritalStatus.setYear(ArrErrorA.get(i).getYear());
                 MaritalStatus.setSex(ArrErrorA.get(i).getSex());
                 MaritalStatus.setAgeGroup(ArrErrorA.get(i).getAgeGroup());
-                MaritalStatus.setValidation(false);
+                MaritalStatus.setValidation(-2);
+                MaritalStatus.setReasons("Format Error");
 
                 if (isNumeric(ArrErrorA.get(i).getTotal())) {
                     MaritalStatus.setTotal(-1);
@@ -518,7 +525,7 @@ public class MaritalStatusChecker {
                     + parseInt(ArrErrorA.get(i).getCommonLawLiveIn())
                     + parseInt(ArrErrorA.get(i).getDivorcedSeparated())
                     + parseInt(ArrErrorA.get(i).getUnknown())) {
-               
+
                 MaritalStatus.setFormID(ArrErrorA.get(i).getFormID());
                 MaritalStatus.setLocation(ArrErrorA.get(i).getLocation());
                 MaritalStatus.setYear(ArrErrorA.get(i).getYear());
@@ -531,7 +538,8 @@ public class MaritalStatusChecker {
                 MaritalStatus.setCommonLawLiveIn(Integer.parseInt((ArrErrorA.get(i).getCommonLawLiveIn())));
                 MaritalStatus.setDivorcedSeparated(Integer.parseInt((ArrErrorA.get(i).getDivorcedSeparated())));
                 MaritalStatus.setUnknown((Integer.parseInt(ArrErrorA.get(i).getUnknown())));
-                MaritalStatus.setValidation(false);
+                MaritalStatus.setValidation(-3);
+                MaritalStatus.setReasons("Summation Error");
                 TransformData.add(MaritalStatus);
             }
         }

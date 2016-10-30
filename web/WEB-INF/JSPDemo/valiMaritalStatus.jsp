@@ -98,7 +98,8 @@
                                                 <td width="5%" class="divorcedSeparatedError"><input class="centerTD" id="divorcedSeparatedError" type="text" name="divorcedSeparatedError" value="<%=error.get(i).getDivorcedSeparated()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
                                                 <td width="5%" class="commonLawLiveInError"><input class="centerTD" id="commonLawLiveInError" type="text" name="commonLawLiveInError" value="<%=error.get(i).getCommonLawLiveIn()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
                                                 <td width="5%" class="unknownError"><input class="centerTD" id="unknownError" type="text" name="unknownError" value="<%=error.get(i).getUnknown()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                <td width="5%" class="totalError"><input class="centerTD" id="totalError" type="text" name="totalError" value="<%=error.get(i).getTotal()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                                <td width="5%" class="totalError"><input  class="centerTD" id="totalError" type="text" name="totalError" value="<%=error.get(i).getTotal()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                                <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=error.get(i).getValidation()%>"/><input type="text" id="reasonNum"  value="<%=error.get(i).getErrorReason()%>"/></td>
                                             </tr>
                                             <%
 
