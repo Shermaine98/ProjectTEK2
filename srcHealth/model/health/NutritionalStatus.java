@@ -137,7 +137,7 @@ public class NutritionalStatus {
     }
 
     /**
-     * @param totaleFemale the totaleFemale to set
+     * @param totalFemale total female number
      */
     public void setTotalFemale(int totalFemale) {
         this.totalFemale = totalFemale;

@@ -31,12 +31,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ValiMaritalStatus extends BaseServlet {
 
-    /**
+      /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     
     @Override

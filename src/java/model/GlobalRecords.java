@@ -26,7 +26,7 @@ public class GlobalRecords {
     }
 
     /**
-     * @param formName the formName to set
+     * @param formID the form ID
      */
     public void setFormID(int formID) {
         this.formID = formID;

@@ -50,6 +50,7 @@ public class Matrix {
     }
 
     /**
+     * @param chartName the name of the chart
      */
     public void setchartName(String chartName) {
         this.setChartName(chartName);

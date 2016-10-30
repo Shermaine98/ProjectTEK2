@@ -24,22 +24,22 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class BaseServlet extends HttpServlet {
 
-    /**
+     /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     public abstract void servletAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
-    /**
+     /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

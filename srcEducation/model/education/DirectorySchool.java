@@ -255,7 +255,7 @@ public class DirectorySchool {
     }
 
     /**
-     * @param validation the validation to set
+     * @param alter is true or false
      */
     public void setAlter(boolean alter) {
         this.alter = alter;

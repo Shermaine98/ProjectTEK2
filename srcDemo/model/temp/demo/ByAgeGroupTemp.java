@@ -122,7 +122,7 @@ public class ByAgeGroupTemp {
     }
 
     /**
-     * @param approved the approved to set
+     * @param validation is true or false
      */
     public void setvalidation(int validation) {
         this.validationNum = validation;
@@ -157,6 +157,7 @@ public class ByAgeGroupTemp {
     }
 
     /**
+     * @param num the format value
      * @return the cBothSex
      */
     public String getFormat(String num) {

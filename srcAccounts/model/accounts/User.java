@@ -85,6 +85,7 @@ public class User {
 
     /**
      * @param birthdate the birthdate to set
+     * @throws java.text.ParseException parse exception
      */
     public void setBirthdate(String birthdate) throws ParseException {
         this.birthdate = javaToSQLdate(birthdate);
@@ -99,6 +100,7 @@ public class User {
 
     /**
      * @param employment the employment to set
+     * @throws java.text.ParseException parse exception
      */
     public void setEmployment(String employment) throws ParseException {
         this.employment = javaToSQLdate(employment);

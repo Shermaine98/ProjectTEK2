@@ -196,7 +196,7 @@ public class TaskModelHead {
     }
 
     /**
-     * @param task the task to set
+     * @param report the type of report
      */
     public void setReport(String report) {
         this.report = report;

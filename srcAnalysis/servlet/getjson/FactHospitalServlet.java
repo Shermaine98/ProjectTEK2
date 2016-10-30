@@ -31,13 +31,14 @@ import org.json.JSONObject;
  */
 public class FactHospitalServlet extends HttpServlet {
 
-    /**
+     /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
+    
     @Override
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)

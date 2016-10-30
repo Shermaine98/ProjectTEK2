@@ -114,7 +114,7 @@ public class ByAgeGroupSex {
     }
 
     /**
-     * @param approved the approved to set
+     * @param validation is true or false
      */
     public void setValidation(int validation) {
         this.validationNum = validation;

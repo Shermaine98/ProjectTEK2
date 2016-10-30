@@ -41,13 +41,11 @@ import servlet.setdata.SetAnalysisDataServlet;
 public class ElementaryEnrollmentServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException, SQLException {
@@ -189,9 +187,7 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ElementaryEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ParseException | SQLException ex) {
             Logger.getLogger(ElementaryEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -209,9 +205,7 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ElementaryEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ParseException | SQLException ex) {
             Logger.getLogger(ElementaryEnrollmentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

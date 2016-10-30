@@ -30,6 +30,8 @@ public class Accounts {
 
     /**
      * Register User
+     * @param user the user
+     * @return true or false
      */
     public boolean registerOthers(User user) {
         try {
@@ -92,8 +94,9 @@ public class Accounts {
     /**
      * Login
      *
-     * @param User
-     * @return
+     * @param username the username and password
+     * @param pass the password
+     * @return true or false
      */
     public boolean authenticate(String username, String pass) {
         boolean valid = false;
@@ -181,7 +184,8 @@ public class Accounts {
     /**
      * Get last Employee number
      *
-     * @return
+     * @return i the user number
+     * @throws java.sql.SQLException sql exception
      */
     public Integer getLastUserID() throws SQLException {
         DBConnectionFactory myFactory = getInstance();
@@ -194,9 +198,7 @@ public class Accounts {
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     int add = rs.getInt("MAXID");
-                    System.out.print(add);
                     i = add + 1;
-                    System.out.print(i);
                 }
             }
             conn.close();

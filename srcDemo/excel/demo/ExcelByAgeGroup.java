@@ -74,6 +74,7 @@ public class ExcelByAgeGroup {
      * name in HTML h1 element.
      *
      * @param in InputStream of the Excel file.
+     * @param sheetNumber the sheet number in excel
      * @throws IOException When POI cannot read from the input stream.
      */
     public ExcelByAgeGroup(final InputStream in, int sheetNumber) throws IOException {
