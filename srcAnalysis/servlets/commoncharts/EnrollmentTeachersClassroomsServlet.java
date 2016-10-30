@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 
 package servlets.commoncharts;
 
@@ -45,6 +46,7 @@ public class EnrollmentTeachersClassroomsServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException parse exception
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {

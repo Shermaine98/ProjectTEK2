@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package dao.demo;
 
 import dao.RecordDAO;

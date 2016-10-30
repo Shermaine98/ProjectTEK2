@@ -1,3 +1,8 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package servlets.demo.access;
 
 import dao.demo.HighestCompletedDAO;
@@ -21,19 +26,19 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class RetrieveDataDemoServlet extends BaseServlet {
 
-    /**
+      /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

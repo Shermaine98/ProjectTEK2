@@ -1,14 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package dao.charts;
 
 import dao.demo.HighestCompletedDAO;
 import db.DBConnectionFactoryStorageDB;
 import static db.DBConnectionFactoryStorageDB.getInstance;
-import model.demo.MaritalStatus;
 import model.health.DirectoryHealth;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,8 +20,13 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
+
 public class ListOfHospitalDAO {
     public ArrayList<DirectoryHealth> retrieveAllHospitals(int formID, String classification) throws ParseException {
         try {

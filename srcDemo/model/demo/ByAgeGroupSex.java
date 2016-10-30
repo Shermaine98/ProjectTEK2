@@ -1,8 +1,7 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
-
 package model.demo;
 import java.text.DecimalFormat;
 
@@ -115,7 +114,7 @@ public class ByAgeGroupSex {
     }
 
     /**
-     * @param approved the approved to set
+     * @param validation is true or false
      */
     public void setValidation(int validation) {
         this.validationNum = validation;

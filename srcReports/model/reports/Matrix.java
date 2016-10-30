@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
 
 package model.reports;
@@ -50,6 +50,7 @@ public class Matrix {
     }
 
     /**
+     * @param chartName the name of the chart
      */
     public void setchartName(String chartName) {
         this.setChartName(chartName);

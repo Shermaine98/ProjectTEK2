@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package servlets.servlet;
 
 import dao.RecordDAO;
@@ -24,7 +24,10 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class GetReasonReject extends HttpServlet {
 
@@ -36,6 +39,8 @@ public class GetReasonReject extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException parse exception
+     * @throws java.sql.SQLException sql exception
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException, SQLException {

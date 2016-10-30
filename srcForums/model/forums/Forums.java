@@ -1,3 +1,8 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package model.forums;
 
 import java.sql.Date;
@@ -6,8 +11,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class Forums {
     private int forumID;
     private String forumTitle;

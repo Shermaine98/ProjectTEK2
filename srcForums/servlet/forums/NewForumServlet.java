@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package servlet.forums;
 
 import com.google.gson.Gson;
@@ -25,8 +25,12 @@ import model.forums.Tags;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class NewForumServlet extends HttpServlet {
 
     /**
@@ -36,7 +40,8 @@ public class NewForumServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs 
+     * @throws java.sql.SQLException sql exception
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {

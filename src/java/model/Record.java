@@ -1,13 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
 package model;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ *
  */
 public class Record {
     
@@ -29,7 +31,7 @@ public class Record {
     }
 
     /**
-     * @param formName the formName to set
+     * @param formID the formID
      */
     public void setFormID(int formID) {
         this.formID = formID;

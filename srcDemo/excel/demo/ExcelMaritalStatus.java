@@ -1,3 +1,8 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package excel.demo;
 
 import checker.demo.MaritalStatusChecker;
@@ -29,11 +34,14 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 /**
- * Use Apache POI to read an Excel (.xls) file and output an HTML table per
- * sheet.
  *
- * @author gian, shermaine and geraldine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
+
 public class ExcelMaritalStatus {
 //STORE FOR PRINTING
 
@@ -67,6 +75,7 @@ public class ExcelMaritalStatus {
      * name in HTML h1 element.
      *
      * @param in InputStream of the Excel file.
+     * @param sheetNumber the sheet number in excel
      * @throws IOException When POI cannot read from the input stream.
      */
     public ExcelMaritalStatus(final InputStream in, int sheetNumber) throws IOException {

@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 
 package servlet.getjson;
 
@@ -31,11 +32,10 @@ import org.json.JSONObject;
 public class FactPeopleServlet extends HttpServlet {
 
     /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void doGet(HttpServletRequest request,

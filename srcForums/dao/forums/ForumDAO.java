@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package dao.forums;
 
 import dao.RecordDAO;
@@ -21,8 +21,12 @@ import model.forums.ForumsFavorite;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ForumDAO {
     
 
@@ -224,10 +228,10 @@ public class ForumDAO {
     /**
      * get if user like
      *
-     * @param forumID
-     * @param UserID
-     * @return
-     * @throws ParseException
+     * @param forumID the forumID
+     * @param UserID the user id
+     * @return boolean true or false
+     * @throws ParseException parse exception
      */
     public boolean getUserFavorite(int forumID, int UserID) throws ParseException {
         try {

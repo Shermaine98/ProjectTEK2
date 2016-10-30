@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 
 package servlets.search;
 
@@ -29,12 +30,13 @@ import static java.util.logging.Logger.getLogger;
  */
 public class SearchPrivateClassroom extends BaseServlet {
 
-    /**
+   /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

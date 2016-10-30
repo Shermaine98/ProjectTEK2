@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All rights Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 
 package servlets.education.servlet;
 
@@ -36,11 +37,12 @@ public class ValiEnrollment extends BaseServlet {
 
     /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
+    @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         /**

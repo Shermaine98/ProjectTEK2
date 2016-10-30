@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package model.health;
 
 import java.text.DecimalFormat;
@@ -10,7 +10,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Shermaine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class NutritionalStatus {
 
@@ -134,7 +137,7 @@ public class NutritionalStatus {
     }
 
     /**
-     * @param totaleFemale the totaleFemale to set
+     * @param totalFemale total female number
      */
     public void setTotalFemale(int totalFemale) {
         this.totalFemale = totalFemale;

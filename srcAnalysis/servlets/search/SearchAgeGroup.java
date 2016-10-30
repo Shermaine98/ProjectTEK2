@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 
 package servlets.search;
 
@@ -28,12 +29,12 @@ import static java.util.logging.Logger.getLogger;
  */
 public class SearchAgeGroup extends BaseServlet {
 
-    /**
+     /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

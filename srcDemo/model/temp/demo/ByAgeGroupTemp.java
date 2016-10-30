@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package model.temp.demo;
 
 import java.text.DecimalFormat;
@@ -9,7 +10,7 @@ import java.text.DecimalFormat;
 /**
  *
  * @author Gian Carlo Roxas
- * @author shermaine Sy
+ * @author Shermaine Sy
  * @author Geraldine Atayan
  * 
  */
@@ -121,7 +122,7 @@ public class ByAgeGroupTemp {
     }
 
     /**
-     * @param approved the approved to set
+     * @param validation is true or false
      */
     public void setvalidation(int validation) {
         this.validationNum = validation;
@@ -156,6 +157,7 @@ public class ByAgeGroupTemp {
     }
 
     /**
+     * @param num the format value
      * @return the cBothSex
      */
     public String getFormat(String num) {

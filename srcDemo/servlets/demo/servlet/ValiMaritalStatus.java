@@ -1,5 +1,9 @@
-package servlets.demo.servlet;
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
 
+package servlets.demo.servlet;
 
 import checker.demo.MaritalStatusChecker;
 import dao.demo.MaritalStatusDAO;
@@ -20,19 +24,19 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class ValiMaritalStatus extends BaseServlet {
 
-    /**
+      /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException servlet exception
+     * @throws IOException servlet IOException
      */
     
     @Override

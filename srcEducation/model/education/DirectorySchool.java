@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All rights Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
 
 
@@ -255,7 +255,7 @@ public class DirectorySchool {
     }
 
     /**
-     * @param validation the validation to set
+     * @param alter is true or false
      */
     public void setAlter(boolean alter) {
         this.alter = alter;

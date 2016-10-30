@@ -1,18 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package model.accounts;
 
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 /**
  *
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
  * @author Geraldine Atayan
+ * 
  */
 public class User {
     private int userID;
@@ -83,6 +85,7 @@ public class User {
 
     /**
      * @param birthdate the birthdate to set
+     * @throws java.text.ParseException parse exception
      */
     public void setBirthdate(String birthdate) throws ParseException {
         this.birthdate = javaToSQLdate(birthdate);
@@ -97,6 +100,7 @@ public class User {
 
     /**
      * @param employment the employment to set
+     * @throws java.text.ParseException parse exception
      */
     public void setEmployment(String employment) throws ParseException {
         this.employment = javaToSQLdate(employment);

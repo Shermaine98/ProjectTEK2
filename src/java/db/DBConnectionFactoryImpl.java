@@ -1,3 +1,7 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
 package db;
 
 import static java.lang.Class.forName;
@@ -9,16 +13,16 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
  *
  */
 public class DBConnectionFactoryImpl extends DBConnectionFactory {
 
     /**
      *
-     * @return
+     * @return connection
      */
     @Override
     public Connection getConnection() {

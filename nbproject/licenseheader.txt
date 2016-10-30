@@ -1,8 +1,7 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix} Copyright (C) ProjectTEK - DLSU CCS 2016
-${licensePrefix} All right Reserved  ${licensePrefix}
+${licensePrefix} ProjectTEK - DLSU CCS 2016
 <#if licenseLast??>
 ${licenseLast}
 </#if>

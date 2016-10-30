@@ -1,3 +1,7 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
 package servlets.access;
 
 import dao.accounts.Accounts;
@@ -24,19 +28,18 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
  *
  */
 public class ServletAccess extends BaseServlet {
 
     /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void servletAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
