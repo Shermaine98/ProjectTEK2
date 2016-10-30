@@ -16,7 +16,6 @@
         <script src="Highcharts/modules/data.js"></script>
         <script src="Highcharts/modules/drilldown.js"></script>
         <script src="Highcharts/modules/exporting.js"></script>
-        
         <script src="jsImportsITAdmin/AdminHome.js" type="text/javascript"></script>
     </head>
     <body>

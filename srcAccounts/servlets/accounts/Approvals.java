@@ -59,14 +59,14 @@ public class Approvals extends BaseServlet {
                 externalUsers = accountsDAO.getUserForApprovalOthers();
 
                 for (int i = 0; i < internalUsers.size(); i++) {
-                    SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     Date parsed = format.parse(employmentDate[i]);
                     java.sql.Date sql = new java.sql.Date(parsed.getTime());
                     accountsDAO.approveUser(Integer.parseInt(userID[i]), division[i], position[i], sql);
                 }
 
                 internalUsers = accountsDAO.getUserForApprovalMember();
-                request.setAttribute("page", "ainternal");
+                request.setAttribute("type", "internal");
                 request.setAttribute("internalUsers", internalUsers);
                 request.setAttribute("externalUsers", externalUsers);
                 request.setAttribute("notification", "approvedAllInternal");
@@ -90,7 +90,7 @@ public class Approvals extends BaseServlet {
                 }
 
                 externalUsers = accountsDAO.getUserForApprovalOthers();
-                request.setAttribute("page", "aexternal");
+                request.setAttribute("type", "external");
                 request.setAttribute("internalUsers", internalUsers);
                 request.setAttribute("externalUsers", externalUsers);
                 request.setAttribute("notification", "approvedAllExternal");
@@ -110,7 +110,7 @@ public class Approvals extends BaseServlet {
                 String employmentDate = request.getParameter("employmentDate");
 
                 boolean x = false;
-                SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date parsed = format.parse(employmentDate);
                 java.sql.Date sql = new java.sql.Date(parsed.getTime());
 

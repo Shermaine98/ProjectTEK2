@@ -113,7 +113,6 @@ function setIntegratedS(year, sector) {
                             $('#years').append('<input type="checkbox" class="filter" id="year" value="'
                                     + print[0].years[i].year + '"checked>'
                                     + print[0].years[i].year + '</input></br>');
-
                         } else {
                             print[0].years.splice(i, i);
                         }

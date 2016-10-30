@@ -22,102 +22,43 @@ $(document).ready(function () {
     });
 });
 function setChart(print){
-    
+   
         var data = [];
         for (var i = 0; i < print[0].series.length; i++) {
-            var totals = 0;
             item = {};
             item["name"] = print[0].series[i].name;
             item["y"] = print[0].series[i].y;
             data.push(item);
         }
-        
+       
         console.log(JSON.stringify(data));
     
         $('#container').highcharts({
-            title: {
-                text: 'User Sign-Ups'
+                title: {
+                text: 'User Sign-Ups',
+                x: -20 //center
             },
-
+            subtitle: {
+                x: -20
+            },
             xAxis: {
-                tickInterval: 7 * 24 * 3600 * 1000, // one week
-                tickWidth: 0,
-                gridLineWidth: 1,
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: -3
-                }
+                type:'category'
             },
-
-            yAxis: [{ // left y axis
+            yAxis: {
                 title: {
-                    text: null
+                    text: 'Number of Sign-Ups'
                 },
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: 16,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }, { // right y axis
-                linkedTo: 0,
-                gridLineWidth: 0,
-                opposite: true,
-                title: {
-                    text: null
-                },
-                labels: {
-                    align: 'right',
-                    x: -3,
-                    y: 16,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }],
-
-            legend: {
-                align: 'left',
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
             },
+                series:[{ //isang line maraming data
+                name: 'User Sign-Ups',
+                data: data
+                }]
 
-            tooltip: {
-                shared: true,
-                crosshairs: true
-            },
-
-            plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function (e) {
-                                hs.htmlExpand(null, {
-                                    pageOrigin: {
-                                        x: e.pageX || e.clientX,
-                                        y: e.pageY || e.clientY
-                                    },
-                                    headingText: this.series.name,
-                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-                                        this.y + ' visits',
-                                    width: 200
-                                });
-                            }
-                        }
-                    },
-                    marker: {
-                        lineWidth: 1
-                    }
-                }
-            },
-            series:[{
-            name: 'User Sign-Ups',
-            data: data
-        }]
         });
 
 }

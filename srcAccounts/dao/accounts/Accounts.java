@@ -217,7 +217,7 @@ public class Accounts {
                 temp.setGender(rs.getString("gender"));
                 temp.setBirthdate(rs.getString("birthdate"));
                 temp.setPosition(rs.getString("position"));
-                temp.setReason("reason");
+                temp.setReason(rs.getString("reason"));
                 usersforApproval.add(temp);
             }
 
@@ -535,7 +535,7 @@ public class Accounts {
             DBConnectionFactory myFactory = getInstance();
             PreparedStatement pstmt;
             try (Connection conn = myFactory.getConnection()) {
-                String update = "Select COUNT(firstName) as 'count', dateCreated FROM accounts.users group by dateCreated;";
+                String update = "Select COUNT(firstName) as 'count', dateCreated FROM accounts.users group by YEAR(dateCreated), MONTH(dateCreated), DAY(dateCreated) ;";
                 pstmt = conn.prepareStatement(update);
                 
                 ResultSet rs = pstmt.executeQuery();

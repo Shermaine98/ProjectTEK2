@@ -44,8 +44,8 @@ public class AdminHome extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<User> users;
-            Accounts accountsChart = new Accounts();
+            ArrayList<User> users; //arrayList <model>
+            Accounts accountsChart = new Accounts(); //DAO
             
             users = accountsChart.getSignUpCounts();
             
@@ -63,6 +63,7 @@ public class AdminHome extends HttpServlet {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);
                 }
             }
+           
             
             ObjectAll.put("series", jarrayAccounts);
             response.setContentType("application/json");
