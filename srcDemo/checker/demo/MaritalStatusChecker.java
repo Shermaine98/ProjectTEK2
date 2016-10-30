@@ -25,6 +25,9 @@ public class MaritalStatusChecker {
     /*
      *@ ArrError temp stored data, all strings
      */
+    public  MaritalStatusChecker() {
+    }
+
     public MaritalStatusChecker(ArrayList<MaritalStatusTemp> ArrError) {
 
         MaritalStatus MaritalStatus;
@@ -548,10 +551,6 @@ public class MaritalStatusChecker {
 
     public static boolean isNumeric(String str) {
         return !StringUtils.isNumeric(str);
-    }
-
-    public MaritalStatusChecker() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

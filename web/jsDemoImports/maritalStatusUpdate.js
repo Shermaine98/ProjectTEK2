@@ -12,6 +12,7 @@ $(document).ready(function () {
     $('td.commonLawLiveInError').css('background-color', '#a93e3e');
     $('td.unknownError').css('background-color', '#a93e3e');
     $('td.totalError').css('background-color', '#a93e3e');
+     $('td.reasonNum').css('background-color', '#a93e3e');
     $('td.singleError').css('color', '#fff');
     $('td.marriedError').css('color', '#fff');
     $('td.windowedError').css('color', '#fff');
@@ -19,6 +20,7 @@ $(document).ready(function () {
     $('td.commonLawLiveInError').css('color', '#fff');
     $('td.unknownError').css('color', '#fff');
     $('td.totalError').css('color', '#fff');
+     $('td.reasonNum').css('color', '#fff');
 
 
     $('#error_maritalStatus tbody tr').each(function () {
@@ -97,6 +99,7 @@ $(document).ready(function () {
         row.find(".commonLawLiveInError").css('background-color', 'green');
         row.find(".unknownError").css('background-color', 'green');
         row.find(".totalError").css('background-color', 'green');
+        row.find(".reasonNum").css('background-color', 'green');
         
         var a = row.find("#singleError").val();
         var b = row.find("#marriedError").val();

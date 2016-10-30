@@ -128,11 +128,16 @@ public class EditErrorFormServlet extends BaseServlet {
                     temp.setTotal(String.valueOf(MaritalStatus.get(i).getTotal()));
                     temp.setUnknown(String.valueOf(MaritalStatus.get(i).getUnknown()));
                     temp.setWidowed(String.valueOf(MaritalStatus.get(i).getWidowed()));
+                    temp.setErrorReason(MaritalStatus.get(i).getReasons());
+                    temp.setValidation(MaritalStatus.get(i).getValidation());
                     arrError.add(temp);
                 }
             }
 
-            request.setAttribute("ErrorMessage", "none");
+            request.setAttribute("ErrorMessage", "Error");
+            request.setAttribute("page", "edited");
+            request.setAttribute("ArrNoError", arrNoError);
+            request.setAttribute("ArrError", arrError);
             rd = request.getRequestDispatcher("/WEB-INF/JSPDemo/valiMaritalStatus.jsp");
             rd.forward(request, response);
 

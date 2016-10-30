@@ -156,8 +156,8 @@ public class MaritalStatusDAO {
             ArrayList<GlobalRecords> errRecords = new ArrayList<>();
 
              String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n" +
-                            "FROM age_group \n" +
-                            "WHERE `VALIDATION` = 0 AND formID > 300000000 AND formID < 399999999 \n" +
+                            "FROM marital_status \n" +
+                            "WHERE `VALIDATION` !=1  AND formID > 300000000 AND formID < 399999999 \n" +
                             "GROUP BY formID";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
