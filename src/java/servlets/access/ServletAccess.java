@@ -1,3 +1,7 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
 package servlets.access;
 
 import dao.accounts.Accounts;
@@ -24,9 +28,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
  *
  */
 public class ServletAccess extends BaseServlet {

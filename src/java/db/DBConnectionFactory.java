@@ -1,14 +1,19 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package db;
 
 import java.sql.Connection;
-
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
  *
  */
+
 public abstract class DBConnectionFactory {
 
     String url = "jdbc:mysql://127.0.0.1:3306/accounts";

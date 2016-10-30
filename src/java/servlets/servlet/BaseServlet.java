@@ -1,3 +1,8 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package servlets.servlet;
 
 import java.io.IOException;
@@ -12,10 +17,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public abstract class BaseServlet extends HttpServlet {
 
