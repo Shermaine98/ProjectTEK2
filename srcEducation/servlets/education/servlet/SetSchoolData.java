@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All rights Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
 
 package servlets.education.servlet;
