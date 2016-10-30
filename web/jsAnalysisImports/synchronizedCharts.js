@@ -237,7 +237,7 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northc';
             if (i == 0 || i == 1 || northOutlier == false) {
@@ -247,7 +247,7 @@ $(document).ready(function () {
             }
             data.push(item2);
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = south;
             item2["drilldown"] = print[0].years[i].year + 'southc';
             if (i == 0 || i == 1 || southOutlier == false) {
@@ -282,13 +282,13 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northe';
             data.push(item2);
 
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = south;
             item2["drilldown"] = print[0].years[i].year + 'southe';
             data.push(item2);
@@ -514,7 +514,16 @@ $(document).ready(function () {
                 drilled: false,
                 zoomType: 'xy',
                 panning: true,
-                panKey: 'shift'//,
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
 //                events: {
 //                    drilldown: function (e) {
 //                        var chart2 = $('#container2').highcharts(),
@@ -558,6 +567,11 @@ $(document).ready(function () {
             },
             xAxis: {
                 type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: ""
+                }
             },
             series: [{
                     name: 'Caloocan City',
@@ -618,7 +632,7 @@ $(document).ready(function () {
                     }
                 }
             }
-            item["y"] = totals
+            item["y"] = totals;
             totalPeople.push(item);
         }
 
@@ -626,6 +640,7 @@ $(document).ready(function () {
         var totalBeds = [];
         for (var i = 0; i < print[0].years.length; i++) {
             var totals = 0;
+            var totalPopulation = 0;
             item = {};
             item["name"] = print[0].years[i].year;
             item["drilldown"] = print[0].years[i].year + 'b';
@@ -634,18 +649,27 @@ $(document).ready(function () {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             totals = totals + print[0].hospitals[x].beds;
                         }
                     }
                 }
             }
-            item["y"] = totals;
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
             totalBeds.push(item);
         }
 
         var totalDoctors = [];
         for (var i = 0; i < print[0].years.length; i++) {
             var totals = 0;
+            var totalPopulation = 0;
             item = {};
             item["name"] = print[0].years[i].year;
             item["drilldown"] = print[0].years[i].year + 'd';
@@ -654,13 +678,20 @@ $(document).ready(function () {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             totals = totals + print[0].hospitals[x].doctors;
                         }
-                        
                     }
                 }
             }
-            item["y"] = totals;
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
             totalDoctors.push(item);
         }
 
@@ -671,16 +702,25 @@ $(document).ready(function () {
             item["name"] = print[0].years[i].year;
             item["drilldown"] = print[0].years[i].year + 'n';
             data = [];
+            var totalPopulation=0;
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             totals = totals + print[0].hospitals[x].nurses;
                         }
                     }
                 }
             }
-            item["y"] = totals;
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
             totalNurses.push(item);
         }
 
@@ -692,10 +732,10 @@ $(document).ready(function () {
             var southOutlier = false;
             var northOutlier = false;
             item = {};
-            item["name"] = 'Caloocan City Population';
+            item["name"] = 'Population';
             item["type"] = 'column';
             item["id"] = print[0].years[i].year + 'p';
-
+            item["yAxis"] = 1;
             data = [];
             for (var x = 0; x < print[0].people.length; x++) {
                 if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH"){
@@ -748,8 +788,10 @@ $(document).ready(function () {
                     }
                     if (x === print[0].people.length - 1) {
                         item2 = {};
-                        item2["name"] = 'North';
+                        item2["name"] = 'North Caloocan';
                         item2["y"] = north;
+                        //item2["tooltip"] = north;
+                        item2["suffix"] = "";
                         item2["drilldown"] = print[0].years[i].year + 'northp';
                         if (i == 0 || i == 1 || northOutlier == false) {
                             item['color'] = '#7CB5EC';
@@ -758,9 +800,11 @@ $(document).ready(function () {
                         }
                         data.push(item2);
                         item2 = {};
-                        item2["name"] = 'South';
+                        item2["name"] = 'South Caloocan';
                         item2["y"] = south;
                         item2["drilldown"] = print[0].years[i].year + 'southp';
+                        item2["tooltip"] = south;
+                        item2["suffix"] = "";
                         if (i == 0 || i == 1 || southOutlier == false) {
                             item['color'] = '#7CB5EC';
                         } else if (southOutlier) {
@@ -786,9 +830,10 @@ $(document).ready(function () {
             var northiii = 0;
             var northiv = 0;
             item = {};
-            item["name"] = print[0].years[y].year + ' North Caloocan Population';
+            item["name"] = 'Population';
             item["id"] = print[0].years[y].year + 'northp';
             item["type"] = 'column';
+            item["yAxis"] = 1;
             data = [];
             for (var x = 0; x < print[0].people.length; x++) {
                 if (print[0].years[y].year == print[0].people[x].year){
@@ -860,6 +905,8 @@ $(document).ready(function () {
                         item2['color'] = '#FF0000';
                     }
                     item2["y"] = northi;
+                    item2["tooltip"] = northi;
+                    item2["suffix"] = "";
                     data.push(item2);
                 }
             }
@@ -869,6 +916,7 @@ $(document).ready(function () {
                     item2 = {};
                     item2["name"] = 'Caloocan North II';
                     item2["y"] = northii;
+                    item2["tooltip"] = northii;
                     if (y == 0 || y == 1 || northIIOutlier == false) {
                         item['color'] = '#7CB5EC';
                     } else if (northIIOutlier) {
@@ -883,6 +931,7 @@ $(document).ready(function () {
                     item2 = {};
                     item2["name"] = 'Caloocan North III';
                     item2["y"] = northiii;
+                    item2["tooltip"] = northiii;
                     if (y == 0 || y == 1 || northIIIOutlier == false) {
                         item['color'] = '#7CB5EC';
                     } else if (northIIIOutlier) {
@@ -897,6 +946,7 @@ $(document).ready(function () {
                     item2 = {};
                     item2["name"] = 'Caloocan North IV';
                     item2["y"] = northiv;
+                    item2["tooltip"] = northiv;
                     if (y == 0 || y == 1 || northIVOutlier == false) {
                         item['color'] = '#7CB5EC';
                     } else if (northIVOutlier) {
@@ -911,33 +961,55 @@ $(document).ready(function () {
         
         for (var i = 0; i < print[0].years.length; i++) {
             var south = 0;
+            var totalPopulationSouth = 0;
             var north = 0;
+            var totalPopulationNorth = 0;
             item = {};
-            item["name"] = print[0].years.year + ' Caloocan City Hospital Beds';
+            item["name"] ='Hospital Beds';
             item["type"] = 'column';
             item["id"] = print[0].years[i].year + 'b';
-
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             south = south + parseInt(print[0].hospitals[x].beds, 10);
                         } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             north = north + parseInt(print[0].hospitals[x].beds, 10);
                         }
                     }
                 }
             }
+            var ratio = (north/totalPopulationNorth) * 1000;
             item2 = {};
-            item2["name"] = 'North Caloocan Hospital Beds';
-            item2["y"] = north;
+            item2["name"] = 'North Caloocan';
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
             item2["drilldown"] = print[0].years[i].year + 'northb';
             data.push(item2);
 
+            var ratio = (south/totalPopulationSouth) * 1000;
             item2 = {};
-            item2["name"] = 'South Caloocan Hospital Beds';
-            item2["y"] = south;
+            item2["name"] = 'South Caloocan';
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
             item2["drilldown"] = print[0].years[i].year + 'southb';
             data.push(item2);
             item['data'] = data;
@@ -949,70 +1021,117 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             var south = 0;
+            var totalPopulationSouth = 0;
             var north = 0;
+            var totalPopulationNorth = 0;
             item = {};
-            item["name"] = print[0].years[i].year + ' Caloocan City Hospital Nurses';
+            item["name"] = 'Nurses';
             item["type"] = 'column';
             item["id"] = print[0].years[i].year + 'n';
-
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             south = south + parseInt(print[0].hospitals[x].nurses, 10);
                         } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             north = north + parseInt(print[0].hospitals[x].nurses, 10);
                         }
                     }
                 }
             }
             item2 = {};
-            item2["name"] = 'North Caloocan Hospital Beds';
-            item2["y"] = north;
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["tooltip"]=Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["name"] = 'North Caloocan';
             item2["drilldown"] = print[0].years[i].year + 'northn';
             data.push(item2);
 
             item2 = {};
-            item2["name"] = 'South Caloocan Hospital Beds';
-            item2["y"] = south;
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["name"] = 'South Caloocan';
             item2["drilldown"] = print[0].years[i].year + 'southn';
             data.push(item2);
+            
+            
             item['data'] = data;
-            souths.push(item);
+            //souths.push(item);
             drilldownsHospital.push(item);
         }
 
         for (var i = 0; i < print[0].years.length; i++) {
             var south = 0;
             var north = 0;
+            var totalPopulationSouth = 0;
+            var totalPopulationNorth = 0;
             item = {};
-            item["name"] = print[0].years[i].year + ' Caloocan City Hospital Doctors';
+            item["name"] = 'Doctors';
             item["type"] = 'column';
             item["id"] = print[0].years[i].year + 'd';
-
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             south = south + parseInt(print[0].hospitals[x].doctors, 10);
                         } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             north = north + parseInt(print[0].hospitals[x].doctors, 10);
                         }
                     }
                 }
             }
             item2 = {};
-            item2["name"] = 'North Caloocan Hospital Doctors';
-            item2["y"] = north;
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"] = 0;
             item2["drilldown"] = print[0].years[i].year + 'northd';
+            item2["name"] = 'North Caloocan';
             data.push(item2);
 
             item2 = {};
-            item2["name"] = 'South Caloocan Hospital Doctors';
-            item2["y"] = south;
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
             item2["drilldown"] = print[0].years[i].year + 'southd';
+            item2["name"] = 'South Caloocan';
             data.push(item2);
             item['data'] = data;
             souths.push(item);
@@ -1021,9 +1140,10 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' South Caloocan Population';
+            item["name"] = 'Population';
             item["id"] = print[0].years[i].year + 'southp';
             item["type"] = 'column';
+            item["yAxis"] = 1;
             data = [];
             for (var x = 0; x < print[0].people.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
@@ -1034,6 +1154,8 @@ $(document).ready(function () {
                                     item2 = {};
                                     item2["name"] = print[0].people[x].district;
                                     item2["y"] = print[0].people[x].people;
+                                    item2["tooltip"]=print[0].people[x].people;
+                                    
                                     if (i == 0 || i == 1 || print[0].people[x].isOutlier == false) {
                                         item['color'] = '#7CB5EC';
                                     } else if (print[0].people[x].isOutlier) {
@@ -1052,17 +1174,30 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' South Caloocan Hospital Beds';
+            item["name"] = 'Beds';
             item["id"] = print[0].years[i].year + 'southb';
             item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             item2 = {};
+                            var ratio = (print[0].hospitals[x].beds/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
                             item2["name"] = print[0].hospitals[x].district;
-                            item2["y"] = print[0].hospitals[x].beds;
                             data.push(item2);
                         }
                     }
@@ -1074,17 +1209,31 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' North Caloocan Hospital Beds';
+            item["name"] = 'Beds';
             item["id"] = print[0].years[i].year + 'northb';
             item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             item2 = {};
+                            var ratio = (print[0].hospitals[x].beds/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["tooltip"]=Math.round(ratio);
+                            item2["yAxis"]=0;
                             item2["name"] = print[0].hospitals[x].district;
-                            item2["y"] = print[0].hospitals[x].beds;
                             data.push(item2);
                         }
                     }
@@ -1096,17 +1245,31 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' South Caloocan Hospital Doctors';
+            item["name"] = 'Doctors';
             item["id"] = print[0].years[i].year + 'southd';
             item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             item2 = {};
+                            var ratio = (print[0].hospitals[x].doctors/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["tooltip"]=Math.round(ratio);
+                            item2["yAxis"]=0;
                             item2["name"] = print[0].hospitals[x].district;
-                            item2["y"] = print[0].hospitals[x].doctors;
                             data.push(item2);
                         }
                     }
@@ -1118,17 +1281,30 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' North Caloocan Hospital Doctors';
+            item["name"] = 'Doctors';
             item["id"] = print[0].years[i].year + 'northd';
             item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             item2 = {};
+                            var ratio = (print[0].hospitals[x].doctors/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
                             item2["name"] = print[0].hospitals[x].district;
-                            item2["y"] = print[0].hospitals[x].doctors;
                             data.push(item2);
                         }
                     }
@@ -1141,17 +1317,30 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' South Caloocan Hospital Nurses';
+            item["name"] = 'Nurses';
             item["id"] = print[0].years[i].year + 'southn';
             item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             item2 = {};
+                            var ratio = (print[0].hospitals[x].nurses/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
                             item2["name"] = print[0].hospitals[x].district;
-                            item2["y"] = print[0].hospitals[x].nurses;
                             data.push(item2);
                         }
                     }
@@ -1163,17 +1352,30 @@ $(document).ready(function () {
 
         for (var i = 0; i < print[0].years.length; i++) {
             item = {};
-            item["name"] = print[0].years[i].year + ' North Caloocan Hospital Nurses';
+            item["name"] = 'Nurses';
             item["id"] = print[0].years[i].year + 'northn';
             item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
             data = [];
             for (var x = 0; x < print[0].hospitals.length; x++) {
                 for(var y = 0; y < print[0].districts.length; y++){
                     if(print[0].hospitals[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
                             item2 = {};
+                            var ratio = (print[0].hospitals[x].nurses/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
                             item2["name"] = print[0].hospitals[x].district;
-                            item2["y"] = print[0].hospitals[x].nurses;
                             data.push(item2);
                         }
                     }
@@ -1188,7 +1390,16 @@ $(document).ready(function () {
                 drilled: false,
                 zoomType: 'xy',
                 panning: true,
-                panKey: 'shift'//,
+                panKey: 'shift',
+                resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            }
 //      events:{
 //      	drilldown: function(e) {
 //          var chart = $('#container').highcharts(),
@@ -1222,30 +1433,60 @@ $(document).ready(function () {
             plotOptions: {
                 column: {
 //        stacking: 'normal'
-                    dataLabels: {
-                        enabled: true
-                    },
                     series: {
                         allowPointSelect: true
                     }
+                }
+            },yAxis: [{ // Primary yAxis
+                title: {
+                    text: 'Ratio'
                 },
-            },
+                opposite: true
+
+            }, { // Secondary yAxis
+                //gridLineWidth: 0,
+                title: {
+                    text: 'Population',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                }
+
+            }],
             series: [{
                     name: 'Population',
                     type: 'column',
-                    data: totalPeople
+                    data: totalPeople,
+                    yAxis: 1
                 }, {
                     name: 'Beds',
-                    type: 'column',
-                    data: totalBeds
+                    type: 'spline',
+                    data: totalBeds,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
+                    }
                 }, {
                     name: 'Doctors',
-                    type: 'column',
-                    data: totalDoctors
+                    type: 'spline',
+                    data: totalDoctors,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
+                    }
                 }, {
                     name: 'Nurses',
-                    type: 'column',
-                    data: totalNurses
+                    type: 'spline',
+                    data: totalNurses,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
+                    }
                 }
             ],
             drilldown: {
@@ -1417,13 +1658,13 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northnormal';
             data.push(item2);
 
             item3 = {};
-            item3["name"] = 'South';
+            item3["name"] = 'South Caloocan';
             item3["y"] = south;
             item3["drilldown"] = print[0].years[i].year + 'southnormal';
             data.push(item3);
@@ -1455,12 +1696,12 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northsw';
             data.push(item2);
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = south;
             item2["drilldown"] = print[0].years[i].year + 'southsw';
             data.push(item2);
@@ -1492,12 +1733,12 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northwasted';
             data.push(item2);
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = south;
             item2["drilldown"] = print[0].years[i].year + 'southwasted';
             data.push(item2);
@@ -1529,12 +1770,12 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northoverweight';
             data.push(item2);
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = south;
             item2["drilldown"] = print[0].years[i].year + 'southoverweight';
             data.push(item2);
@@ -1567,12 +1808,12 @@ $(document).ready(function () {
             }
 
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = north;
             item2["drilldown"] = print[0].years[i].year + 'northobese';
             data.push(item2);
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = south;
             item2["drilldown"] = print[0].years[i].year + 'southobese';
             data.push(item2);
@@ -1618,12 +1859,12 @@ $(document).ready(function () {
                 }
             }
             item2 = {};
-            item2["name"] = 'North';
+            item2["name"] = 'North Caloocan';
             item2["y"] = (northEnrollment - north);
             item2["drilldown"] = print[0].years[i].year + 'northnotweighed';
             data.push(item2);
             item2 = {};
-            item2["name"] = 'South';
+            item2["name"] = 'South Caloocan';
             item2["y"] = (southEnrollment - south);
             item2["drilldown"] = print[0].years[i].year + 'southnotweighed';
             data.push(item2);
@@ -1962,7 +2203,16 @@ $(document).ready(function () {
                 drilled: false,
                 zoomType: 'xy',
                 panning: true,
-                panKey: 'shift'
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
             },
             title: {
                 text: 'Nutritional Status of the enrolled Elementary Students'
@@ -1974,6 +2224,9 @@ $(document).ready(function () {
                 min: 0,
                 stackLabels: {
                     enabled: true
+                },
+                title: {
+                    text: ""
                 }
             },
             plotOptions: {

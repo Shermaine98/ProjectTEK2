@@ -88,8 +88,18 @@
                                     <button class="btn btn-primary" id="pivotTable" style='width:100%; height:100%; color: #FFF; display:none'><span class='glyphicon glyphicon-arrow-left' aria-hidden='true'></span>&nbsp;&nbsp;Back to Customized Analytics</button>
                                 </div>
                                 <div id ='divCommonReports' class="col-md-12" >
-                                    <select id="commonReports" name="commonReports" class="form-control" onchange="getData()" style="display:none;">
-                                    </select>
+                                <table style="width:100%">
+                                    <tr>
+                                        <td style="width:5%">
+                                            <h5 id="textCommonReports" style="display:none"><b>Select:</b></h5>
+                                        </td>
+                                        <td style="width:85%">
+                                            <select id="commonReports" name="commonReports" class="form-control" onchange="getData()" style="display:none;">
+                                            </select>
+                                        </td>
+                                    <tr>
+                                </table>
+                                
                                 </div>
                             </div>
 
@@ -315,7 +325,9 @@
             $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
             }
             document.getElementById('commonReports').style.display = "block";
+            document.getElementById('textCommonReports').style.display = "block";
             }
+            
 
             function addWithChartSelectionsWithBarangays(method, charts){
             $("#divPivotTable").attr('class', 'col-md-3');
@@ -364,8 +376,10 @@
             $('select[name="charts"]').empty();
             $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
             for (i = 0; i < charts.length; i++) {
-            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");             }
+                $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");             
+            }
             document.getElementById('commonReports').style.display = "block";
+            document.getElementById('textCommonReports').style.display = "block";
             }
 
             function addWithChartSelectionsWithGradeLevel(method, charts){
@@ -423,6 +437,7 @@
             $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
             }
             document.getElementById('commonReports').style.display = "block";
+            document.getElementById('textCommonReports').style.display = "block";
             }
 
             function addWithChartSelectionsKinderEnrollment(method, charts){
@@ -481,6 +496,7 @@
             $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
             }
             document.getElementById('commonReports').style.display = "block";
+            document.getElementById('textCommonReports').style.display = "block";
             }
 
             function addWithChartSelectionsElementaryEnrollment(method, charts){
@@ -548,9 +564,10 @@
             $('select[name="charts"]').empty();
             $('select[name="charts"]').append("<option disabled selected>Choose visualization</option>");
             for (i = 0; i < charts.length; i++) {
-            $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
+                $('select[name="charts"]').append("<option value='" + charts[i] + "'>" + charts[i] + "</option>");
             }
             document.getElementById('commonReports').style.display = "block";
+            document.getElementById('textCommonReports').style.display = "block";
             }
 
             function addWithoutChartSelections(method){
@@ -611,11 +628,12 @@
                 $("#withChartSelection").empty();
                 $('select[name="commonReports"]').empty();
                 //common charts
-                $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                $('select[name="commonReports"]').append("<option selected>Population by year</option>");
                 //$('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
                 $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
                 $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
                 document.getElementById('commonReports').style.display = "block";
+                document.getElementById('textCommonReports').style.display = "block";
             }
 
 
@@ -652,6 +670,7 @@
                 $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Elementary Schools'>Enrollment in Public and Private Elementary Schools</option>");
                 //$('select[name="commonReports"]').append("<option value='School-Going Age Population'>School-Going Age Population</option>");
                 document.getElementById('commonReports').style.display = "block";
+                document.getElementById('textCommonReports').style.display = "block";
 
             }
 
@@ -685,6 +704,7 @@
                 //$('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
                 $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
                 document.getElementById('commonReports').style.display = "block";
+                document.getElementById('textCommonReports').style.display = "block";
             }
 
             function getData(){

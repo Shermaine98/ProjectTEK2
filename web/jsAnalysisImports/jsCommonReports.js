@@ -104,7 +104,7 @@
             removeGradeLevelCheckboxes(analysischart, gradeLevel);
             
             if(chartSelected=="0"||chartSelected=="Line Chart"){
-                drawNutritionalStatus(analysischart, 'line', false);
+                drawNutritionalStatus(analysischart, 'spline', false);
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawNutritionalStatus(analysischart, 'column',false);
@@ -138,7 +138,7 @@
             removeClassificationCheckboxes(analysischart, classificationCheckboxes);
             
             if(chartSelected=="0"||chartSelected=="Line Chart"){
-                drawKinderEnrollment(analysischart, 'line', false);
+                drawKinderEnrollment(analysischart, 'spline', false);
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawKinderEnrollment(analysischart, 'column', false);
@@ -179,7 +179,7 @@
             removeGradeLevelCheckboxes(analysischart, gradeLevelCheckboxes);
             
             if(chartSelected=="0"||chartSelected=="Line Chart"){
-                drawElementaryEnrollment(analysischart, 'line', false);
+                drawElementaryEnrollment(analysischart, 'spline', false);
             }
             else if(chartSelected=="0"||chartSelected=="Bar Chart"){
                 drawElementaryEnrollment(analysischart, 'column', false);
@@ -366,7 +366,7 @@ function setElementaryEnrollments(chart){
             
             
             if(chart=="0"||chart=="Line Chart"){
-                drawElementaryEnrollment(print, 'line', false);
+                drawElementaryEnrollment(print, 'spline', false);
             }
             else if(chart=="0"||chart=="Bar Chart"){
                 drawElementaryEnrollment(print, 'column', false);
@@ -756,7 +756,16 @@ function setElementaryEnrollments(chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Enrollment in Public and Elementary Schools'
@@ -786,7 +795,16 @@ function setElementaryEnrollments(chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Enrollment in Public and Elementary Schools'
@@ -867,7 +885,7 @@ function setKinderEnrollments(chart){
             
             
             if(chart=="0"||chart=="Line Chart"){
-                drawKinderEnrollment(print, 'line', false);
+                drawKinderEnrollment(print, 'spline', false);
             }
             else if(chart=="0"||chart=="Bar Chart"){
                 drawKinderEnrollment(print, 'column', false);
@@ -1178,7 +1196,16 @@ function setKinderEnrollments(chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Enrollment in Public and Private Preschools'
@@ -1208,7 +1235,16 @@ function setKinderEnrollments(chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Enrollment in Public and Private Preschools'
@@ -1741,7 +1777,16 @@ function setHHPopAgeGroupSex (chart){
                     type: 'bar',
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Household Population by Age Group and Sex for ' + year
@@ -2003,7 +2048,16 @@ function setHHPopAgeGroupSex (chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'//,
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Household Population by Age Group and Sex for ' + year
@@ -2056,7 +2110,7 @@ function setHHPopAgeGroupSex (chart){
             
             var year = 2015;
             if(chart=="0"||chart=="Line Chart"){
-                drawNutritionalStatus(print, 'line', false);
+                drawNutritionalStatus(print, 'spline', false);
             }
             else if(chart=="0"||chart=="Bar Chart"){
                 drawNutritionalStatus(print, 'column', false);
@@ -2575,7 +2629,16 @@ function setHHPopAgeGroupSex (chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Nutritional Status of the Preschool and Elementary Students'
@@ -2598,7 +2661,16 @@ function setHHPopAgeGroupSex (chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Nutritional Status of the Preschool and Elementary Students'
@@ -3372,7 +3444,16 @@ function setHHPopAgeGroupSex (chart){
                     drilled: false,
                     zoomType: 'xy',
                     panning: true,
-                    panKey: 'shift'//,
+                    panKey: 'shift',
+                    resetZoomButton: {
+                        position: {
+                            align: 'right', // by default
+                            verticalAlign: 'top', // by default
+                            x: -40,
+                            y: 10
+                        },
+                        relativeTo: 'chart'
+                    }
                 },
                 title: {
                     text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status for ' + year
@@ -3471,7 +3552,16 @@ function setClassroomRequirement(){
                 drilled: false,
                 zoomType: 'xy',
                 panning: true,
-                panKey: 'shift'
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
             },
             title: {
                 text: 'Classroom Requirements in Public Elementary School'
@@ -3598,7 +3688,16 @@ function setEnrollmentTeacherClassroom(){
                 drilled: false,
                 zoomType: 'xy',
                 panning: true,
-                panKey: 'shift'
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
             },
             title: {
                 text: 'Classroom Requirements in Public Elementary School'
