@@ -260,8 +260,6 @@ function chart(print) {
         topCategories.push(print[0].totalAgeGroupSex[i].ageGroup);
     }
 
-
-
     var malePerBarangay = [];
     for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
         item = {};
@@ -339,13 +337,22 @@ function chart(print) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'bar',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
             panKey: 'shift',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            },
             events: {
                 drilldown: function (e) {
                     var chart = this;
-                    Highcharts.charts[0].xAxis[0].update({categories: drilldownCategories,
+                    Highcharts.charts[0].xAxis[0].update({
                         reversed: true,
                         labels: {
                             step: 1
@@ -911,9 +918,18 @@ function chartMarital(print) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'pie',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
             panKey: 'shift',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 30
+                },
+                relativeTo: 'chart'
+            },
             events: {
                 drilldown: function (e) {
                     if (!e.seriesOptions) {
@@ -1160,10 +1176,19 @@ function chartSchool(print, classification) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'column',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
             panKey: 'shift',
             name: classification + ' Schools',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            }
         },
         title: {
             text: 'Number of Teachers and Classrooms for ' + classification + ' Schools'
@@ -1444,9 +1469,18 @@ function chartHealth(print) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'column',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
-            panKey: 'shift'
+            panKey: 'shift',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            }
         },
         title: {
             text: 'List of Hospitals'
@@ -1706,9 +1740,18 @@ function chartEnrollment(print) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'column',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
-            panKey: 'shift'
+            panKey: 'shift',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            }
         },
         title: {
             text: 'Enrollment in ' + print[0].total.totalName
@@ -1958,9 +2001,18 @@ function chartNutritionalStatus(print) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'column',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
-            panKey: 'shift'
+            panKey: 'shift',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 30
+                },
+                relativeTo: 'chart'
+            }
         },
         title: {
             text: 'Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender'
@@ -2197,9 +2249,18 @@ function chartHighestCompleted(print) {
     $('#byAgeGrpSex').highcharts({
         chart: {
             type: 'pie',
-            zoomType: 'x',
+            zoomType: 'xy',
             panning: true,
             panKey: 'shift',
+            resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 30
+                },
+                relativeTo: 'chart'
+            },
             events: {
                 drilldown: function (e) {
                     if (!e.seriesOptions) {
