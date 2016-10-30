@@ -1,6 +1,11 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
+
 package dao.accounts;
 
-import dao.accounts.*;
 import db.DBConnectionFactory;
 import static db.DBConnectionFactory.getInstance;
 import model.accounts.User;
@@ -16,7 +21,10 @@ import static java.util.logging.Logger.getLogger;
 
 /**
  *
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
  * @author Geraldine Atayan
+ * 
  */
 public class Accounts {
 

@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package servlet.forums;
 
 import dao.forums.ForumDAO;
@@ -21,11 +21,12 @@ import model.forums.Forums;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ForumSpecificServlet extends BaseServlet {
 
     /**

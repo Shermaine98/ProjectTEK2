@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package checker.demo;
 
 import model.demo.MaritalStatus;
@@ -13,8 +13,12 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class MaritalStatusChecker {
 
     private ArrayList<MaritalStatus> arrayNoError;

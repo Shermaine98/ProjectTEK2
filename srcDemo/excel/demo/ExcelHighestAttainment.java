@@ -1,3 +1,8 @@
+/*
+ *  ProjectTEK - DLSU CCS 2016
+ * 
+ */
+
 package excel.demo;
 
 import checker.demo.HighestCompletedChecker;
@@ -29,11 +34,14 @@ import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.util.CellRangeAddress;
-
 /**
  *
- * @author gian, shermaine, geraldine
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ExcelHighestAttainment {
 
     //STORE FOR PRINTING

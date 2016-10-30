@@ -1,14 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package dao.charts;
 
 import dao.demo.HighestCompletedDAO;
 import db.DBConnectionFactoryStorageDB;
 import static db.DBConnectionFactoryStorageDB.getInstance;
-import model.demo.ByAgeGroupSex;
 import model.demo.HighestCompleted;
 import model.demo.HighestCompletedAgeGroup;
 import java.sql.Connection;
@@ -17,14 +16,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import static java.util.logging.Level.SEVERE;
-import java.util.logging.Logger;
 import static java.util.logging.Logger.getLogger;
 
 /**
  *
- * @author Gian
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
 public class HighestCompletedChart {
     public ArrayList<HighestCompletedAgeGroup> retrieveTotalHighestCompleted(int formID) throws ParseException {

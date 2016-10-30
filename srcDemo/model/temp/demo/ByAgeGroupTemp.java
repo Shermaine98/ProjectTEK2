@@ -1,7 +1,8 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package model.temp.demo;
 
 import java.text.DecimalFormat;
@@ -9,7 +10,7 @@ import java.text.DecimalFormat;
 /**
  *
  * @author Gian Carlo Roxas
- * @author shermaine Sy
+ * @author Shermaine Sy
  * @author Geraldine Atayan
  * 
  */

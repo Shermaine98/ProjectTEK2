@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
 package servlets.accounts;
 
@@ -26,8 +25,12 @@ import servlet.setdata.SetAnalysisDataServlet;
 
 /**
  *
- * @author ssy
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class AdminHome extends HttpServlet {
 
     /**

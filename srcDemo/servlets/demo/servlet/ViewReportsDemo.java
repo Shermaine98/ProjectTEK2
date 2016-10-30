@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package servlets.demo.servlet;
 
 import servlets.servlet.BaseServlet;
@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Atayan
- * @author Roxas
- * @author Sy
- *
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ViewReportsDemo extends BaseServlet {
 
     /**

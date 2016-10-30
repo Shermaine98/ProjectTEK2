@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
 package servlets.accounts;
 
@@ -15,8 +14,12 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Geraldine
+ * @author Gian Carlo Roxas
+ * @author shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class Logout extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

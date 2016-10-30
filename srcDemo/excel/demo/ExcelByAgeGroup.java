@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
+
 package excel.demo;
 
 import checker.demo.ByAgeGroupSexChecker;
@@ -35,8 +35,12 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 /**
  *
- * @author shermainesy
+ * @author Gian Carlo Roxas
+ * @author Shermaine Sy
+ * @author Geraldine Atayan
+ * 
  */
+
 public class ExcelByAgeGroup {
 
     //STORE FOR PRINTING

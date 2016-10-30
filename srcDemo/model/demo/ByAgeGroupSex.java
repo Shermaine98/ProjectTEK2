@@ -1,8 +1,7 @@
 /*
- *  Copyright (C) ProjectTEK - DLSU CCS 2016
- *  All right Reserved   * 
+ *  ProjectTEK - DLSU CCS 2016
+ * 
  */
-
 package model.demo;
 import java.text.DecimalFormat;
 
