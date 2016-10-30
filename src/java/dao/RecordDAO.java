@@ -69,6 +69,7 @@ public class RecordDAO {
                 if (rs.next()) {
                     i = rs.getInt("EXISTS");
                 }
+                
                 rs.close();
                 pstmt1.close();
                 conn.close();

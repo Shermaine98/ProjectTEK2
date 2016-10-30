@@ -149,11 +149,11 @@ and open the template in the editor.
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
-<!--                        <li>
-                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home">
-                                <i class="fa fa-dashboard"></i><span>Dashboard</span>
-                            </a>
-                        </li>-->
+                        <!--                        <li>
+                                                    <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home">
+                                                        <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                                                    </a>
+                                                </li>-->
                         <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home">
                                 <i class="fa fa-home"></i><span> Home</span>
@@ -228,8 +228,8 @@ and open the template in the editor.
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script src="AdminLTE/plugins/jQueryUI/jquery-ui.js" type="text/javascript"></script>
         <script>
-                                    $.widget.bridge('uibutton', $.ui.button);
-                                    $.widget.bridge('uitooltip', $.ui.tooltip);
+                                        $.widget.bridge('uibutton', $.ui.button);
+                                        $.widget.bridge('uitooltip', $.ui.tooltip);
         </script>
         <!-- Bootstrap 3.3.6 -->
         <script src="AdminLTE/bootstrap/js/bootstrap.min.js"></script>
@@ -251,145 +251,174 @@ and open the template in the editor.
         <script src="AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
         <script>
 
-                                    $(document).ready(function () {
-                                        var value = null;
-                                        var recent = 0;
-                                        setInterval(ajaxCall, 1000);
-                                        document.getElementById('yearImport').setAttribute('value', new Date().getFullYear());
-                                        var year = document.getElementById('yearImport').value;
-                                        function ajaxCall() {
-                                            var position = document.getElementById('position').value;
-                                            $.ajax({
-                                                url: "NotificationsPusher",
-                                                type: 'POST',
-                                                dataType: "json",
-                                                data: {
-                                                    year: year,
-                                                    position: position
+                                        $(document).ready(function () {
+                                            var value = null;
+                                            var recent = 0;
+                                            setInterval(ajaxCall, 1000);
+                                            document.getElementById('yearImport').setAttribute('value', new Date().getFullYear());
+                                            var year = document.getElementById('yearImport').value;
+                                            function ajaxCall() {
+                                                var position = document.getElementById('position').value;
+                                                $.ajax({
+                                                    url: "NotificationsPusher",
+                                                    type: 'POST',
+                                                    dataType: "json",
+                                                    data: {
+                                                        year: year,
+                                                        position: position
 
-                                                },
-                                                success: function (data) {
-                                                    value = data;
+                                                    },
+                                                    success: function (data) {
+                                                        value = data;
 
-                                                if (typeof Storage !== "undefined") {
-                                                    if (sessionStorage.data) {
-                                                        var recent = JSON.parse(sessionStorage.data);
-                                                        if (sessionStorage.data !== JSON.stringify(data)) {
-                                                            $("#value").html(Math.abs(data.length - recent.length));
-                                                        }else{
-                                                           //do nothing
+                                                        if (typeof Storage !== "undefined") {
+                                                            if (sessionStorage.data) {
+                                                                var recent = JSON.parse(sessionStorage.data);
+                                                                if (sessionStorage.data !== JSON.stringify(data)) {
+                                                                    $("#value").html(Math.abs(data.length - recent.length));
+                                                                } else {
+                                                                    //do nothing
+                                                                }
+                                                                sessionStorage.data = JSON.stringify(data);
+                                                            } else {
+                                                                sessionStorage.data = JSON.stringify(data);
+                                                                $("#value").html(data.length);
+                                                            }
                                                         }
-                                                         sessionStorage.data = JSON.stringify(data);
-                                                    } else {
-                                                         sessionStorage.data = JSON.stringify(data);
-                                                        $("#value").html(data.length);
-                                                    }
-                                                }
 
-                                                    $("#myDropdown").empty();
-                                                    if (data.length === 0) {
-                                                        $("#value").empty();
-                                                        $("#value").append("");
-                                                        $("#myDropdown").append('\
+                                                        $("#myDropdown").empty();
+                                                        if (data.length === 0) {
+                                                            $("#value").empty();
+                                                            $("#value").append("");
+                                                            $("#myDropdown").append('\
                                                         <li class="padding2" style="text-align:center;">No Notifications</li>');
-                                                    }
-                                                    for (var i = 0; i < data.length; i++) {
-                                                        if (i != 0)
-                                                            $("#myDropdown").append('<hr/>');
-                                                        if (data[i].status === "Approved") {
-                                                            $("#myDropdown").append('<li class="padding2"><a class="approved" style="text-decoration:none;">'
-                                                                    + data[i].task + '</a><br/><h6 class="p">Recently Approved By ' + data[i].name + '<br/>' + data[i].time + '</h6></li>');
                                                         }
-                                                        if (data[i].status === "Rejected") {
-                                                            $("#myDropdown").append('<li class="padding2"><a class="rejected" style="text-decoration:none;">'
-                                                                    + data[i].task + '</a><br/><h6 class="p">Recently Rejected By ' + data[i].name + '<br/>' + data[i].time + '</h6></li>');
+                                                        for (var i = 0; i < data.length; i++) {
+                                                            if (i != 0)
+                                                                $("#myDropdown").append('<hr/>');
+                                                            if (data[i].status === "Approved") {
+                                                                $("#myDropdown").append('<li class="padding2"><a class="approved" style="text-decoration:none;">'
+                                                                        + data[i].task + '</a><br/><h6 class="p">Recently Approved By ' + data[i].name + '<br/>' + data[i].time + '</h6></li>');
+                                                            }
+                                                            if (data[i].status === "Rejected") {
+                                                                $("#myDropdown").append('<li class="padding2"><a class="rejected" style="text-decoration:none;">'
+                                                                        + data[i].task + '</a><br/><h6 class="p">Recently Rejected By ' + data[i].name + '<br/>' + data[i].time + '</h6></li>');
+                                                            }
+                                                            if (data[i].status === "Delayed") {
+                                                                $("#myDropdown").append('<li class="padding2"><a class="delayed" style="text-decoration:none;">'
+                                                                        + data[i].task + '</a><br/><h6 class="p">The Report is delayed for <br/>' + data[i].time + ' days </h6></li>');
+                                                            }
+
                                                         }
 
+                                                    }, error: function (XMLHttpRequest, textStatus, exception) {
+                                                        console.log(XMLHttpRequest.responseText);
                                                     }
+                                                });
+                                            }
+                                            $('body').on('click', 'a.approved', function () {
+                                                var formName = $(this).text();
+                                                if (formName === "Enrollment in Public School") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "Enrollment in Private School") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "Household Population by Age Group and Sex") {
+                                                    window.location.replace("ServletAccess?redirect=reportAgeGroup");
+                                                } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                } else if (formName === "List of Hospitals") {
+                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                }
 
-                                                }, error: function (XMLHttpRequest, textStatus, exception) {
-                                                    console.log(XMLHttpRequest.responseText);
+                                            });
+                                            var task = null;
+                                            $('body').on('click', 'a.rejected', function () {
+                                                var formName = $(this).text();
+                                                var formid = 0;
+                                                for (var i = 0; i < value.length; i++) {
+                                                    if (formName === value[i].task) {
+                                                        formid = value[i].formID;
+                                                    }
+                                                }
+                                                $.ajax({
+                                                    url: "GetReasonReject",
+                                                    type: 'POST',
+                                                    dataType: "json",
+                                                    data: {
+                                                        formid: formid
+                                                    },
+                                                    success: function (data) {
+                                                        task = data.task;
+                                                        $("#reasonShow").modal("show");
+                                                        $("#importAideBox").empty();
+                                                        $("#importAideBox").append('<p id="taskModal" style="font-weight:bold;">' + data.task + ' for the Year of ' + data.cencusYear + '</p>');
+                                                        $("#importAideBox").append('<p style="font-size: small">Uploaded by ' + data.uplodedBy + ' was rejected by ' + data.rejectedBy + ' due to: </p>');
+                                                        $("#importAideBox").append('<p>' + data.reason + '</p><br/><br/>');
+                                                        $("#importAideBox").append('<p align="right"> This report is due on ' + data.dueDate + '</p>');
+                                                    }, error: function (XMLHttpRequest, textStatus, exception) {
+                                                        console.log(XMLHttpRequest.responseText);
+                                                    }
+                                                });
+                                            });
+
+                                            $('body').on('click', 'a.delayed', function () {
+                                                var formName = $(this).text();
+                                                if (formName === "Enrollment in Public School") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=ePublic");
+                                                } else if (formName === "Enrollment in Private School") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=ePrivate");
+                                                } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=publicDirectory");
+                                                } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=privateDirectory");
+                                                    //DEMO
+                                                } else if (formName === "Household Population by Age Group and Sex") {
+                                                    window.location.replace("RetrieveDataDemoServlet?redirect=byAgeGroupSex");
+                                                } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
+                                                    window.location.replace("RetrieveDataDemoServlet?redirect=HighestCompleted");
+                                                } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
+                                                    window.location.replace("RetrieveDataDemoServlet?redirect=MaritalStatus");
+                                                }//DEMO END
+                                                else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
+                                                    window.location.replace("RetrieveDataHealthServlet?redirect=percentageDist");
+                                                } else if (formName === "List of Hospitals") {
+                                                    window.location.replace("RetrieveDataHealthServlet?redirect=directoryHosptial");
+                                                }
+
+                                            });
+                                            $('#okbtn').click(function () {
+                                                var formName = task;
+                                                if (formName === "Enrollment in Public School") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=ePublic");
+                                                } else if (formName === "Enrollment in Private School") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=ePrivate");
+                                                } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=publicDirectory");
+                                                } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
+                                                    window.location.replace("RetrieveDataEducationServlet?redirect=privateDirectory");
+                                                    //DEMO
+                                                } else if (formName === "Household Population by Age Group and Sex") {
+                                                    window.location.replace("RetrieveDataDemoServlet?redirect=byAgeGroupSex");
+                                                } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
+                                                    window.location.replace("RetrieveDataDemoServlet?redirect=HighestCompleted");
+                                                } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
+                                                    window.location.replace("RetrieveDataDemoServlet?redirect=MaritalStatus");
+                                                }//DEMO END
+                                                else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
+                                                    window.location.replace("RetrieveDataHealthServlet?redirect=percentageDist");
+                                                } else if (formName === "List of Hospitals") {
+                                                    window.location.replace("RetrieveDataHealthServlet?redirect=directoryHosptial");
                                                 }
                                             });
-                                        }
-                                        $('body').on('click', 'a.approved', function () {
-                                            var formName = $(this).text();
-                                            if (formName === "Enrollment in Public School") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "Enrollment in Private School") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "Household Population by Age Group and Sex") {
-                                                window.location.replace("ServletAccess?redirect=reportAgeGroup");
-                                            } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            } else if (formName === "List of Hospitals") {
-                                                window.location.replace("ServletAccess?redirect=reportsLibrary");
-                                            }
-
                                         });
-                                        var task = null;
-                                        $('body').on('click', 'a.rejected', function () {
-                                            var formName = $(this).text();
-                                            var formid = 0;
-                                            for (var i = 0; i < value.length; i++) {
-                                                if (formName === value[i].task) {
-                                                    formid = value[i].formID;
-                                                }
-                                            }
-
-                                            $.ajax({
-                                                url: "GetReasonReject",
-                                                type: 'POST',
-                                                dataType: "json",
-                                                data: {
-                                                    formid: formid
-                                                },
-                                                success: function (data) {
-                                                    task = data.task;
-                                                    $("#reasonShow").modal("show");
-                                                    $("#importAideBox").empty();
-                                                    $("#importAideBox").append('<p id="taskModal" style="font-weight:bold;">' + data.task + ' for the Year of ' + data.cencusYear + '</p>');
-                                                    $("#importAideBox").append('<p style="font-size: small">Uploaded by ' + data.uplodedBy + ' was rejected by ' + data.rejectedBy + ' due to: </p>');
-                                                    $("#importAideBox").append('<p>' + data.reason + '</p><br/><br/>');
-                                                    $("#importAideBox").append('<p align="right"> This report is due on ' + data.dueDate + '</p>');
-                                                }, error: function (XMLHttpRequest, textStatus, exception) {
-                                                    console.log(XMLHttpRequest.responseText);
-                                                }
-                                            });
-                                        });
-                                        $('#okbtn').click(function () {
-                                            var formName = task;
-                                            if (formName === "Enrollment in Public School") {
-                                                window.location.replace("RetrieveDataEducationServlet?redirect=ePublic");
-                                            } else if (formName === "Enrollment in Private School") {
-                                                window.location.replace("RetrieveDataEducationServlet?redirect=ePrivate");
-                                            } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                window.location.replace("RetrieveDataEducationServlet?redirect=publicDirectory");
-                                            } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                window.location.replace("RetrieveDataEducationServlet?redirect=privateDirectory");
-                                                //DEMO
-                                            } else if (formName === "Household Population by Age Group and Sex") {
-                                                window.location.replace("RetrieveDataDemoServlet?redirect=byAgeGroupSex");
-                                            } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                window.location.replace("RetrieveDataDemoServlet?redirect=HighestCompleted");
-                                            } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                window.location.replace("RetrieveDataDemoServlet?redirect=MaritalStatus");
-                                            }//DEMO END
-                                            else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                window.location.replace("RetrieveDataHealthServlet?redirect=percentageDist");
-                                            } else if (formName === "List of Hospitals") {
-                                                window.location.replace("RetrieveDataHealthServlet?redirect=directoryHosptial");
-                                            }
-                                        });
-                                    });
         </script>
         <script>
 
@@ -400,7 +429,7 @@ and open the template in the editor.
                 document.getElementById("myDropdown").classList.toggle("show");
             }
             function clearStorage() {
-               sessionStorage.clear();
+                sessionStorage.clear();
             }
 // Close the dropdown if the user clicks outside of it
             window.onclick = function (event) {

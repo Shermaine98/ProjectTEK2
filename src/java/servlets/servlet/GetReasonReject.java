@@ -2,12 +2,12 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package servlets.servlet;
 
 import dao.RecordDAO;
+import dao.TaskDAO;
 import model.Record;
-import model.TaskModelUploader;
+import model.TaskModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -17,8 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +31,7 @@ import org.json.JSONObject;
  * @author Gian Carlo Roxas
  * @author shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class GetReasonReject extends HttpServlet {
 
@@ -54,24 +58,28 @@ public class GetReasonReject extends HttpServlet {
 //IV - Health
 //III - Education
 //I - Demo
-            TaskModelUploader newtaskModelUploader = new TaskModelUploader();
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM. dd, yyyy");
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            HttpSession session = request.getSession();
+            User chck = (User) session.getAttribute("user");
+
+            TaskModel newtaskModelUploader = new TaskModel();
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM. dd, yyyy");
 
             record = recordDAO.GetForReasons(Integer.parseInt(formID));
-            TaskModelUploader taskModelUploader = new TaskModelUploader();
-            taskModelUploader.taskModel(String.valueOf(record.getCensusYear()));
-            taskModelUploader.getTaskModel();
-            for (int i = 0; i < taskModelUploader.getTaskModel().size(); i++) {
-                if (taskModelUploader.getTaskModel().get(i).getFormID() == record.getFormID()) {
-                    newtaskModelUploader.setTask(taskModelUploader.getTaskModel().get(i).getTask());
-                    newtaskModelUploader.setsDueDate(sdf.format(taskModelUploader.getTaskModel().get(i).getDuedate()));
+            TaskDAO taskDAO = new TaskDAO();
+            ArrayList<TaskModel> taskModel = taskDAO.getTaskUploadeStatus(year, chck.getPosition());
+
+            for (int i = 0; i < taskModel.size(); i++) {
+                if (taskModel.get(i).getFormID() == record.getFormID()) {
+                    newtaskModelUploader.setreportName(taskModel.get(i).getReportName());
+                    newtaskModelUploader.setDuedate(taskModel.get(i).getDuedate());
 
                 }
             }
             JSONObject obj = new JSONObject();
             try {
-                obj.put("task", newtaskModelUploader.getTask());
-                obj.put("dueDate", newtaskModelUploader.getsDueDate());
+                obj.put("task", newtaskModelUploader.getReportName());
+                obj.put("dueDate", newtaskModelUploader.getDuedate());
                 obj.put("cencusYear", record.getCensusYear());
                 obj.put("reason", record.getReasons());
                 obj.put("uplodedBy", record.getUploadedByByName());
@@ -79,7 +87,7 @@ public class GetReasonReject extends HttpServlet {
             } catch (JSONException ex) {
                 Logger.getLogger(NotificationsPusher.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             out.print(obj);
             out.flush();
         }

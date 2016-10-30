@@ -3,8 +3,7 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="model.TaskModelHead"%>
-<%@page import="model.TaskModelUploader"%>
+<%@page import="model.TaskModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
@@ -61,7 +60,7 @@
                 <section class="content">
                     <div class="row">
 
-                        <% ArrayList<TaskModelHead> arrTask = ((ArrayList<TaskModelHead>) request.getAttribute("tasksHead")); %>
+                        <% ArrayList<TaskModel> arrTask = ((ArrayList<TaskModel>) request.getAttribute("tasksHead")); %>
 
                         <div class="col-md-8" style="float:left;">
                             <div class="box box-solid">
@@ -83,8 +82,8 @@
                                             <% if (arrTask.size() != 0) { %>
                                             <% for (int i = 0; i < arrTask.size(); i++) {%>
                                             <tr>
-                                                <td class="ts name"><%= arrTask.get(i).getReport()%></td>
-                                                <td class="date"><%= arrTask.get(i).getsDueDate()%></td>
+                                                <td class="ts name"><%= arrTask.get(i).getReportName()%></td>
+                                                <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
                                                 <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
                                                 <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
@@ -232,9 +231,7 @@
                         </div>
 
                         <% if (user.getPosition().equals("Project Development Officer IV")) {
-                                ArrayList<TaskModelUploader> validated = (ArrayList<TaskModelUploader>) request.getAttribute("validated");
-                                ArrayList<TaskModelUploader> approved = (ArrayList<TaskModelUploader>) request.getAttribute("approved");
-                                ArrayList<TaskModelUploader> notUploaded = (ArrayList<TaskModelUploader>) request.getAttribute("notUploaded");%>
+                                ArrayList<TaskModel> task = (ArrayList<TaskModel>) request.getAttribute("tasks");%>
 
 
                         <div id="integrateLoad" class="modal fade" role="dialog">
@@ -245,10 +242,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-8">
                             <div class="box box-solid">
                                 <div id="integratetooltip" class="box-header with-border"  data-toggle="tooltip"
-                                           title="All reports need to be completed in order to integrate all data" data-placement="right" >
+                                     title="All reports need to be completed in order to integrate all data" data-placement="right" >
                                     <h3 class="box-title">Uploads Summary</h3>
 
                                     <input class="btn btn-default btn-sm" type="button"
@@ -267,40 +265,22 @@
                                         </thead>
                                         <tbody class="list">
                                             <%
-                                                for (int i = 0; i < notUploaded.size(); i++) {%>
+                                                for (int i = 0; i < task.size(); i++) {%>
                                             <tr>
-                                                <td class="name"><%= notUploaded.get(i).getTask()%></td>
-                                                <td class="date"><%= notUploaded.get(i).getsDueDate()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></td>
-                                                    <% if (notUploaded.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td  class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= notUploaded.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
-                                                    <% } else {%>
-                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= notUploaded.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
-
-                                                <% }%>
-                                            </tr>
-                                            <% }%>
-                                            <%
-                                                for (int i = 0; i < validated.size(); i++) {%>
-                                            <tr>
-                                                <td class="name"><%= validated.get(i).getTask()%></td>
-                                                <td class="date"><%= validated.get(i).getsDueDate()%><input type="hidden" value="<%= validated.get(i).getStatus()%>" class="completed"></td>
-                                                    <% if (validated.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-default"><%= validated.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
-                                                    <% } else {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-primary status"><%= validated.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
-
-                                                <% }%>
-                                            </tr>
-                                            <% }%>
-                                            <%
-                                                for (int i = 0; i < approved.size(); i++) {%>
-                                            <tr>
-                                                <td class="name"><%= approved.get(i).getTask()%></td>
-                                                <td class="date"><%= approved.get(i).getsDueDate()%><input type="hidden" value="<%= approved.get(i).getStatus()%>" class="completed"></td>
-                                                    <% if (approved.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= approved.get(i).getStatus()%><input type="hidden" value="<%= notUploaded.get(i).getStatus()%>" class="completed"></span></td>
-                                                    <% } else {%>
-                                                <td class="status" style="text-align:right; margin-right: 5%;"><span class="label label-success">Completed<input type="hidden" value="Completed" class="completed"></span></td>
+                                                <td class="name"><%= task.get(i).getReportName()%></td>
+                                                <td class="date"><%= task.get(i).getSduedate()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></td>
+                                                    <% if (task.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
+                                                <td  class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
+                                                        <% } else if (task.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
+                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
+                                                <% } else if (task.get(i).getStatus().equalsIgnoreCase("pending")) {%>
+                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
+                                                        <% } else if (task.get(i).getStatus().equalsIgnoreCase("On-Going")) {%>
+                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
+                                                        <% } else if (task.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
+                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
+                                                        <% } else if (task.get(i).getStatus().equalsIgnoreCase("Completed")) {%>
+                                                <td  class="status"  style="text-align:right; margin-right: 5%;"><span class="label label-warning"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
 
                                                 <% }%>
                                             </tr>
@@ -312,6 +292,10 @@
                             </div>
                             <!-- /.box -->
                         </div>
+                        <!--EDIT DEADLINES-->
+
+
+                        <!--EDIT DEADLINES END-->
                         <% }%>
 
                     </div>
@@ -330,16 +314,16 @@
                     var x = $(this).val();
                     if (x === "Approved") {
                         i++;
-                    }else if(x==="Completed"){
+                    } else if (x === "Completed") {
 
-                         y++;
+                        y++;
                     }
                     if (i === 9) {
                         $('#integratetooltip *[title]').tooltip('disable');
                         $('#integrate').removeClass('btn-default');
                         $('#integrate').addClass('btn-primary');
                         $('#integrate').prop('disabled', false);
-                    }else if(y===9){
+                    } else if (y === 9) {
                         $('#integrate').addClass('btn-primary');
                         $('#integrate').prop('disabled', true);
                     }

@@ -10,8 +10,7 @@ import dao.EducDashboard;
 import dao.HealthDashboard;
 import dao.TaskDAO;
 import model.accounts.User;
-import model.TaskModelHead;
-import model.TaskModelUploader;
+import model.TaskModel;
 import servlets.servlet.BaseServlet;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -60,6 +59,9 @@ public class ServletAccess extends BaseServlet {
             int year = now.get(Calendar.YEAR);
             String yearInString = String.valueOf(year);
 
+            HttpSession session = request.getSession();
+            User chck = (User) session.getAttribute("user");
+
 //Approval Demo
             request.setAttribute("aDemoAgeGroup", dDAO.aDemoAgeGroup());
             request.setAttribute("aDemoMarital", dDAO.aDemoMarital());
@@ -90,9 +92,9 @@ public class ServletAccess extends BaseServlet {
             request.setAttribute("iHealthNutritionalStatus", hDAO.iHealthNutritionalStatus());
             request.setAttribute("iHealthHospital", hDAO.iHealthHospitals());
 
-//HOME
+//HOME   
             if (redirect.equalsIgnoreCase("home")) {
-                ArrayList<TaskModelUploader> arrayTask = taskDAO.checkTaskUploader(yearInString);
+                ArrayList<TaskModel> arrayTask = taskDAO.getTaskUploadeStatus(year, chck.getPosition());
                 request.setAttribute("tasks", arrayTask);
                 request.setAttribute("page", "home");
                 rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
@@ -110,24 +112,18 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/home_IT.jsp");
                 rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("homePDO")) {
-                HttpSession session = request.getSession();
-                User chck = (User) session.getAttribute("user");
 
                 if (chck.getPosition().equals("Project Development Officer IV")) {
-                    ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Health");
-                    ArrayList<TaskModelUploader> validated = taskDAO.getUploadedValidated(yearInString);
-                    ArrayList<TaskModelUploader> approved = taskDAO.getUploadedApprovedReject(yearInString);
-                    ArrayList<TaskModelUploader> notUploaded = taskDAO.getNotUploaded(yearInString);
+                    ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year, chck.getPosition(), "Health");
+                    ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploadeStatus(year, "Administrative Aide VI");
 
-                    request.setAttribute("notUploaded", notUploaded);
-                    request.setAttribute("validated", validated);
-                    request.setAttribute("approved", approved);
+                    request.setAttribute("tasks", taskUploader);
                     request.setAttribute("tasksHead", arrayTask);
                 } else if (chck.getPosition().equals("Project Development Officer III")) {
-                    ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Education");
+                    ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year, chck.getPosition(), "Education");
                     request.setAttribute("tasksHead", arrayTask);
                 } else if (chck.getPosition().equals("Project Development Officer I")) {
-                    ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Demographics");
+                    ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year, chck.getPosition(), "Demographics");
                     request.setAttribute("tasksHead", arrayTask);
                 }
                 rd = request.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
@@ -163,7 +159,7 @@ public class ServletAccess extends BaseServlet {
                 request.setAttribute("page", "approvals");
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/approvals.jsp");
                 rd.forward(request, response);
-            }else if (redirect.equalsIgnoreCase("iapprovals")) {
+            } else if (redirect.equalsIgnoreCase("iapprovals")) {
                 ArrayList<User> externalUsers = new ArrayList<>();
                 ArrayList<User> internalUsers = new ArrayList<>();
                 externalUsers = accountsDAO.getUserForApprovalOthers();

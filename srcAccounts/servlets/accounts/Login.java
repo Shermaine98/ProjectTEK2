@@ -10,8 +10,7 @@ import dao.EducDashboard;
 import dao.HealthDashboard;
 import dao.TaskDAO;
 import model.accounts.User;
-import model.TaskModelHead;
-import model.TaskModelUploader;
+import model.TaskModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -73,7 +72,6 @@ public class Login extends HttpServlet {
             
             Calendar now = Calendar.getInstance();
             int year = now.get(Calendar.YEAR);
-            String yearInString = String.valueOf(year);
 
  //</editor-fold>           
 
@@ -127,27 +125,22 @@ public class Login extends HttpServlet {
 //II - Education
 //I - Demo
                     if (user.getPosition().equals("Project Development Officer IV")) {
-                        ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Health");
-                        ArrayList<TaskModelUploader> validated = taskDAO.getUploadedValidated(yearInString);
-                        ArrayList<TaskModelUploader> approved = taskDAO.getUploadedApprovedReject(yearInString);
-                        ArrayList<TaskModelUploader> notUploaded = taskDAO.getNotUploaded(yearInString);
-
-                        request.setAttribute("notUploaded", notUploaded);
-                        request.setAttribute("validated", validated);
-                        request.setAttribute("approved", approved);
+                        ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year,user.getPosition(), "Health");
+                         ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploadeStatus(year,"Administrative Aide VI");
+                        request.setAttribute("tasks", taskUploader);
                         request.setAttribute("tasksHead", arrayTask);
                         rd = context.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
                     } else if (user.getPosition().equals("Project Development Officer III")) {
-                        ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Education");
+                        ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year, user.getPosition(),"Education");
                         request.setAttribute("tasksHead", arrayTask);
                         rd = context.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
                     } else if (user.getPosition().equals("Project Development Officer I")) {
-                        ArrayList<TaskModelHead> arrayTask = taskDAO.checkTaskHead(yearInString, "Demographics");
+                        ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year, user.getPosition(),"Demographics");
                         request.setAttribute("tasksHead", arrayTask);
                         rd = context.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
                     } else {
-                        ArrayList<TaskModelUploader> arrayTask = taskDAO.checkTaskUploader(yearInString);
-                        request.setAttribute("tasks", arrayTask);
+                        ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploadeStatus(year,user.getPosition());
+                        request.setAttribute("tasks", taskUploader);
                         rd = context.getRequestDispatcher("/WEB-INF/home.jsp");
                     }
                 } else if (user.getDivision().equalsIgnoreCase("IT")) {

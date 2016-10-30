@@ -3,7 +3,7 @@
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan
 --%>
-<%@page import="model.TaskModelUploader"%>
+<%@page import="model.TaskModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
@@ -52,7 +52,7 @@
                 <section class="content">
                     <div class="row">
 
-                        <% ArrayList<TaskModelUploader> arrTask = ((ArrayList<TaskModelUploader>) request.getAttribute("tasks")); %>
+                        <% ArrayList<TaskModel> arrTask = ((ArrayList<TaskModel>) request.getAttribute("tasks")); %>
 
                         <div class="col-md-8">
                             <div class="box box-solid">
@@ -61,7 +61,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div id="pending" class="box-body">
-                                      <input class="search form-control" placeholder="Search Report Name" style="margin: 0 auto; width: 50%;" />
+                                    <input class="search form-control" placeholder="Search Report Name" style="margin: 0 auto; width: 50%;" />
 
                                     <table id="taskTable" class="table table-hover">
                                         <thead>
@@ -81,18 +81,22 @@
                                             <% } else { %>
                                             <% for (int i = 0; i < arrTask.size(); i++) {%>
                                             <tr>
-                                                <td class="ts name"><%= arrTask.get(i).getTask()%></td>
-                                                <td class="sector"><%= arrTask.get(i).getReportType()%></td>
-                                                <td class="date"><%= arrTask.get(i).getsDueDate()%></td>
+                                                <td class="ts name"><%= arrTask.get(i).getReportName()%></td>
+                                                <td class="sector"><%= arrTask.get(i).getSector()%></td>
+                                                <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
                                                 <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
-                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
                                                 <td class="status"><span class="label label-default"><%= arrTask.get(i).getStatus()%></span></td>
-
-                                                <% } else {%>
-                                                <td><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
-
-                                                <% }%>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("On-Going")) {%>
+                                                <td class="status"><span class="label label-primary"><%= arrTask.get(i).getStatus()%></span></td>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
+                                                <td class="status"><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("pending")) {%>
+                                                <td class="status"><span class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
+                                                    <% } else {%>
+                                                <td><span class="label label-success"><%= arrTask.get(i).getStatus()%></span></td>
+                                                    <% }%>
                                                 <td style="float:right"><input type="button" id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                             </tr>
                                             <%}
@@ -137,48 +141,48 @@
                                     <% if (iPublicEnrollment >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPublicEnrollment%></button></a>
-                                        <p class="expand">Enrollment in Public Schools</p>
-                                            <% }
+                                    <p class="expand">Enrollment in Public Schools</p>
+                                    <% }
                                                 if (iPrivateEnrollment >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPrivateEnrollment%></button></a>
-                                        <p class="expand">Enrollment in Private Schools</p>
-                                            <% }
+                                    <p class="expand">Enrollment in Private Schools</p>
+                                    <% }
                                                 if (iPublicDirectory >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPublicDirectory%></button></a>
-                                        <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
-                                            <% }
+                                    <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
+                                    <% }
                                                 if (iPrivateDirectory >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=iPrivateDirectory%></button></a>
-                                        <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
-                                            <% }
+                                    <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
+                                    <% }
                                                 if (iAgeGroup >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
                                         <button class="btn btn-warning smallButtonStyle"><%=iAgeGroup%></button></a>
-                                        <p class="expand">Household Population by Age Group and Sex</p>
-                                            <% }
+                                    <p class="expand">Household Population by Age Group and Sex</p>
+                                    <% }
                                                 if (iHighest >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted">
                                         <button class="btn btn-warning smallButtonStyle"><%=iHighest%></button></a>
-                                        <p class="expand" id='highest' onclick="expand('highest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
-                                            <% }
+                                    <p class="expand" id='highest' onclick="expand('highest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
+                                    <% }
                                                 if (iMarital >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=maritalStatus">
                                         <button class="btn btn-warning smallButtonStyle"><%=iMarital%></button></a>
-                                        <p class="expand" id='marital' onclick="expand('marital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
-                                            <% }
+                                    <p class="expand" id='marital' onclick="expand('marital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
+                                    <% }
                                                 if (iNutritionalStatus >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist">
                                         <button class="btn btn-warning smallButtonStyle"><%=iNutritionalStatus%></button></a>
-                                        <p class="expand" id='nutrition' onclick='expand("nutrition")'>Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
-                                            <% }
+                                    <p class="expand" id='nutrition' onclick='expand("nutrition")'>Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
+                                    <% }
                                                 if (iHospital >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial">
                                         <button class="btn btn-warning smallButtonStyle"><%=iHospital%></button></a>
-                                        <p class="expand">List of Hospitals</p>
-                                            <% }
+                                    <p class="expand">List of Hospitals</p>
+                                    <% }
                                                 } //END OF ELSE %>
 
                                 </div>
@@ -214,46 +218,46 @@
                                     <% if (aPublicEnrollment >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePublic">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPublicEnrollment%></button></a>
-                                        <p class="expand">Enrollment in Public Schools</p>
-                                            <% }
+                                    <p class="expand">Enrollment in Public Schools</p>
+                                    <% }
                                                 if (aPrivateEnrollment >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateEnrollment%></button></a>
-                                        <p class="expand">Enrollment in Private Schools</p>
-                                            <% }
+                                    <p class="expand">Enrollment in Private Schools</p>
+                                    <% }
                                                 if (aPublicDirectory >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPublicDirectory%></button></a>
-                                        <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
-                                            <% }
+                                    <p class="expand" id='directoryPublic' onclick="expand('directoryPublic');">Number of Teachers and Classrooms in Public Schools</p>
+                                    <% }
                                                 if (aPrivateDirectory >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateDirectory%></button></a>
-                                        <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
-                                            <% }
+                                    <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
+                                    <% }
                                                 if (aAgeGroup >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
                                         <button class="btn btn-warning smallButtonStyle"><%=aAgeGroup%></button></a>
-                                        <p class="expand">Household Population by Age Group and Sex</p>
-                                            <% }
+                                    <p class="expand">Household Population by Age Group and Sex</p>
+                                    <% }
                                                 if (aHighest >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=HighestCompleted">
                                         <button class="btn btn-warning smallButtonStyle"><%=aHighest%></button></a>
-                                        <p class="expand" id='ahighest' onclick="expand('ahighest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
-                                            <% }
+                                    <p class="expand" id='ahighest' onclick="expand('ahighest')">Household Population 5 Years Old and Over by Highest Grade/Year Completed, Age Group and Sex</p>
+                                    <% }
                                                 if (aMarital >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=maritalStatus">
                                         <button class="btn btn-warning smallButtonStyle"><%=aMarital%></button></a>
-                                        <p class="expand" id='amarital' onclick="expand('amarital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
-                                            <% }
+                                    <p class="expand" id='amarital' onclick="expand('amarital')">Household Population 10 Years Old and Over by Age Group, Sex, and Marital Status</p>
+                                    <% }
                                                 if (aNutritionalStatus >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist">
                                         <button class="btn btn-warning smallButtonStyle"><%=aNutritionalStatus%></button></a>
-                                        <p class="expand" id='anutrition' onclick='expand("anutrition")'>Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
-                                            <% }
+                                    <p class="expand" id='anutrition' onclick='expand("anutrition")'>Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender</p>
+                                    <% }
                                                 if (aHospital >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial"><button class="btn btn-warning smallButtonStyle"><%=aHospital%></button></a> <p class="expand">List of Hospitals</p>
-                                            <% }
+                                        <% }
                                                 } //END OF ELSE %>
                                 </div>
                                 <!-- /.box-body -->
@@ -274,9 +278,9 @@
         </script>
         <script src="AdminLTE/plugins/fullcalendar/fullcalendar.min.js"></script>
         <script>
-             $(document).ready(function () {
+            $(document).ready(function () {
                 var summary = {
-                    valueNames: ['name','status', 'sector', 'date']
+                    valueNames: ['name', 'status', 'sector', 'date']
                 };
                 var summaryList = new List('pending', summary);
             });
