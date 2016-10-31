@@ -76,7 +76,7 @@
                                         <tbody class="list" >
                                             <% if (arrTask.size() == 0) { %>
                                             <tr>
-                                                <td colspan="4" style="right-text-align;">All tasks have been completed</td>
+                                                <td colspan="4" style="text-align:center;">All tasks have been completed</td>
                                             </tr>
                                             <% } else { %>
                                             <% for (int i = 0; i < arrTask.size(); i++) {%>
