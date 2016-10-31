@@ -736,10 +736,6 @@
         <servlet-name>AdminHome</servlet-name>
         <url-pattern>/AdminHome</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ValiEnrollment</servlet-name>
-        <url-pattern>/ValiEnrollment</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
