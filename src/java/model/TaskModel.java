@@ -24,9 +24,18 @@ public class TaskModel {
     private String sector;
     private String name;
     private String timeStamp;
+    private int dateDiff;
 
     SimpleDateFormat sdf = new SimpleDateFormat("MMM. dd, yyyy");
     public void taskModel() {
+    }
+
+    public int getDateDiff() {
+        return dateDiff;
+    }
+
+    public void setDateDiff(int dateDiff) {
+        this.dateDiff = dateDiff;
     }
 
     /**

@@ -49,6 +49,16 @@ public class TaskDAO {
             taskModelTemp.setReportType(rs.getString("reportType"));
             taskModelTemp.setSector(rs.getString("sector"));
             taskModelTemp.setDuedate(formatter.parse(year + "/" + rs.getInt("month") + "/" + rs.getInt("day")));
+            String query2 = "select datediff(?,NOW()) as 'diffDate';";
+            PreparedStatement pstmt2 = conn.prepareStatement(query2);
+            pstmt2.setString(1, year + "/" + rs.getInt("month") + "/" + rs.getInt("day"));
+            
+            ResultSet rs2 = pstmt2.executeQuery();
+            while(rs2.next()){
+                taskModelTemp.setDateDiff(rs2.getInt("diffDate"));
+                //System.out.println(rs2.getInt("diffDate"));
+            }
+            
             taskModelTemp.setreportName(rs.getString("reportName"));
             taskModelTemp.setFormID(formId);
             taskModel.add(taskModelTemp);
@@ -73,6 +83,8 @@ public class TaskDAO {
                     ResultSet rs = pstmt1.executeQuery();
                     TaskModel temp = new TaskModel();
                     if (rs.next()) {
+                        temp.setDateDiff(taskModels.get(i).getDateDiff());
+                        System.out.println(temp.getDateDiff());
                         if (rs.getInt("APPROVED") == 1) {
                             temp.setreportName(taskModels.get(i).getReportName());
                             temp.setDuedate(taskModels.get(i).getDuedate());
@@ -110,6 +122,7 @@ public class TaskDAO {
                         Date now = new Date();
                         int x = now.compareTo(taskModels.get(i).getDuedate());
                         if (x == 1) {
+                            temp.setDateDiff(taskModels.get(i).getDateDiff());
                             temp.setreportName(taskModels.get(i).getReportName());
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
@@ -118,6 +131,7 @@ public class TaskDAO {
                             temp.setStatus("Delayed");
                             taskModelFinal.add(temp);
                         } else {
+                            temp.setDateDiff(taskModels.get(i).getDateDiff());
                             temp.setreportName(taskModels.get(i).getReportName());
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
