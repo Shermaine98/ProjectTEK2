@@ -193,22 +193,17 @@ public class HighestCompletedDAO {
             Record recordDEMO = new Record();
             ArrayList<GlobalRecords> errRecords = new ArrayList<>();
 
-            String query = "SELECT FORMID as 'formID', SUM(count IS NULL) AS 'NumErrors'\n"
-                    + "FROM highestCompleted\n"
-                    + "WHERE `VALIDATION` IN (SELECT IF(`VALIDATION` = 0, 'TRUE', 'FALSE')\n"
-                    + "FROM AGE_GROUP\n"
-                    + "WHERE `VALIDATION` = 'TRUE'\n"
-                    + "GROUP BY FORMID\n"
-                    + "ORDER BY FORMID)\n"
-                    + "GROUP BY FORMID\n"
-                    + "ORDER BY FORMID;";
+            String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n" +
+                            "FROM highestcompleted \n" +
+                            "WHERE `VALIDATION` != 1 AND formID > 400000000 AND formID < 499999999 \n" +
+                            "GROUP BY formID";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     GlobalRecords temp = new GlobalRecords();
                     temp.setFormID(rs.getInt("formID"));
-                    temp.setErrorLines(rs.getInt("NumErrors"));
+                    temp.setErrorLines(rs.getInt("ERROR"));
                     recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
                     temp.setCensusYear(recordDEMO.getCensusYear());
                     temp.setUploadedByByName(recordDEMO.getUploadedByByName());

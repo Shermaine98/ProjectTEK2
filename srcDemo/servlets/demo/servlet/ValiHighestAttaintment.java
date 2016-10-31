@@ -67,7 +67,7 @@ public class ValiHighestAttaintment extends BaseServlet {
         if (page.equalsIgnoreCase("edited")) {
             try {
                 HighestCompletedDAO.deleteHighestCompleted(400000000 + year);
-                recordDAO.deleteRecord(40000000 + year);
+                recordDAO.deleteRecord(400000000 + year);
             } catch (SQLException ex) {
                 Logger.getLogger(ValiHighestAttaintment.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -199,6 +199,7 @@ public class ValiHighestAttaintment extends BaseServlet {
             HighestCompleted.setAgeGroup(ageGroup[i]);
             HighestCompleted.setSex(sex[i]);
             HighestCompleted.setTotal(Integer.parseInt(total[i].replaceAll(" ", "").replaceAll(",", "")));
+             HighestCompleted.setValidation(1);
             arrHighestCompletedAgeGroup = new ArrayList<HighestCompletedAgeGroup>();
 
             for (; y < 16 + stopper; y++) {

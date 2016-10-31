@@ -6,6 +6,7 @@ package servlets.demo.servlet;
 
 import dao.demo.MaritalStatusDAO;
 import dao.demo.ByAgeGroupSexDAO;
+import dao.demo.HighestCompletedDAO;
 import model.demo.ByAgeGroupSex;
 import model.demo.MaritalStatus;
 import model.temp.demo.MaritalStatusTemp;
@@ -21,6 +22,10 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.demo.HighestCompleted;
+import model.demo.HighestCompletedAgeGroup;
+import model.temp.demo.HighestCompletedAgeGroupTemp;
+import model.temp.demo.HighestCompletedTemp;
 
 /**
  *
@@ -57,9 +62,6 @@ public class EditErrorFormServlet extends BaseServlet {
 
                 for (int i = 0; i < byAgeGroupDB.size(); i++) {
                     if (byAgeGroupDB.get(i).isValidation() == 1) {
-                        byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getBothSex());
-                        byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getMaleCount());
-                        byAgeGroupDB.get(i).getFormatcount(byAgeGroupDB.get(i).getFemaleCount());
                         arrNoError.add(byAgeGroupDB.get(i));
                     } else {
                         ByAgeGroupTemp byAgeGroupTemp = new ByAgeGroupTemp();
@@ -104,17 +106,6 @@ public class EditErrorFormServlet extends BaseServlet {
 
             for (int i = 0; i < MaritalStatus.size(); i++) {
                 if (MaritalStatus.get(i).getValidation() == 1) {
-
-                    MaritalStatus.get(i).getAgeGroup();
-                    MaritalStatus.get(i).getLocation();
-                    MaritalStatus.get(i).getSex();
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getCommonLawLiveIn());
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getDivorcedSeparated());
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getMarried());
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getSingle());
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getTotal());
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getUnknown());
-                    MaritalStatus.get(i).getFormatcount(MaritalStatus.get(i).getWidowed());
                     arrNoError.add(MaritalStatus.get(i));
                 } else {
                     MaritalStatusTemp temp = new MaritalStatusTemp();
@@ -141,9 +132,74 @@ public class EditErrorFormServlet extends BaseServlet {
             rd = request.getRequestDispatcher("/WEB-INF/JSPDemo/valiMaritalStatus.jsp");
             rd.forward(request, response);
 
-        } else if (redirect.equalsIgnoreCase("editErrorByMarital")) {
-            request.setAttribute("ErrorMessage", "none");
-            rd = request.getRequestDispatcher("/WEB-INF/JSPDemo/valiMaritalStatus.jsp");
+        } else if (redirect.equalsIgnoreCase("edithighestCompleted")) {
+
+            HighestCompletedDAO HighestCompletedDAO = new HighestCompletedDAO();
+            ArrayList<HighestCompleted> highestCompleted = new ArrayList<>();
+
+            try {
+                highestCompleted = HighestCompletedDAO.ViewHighestCompletedFormID(parseInt(formID));
+            } catch (ParseException ex) {
+                Logger.getLogger(EditErrorFormServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ArrayList<HighestCompleted> arrNoError = new ArrayList<>();
+            ArrayList<HighestCompletedTemp> arrError = new ArrayList<>();
+
+            for (int i = 0; i < highestCompleted.size(); i++) {
+                boolean x = false;
+                for (int y = 0; y < highestCompleted.get(i).getHighestCompletedAgeGroup().size(); y++) {
+                    if (highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).isValidation() != 1) {
+                        x = true;
+                    }
+                }
+
+                if (x) {
+                    HighestCompletedTemp HighestCompletedTemp = new HighestCompletedTemp();
+                    HighestCompletedTemp.setLocation(highestCompleted.get(i).getLocation());
+                    HighestCompletedTemp.setSex(highestCompleted.get(i).getSex());
+                    HighestCompletedTemp.setAgeGroup(highestCompleted.get(i).getageGroup());
+                    HighestCompletedTemp.setTotal(String.valueOf(highestCompleted.get(i).getTotal()));
+                    ArrayList<HighestCompletedAgeGroupTemp> arrHighestCompletedAgeGroupTemp = new  ArrayList<>();
+                    for (int y = 0; y < highestCompleted.get(i).getHighestCompletedAgeGroup().size(); y++) {
+                        HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
+
+                        HighestCompletedAgeGroupTemp.setCount(String.valueOf(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).getCount()));
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).gethighestCompleted());
+                        HighestCompletedAgeGroupTemp.setValidation(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).isValidation());
+                        HighestCompletedAgeGroupTemp.setReason(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).getReason());
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                        
+                    }
+                    HighestCompletedTemp.setValidation(1);
+                    HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
+                    arrError.add(HighestCompletedTemp);
+                } else {
+                    HighestCompleted HighestCompleted = new HighestCompleted();
+                    ArrayList<HighestCompletedAgeGroup> arrHighestCompletedAgeGroup = new ArrayList<>();
+                    for (int y = 0; y < highestCompleted.get(i).getHighestCompletedAgeGroup().size(); y++) {
+                        HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
+                        HighestCompletedAgeGroup.setCount(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).getCount());
+                        HighestCompletedAgeGroup.sethighestCompleted(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).gethighestCompleted());
+                        HighestCompletedAgeGroup.setValidation(highestCompleted.get(i).getHighestCompletedAgeGroup().get(y).isValidation());
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                    }
+                  
+                    HighestCompleted.setLocation(highestCompleted.get(i).getLocation());
+                    HighestCompleted.setSex(highestCompleted.get(i).getSex());
+                    HighestCompleted.setAgeGroup(highestCompleted.get(i).getageGroup());
+                    HighestCompleted.setTotal(highestCompleted.get(i).getTotal());
+                    HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                    HighestCompleted.setValidation(highestCompleted.get(i).getValidation());
+                    arrNoError.add(HighestCompleted);
+
+                }
+            }
+            request.setAttribute("ErrorMessage", "Error");
+            request.setAttribute("page", "edited");
+            request.setAttribute("ArrNoError", arrNoError);
+            request.setAttribute("ArrError", arrError);
+            rd = request.getRequestDispatcher("/WEB-INF/JSPDemo/valiHighestAttaintment.jsp");
             rd.forward(request, response);
         }
     }

@@ -78,8 +78,7 @@
                         <form action="ValiHighestAttaintment" method="post">
                             <input type="hidden" name="year" class="year" id="year" />
                             <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
-                            <input type="hidden" name="page" value="<%=redirect%>"/>
-                            <input type="hidden" name="errorMessage" value="<%=temp%>"/>
+                            <input type="text" name="page" value="<%=redirect%>"/>
                             <%
                                 ArrayList<HighestCompletedTemp> highestError = (ArrayList<HighestCompletedTemp>) request.getAttribute("ArrError");
                                 if (highestError != null) {
@@ -127,7 +126,10 @@
                                         <% }%>
                                     </tbody>
                                 </table>
+                                    <input name="errorMessage" type="hidden" value="<%=temp%>" />
                             </div>
+
+
                             <div align="center">
                                 <a href="javascript:window.print()"><input align="center" class="btn btn-success" style="margin: 1% auto 5% auto" type="button" value="Print Error Summary"/></a>
                             </div>

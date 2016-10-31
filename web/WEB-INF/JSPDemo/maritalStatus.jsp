@@ -157,7 +157,7 @@
                                             </tbody>
 
                                         </table>
-<input id="page" name="page" type="hidden"  value="editErrorByMarital"/>
+                                            <input id="page" name="page" type="hidden"  value="editErrorByMarital"/>
                                             <input id="iformID" name="formID" type="hidden" />
                                     </form>
                                 </div>

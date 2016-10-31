@@ -67,11 +67,11 @@
                 </div>
                 <%}//NOT SUCCESS SAVE IN DB WITH MORE THAN 6 ERRORS
                 else if (temp.equalsIgnoreCase("UploadError")) { %>
-                    <div class="callout callout-danger">
-                        <h4>The file uploaded is incorrect</h4>
-                        <p>Kindly upload the correct data for Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex </p>
-                    </div>
-                    <%}%>
+                <div class="callout callout-danger">
+                    <h4>The file uploaded is incorrect</h4>
+                    <p>Kindly upload the correct data for Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex </p>
+                </div>
+                <%}%>
 
 
                 <!--MODAL-->
@@ -157,7 +157,7 @@
                                             </tbody>
 
                                         </table>
-                                        <input id="page" name="page" type="hidden"  value="editErrorByAge"/>
+                                        <input id="page" name="page" type="hidden"  value="edithighestCompleted"/>
                                         <input id="iformID" name="formID" type="hidden" />
                                     </form>
                                 </div>

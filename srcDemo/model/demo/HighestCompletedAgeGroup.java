@@ -17,7 +17,7 @@ public class HighestCompletedAgeGroup {
 
     private String highestCompleted;
     private int count;
-    private int Validation;
+    private int validation;
     private String Reason;
 
     DecimalFormat df = new DecimalFormat("#,###");
@@ -47,11 +47,11 @@ public class HighestCompletedAgeGroup {
     }
 
     public int isValidation() {
-        return Validation;
+        return validation;
     }
 
     public void setValidation(int validation) {
-        this.Validation = Validation;
+        this.validation = validation;
     }
 
     /**
