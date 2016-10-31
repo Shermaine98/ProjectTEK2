@@ -186,7 +186,7 @@ function ViewComments() {
             $('#commentsBox').empty();
 
             var table = document.createElement("table");
-            table.setAttribute("class", "table table-bordered");
+            table.setAttribute("class", "table");
             table.setAttribute("style", "margin-top: 0");
             element.appendChild(table);
             var tbody = document.createElement("tbody");
@@ -195,7 +195,7 @@ function ViewComments() {
             for (var i = 0; i < data.length; i++) {
 
                 var tbodytrtop = document.createElement("tr");
-                tbodytrtop.setAttribute("style", "background: #5a5a5a; color: #fff; height: 10px; font-size: 12px; ");
+                tbodytrtop.setAttribute("style",  "background: #E0EAF1; color: #858C93; height: 10px; font-size: 12px;  border-style: solid;border-width: 15px;");
                 tbody.appendChild(tbodytrtop);
                 var tbodytr = document.createElement("tr");
                 tbody.appendChild(tbodytr);
@@ -205,13 +205,11 @@ function ViewComments() {
                 var td2 = document.createElement("td");
                 tbodytr.appendChild(td2);
 
-                var tdTOP = document.createElement("td");
-                tdTOP.setAttribute("colspan", "2");
-                tbodytrtop.appendChild(tdTOP);
-
-                $(tdTOP).append('Replied on ' + data[i].dateOfComment);
-
-                $(td1).append(data[i].commentedByName);
+                var firstColumn = '<div style="width:100%">\n\
+                                    <b style="color:#6A738E">'+data[i].commentedByName+'</b></td>\n\
+                                    <div style="color:#8E737C; font-size:65%">Replied on '+data[i].dateOfComment+'</div>\n\
+                                    </div>';
+                $(td1).append(firstColumn);
 
                 if (data[i].isLike === false) {
 

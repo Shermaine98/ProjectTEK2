@@ -46,26 +46,21 @@
                                 <!--
                                     forumBody
                                 -->
-                                <div id="specificForum" class="box box-solid">
+                                <div id="specificForum" class="box box-grey">
 
                                     
                                     <div class="box-header with-border">
-                                        <h3 class="box-title"><%=forum.getForumTitle()%></h3>
+                                        <h1 class="box-title" style="font-size:200%; margin-top:2%; margin-bottom:2%"><%=forum.getForumTitle()%></h1>
                                     </div>
                                     <div class="box-body">
-                                        <b style="margin-right: 1%; font-weight: normal">Tags:</b>
-                                        <% for (int i = 1; i < forum.getTags().size(); i++) {%>
-                                        <p style="margin-right: 1%;" class="btn btn-flat btn-default btn-sm"><%=forum.getTags().get(i).getTag()%></p>
-                                        <%}%>
-
-
-                                        <table class="table table-bordered" style="margin-top: 2%; margin-bottom: 0;">
-                                            <tr style="background: #5a5a5a; height: 20px; color: #fff;">
-                                                <td colspan="2">Thread created on <%=forum.getDateCreated()%></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="25%">
-                                                    <%=forum.getCreatedByName()%></td>
+                                        <table class="table" style="margin-top: -1.5%; margin-bottom: 0;">
+                                            <!--<tr style="background: #5a5a5a; height: 20px; color: #fff;">
+                                                <td colspan="2">Thread created on </td>
+                                            </tr>-->
+                                            <tr style="margin-top:20%">
+                                                <td width="25%;" >
+                                                        <div style="color:#8E737C; font-size:65%">Created on <%=forum.getDateCreated()%></div>
+                                                        <b style="color:#6A738E"><%=forum.getCreatedByName()%></b></td>
                                                 <td><%= forum.getBody()%><br><br>
                                                     <%if (forum.isIsLike()) {%>
                                                     <h5 style="font-size: 13px; text-align:right;">
@@ -80,6 +75,14 @@
                                                         <%}%>
                                             </tr>
                                         </table>
+                                        <!--<b style="margin-right: 1%; font-weight: normal;">Tags:</b>-->
+                                        <div class="pull-right">
+                                        <% for (int i = 1; i < forum.getTags().size(); i++) {%>
+                                            <p style="margin-right: 0%;color: #4E85C0; border-style:none; background-color: #E1ECF4" class="btn btn-flat btn-default btn-sm"><%=forum.getTags().get(i).getTag()%></p>
+                                        <%}%>
+                                        </div>
+                                        <br>
+                                       
 
                                         <input id="forumID" type = "hidden" value="<%=forum.getForumID()%>" />
                                         <input id="forumTitle" type="hidden"  value="<%=forum.getForumTitle()%>" />
@@ -91,9 +94,12 @@
                                         <input type="hidden" value="<%=forum.getDateCreated()%>"/>
                                         <!--<table>
                                     </table>-->
-                                        <div id="commentsBox">
-
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box">
+                                     <div class="box-body">
+                                        <h4 style='color:#858C93'>&nbsp;<%=forum.getCommentsCount()%> Replies</h4>   
+                                        <div id="commentsBox"></div>
                                     </div>
                                     <div class="box-footer clearfix">
                                         <textarea class="form-control" id="comment" style="width: 100%; margin-bottom: 2%; resize: none;" placeholder="Add New Comment..."></textarea>
