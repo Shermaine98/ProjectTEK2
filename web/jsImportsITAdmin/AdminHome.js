@@ -34,9 +34,24 @@ function setChart(print){
         console.log(JSON.stringify(data));
     
         $('#container').highcharts({
-                title: {
+            chart: {
+                type: 'spline',
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
+            },
+            title: {
                 text: 'User Sign-Ups',
-                x: -20 //center
+                x: -20 //center,
             },
             subtitle: {
                 x: -20
@@ -46,13 +61,9 @@ function setChart(print){
             },
             yAxis: {
                 title: {
-                    text: 'Number of Sign-Ups'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                    text: '',
+                    color: '#E2E2E2'
+                }
             },
                 series:[{ //isang line maraming data
                 name: 'User Sign-Ups',

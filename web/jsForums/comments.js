@@ -209,7 +209,7 @@ function ViewComments() {
                 tdTOP.setAttribute("colspan", "2");
                 tbodytrtop.appendChild(tdTOP);
 
-                $(tdTOP).append('Posted on ' + data[i].dateCreated);
+                $(tdTOP).append('Replied on ' + data[i].dateOfComment);
 
                 $(td1).append(data[i].commentedByName);
 
