@@ -34,35 +34,34 @@ public class TaskDAO {
     public ArrayList<TaskModel> getTask(int year, String position) throws ParseException, SQLException {
 
         DBConnectionFactory myFactory1 = DBConnectionFactory.getInstance();
-        Connection conn = myFactory1.getConnection();
-
-        ArrayList<TaskModel> taskModel = new ArrayList<TaskModel>();
-
-        String query = "select * from task where `position` = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, position);
-
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()) {
-            int formId = rs.getInt("reportID")  + year;
-            TaskModel taskModelTemp = new TaskModel();
-            taskModelTemp.setReportType(rs.getString("reportType"));
-            taskModelTemp.setSector(rs.getString("sector"));
-            taskModelTemp.setDuedate(formatter.parse(year + "/" + rs.getInt("month") + "/" + rs.getInt("day")));
-            String query2 = "select datediff(?,NOW()) as 'diffDate';";
-            PreparedStatement pstmt2 = conn.prepareStatement(query2);
-            pstmt2.setString(1, year + "/" + rs.getInt("month") + "/" + rs.getInt("day"));
-            
-            ResultSet rs2 = pstmt2.executeQuery();
-            while(rs2.next()){
-                taskModelTemp.setDateDiff(rs2.getInt("diffDate"));
+        ArrayList<TaskModel> taskModel;
+        try (Connection conn = myFactory1.getConnection()) {
+            taskModel = new ArrayList<>();
+            String query = "select * from task where `position` = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, position);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int formId = rs.getInt("reportID")  + year;
+                TaskModel taskModelTemp = new TaskModel();
+                taskModelTemp.setReportType(rs.getString("reportType"));
+                taskModelTemp.setSector(rs.getString("sector"));
+                taskModelTemp.setDuedate(formatter.parse(year + "/" + rs.getInt("month") + "/" + rs.getInt("day")));
+                String query2 = "select datediff(?,NOW()) as 'diffDate';";
+                PreparedStatement pstmt2 = conn.prepareStatement(query2);
+                pstmt2.setString(1, year + "/" + rs.getInt("month") + "/" + rs.getInt("day"));
+                
+                ResultSet rs2 = pstmt2.executeQuery();
+                while(rs2.next()){
+                    taskModelTemp.setDateDiff(rs2.getInt("diffDate"));
+                }
+                
+                taskModelTemp.setreportName(rs.getString("reportName"));
+                taskModelTemp.setFormID(formId);
+                taskModel.add(taskModelTemp);
             }
-            
-            taskModelTemp.setreportName(rs.getString("reportName"));
-            taskModelTemp.setFormID(formId);
-            taskModel.add(taskModelTemp);
+          conn.close();
         }
-        conn.close();
         return taskModel;
     }
 
@@ -72,7 +71,7 @@ public class TaskDAO {
             ArrayList<TaskModel> taskModels = getTask(year, position);
             try (Connection conn = myFactory.getConnection()) {
                 int z = 0;
-                ArrayList<TaskModel> taskModelFinal = new ArrayList<TaskModel>();
+                ArrayList<TaskModel> taskModelFinal = new ArrayList<>();
 
                 for (int i = 0; i < taskModels.size(); i++) {
                     String query = "SELECT * FROM RECORDS Where formID = ?;";
