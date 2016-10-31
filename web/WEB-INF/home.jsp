@@ -86,18 +86,23 @@
                                                 <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
                                                 <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
+                                                 <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status"><span class="label label-default"><%= arrTask.get(i).getStatus()%></span></td>
-                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("On-Going")) {%>
-                                                <td class="status"><span class="label label-primary"><%= arrTask.get(i).getStatus()%></span></td>
-                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status"><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
-                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("pending")) {%>
                                                 <td class="status"><span class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
+                                                 <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report"/></td>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("Incomplete")) {%>
+                                                <td class="status"><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report" /></td>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
+                                                <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
+                                                    <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("pending")) {%>
+                                                <td class="status"><span class="label label-default"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else {%>
                                                 <td><span class="label label-success"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td style="float:right"><input type="button" disabled id="uploadData" class="btn btn-sm btn-default" value="disabled" /></td>
                                                     <% }%>
-                                                <td style="float:right"><input type="button" id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                             </tr>
                                             <%}
                                                 }%>

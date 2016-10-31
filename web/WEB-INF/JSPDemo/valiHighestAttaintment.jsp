@@ -4,6 +4,7 @@
     Author     : Roxas, Atayan and Sy
 --%>
 
+<%@page import="model.temp.demo.HighestCompletedTemp"%>
 <%@page import="model.demo.HighestCompleted"%>
 <%@page import="model.temp.demo.HighestCompletedAgeGroupTemp"%>
 <%@page import="java.util.ArrayList"%>
@@ -80,7 +81,7 @@
                             <input type="hidden" name="page" value="<%=redirect%>"/>
                             <input type="hidden" name="errorMessage" value="<%=temp%>"/>
                             <%
-                                ArrayList<HighestCompleted> highestError = (ArrayList<HighestCompleted>) request.getAttribute("ArrError");
+                                ArrayList<HighestCompletedTemp> highestError = (ArrayList<HighestCompletedTemp>) request.getAttribute("ArrError");
                                 if (highestError != null) {
                             %>
                             <div class="DT" id="errorsDiv">
@@ -95,7 +96,7 @@
                                             <th>Sex</th>
                                             <td><input type="text" name="sexError" readonly value="<%=highestError.get(i).getSex()%>" /></td>
                                             <th>Age Group</th>
-                                            <td><input type="text" name="ageGroupError" readonly value="<%=highestError.get(i).getageGroup()%>" /></td>
+                                            <td><input type="text" name="ageGroupError" readonly value="<%=highestError.get(i).getAgeGroup()%>" /></td>
                                         </tr>
                                         <tr>
                                             <th>Highest Grade Completed</th>
@@ -103,21 +104,19 @@
                                             <th>Highest Grade Completed</th>
                                             <th class="centerTD">Total Count</th>
                                         </tr>
-                                        <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroup().size(); y += 2) {%>
-
+                                        <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroupTemp().size(); y += 2) {%>
                                         <tr>
-                                            <th><input type="text" name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroup().get(y).gethighestCompleted()%>"/></th>
-                                            <td><input type="text" class="centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroup().get(y).getCount()%>"/></td>
-                                            <th><input type="text" name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroup().get(y + 1).gethighestCompleted()%>"/></th>
-                                            <td><input type="text" class="centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroup().get(y + 1).getCount()%>"/></td>
+                                            <th class='errorH' ><input type="text"   name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
+                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
+                                            <th class='errorH'><input type="text" name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
+                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
                                         </tr>
                                         <% }%>
-
                                         <tr>
                                             <th></th>
                                             <th></th>
                                             <th>Total</th>
-                                            <td><input type="text" class="centerTD" name="totalError" style="float:right;" readonly value="<%=highestError.get(i).getTotal()%>" /></td>
+                                            <td class='Errototal'><input type="text" class="ErrortotalI centerTD" name="totalError" style="float:right;" readonly value="<%=highestError.get(i).getTotal()%>" /></td>
                                         </tr>
                                         <% }%>
                                     </tbody>

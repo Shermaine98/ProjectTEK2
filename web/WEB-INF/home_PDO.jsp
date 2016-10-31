@@ -268,7 +268,7 @@
                                                 for (int i = 0; i < task.size(); i++) {%>
                                             <tr>
                                                 <td class="name"><%= task.get(i).getReportName()%></td>
-                                                <td class="date"><%= task.get(i).getSduedate()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></td>
+                                                <td class="date"><%= task.get(i).getSduedate()%></td>
                                                     <% if (task.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
                                                 <td  class="status" style="text-align:right; margin-right: 5%;"><span class="label label-danger"><%= task.get(i).getStatus()%><input type="hidden" value="<%= task.get(i).getStatus()%>" class="completed"></span></td>
                                                         <% } else if (task.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
