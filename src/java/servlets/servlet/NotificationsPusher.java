@@ -59,7 +59,7 @@ public class NotificationsPusher extends HttpServlet {
 
             } else if (position.equalsIgnoreCase("Project Development Officer IV")) {
                 ArrayList<TaskModel> temp = new ArrayList<TaskModel>();
-                temp = notificationDAO.NotificationApprovalRecord(year, position);
+                temp = notificationDAO.NotificationApprovalRecord(year, "Project Development Officer IV");
                 for (TaskModel temp1 : temp) {
                     if (temp1.getReportType().equalsIgnoreCase("Health")) {
                         notification.add(temp1);
@@ -67,7 +67,7 @@ public class NotificationsPusher extends HttpServlet {
                 }
             } else if (position.equalsIgnoreCase("Project Development Officer I")) {
                 ArrayList<TaskModel> temp = new ArrayList<TaskModel>();
-                 temp = notificationDAO.NotificationApprovalRecord(year, position);
+                 temp = notificationDAO.NotificationApprovalRecord(year, "Project Development Officer I");
                 for (TaskModel temp1 : temp) {
                     if (temp1.getReportType().equalsIgnoreCase("Demographics")) {
                         notification.add(temp1);
@@ -75,7 +75,7 @@ public class NotificationsPusher extends HttpServlet {
                 }
             } else if (position.equalsIgnoreCase("Project Development Officer III")) {
                 ArrayList<TaskModel> temp = new ArrayList<TaskModel>();
-                temp = notificationDAO.NotificationApprovalRecord(year, position);
+                temp = notificationDAO.NotificationApprovalRecord(year, "Project Development Officer III");
                 for (TaskModel temp1 : temp) {
                     if (temp1.getReportType().equalsIgnoreCase("Education")) {
                         notification.add(temp1);
