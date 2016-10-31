@@ -373,11 +373,9 @@ public class ExcelEnrollment {
                 break;
             case 29:
                 EnrollmentTemp.setTotalMale(GetFormat(cell));//total male
-                System.out.println("TOTAL MALE " + EnrollmentTemp.getTotalMale());
                 break;
             case 30:
                 EnrollmentTemp.setTotalFemale(GetFormat(cell));//total female
-                System.out.println("TOTAL MALE "+ EnrollmentTemp.getTotalFemale() +"\n");
                 break;
             case 31:
                 EnrollmentTemp.setGrandTotal(GetFormat(cell));//grand total
