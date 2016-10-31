@@ -21,10 +21,6 @@
                             <h4 class="modal-title">Add New School</h4>
                         </div>
                         <div class="modal-body">
-                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                            <div id="map" style="width: 570px; height:300px"></div>
-
-                            <br/><br/>
                             <p>Please input school details below:</p>
 
                             <div class="form-inline" style="margin-top:3%;">
