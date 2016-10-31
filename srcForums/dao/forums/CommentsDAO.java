@@ -56,7 +56,7 @@ public class CommentsDAO {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM COMMENTS WHERE forumID = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT *, DATE_FORMAT(commentedDate,'%b. %d, %Y %h:%i %p') as 'dateOfComment' FROM accounts.comments where forumid=?;");
                 pstmt.setInt(1, forumID);
 
                 ResultSet rs = pstmt.executeQuery();
@@ -64,6 +64,7 @@ public class CommentsDAO {
                     Comments comments = new Comments();
                     comments.setIdComments(rs.getInt("idComment"));
                     comments.setCommentedDate(rs.getDate("commentedDate"));
+                    comments.setDateOfComment(rs.getString("dateOfComment"));
                     comments.setComment(rs.getString("comment"));
                     comments.setCommentedby(rs.getInt("commentedBy"));
                     comments.setCommentedByName(recordsDAO.GetUserName(comments.getCommentedby()));
