@@ -94,7 +94,7 @@ public class TaskDAO {
                             temp.setSector(taskModels.get(i).getSector());
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
-                            temp.setStatus("On-Going");
+                            temp.setStatus("Incomplete");
                             temp.setFormID(taskModels.get(i).getFormID());
                             taskModelFinal.add(temp);
                         } else if (rs.getInt("APPROVED") == 0 && rs.getInt("VALIDATED") == 1) {
