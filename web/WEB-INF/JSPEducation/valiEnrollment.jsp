@@ -73,7 +73,7 @@
                             <!--END FOR THE PAGE RESULT-->
                             <div>
                                 <div class="box-body">
-                                    <form id="UploadDb" action="valiEnrollment" method="post">
+                                    <form id="UploadDb" action="ValiEnrollment" method="post">
                                         <%
                                             ArrayList<EnrollmentTemp> enrollmentTemp = (ArrayList<EnrollmentTemp>) request.getAttribute("ArrError");
                                             if (enrollmentTemp != null) {
@@ -88,13 +88,13 @@
                                                             <th colspan="2">School Name</th>
                                                             <td colspan="4"><input readonly name="schoolNameError" type="text" value="<%=enrollmentTemp.get(i).getSchoolName()%>"/></td>
                                                             <th colspan="2">District</th>
-                                                            <td colspan="2"><input name="districtError" type="text"  readonly value="<%=enrollmentTemp.get(i).getDistrict()%>" /></td>
+                                                            <td colspan="3"><input name="districtError" type="text"  readonly value="<%=enrollmentTemp.get(i).getDistrict()%>" /></td>
                                                         </tr>
                                                         <tr>
                                                             <th colspan="2">School Type</th>
                                                             <td colspan="4"><input name="schoolTypeError" type="text" readonly value="<%=enrollmentTemp.get(i).getSchoolType()%>" /></td>
                                                             <th colspan="2">Gender Disparity Index</th>
-                                                            <td colspan="2"><input name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
+                                                            <td colspan="3"><input name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
                                                         </tr>
                                                         <tr>
                                                             <th style="vertical-align: middle">Sex</th>
@@ -102,6 +102,7 @@
                                                             <th style="vertical-align: middle"><input id="bothSexesError" type="text" value="<%=enrollmentTemp.get(0).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  readonly/></th>
                                                                 <%}%>
                                                             <th style="vertical-align: middle">Grand Total</th>
+                                                            <th style="vertical-align: middle">Reason</th>
                                                         </tr>
                                                         <tr class='EditTable'>
                                                             <th>Male</th>
@@ -110,13 +111,14 @@
                                                                 <input name="maleCountError" style="width:60px"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
                                                                 <%}%>
                                                             <td><input name="totalMaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalMale()%>" readonly /></td>
-                                                        </tr>
+                                                            <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(0).getReason()%>" readonly /></td>                                                        </tr>
                                                         <tr>
                                                             <th>Female</th>
                                                                 <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
                                                             <td><input name="femaleCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
                                                                 <%}%>
                                                             <td><input name="totalFemaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalFemale()%>" readonly /></td>
+                                                            <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(0).getReason()%>" readonly /></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Total</th>
@@ -124,6 +126,7 @@
                                                             <td><input name="totalCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()%>"  /></td>
                                                                 <%}%>
                                                             <td><input name="grandTotalError" type="text" value="<%= enrollmentTemp.get(i).getGrandTotal()%>" readonly /></td>
+                                                              <td><input name="validation" type="text" value="<%= enrollmentTemp.get(i).getReason()%>" readonly /></td>
                                                         </tr>
                                                         <%}%>
                                                     </tbody>

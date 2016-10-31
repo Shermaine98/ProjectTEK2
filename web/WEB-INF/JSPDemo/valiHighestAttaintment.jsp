@@ -77,8 +77,6 @@
                         <!--THIS IS FOR THE PAGE RESULT DATA WITH ERROR-->
                         <form action="ValiHighestAttaintment" method="post">
                             <input type="hidden" name="year" class="year" id="year" />
-                            <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
-                            <input type="hidden" type="text" name="page" value="<%=redirect%>"/>
                             <%
                                 ArrayList<HighestCompletedTemp> highestError = (ArrayList<HighestCompletedTemp>) request.getAttribute("ArrError");
                                 if (highestError != null) {
@@ -193,19 +191,22 @@
 
                             </div>
                             <!--END IS FOR THE PAGE RESULT FOR DATA WITH NO ERROR-->
+                            <input type="hidden" name="page" value="<%=redirect%>"/>
+                                <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
+                              <input name="errorMessage" type="hidden" value="<%=temp%>" />
                         </form>
                     </div>
                 </section>
             </div>
         </div>
         <div id="bottom"></div>
-        <a href="#bottom"><div id="_bottom" class="hidden"  title="Scroll to Button" 
-                               style="position: fixed; top:40px; right: 5px; opacity: 0.5; cursor: pointer;"> 
-                <img src="img/arrowdown.png" style='width:70px; height:70px; margin-top:40%' 
+        <a href="#bottom"><div id="_bottom" class="hidden"  title="Scroll to Button"
+                               style="position: fixed; top:40px; right: 5px; opacity: 0.5; cursor: pointer;">
+                <img src="img/arrowdown.png" style='width:70px; height:70px; margin-top:40%'
                      alt="Scroll to Button"/></div></a>
-        <a href="#top"><div id="_top" class="hidden" title="Scroll to Top" 
+        <a href="#top"><div id="_top" class="hidden" title="Scroll to Top"
                             style="position: fixed; bottom: 50px; right: 5px; opacity: 0.5; cursor: pointer;">
-                <img src="img/arrowup.png" style='width:70px; height:70px; margin-top:40%' 
+                <img src="img/arrowup.png" style='width:70px; height:70px; margin-top:40%'
                      alt="Scroll to Top"/></div></a>
         <script>
             var d = new Date();
@@ -216,7 +217,7 @@
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - 50000) {
                     document.getElementById("_top").className = "";
                     document.getElementById("_bottom").className = "hidden";
-                } 
+                }
                 else {
                     document.getElementById("_bottom").className = "";
                     document.getElementById("_top").className = "hidden";

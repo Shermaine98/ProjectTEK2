@@ -201,7 +201,7 @@ public class EnrollmentDAO {
                     pstmt.setInt(8, object.getTotalFemale());
                     pstmt.setInt(9, object.getGrandTotal());
                     pstmt.setDouble(10, object.getGenderDisparityIndex());
-                    pstmt.setInt(10, object.getValidation());
+                    pstmt.setInt(11, object.getValidation());
                     pstmt.addBatch();
                     i++;
 
