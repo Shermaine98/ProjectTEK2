@@ -185,8 +185,8 @@ var data;
 
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
                                 document.getElementById('showReport').style.display = "block";
+                                
                                 var conceptName = $('#commonReports').find(":selected").text();
-                                alert(conceptName);
                                 if(conceptName!='Population by year' 
                                         && conceptName!='Enrollment in Public and Private Schools' 
                                         && conceptName!='Actual number of Beds in Private and Public Hospitals'){
