@@ -50,7 +50,7 @@
 
                                     
                                     <div class="box-header with-border">
-                                        <h1 class="box-title" style="font-size:200%; margin-top:2%; margin-bottom:2%"><%=forum.getForumTitle()%></h1>
+                                        <h1 class="box-title" style="font-size:200%; margin-top:2%; margin-bottom:2%; color:#555555;"><%=forum.getForumTitle()%></h1>
                                     </div>
                                     <div class="box-body">
                                         <table class="table" style="margin-top: -1.5%; margin-bottom: 0;">
@@ -59,8 +59,9 @@
                                             </tr>-->
                                             <tr style="margin-top:20%">
                                                 <td width="25%;" >
-                                                        <div style="color:#8E737C; font-size:65%">Created on <%=forum.getDateCreated()%></div>
-                                                        <b style="color:#6A738E"><%=forum.getCreatedByName()%></b></td>
+                                                    <b style="color:#6A738E"><%=forum.getCreatedByName()%></b>
+                                                    <div style="color:#8E737C; font-size:65%">Created on <%=forum.getDateCreated()%></div>
+                                                </td>
                                                 <td><%= forum.getBody()%><br><br>
                                                     <%if (forum.isIsLike()) {%>
                                                     <h5 style="font-size: 13px; text-align:right;">

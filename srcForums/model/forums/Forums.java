@@ -126,8 +126,8 @@ public class Forums {
     /**
      * @param dateCreated the dateCreated to set
      */
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = formatters.format(dateCreated);
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     /**
