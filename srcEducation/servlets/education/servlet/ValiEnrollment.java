@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -52,7 +53,7 @@ public class ValiEnrollment extends BaseServlet {
         String page = request.getParameter("page");
         String classification = request.getParameter("classification");
         String errorMessage = request.getParameter("errorMessage");
-        String year = request.getParameter("year");
+         int year = Calendar.getInstance().get(Calendar.YEAR);
         String uploadedBy = request.getParameter("uploadedBy");
         
         EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
@@ -76,7 +77,7 @@ public class ValiEnrollment extends BaseServlet {
         
              */
             try {
-                formID = enrollmentDAO.getFormIDPrivate(Integer.parseInt(year.trim()), "private");
+                formID = enrollmentDAO.getFormIDPrivate(year, "private");
             } catch (SQLException ex) {
                 Logger.getLogger(ValiEnrollment.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -89,7 +90,7 @@ public class ValiEnrollment extends BaseServlet {
         
              */
             try {
-                formID = enrollmentDAO.getFormIDPublic(Integer.parseInt(year.trim()), "public");
+                formID = enrollmentDAO.getFormIDPublic(year, "public");
             } catch (SQLException ex) {
                 Logger.getLogger(ValiEnrollment.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -104,9 +105,9 @@ public class ValiEnrollment extends BaseServlet {
 
         if (page.equalsIgnoreCase("edited")) {
             try {
-                enrollmentDAO.deleteenrollmentDetailsRecord(cFormID + (Integer.parseInt(year)));
-                enrollmentDAO.deleteenrollmentRecord(cFormID + (Integer.parseInt(year)));
-                recordDAO.deleteRecord(cFormID + Integer.parseInt(year));
+                enrollmentDAO.deleteenrollmentDetailsRecord(cFormID + year);
+                enrollmentDAO.deleteenrollmentRecord(cFormID + year);
+                recordDAO.deleteRecord(cFormID + year);
             } catch (SQLException ex) {
                 Logger.getLogger(ValiEnrollment.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -114,7 +115,7 @@ public class ValiEnrollment extends BaseServlet {
            
             boolean reupload = false;
             try {
-                reupload = recordDAO.checkExistRecordForReupload(cFormID, Integer.parseInt(year));
+                reupload = recordDAO.checkExistRecordForReupload(cFormID, year);
 
             } catch (SQLException ex) {
                 Logger.getLogger(ValiEnrollment.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,9 +123,9 @@ public class ValiEnrollment extends BaseServlet {
 
             if (reupload == true) {
                 try {
-                    enrollmentDAO.deleteenrollmentDetailsRecord(cFormID + (Integer.parseInt(year)));
-                    enrollmentDAO.deleteenrollmentRecord(cFormID + (Integer.parseInt(year)));
-                    recordDAO.deleteRecord(cFormID + Integer.parseInt(year));
+                    enrollmentDAO.deleteenrollmentDetailsRecord(cFormID + year);
+                    enrollmentDAO.deleteenrollmentRecord(cFormID + year);
+                    recordDAO.deleteRecord(cFormID +year);
                 } catch (SQLException ex) {
                     Logger.getLogger(ValiEnrollment.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -174,7 +175,7 @@ public class ValiEnrollment extends BaseServlet {
         for (int i = 0; i < schoolNameError.length; i++) {
             enrollmentTemp = new EnrollmentTemp();
             enrollmentTemp.setFormID(formID);
-            enrollmentTemp.setCensusYear(Integer.parseInt(year.trim()));
+            enrollmentTemp.setCensusYear(year);
             enrollmentTemp.setDistrict(districtError[i]);
             enrollmentTemp.setSchoolName(schoolNameError[i]);
             enrollmentTemp.setSchoolType(schoolTypeError[i]);
@@ -202,8 +203,8 @@ public class ValiEnrollment extends BaseServlet {
         }
 
             //TEMP GET ERROR THEN FIX VARIABLES TO BE SAVE IN DB / NO ERROR ADD IN ArrByAgeGroupSex
-            enrollmentEditedNoError = new EnrollmentChecker(arrEnrollmentTemp, Integer.parseInt(year), formID).getArrayNoError();
-            enrollmentStatusEditedTempError = new EnrollmentChecker(arrEnrollmentTemp, Integer.parseInt(year), formID).getArrayError();
+            enrollmentEditedNoError = new EnrollmentChecker(arrEnrollmentTemp,year, formID).getArrayNoError();
+            enrollmentStatusEditedTempError = new EnrollmentChecker(arrEnrollmentTemp, year, formID).getArrayError();
 
             EnrollmentChecker toDb = new EnrollmentChecker();
             trnasoformedData = toDb.transformData(enrollmentStatusEditedTempError);
@@ -237,7 +238,7 @@ public class ValiEnrollment extends BaseServlet {
         for (int i = 0; i < schoolName.length; i++) {
             enrollment = new Enrollment();
             enrollment.setFormID(formID);
-            enrollment.setCensusYear(Integer.parseInt(year.trim()));
+            enrollment.setCensusYear(year);
             enrollment.setDistrict(district[i]);
             enrollment.setSchoolName(schoolName[i]);
             enrollment.setSchoolType(schoolType[i]);
@@ -263,7 +264,7 @@ public class ValiEnrollment extends BaseServlet {
             enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
             ArrEnrollment.add(enrollment);
         }
-        x = recordDAO.newRecord(formID, Integer.parseInt(year.trim()), Integer.parseInt(uploadedBy));
+        x = recordDAO.newRecord(formID, year, Integer.parseInt(uploadedBy));
 
         if (x) {
             x = enrollmentDAO.EncodeEnrollment(ArrEnrollment);
@@ -271,7 +272,7 @@ public class ValiEnrollment extends BaseServlet {
             if (x) {
                 try {
 
-                    if (EducationRecordDAO.runEnrollmentDAO(formID, Integer.parseInt(year.trim()))) {
+                    if (EducationRecordDAO.runEnrollmentDAO(formID, year)) {
                         request.setAttribute("page", "Upload");
                         request.setAttribute("saveToDB", "successDB");
                         if (classification.equalsIgnoreCase("Private")) {
@@ -281,7 +282,7 @@ public class ValiEnrollment extends BaseServlet {
                             RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=ePublic");
                             rd.forward(request, response);
                         }
-                    } else if (!EducationRecordDAO.runEnrollmentDAO(formID, Integer.parseInt(year.trim()))) {
+                    } else if (!EducationRecordDAO.runEnrollmentDAO(formID, year)) {
                         request.setAttribute("page", "Upload");
                         request.setAttribute("saveToDB", "SaveWithError");
                         if (classification.equalsIgnoreCase("Private")) {
@@ -307,14 +308,15 @@ public class ValiEnrollment extends BaseServlet {
                 }
             } else {
                 RequestDispatcher rd = request.getRequestDispatcher("/ErrorHandler");
-                request.setAttribute("page", "enrollment");
-                request.setAttribute("action", "upload");
+                  request.setAttribute("page", "Upload");
+                request.setAttribute("Enrollment", "Error");
                 rd.forward(request, response);
             }
         } else {
             RequestDispatcher rd = request.getRequestDispatcher("/ErrorHandler");
-            request.setAttribute("page", "enrollment");
-            request.setAttribute("action", "upload");
+               request.setAttribute("page", "Upload");
+            request.setAttribute("Enrollment", "Error");
+             request.setAttribute("saveToDB", "Error");
             rd.forward(request, response);
         }
     }

@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package servlets.education.servlet;
 
 import excel.education.ExcelEnrollment;
@@ -29,12 +27,12 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 @MultipartConfig(maxFileSize = 16177215)
 public class UploadToDatabaseEducation extends BaseServlet {
 
-     /**
+    /**
      *
      * @param request servlet request
      * @param response servlet response
@@ -62,8 +60,7 @@ public class UploadToDatabaseEducation extends BaseServlet {
                 sheetNumber = i;
             }
         }
-        
-        
+
         if (sheetNumber != -1) {
             request.setAttribute("SheetName", "True");
             if (sheetNumber > -1 && classification.equalsIgnoreCase("ePrivate")) {
@@ -73,20 +70,28 @@ public class UploadToDatabaseEducation extends BaseServlet {
                 arrTempError = new ExcelEnrollment(wb, sheetNumber).getArrayError();
                 arrTempNoError = new ExcelEnrollment(wb, sheetNumber).getArrayNoError();
 
-   
-                if (!arrTempError.isEmpty()) {
+                if (arrTempError.size() > 3) {
+                    request.setAttribute("saveToDB", "ErrorMore");
+                    RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=ePrivate");
+                    rd.forward(request, response);
+                } else if (!arrTempError.isEmpty()) {
                     request.setAttribute("ErrorMessage", "Error");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
+                    request.setAttribute("classification", "Private");
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");
+                    rd.forward(request, response);
                 } else {
                     request.setAttribute("ErrorMessage", "NoError");
                     request.setAttribute("ArrNoError", arrTempNoError);
+                    request.setAttribute("classification", "Private");
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");
+                    rd.forward(request, response);
                 }
-                request.setAttribute("classification", "Private");
-                request.setAttribute("page", "Upload");
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");
-                rd.forward(request, response);
 
             } else if (sheetNumber > -1 && classification.equalsIgnoreCase("ePublic")) {
                 ArrayList<EnrollmentTemp> arrTempError = new ArrayList<>();
@@ -95,38 +100,44 @@ public class UploadToDatabaseEducation extends BaseServlet {
                 arrTempError = new ExcelEnrollment(wb, sheetNumber).getArrayError();
                 arrTempNoError = new ExcelEnrollment(wb, sheetNumber).getArrayNoError();
 
-                if (arrTempError.size() > 6) {
-                    request.setAttribute("ErrorMessage", "ErrorMore");
-                    request.setAttribute("ArrError", arrTempError);
-                    request.setAttribute("ArrNoError", arrTempNoError);
+                if (arrTempError.size() > 3) {
+                    request.setAttribute("saveToDB", "ErrorMore");
+                    RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=ePublic");
+                    rd.forward(request, response);
                 } else if (!arrTempError.isEmpty()) {
                     request.setAttribute("ErrorMessage", "Error");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
+
+                    request.setAttribute("classification", "Public");
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");
+                    rd.forward(request, response);
                 } else {
                     request.setAttribute("ErrorMessage", "NoError");
                     request.setAttribute("ArrNoError", arrTempNoError);
+
+                    request.setAttribute("classification", "Public");
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");
+                    rd.forward(request, response);
                 }
 
-                request.setAttribute("classification", "Public");
-                request.setAttribute("page", "Upload");
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");
-                rd.forward(request, response);
-
             }
-        } else if (sheetNumber == -1 && classification.equalsIgnoreCase("ePublic")){
+        } else if (sheetNumber == -1 && classification.equalsIgnoreCase("ePublic")) {
             request.setAttribute("saveToDB", "UploadError");
             RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=ePublic");
             rd.forward(request, response);
-            
-        } else if (sheetNumber == -1 && classification.equalsIgnoreCase("ePrivate")){
+
+        } else if (sheetNumber == -1 && classification.equalsIgnoreCase("ePrivate")) {
             request.setAttribute("saveToDB", "UploadError");
             RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=ePrivate");
             rd.forward(request, response);
-            
+
         } else {
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("/ErrorHandler");
             rd.forward(request, response);
 
