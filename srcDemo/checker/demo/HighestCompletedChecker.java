@@ -52,19 +52,27 @@ public class HighestCompletedChecker {
                             || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
 
                         HighestCompletedAgeGroupTemp.setCount("");
+                        HighestCompletedAgeGroupTemp.setValidation(-1);
+                        HighestCompletedAgeGroupTemp.setReason("Missing Field/s");
                         HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
                         arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-
+                        HighestCompletedAgeGroupTemp.setValidation(-2);
+                        HighestCompletedAgeGroupTemp.setReason("Format Error");
                         HighestCompletedAgeGroupTemp.setCount("");
                         HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
                         arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     } else {
                         HighestCompletedAgeGroupTemp.setCount(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
                         HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroupTemp.setValidation(1);
+                        HighestCompletedAgeGroupTemp.setReason("");
                         arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+
                     }
                 }
+                HighestCompletedTemp.setValidation(-1);
+                HighestCompletedTemp.setReason("Missing Field/s");
                 HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
                 arrayError.add(HighestCompletedTemp);
             } else if (isNumeric(ArrError.get(i).getTotal())) {
@@ -81,19 +89,26 @@ public class HighestCompletedChecker {
                             || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
 
                         HighestCompletedAgeGroupTemp.setCount("");
+                        HighestCompletedAgeGroupTemp.setValidation(-1);
+                        HighestCompletedAgeGroupTemp.setReason("Missing Field/s");
                         HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
                         arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-
+                        HighestCompletedAgeGroupTemp.setValidation(-2);
+                        HighestCompletedAgeGroupTemp.setReason("Format Error");
                         HighestCompletedAgeGroupTemp.setCount("");
                         HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
                         arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     } else {
                         HighestCompletedAgeGroupTemp.setCount(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
                         HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroupTemp.setValidation(1);
+                        HighestCompletedAgeGroupTemp.setReason("");
                         arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     }
                 }
+                HighestCompletedTemp.setValidation(-1);
+                HighestCompletedTemp.setReason("Missing Field/s");
                 HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
                 arrayError.add(HighestCompletedTemp);
             } else {
@@ -106,7 +121,6 @@ public class HighestCompletedChecker {
                 //CHECKING IF MAY MAGERRROR IF MAY MAG EERROR, TEMP NA LAHAT GAGAMITIN
                 //IF WALA NA MAGERROR NOT TEMP
                 for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
-                    HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
                     if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
                             || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
                         x = true;
@@ -121,36 +135,43 @@ public class HighestCompletedChecker {
                     HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
                     HighestCompletedTemp.setSex(ArrError.get(i).getSex());
                     HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
-                     HighestCompletedTemp.setTotal(ArrError.get(i).getTotal());
+                    HighestCompletedTemp.setTotal(ArrError.get(i).getTotal());
                     for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
                         HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
                         if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
                                 || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
 
+                            HighestCompletedAgeGroupTemp.setValidation(-1);
+                            HighestCompletedAgeGroupTemp.setReason("Missing Field/s");
                             HighestCompletedAgeGroupTemp.setCount("");
                             HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
                             arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                         } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-
+                            HighestCompletedAgeGroupTemp.setValidation(-2);
+                            HighestCompletedAgeGroupTemp.setReason("Format Error");
                             HighestCompletedAgeGroupTemp.setCount("");
                             HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
                             arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                         } else {
                             HighestCompletedAgeGroupTemp.setCount(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
                             HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            HighestCompletedAgeGroupTemp.setValidation(1);
+                            HighestCompletedAgeGroupTemp.setReason("");
                             arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                         }
-                        
+
                     }
+                    HighestCompletedTemp.setValidation(1);
                     HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
                     arrayError.add(HighestCompletedTemp);
                 } else {
-                    int total =0;
+                    int total = 0;
                     arrHighestCompletedAgeGroup = new ArrayList<>();
                     for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
                         HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
                         HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
                         HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroup.setValidation(1);
                         arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
 
                         total += Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
@@ -171,13 +192,14 @@ public class HighestCompletedChecker {
 //                        HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
 //                        arrayError.add(HighestCompletedTemp);
 //                    } else {
-                        HighestCompleted = new HighestCompleted();
-                        HighestCompleted.setLocation(ArrError.get(i).getLocation());
-                        HighestCompleted.setSex(ArrError.get(i).getSex());
-                        HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
-                        HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
-                        HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
-                        arrayNoError.add(HighestCompleted);
+                    HighestCompleted = new HighestCompleted();
+                    HighestCompleted.setLocation(ArrError.get(i).getLocation());
+                    HighestCompleted.setSex(ArrError.get(i).getSex());
+                    HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
+                    HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
+                    HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                    HighestCompleted.setValidation(1);
+                    arrayNoError.add(HighestCompleted);
 //                    }
 
                 }
@@ -197,69 +219,183 @@ public class HighestCompletedChecker {
         ArrayList<HighestCompletedAgeGroup> arrHighestCompletedAgeGroup;
         ArrayList<HighestCompletedAgeGroupTemp> arrHighestCompletedAgeGroupTemp;
 
-        HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp;
-        HighestCompletedAgeGroup HighestCompletedAgeGroup;
-
         for (int i = 0; i < ArrError.size(); i++) {
-            HighestCompletedTemp = new HighestCompletedTemp();
-            arrHighestCompletedAgeGroup = new ArrayList<HighestCompletedAgeGroup>();
-            arrHighestCompletedAgeGroupTemp = new ArrayList<HighestCompletedAgeGroupTemp>();
-            HighestCompletedTemp.setFormID(formID);
-            HighestCompletedTemp.setYear(year);
-            HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
-            HighestCompletedTemp.setSex(ArrError.get(i).getSex());
-            HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
-            HighestCompletedTemp.setTotal(ArrError.get(i).getTotal());
-            //CHECK UNG SA NutritionalStatus
-            for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
-                HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
-                if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
-                        || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+            if (ArrError.get(i).getTotal() == null || ArrError.get(i).getTotal().equalsIgnoreCase("")) {
+                HighestCompletedTemp = new HighestCompletedTemp();
+                HighestCompletedTemp.setYear(year);
+                HighestCompletedTemp.setFormID(formID);
+                HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
+                HighestCompletedTemp.setSex(ArrError.get(i).getSex());
+                HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
 
-                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp()
-                            .get(y).getCount() == null || ArrError.get(i)
-                            .getHighestCompletedAgeGroupTemp().get(y).
-                            getCount().equalsIgnoreCase("")) {
-                        HighestCompletedAgeGroupTemp.setCount("-1");
+                arrHighestCompletedAgeGroupTemp = new ArrayList<HighestCompletedAgeGroupTemp>();
+                HighestCompletedTemp.setTotal("");
+                for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                    HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
+                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                            || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+
+                        HighestCompletedAgeGroupTemp.setCount("");
+                        HighestCompletedAgeGroupTemp.setValidation(-1);
+                        HighestCompletedAgeGroupTemp.setReason("Missing Field/s");
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                    } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                        HighestCompletedAgeGroupTemp.setValidation(-2);
+                        HighestCompletedAgeGroupTemp.setReason("Format Error");
+                        HighestCompletedAgeGroupTemp.setCount("");
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     } else {
                         HighestCompletedAgeGroupTemp.setCount(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroupTemp.setValidation(1);
+
+                        HighestCompletedAgeGroupTemp.setReason("");
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+
                     }
+                }
+                HighestCompletedTemp.setValidation(-1);
+                HighestCompletedTemp.setReason("Missing Field/s");
+                HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
+                arrayError.add(HighestCompletedTemp);
+            } else if (isNumeric(ArrError.get(i).getTotal())) {
+                HighestCompletedTemp = new HighestCompletedTemp();
+                HighestCompletedTemp.setYear(year);
+                HighestCompletedTemp.setFormID(formID);
+                HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
+                HighestCompletedTemp.setSex(ArrError.get(i).getSex());
+                HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
 
-                    HighestCompletedAgeGroupTemp.setValidation(false);
-                    arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                arrHighestCompletedAgeGroupTemp = new ArrayList<HighestCompletedAgeGroupTemp>();
+                HighestCompletedTemp.setTotal("");
+                for (int y = 0; y < ArrError.get(y).getHighestCompletedAgeGroupTemp().size(); y++) {
+                    HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
+                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                            || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
 
-                    HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
-                    arrayError.add(HighestCompletedTemp);
-                } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-
-                    if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-                        HighestCompletedAgeGroupTemp.setCount("-1");
+                        HighestCompletedAgeGroupTemp.setCount("");
+                        HighestCompletedAgeGroupTemp.setValidation(-1);
+                        HighestCompletedAgeGroupTemp.setReason("Missing Field/s");
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                    } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                        HighestCompletedAgeGroupTemp.setValidation(-2);
+                        HighestCompletedAgeGroupTemp.setReason("Format Error");
+                        HighestCompletedAgeGroupTemp.setCount("");
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
                     } else {
                         HighestCompletedAgeGroupTemp.setCount(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
-                    }
-                    HighestCompletedAgeGroupTemp.setValidation(false);
-                    arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                        HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroupTemp.setValidation(1);
 
+                        HighestCompletedAgeGroupTemp.setReason("");
+                        arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                    }
+                }
+                HighestCompletedTemp.setValidation(-1);
+                HighestCompletedTemp.setReason("Missing Field/s");
+                HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
+                arrayError.add(HighestCompletedTemp);
+            } else {
+                // ELSE IF TOTAL IS NOT NULL OR STRING
+
+                arrHighestCompletedAgeGroupTemp = new ArrayList<HighestCompletedAgeGroupTemp>();
+
+                boolean x = false;
+
+                //CHECKING IF MAY MAGERRROR IF MAY MAG EERROR, TEMP NA LAHAT GAGAMITIN
+                //IF WALA NA MAGERROR NOT TEMP
+                for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                            || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+                        x = true;
+                    } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                        x = true;
+                    }
+                }
+
+                // HERE NYA AAYUSIN UNG LAMAN
+                if (x) {
+                    HighestCompletedTemp = new HighestCompletedTemp();
+                    HighestCompletedTemp.setYear(year);
+                    HighestCompletedTemp.setFormID(formID);
+                    HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
+                    HighestCompletedTemp.setSex(ArrError.get(i).getSex());
+                    HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
+                    HighestCompletedTemp.setTotal(ArrError.get(i).getTotal());
+                    for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                        HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
+                        if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                                || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+
+                            HighestCompletedAgeGroupTemp.setValidation(-1);
+                            HighestCompletedAgeGroupTemp.setReason("Missing Field/s");
+                            HighestCompletedAgeGroupTemp.setCount("");
+                            HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                        } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                            HighestCompletedAgeGroupTemp.setValidation(-2);
+                            HighestCompletedAgeGroupTemp.setReason("Format Error");
+                            HighestCompletedAgeGroupTemp.setCount("");
+                            HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                        } else {
+                            HighestCompletedAgeGroupTemp.setCount(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
+                            HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            HighestCompletedAgeGroupTemp.setValidation(1);
+                            arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+                        }
+
+                    }
+                    HighestCompletedTemp.setValidation(1);
                     HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
                     arrayError.add(HighestCompletedTemp);
                 } else {
-                    HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
-                    HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
-                    HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
-                    HighestCompletedAgeGroup.setValidation(true);
-                    arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
-                }
-            }
+                    int total = 0;
+                    arrHighestCompletedAgeGroup = new ArrayList<>();
+                    for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                        HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
+                        HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroup.setValidation(1);
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
 
-            HighestCompleted = new HighestCompleted();
-            HighestCompleted.setFormID(formID);
-            HighestCompleted.setYear(year);
-            HighestCompleted.setLocation(ArrError.get(i).getLocation());
-            HighestCompleted.setSex(ArrError.get(i).getSex());
-            HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
-            HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
-            HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
-            arrayNoError.add(HighestCompleted);
+                        total += Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
+                    }
+
+//                    if (total != Integer.parseInt(ArrError.get(i).getTotal())) {
+//                        HighestCompletedTemp = new HighestCompletedTemp();
+//                        HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
+//                        HighestCompletedTemp.setSex(ArrError.get(i).getSex());
+//                        HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
+//
+//                        for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+//                            HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
+//                            HighestCompletedAgeGroupTemp.setCount("");
+//                            HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+//                            arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+//                        }
+//                        HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
+//                        arrayError.add(HighestCompletedTemp);
+//                    } else {
+                    HighestCompleted = new HighestCompleted();
+                    HighestCompleted.setFormID(formID);
+                    HighestCompleted.setYear(year);
+                    HighestCompleted.setLocation(ArrError.get(i).getLocation());
+                    HighestCompleted.setSex(ArrError.get(i).getSex());
+                    HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
+                    HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
+                    HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                    HighestCompleted.setValidation(1);
+                    arrayNoError.add(HighestCompleted);
+//                    }
+
+                }
+
+            }
         }
     }
 
@@ -269,46 +405,171 @@ public class HighestCompletedChecker {
 
         ArrayList<HighestCompletedAgeGroup> arrHighestCompletedAgeGroup;
 
-        HighestCompletedAgeGroup HighestCompletedAgeGroup;
         for (int i = 0; i < ArrError.size(); i++) {
-            HighestCompleted = new HighestCompleted();
-            arrHighestCompletedAgeGroup = new ArrayList<HighestCompletedAgeGroup>();
+            if (ArrError.get(i).getTotal() == null || ArrError.get(i).getTotal().equalsIgnoreCase("")) {
+                HighestCompleted = new HighestCompleted();
+                HighestCompleted.setYear(ArrError.get(i).getYear());
+                HighestCompleted.setFormID(ArrError.get(i).getFormID());
+                HighestCompleted.setLocation(ArrError.get(i).getLocation());
+                HighestCompleted.setSex(ArrError.get(i).getSex());
+                HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
 
-            HighestCompleted.setFormID(ArrError.get(i).getFormID());
-            HighestCompleted.setYear(ArrError.get(i).getYear());
-            HighestCompleted.setLocation(ArrError.get(i).getLocation());
-            HighestCompleted.setSex(ArrError.get(i).getSex());
-            HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
-            HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
-            //CHECK UNG SA NutritionalStatus
-            for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
-                HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
-                if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
-                        || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+                arrHighestCompletedAgeGroup = new ArrayList<HighestCompletedAgeGroup>();
+                HighestCompleted.setTotal(-1);
+                for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                    HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
+                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                            || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
 
-                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp()
-                            .get(y).getCount() == null || ArrError.get(i)
-                            .getHighestCompletedAgeGroupTemp().get(y).
-                            getCount().equalsIgnoreCase("")) {
                         HighestCompletedAgeGroup.setCount(-1);
+                        HighestCompletedAgeGroup.setValidation(-1);
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                    } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                        HighestCompletedAgeGroup.setValidation(-2);
+                        HighestCompletedAgeGroup.setCount(-1);
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
                     } else {
                         HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
-                    }
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroup.setValidation(1);
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
 
-                    HighestCompletedAgeGroup.setValidation(false);
-                    arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
-                } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-
-                    if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
-                        HighestCompletedAgeGroup.setCount(-1);
-                    } else {
-                        HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
                     }
-                    HighestCompletedAgeGroup.setValidation(false);
-                    arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
                 }
+                HighestCompleted.setValidation(-1);
+                HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                TransformData.add(HighestCompleted);
+            } else if (isNumeric(ArrError.get(i).getTotal())) {
+                HighestCompleted = new HighestCompleted();
+                HighestCompleted.setYear(ArrError.get(i).getYear());
+                HighestCompleted.setFormID(ArrError.get(i).getFormID());
+                HighestCompleted.setLocation(ArrError.get(i).getLocation());
+                HighestCompleted.setSex(ArrError.get(i).getSex());
+                HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
+
+                arrHighestCompletedAgeGroup = new ArrayList<HighestCompletedAgeGroup>();
+                HighestCompleted.setTotal(-1);
+                for (int y = 0; y < ArrError.get(y).getHighestCompletedAgeGroupTemp().size(); y++) {
+                    HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
+                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                            || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+
+                        HighestCompletedAgeGroup.setCount(-1);
+                        HighestCompletedAgeGroup.setValidation(-1);
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                    } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                        HighestCompletedAgeGroup.setValidation(-2);
+                        HighestCompletedAgeGroup.setCount(-1);
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                    } else {
+                        HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroup.setValidation(1);
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                    }
+                }
+                HighestCompleted.setValidation(-1);
+                HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                TransformData.add(HighestCompleted);
+            } else {
+                // ELSE IF TOTAL IS NOT NULL OR STRING
+
+                arrHighestCompletedAgeGroup = new ArrayList<HighestCompletedAgeGroup>();
+
+                boolean x = false;
+
+                //CHECKING IF MAY MAGERRROR IF MAY MAG EERROR, TEMP NA LAHAT GAGAMITIN
+                //IF WALA NA MAGERROR NOT TEMP
+                for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                    if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                            || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+                        x = true;
+                    } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                        x = true;
+                    }
+                }
+
+                // HERE NYA AAYUSIN UNG LAMAN
+                if (x) {
+                    HighestCompleted = new HighestCompleted();
+                    HighestCompleted.setYear(ArrError.get(i).getYear());
+                    HighestCompleted.setFormID(ArrError.get(i).getFormID());
+                    HighestCompleted.setLocation(ArrError.get(i).getLocation());
+                    HighestCompleted.setSex(ArrError.get(i).getSex());
+                    HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
+                    HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
+                    for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                        HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
+                        if (ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount() == null
+                                || ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount().equalsIgnoreCase("")) {
+
+                            HighestCompletedAgeGroup.setValidation(-1);
+                            HighestCompletedAgeGroup.setCount(-1);
+                            HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                        } else if (isNumeric(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount())) {
+                            HighestCompletedAgeGroup.setValidation(-2);
+                            HighestCompletedAgeGroup.setCount(-1);
+                            HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                        } else {
+                            HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
+                            HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                            HighestCompletedAgeGroup.setValidation(1);
+                            arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+                        }
+
+                    }
+                    HighestCompleted.setValidation(1);
+                    HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                    TransformData.add(HighestCompleted);
+                } else {
+                    int total = 0;
+                    arrHighestCompletedAgeGroup = new ArrayList<>();
+                    for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+                        HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
+                        HighestCompletedAgeGroup.setCount(Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()));
+                        HighestCompletedAgeGroup.sethighestCompleted(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+                        HighestCompletedAgeGroup.setValidation(1);
+                        arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
+
+                        total += Integer.parseInt(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount());
+                    }
+
+//                    if (total != Integer.parseInt(ArrError.get(i).getTotal())) {
+//                        HighestCompletedTemp = new HighestCompletedTemp();
+//                        HighestCompletedTemp.setLocation(ArrError.get(i).getLocation());
+//                        HighestCompletedTemp.setSex(ArrError.get(i).getSex());
+//                        HighestCompletedTemp.setAgeGroup(ArrError.get(i).getAgeGroup());
+//
+//                        for (int y = 0; y < ArrError.get(i).getHighestCompletedAgeGroupTemp().size(); y++) {
+//                            HighestCompletedAgeGroupTemp HighestCompletedAgeGroupTemp = new HighestCompletedAgeGroupTemp();
+//                            HighestCompletedAgeGroupTemp.setCount("");
+//                            HighestCompletedAgeGroupTemp.sethighestAttaintment(ArrError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment());
+//                            arrHighestCompletedAgeGroupTemp.add(HighestCompletedAgeGroupTemp);
+//                        }
+//                        HighestCompletedTemp.setHighestCompletedAgeGroupTemp(arrHighestCompletedAgeGroupTemp);
+//                        arrayError.add(HighestCompletedTemp);
+//                    } else {
+                    HighestCompleted = new HighestCompleted();
+                    HighestCompleted.setFormID(ArrError.get(i).getFormID());
+                    HighestCompleted.setYear(ArrError.get(i).getYear());
+                    HighestCompleted.setLocation(ArrError.get(i).getLocation());
+                    HighestCompleted.setSex(ArrError.get(i).getSex());
+                    HighestCompleted.setAgeGroup(ArrError.get(i).getAgeGroup());
+                    HighestCompleted.setTotal(Integer.parseInt(ArrError.get(i).getTotal()));
+                    HighestCompleted.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
+                    HighestCompleted.setValidation(1);
+                    TransformData.add(HighestCompleted);
+//                    }
+
+                }
+
             }
-            TransformData.add(HighestCompleted);
         }
         return TransformData;
     }
@@ -318,7 +579,6 @@ public class HighestCompletedChecker {
     }
 
     public HighestCompletedChecker() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

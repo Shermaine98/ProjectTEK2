@@ -34,7 +34,7 @@
     </head>
     <body>
         <div class="wrapper no-print">
-            <div class="content-wrapper">
+            <div  id="top" class="content-wrapper">
                 <section class="content">
                     <div class="row">
                         <!--THIS IS FOR THE PAGE TITLE-->
@@ -90,29 +90,35 @@
                                         <% for (int i = 0; i < highestError.size(); i++) {%>
                                         <tr style="background-color: #454545; color: #fff">
                                             <th>Location</th>
-                                            <td colspan="3"><input type="text" name="locationError" readonly value="<%=highestError.get(i).getLocation()%>" /></td>
+                                            <td colspan="5"><input type="text" name="locationError" readonly value="<%=highestError.get(i).getLocation()%>" /></td>
                                         </tr>
                                         <tr style="background-color: #454545; color: #fff">
                                             <th>Sex</th>
-                                            <td><input type="text" name="sexError" readonly value="<%=highestError.get(i).getSex()%>" /></td>
+                                            <td colspan="2"><input type="text" name="sexError" readonly value="<%=highestError.get(i).getSex()%>" /></td>
                                             <th>Age Group</th>
-                                            <td><input type="text" name="ageGroupError" readonly value="<%=highestError.get(i).getAgeGroup()%>" /></td>
+                                            <td colspan="2"><input type="hidden" name="validation" value="<%=highestError.get(i).getValidation()%>" /><input type="text" name="ageGroupError" readonly value="<%=highestError.get(i).getAgeGroup()%>" /></td>
                                         </tr>
                                         <tr>
                                             <th>Highest Grade Completed</th>
                                             <th class="centerTD">Total Count</th>
+                                            <th>Reason</th>
                                             <th>Highest Grade Completed</th>
                                             <th class="centerTD">Total Count</th>
+                                            <th>Reason</th>
                                         </tr>
                                         <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroupTemp().size(); y += 2) {%>
                                         <tr>
                                             <th class='errorH' ><input type="text"   name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
                                             <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
+                                            <td><input type="text" name="validation2" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
                                             <th class='errorH'><input type="text" name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
                                             <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
+                                            <td><input type="text" name="validation2" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
                                         </tr>
                                         <% }%>
                                         <tr>
+                                            <th></th>
+                                            <th></th>
                                             <th></th>
                                             <th></th>
                                             <th>Total</th>
@@ -182,6 +188,7 @@
                                 <!--END FOR THE BACK AND SUBMIT BUTTON-->
 
 
+
                             </div>
                             <!--END IS FOR THE PAGE RESULT FOR DATA WITH NO ERROR-->
                         </form>
@@ -189,6 +196,9 @@
                 </section>
             </div>
         </div>
+         <div id="bottom"></div>
+         <a href="#bottom"><div  title="Scroll to Button" style="position: fixed; top:40px; right: 5px; opacity: 1; cursor: pointer;"> <img src="img/down-arrow-circle-md.png" style='width:100px; height:100px; margin-top:40%' alt="Scroll to Button"/></div></a>
+         <a href="#top"><div title="Scroll to Top" style="position: fixed; bottom: 50px; right: 5px; opacity: 1; cursor: pointer;"><img src="img/up-arrow-png-20.png" style='width:100px; height:100px; margin-top:40%' alt="Scroll to Top"/></div></a>
         <script>
             var d = new Date();
             var n = d.getFullYear();

@@ -276,6 +276,7 @@ public class RecordDAO {
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             try (Connection conn = myFactory.getConnection()) {
+               
                 String update = "SELECT IF(`VALIDATION` = 1, 'TRUE', 'FALSE') AS `RESULT` \n"
                         + " FROM highestCompleted \n"
                         + " WHERE FORMID = ? \n"

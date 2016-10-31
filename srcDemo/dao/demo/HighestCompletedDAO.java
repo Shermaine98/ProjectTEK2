@@ -44,17 +44,21 @@ public class HighestCompletedDAO {
                     temp.setLocation(rs.getString("location"));
                     temp.setSex(rs.getString("sex"));
                     temp.setAgeGroup(rs.getString("ageGroup"));
+                    temp.setValidation(rs.getInt("Validation"));
+                    temp.setReason(getReason(rs.getInt("Validation")));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * from highestcompletedagegroup WHERE  location = ? and formID = ? and ageGroup = ? ");
                     pstmt2.setString(1, temp.getLocation());
                     pstmt2.setInt(2, temp.getFormID());
                     pstmt2.setString(3, temp.getageGroup());
                     ResultSet rs2 = pstmt2.executeQuery();
+                    
                     while (rs2.next()) {
                         HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
-                        HighestCompletedAgeGroup.sethighestCompleted(rs.getString("highestCompleted"));
-                        HighestCompletedAgeGroup.setCount(rs.getInt("count"));
-                        HighestCompletedAgeGroup.setValidation(rs.getBoolean("validation"));
+                        HighestCompletedAgeGroup.sethighestCompleted(rs2.getString("highestCompleted"));
+                        HighestCompletedAgeGroup.setCount(rs2.getInt("count"));
+                        HighestCompletedAgeGroup.setValidation(rs2.getInt("validation"));
+                          HighestCompletedAgeGroup.setReason(getReason(rs2.getInt("validation")));
                         arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
                     }
                     temp.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
@@ -89,8 +93,9 @@ public class HighestCompletedDAO {
                     temp.setSex(rs.getString("sex"));
                     temp.setAgeGroup(rs.getString("ageGroup"));
                     temp.setTotal(rs.getInt("total"));
-                    System.out.println(temp.getYear() + temp.getLocation() + temp.getSex());
-
+                    temp.setValidation(rs.getInt("Validation"));
+                    temp.setReason(getReason(rs.getInt("Validation")));
+                    
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * from highestcompleted WHERE  location = ? and formID = ? and ageGroup = ? and sex = ?");
                     pstmt2.setString(1, temp.getLocation());
                     pstmt2.setInt(2, temp.getFormID());
@@ -101,7 +106,8 @@ public class HighestCompletedDAO {
                         HighestCompletedAgeGroup HighestCompletedAgeGroup = new HighestCompletedAgeGroup();
                         HighestCompletedAgeGroup.sethighestCompleted(rs2.getString("highestCompleted"));
                         HighestCompletedAgeGroup.setCount(rs2.getInt("count"));
-                        HighestCompletedAgeGroup.setValidation(rs2.getBoolean("validation"));
+                        HighestCompletedAgeGroup.setValidation(rs2.getInt("validation"));
+                          HighestCompletedAgeGroup.setReason(getReason(rs2.getInt("validation")));
                         arrHighestCompletedAgeGroup.add(HighestCompletedAgeGroup);
                     }
                     temp.setHighestCompletedAgeGroup(arrHighestCompletedAgeGroup);
@@ -127,8 +133,8 @@ public class HighestCompletedDAO {
                         + "VALUES (?,?,?,?,?,?,?,?);";
 
                 String query = "INSERT INTO highestcompletedAgeGroup"
-                        + "(formID,censusYear,location,sex,ageGroup,total) "
-                        + "VALUES (?,?,?,?,?,?);";
+                        + "(formID,censusYear,location,sex,ageGroup,total, validation) "
+                        + "VALUES (?,?,?,?,?,?,?);";
 
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 PreparedStatement pstmt2 = conn.prepareStatement(query2);
@@ -142,6 +148,7 @@ public class HighestCompletedDAO {
                     pstmt.setString(4, object.getSex());
                     pstmt.setString(5, object.getageGroup());
                     pstmt.setInt(6, object.getTotal());
+                    pstmt.setInt(7, object.getValidation());
                     pstmt.addBatch();
                     i++;
 
@@ -153,7 +160,7 @@ public class HighestCompletedDAO {
                         pstmt2.setString(5, object.getageGroup());
                         pstmt2.setString(6, object2.gethighestCompleted());
                         pstmt2.setInt(7, object2.getCount());
-                        pstmt2.setBoolean(8, object2.isValidation());
+                        pstmt2.setInt(8, object2.isValidation());
                         pstmt2.addBatch();
                         z++;
                     }
@@ -263,4 +270,19 @@ public class HighestCompletedDAO {
         return i;
     }
 
+    public String getReason(int reason){
+        String reasonError = "";
+        
+        switch (reason) {
+            case -1:  reasonError = "Missing Field/s";
+                     break;
+            case -2:  reasonError = "Format Error";
+                     break;
+            case -3:  reasonError = "Summation Error";
+                     break;
+            default:  reasonError = "None";
+                     break;
+        }
+            return reasonError;
+    }
 }

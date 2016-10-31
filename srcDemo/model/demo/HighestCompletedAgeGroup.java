@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package model.demo;
 
 import java.text.DecimalFormat;
@@ -12,33 +11,21 @@ import java.text.DecimalFormat;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
+public class HighestCompletedAgeGroup {
 
-public class HighestCompletedAgeGroup  {
-
-    String highestCompleted;
-    int count;
-    String cCount;
-    
-    
+    private String highestCompleted;
+    private int count;
+    private int Validation;
+    private String Reason;
 
     DecimalFormat df = new DecimalFormat("#,###");
 
-    
     public String getFormatcount(int count) {
         String scount = df.format(count);
         return scount;
     }
-    
-    public String getcCount() {
-        return cCount;
-    }
-
-    public void setcCount(int cCount) {
-        this.cCount = df.format(cCount);
-    }
-    boolean validation;
 
     public HighestCompletedAgeGroup() {
     }
@@ -59,12 +46,26 @@ public class HighestCompletedAgeGroup  {
         this.count = count;
     }
 
-    public boolean isValidation() {
-        return validation;
+    public int isValidation() {
+        return Validation;
     }
 
-    public void setValidation(boolean validation) {
-        this.validation = validation;
+    public void setValidation(int validation) {
+        this.Validation = Validation;
+    }
+
+    /**
+     * @return the Reason
+     */
+    public String getReason() {
+        return Reason;
+    }
+
+    /**
+     * @param Reason the Reason to set
+     */
+    public void setReason(String Reason) {
+        this.Reason = Reason;
     }
 
 }
