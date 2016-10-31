@@ -12,9 +12,10 @@
 
 <!DOCTYPE html>
 <html>
+    <% Forums forum = (Forums) request.getAttribute("forum");%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Project TEK |  </title>
+        <title>Project TEK | <%=forum.getForumTitle() %> </title>
         <script src="jsForums/comments.js" type="text/javascript"></script>
         <style>
             tr{
@@ -47,13 +48,13 @@
                                 -->
                                 <div id="specificForum" class="box box-solid">
 
-                                    <% Forums forum = (Forums) request.getAttribute("forum");%>
+                                    
                                     <div class="box-header with-border">
                                         <h3 class="box-title"><%=forum.getForumTitle()%></h3>
                                     </div>
                                     <div class="box-body">
                                         <b style="margin-right: 1%; font-weight: normal">Tags:</b>
-                                        <% for (int i = 0; i < forum.getTags().size(); i++) {%>
+                                        <% for (int i = 1; i < forum.getTags().size(); i++) {%>
                                         <p style="margin-right: 1%;" class="btn btn-flat btn-default btn-sm"><%=forum.getTags().get(i).getTag()%></p>
                                         <%}%>
 
