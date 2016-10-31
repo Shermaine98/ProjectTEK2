@@ -412,8 +412,8 @@ public class EnrollmentChecker {
                 enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
                 arrayError.add(enrollmentTemp);
             } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
-                    != Float.parseFloat(arrError.get(i).getTotalMale())
-                    / Float.parseFloat(arrError.get(i).getTotalFemale())) {
+                    != Float.parseFloat(arrError.get(i).getTotalFemale())
+                    / Float.parseFloat(arrError.get(i).getTotalMale())) {
                 //
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
@@ -667,7 +667,7 @@ public class EnrollmentChecker {
                     enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                     enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
 
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
@@ -1089,8 +1089,8 @@ public class EnrollmentChecker {
                 enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
                 arrayError.add(enrollmentTemp);
             } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
-                    != Float.parseFloat(arrError.get(i).getTotalMale())
-                    / Float.parseFloat(arrError.get(i).getTotalFemale())) {
+                    != Float.parseFloat(arrError.get(i).getTotalFemale())
+                    / Float.parseFloat(arrError.get(i).getTotalMale())) {
                 //
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
@@ -1351,7 +1351,7 @@ public class EnrollmentChecker {
                     enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                     enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
 
@@ -1429,7 +1429,7 @@ public class EnrollmentChecker {
                     enrollment.setGenderDisparityIndex(-1);
                 } else {
 
-                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                 }
 
                 enrollment.setValidation(-1);
@@ -1556,7 +1556,7 @@ public class EnrollmentChecker {
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
                 }
 
-                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                 
                 enrollment.setValidation(-2);
                 arrEnrollmentDet = new ArrayList<EnrollmentDet>();
@@ -1754,8 +1754,8 @@ public class EnrollmentChecker {
                 enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
                 transformData.add(enrollment);
             } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
-                    != Float.parseFloat(arrError.get(i).getTotalMale())
-                    / Float.parseFloat(arrError.get(i).getTotalFemale())) {
+                    != Float.parseFloat(arrError.get(i).getTotalFemale())
+                    / Float.parseFloat(arrError.get(i).getTotalMale())) {
                 //
                 enrollment = new Enrollment();
                 //SET OTHER STUFF
@@ -1904,7 +1904,7 @@ public class EnrollmentChecker {
                     enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                     enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
 
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
@@ -2009,7 +2009,7 @@ public class EnrollmentChecker {
                     enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                     enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
                     for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
