@@ -96,7 +96,6 @@ public class ExcelHighestAttainment {
         sheet = book.getSheetAt(sheetNumber);
         ArrErrorByAgeGroupSex = new ArrayList<HighestCompletedTemp>();
         table(sheet);
-        System.out.println("ARRAY SIZE 1: "+ArrErrorByAgeGroupSex.size());
         setArrayError(new HighestCompletedChecker(ArrErrorByAgeGroupSex).getArrayError());
         setArrayNoError(new HighestCompletedChecker(ArrErrorByAgeGroupSex).getArrayNoError());
     }
@@ -107,10 +106,8 @@ public class ExcelHighestAttainment {
         palette = book.getCustomPalette();
         evaluator = book.getCreationHelper().createFormulaEvaluator();
         sheet = book.getSheetAt(sheetNumber);
-
         ArrErrorByAgeGroupSex = new ArrayList<HighestCompletedTemp>();
         table(sheet);
-        System.out.println("ARRAY SIZE 1: "+ArrErrorByAgeGroupSex.size());
         setArrayError(new HighestCompletedChecker(ArrErrorByAgeGroupSex).getArrayError());
         setArrayNoError(new HighestCompletedChecker(ArrErrorByAgeGroupSex).getArrayNoError());
     }

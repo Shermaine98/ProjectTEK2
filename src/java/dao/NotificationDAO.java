@@ -18,7 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
-import model.accounts.User;
 
 /**
  *
@@ -209,11 +208,11 @@ public class NotificationDAO {
         return null;
     }
 
-    public ArrayList<TaskModel> NotificationAlertUploader(int year, User user) throws SQLException, ParseException {
+    public ArrayList<TaskModel> NotificationAlertUploader(int year, String user) throws SQLException, ParseException {
 
         ArrayList<TaskModel> taskModelFinal = new ArrayList<TaskModel>();
         TaskDAO taskDAO = new TaskDAO();
-        ArrayList<TaskModel> taskModel = taskDAO.getTaskUploadeStatus(year, user.getPosition());
+        ArrayList<TaskModel> taskModel = taskDAO.getTaskUploadeStatus(year, user);
         Date todate1 = new Date();
         RecordDAO recordDAO = new RecordDAO();
         for (int i = 0; i < taskModel.size(); i++) {
@@ -228,7 +227,7 @@ public class NotificationDAO {
                 temp.setReportType(taskModel.get(i).getReportType());
                 temp.setStatus(taskModel.get(i).getStatus());
                 temp.setFormID(taskModel.get(i).getFormID());
-                temp.setName(recordDAO.GetUserName(user.getUserID()));
+                temp.setName("none");
                 taskModelFinal.add(temp);
             }
         }

@@ -19,8 +19,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpSession;
-import model.accounts.User;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,8 +48,6 @@ public class NotificationsPusher extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             HttpSession session = request.getSession();
-            User chck = (User) session.getAttribute("user");
             ArrayList<TaskModel> notification = new ArrayList<TaskModel>();
             String position = request.getParameter("position");
              int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -92,7 +88,7 @@ public class NotificationsPusher extends HttpServlet {
                 ArrayList<TaskModel> approved = new ArrayList<TaskModel>();
                 approved =   notificationDAO.NotificationApprovalRecord(year, position);
                 rejected =  notificationDAO.NotificationRejected(year, position);
-                delayed = notificationDAO.NotificationAlertUploader(year, chck);
+                delayed = notificationDAO.NotificationAlertUploader(year, position);
                 notification.addAll(delayed);
                 notification.addAll(approved);
                 notification.addAll(rejected);

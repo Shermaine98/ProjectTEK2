@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package model.demo;
 
 import java.text.DecimalFormat;
@@ -12,10 +11,10 @@ import java.text.DecimalFormat;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class MaritalStatus {
+
     private int formID;
     private int year;
     private String location;
@@ -34,7 +33,7 @@ public class MaritalStatus {
     private String reasons;
 
     DecimalFormat df = new DecimalFormat("#,###");
-    
+
     public String getFormatcount(int count) {
         String scount = df.format(count);
         return scount;
@@ -263,7 +262,5 @@ public class MaritalStatus {
     public void setReasons(String reasons) {
         this.reasons = reasons;
     }
-
-    
 
 }

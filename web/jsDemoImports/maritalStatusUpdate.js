@@ -25,59 +25,61 @@ $(document).ready(function () {
 
     $('#error_maritalStatus tbody tr').each(function () {
         var row = $(this);
-        var singleError = parseInt(row.find(".singleError input").val(), 10);
-        var marriedError = parseInt(row.find(".marriedError input").val(), 10);
-        var windowedError = parseInt(row.find(".windowedError input").val(), 10);
-        var divorcedSeparatedError = parseInt(row.find(".divorcedSeparatedError input").val(), 10);
-        var commonLawLiveInError = parseInt(row.find(".commonLawLiveInError input").val(), 10);
-        var unknownError = parseInt(row.find(".unknownError input").val(), 10);
-        var totalError = parseInt(row.find(".totalError input").val(), 10);
+        var singleError = row.find(".singleError input").val();
+        var marriedError = row.find(".marriedError input").val();
+        var windowedError = row.find(".windowedError input").val();
+        var divorcedSeparatedError = row.find(".divorcedSeparatedError input").val();
+        var commonLawLiveInError = row.find(".commonLawLiveInError input").val();
+        var unknownError = row.find(".unknownError input").val();
+        var totalError = row.find(".totalError input").val();
 
-        if (singleError === -1) {
+        if (parseInt(singleError, 10) === -1) {
             row.find(".singleError input").val("");
         } else {
             row.find("#singleError").val(singleError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
 
 
-        if (marriedError === -1) {
+        if (parseInt(marriedError, 10) === -1) {
             row.find(".marriedError input").val("");
         } else {
             row.find("#marriedError").val(marriedError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
 
 
-        if (windowedError === -1) {
+        if (parseInt(windowedError, 10) === -1) {
             row.find(".windowedError input").val("");
         } else {
             row.find("#windowedError").val(windowedError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
 
-        if (divorcedSeparatedError === -1) {
+        if (parseInt(divorcedSeparatedError, 10) === -1) {
             row.find(".divorcedSeparatedError input").val("");
         } else {
             row.find("#divorcedSeparatedError").val(divorcedSeparatedError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
 
 
-        if (commonLawLiveInError === -1) {
+        if (parseInt(commonLawLiveInError, 10) === -1) {
             row.find(".commonLawLiveInError input").val("");
         } else {
             row.find("#commonLawLiveInError").val(commonLawLiveInError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
 
-        if (unknownError === -1) {
+        if (parseInt(unknownError, 10) === -1) {
             row.find(".unknownError input").val("");
         } else {
             row.find("#unknownError").val(unknownError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
-        if (totalError === -1) {
+        if (parseInt(totalError, 10) === -1) {
             row.find(".totalError input").val("");
         } else {
             row.find("#totalError").val(totalError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         }
 
     });
+    
+    
     $("#error_maritalStatus tbody").on("change", 'input[type="text"]', function () {
         var row = $(this).closest("tr");
         var singleError = parseInt(row.find("#singleError").val().replace(/,/g, ''), 10);
