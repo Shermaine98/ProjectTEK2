@@ -154,11 +154,11 @@ public class TaskDAO {
         return null;
     }
 
-    public ArrayList<TaskModel> checkTaskHead(int year, String sector, String position) throws SQLException, ParseException {
+    public ArrayList<TaskModel> checkTaskHead(int year, String position, String sector) throws SQLException, ParseException {
         DBConnectionFactory myFactory = DBConnectionFactory.getInstance();
         try (Connection conn = myFactory.getConnection()) {
             int z = 0;
-            ArrayList<TaskModel> taskModelFinal = new ArrayList<TaskModel>();
+            ArrayList<TaskModel> taskModelFinal = new ArrayList<>();
             ArrayList<TaskModel> taskModel = getTask(year, position);
 
             for (int i = 0; i < taskModel.size(); i++) {
@@ -205,6 +205,7 @@ public class TaskDAO {
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Delayed");
+                            taskModelFinal.add(temp);
                         } else {
                             temp.setreportName(taskModel.get(i).getReportName());
                             temp.setDuedate(taskModel.get(i).getDuedate());
@@ -212,6 +213,7 @@ public class TaskDAO {
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Pending");
+                            taskModelFinal.add(temp);
                         }
                     }
 
@@ -264,6 +266,7 @@ public class TaskDAO {
 
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Delayed");
+                            taskModelFinal.add(temp);
                         } else {
                             temp.setreportName(taskModel.get(i).getReportName());
                             temp.setDuedate(taskModel.get(i).getDuedate());
@@ -271,6 +274,7 @@ public class TaskDAO {
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Pending");
+                            taskModelFinal.add(temp);
                         }
                     }
                     rs.close();
@@ -324,6 +328,7 @@ public class TaskDAO {
 
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Delayed");
+                            taskModelFinal.add(temp);
                         } else {
                             temp.setreportName(taskModel.get(i).getReportName());
                             temp.setDuedate(taskModel.get(i).getDuedate());
@@ -331,6 +336,7 @@ public class TaskDAO {
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Pending");
+                            taskModelFinal.add(temp);
                         }
                     }
                     rs.close();
