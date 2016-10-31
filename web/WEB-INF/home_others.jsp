@@ -96,10 +96,11 @@
                                                         </div>-->
                             <div class="box box-success">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title" align="center">Announcements!</h3>
+                                    <h3 class="box-title" align="center">ANNOUNCEMENT!</h3>
                                 </div>
                                 <div class="box-body">
-                                    Some announcement here
+                                    <h4 style="font-weight: bold;">CALOOCAN BAGS #1 SPOT IN INVESTMENTS AND UTILITIES, 2ND HIGHEST LOCAL ECONOMIC GROWTH IN THE PHIL.</h4>
+                                    <p>The National Competitiveness Council - Philippines (NCC-P) has released specific rankings of provinces, cities and municipalities in its competitiveness studies of 81 provinces, 145 cities and 1,489 municipalities, with Caloocan City emerging as the top city in investment promotions and availability of utilities.</p>
                                 </div>
                             </div>
                             <div class="box box-solid">
