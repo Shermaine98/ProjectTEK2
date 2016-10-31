@@ -218,8 +218,8 @@ public class NotificationDAO {
         for (int i = 0; i < taskModel.size(); i++) {
             
             if (taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
-                long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
-               
+                //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
+                int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
                 TaskModel temp = new TaskModel();
                 temp.setreportName(taskModel.get(i).getReportName());
                 temp.setDuedate(taskModel.get(i).getDuedate());
