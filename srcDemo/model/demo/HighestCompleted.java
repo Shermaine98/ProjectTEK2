@@ -25,6 +25,8 @@ public class HighestCompleted {
     private String ageGroup;
     private String uploadedBy;
     private int total;
+    private int validation;
+    private String reason;
 
     private ArrayList<HighestCompletedAgeGroup> HighestCompletedAgeGroup;
     private String approvedBy;
@@ -159,6 +161,34 @@ public class HighestCompleted {
      */
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    /**
+     * @return the validation
+     */
+    public int getValidation() {
+        return validation;
+    }
+
+    /**
+     * @param validation the validation to set
+     */
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
 }

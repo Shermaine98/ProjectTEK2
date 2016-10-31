@@ -16,9 +16,10 @@ import java.text.DecimalFormat;
  */
 public class HighestCompletedAgeGroupTemp {
 
-    String highestAttaintment;
-    String count;
-    boolean validation;
+   private String highestAttaintment;
+   private String count;
+   private int validation;
+   private String reason;
 
     DecimalFormat df = new DecimalFormat("#,###");
     
@@ -39,12 +40,26 @@ public class HighestCompletedAgeGroupTemp {
         this.count = count;
     }
 
-    public boolean isValidation() {
+    public int isValidation() {
         return validation;
     }
 
-    public void setValidation(boolean validation) {
+    public void setValidation(int validation) {
         this.validation = validation;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
 }

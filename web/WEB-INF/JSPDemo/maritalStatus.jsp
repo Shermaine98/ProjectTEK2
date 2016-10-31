@@ -58,7 +58,7 @@
                     <% } //NOT SUCCESS SAVE IN DB WITH MORE THAN 6 ERRORS
                     else if (temp.equalsIgnoreCase("ErrorMore")) {%>
                     <h4>There are errors in the uploaded file</h4>
-                    <p>There are more errors than the System can handle. Kindly request for a new file</p>
+                    <p>There are more errors than the system can handle. Kindly request for a new file</p>
                     <%} //NOT SUCCESS SAVE IN DB WITH MORE THAN 6 ERRORS
                     else if (temp.equalsIgnoreCase("ErrorGrand")) { %>
                     <h4>There are errors in the uploaded file</h4>

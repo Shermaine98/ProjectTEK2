@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package model.temp.demo;
 
 import java.util.ArrayList;
@@ -12,25 +11,26 @@ import java.util.ArrayList;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class HighestCompletedTemp {
-    
+
     private int formID;
     private int year;
     private String location;
     private String sex;
     private String ageGroup;
     private String total;
-    
+    private int validation;
+    private String reason;
+
     private ArrayList<HighestCompletedAgeGroupTemp> HighestCompletedAgeGroupTemp;
 
     public HighestCompletedTemp() {
-        HighestCompletedAgeGroupTemp = new  ArrayList<HighestCompletedAgeGroupTemp>();
+        HighestCompletedAgeGroupTemp = new ArrayList<HighestCompletedAgeGroupTemp>();
         this.HighestCompletedAgeGroupTemp = HighestCompletedAgeGroupTemp;
     }
-    
-    
+
     public int getFormID() {
         return formID;
     }
@@ -71,8 +71,6 @@ public class HighestCompletedTemp {
         this.ageGroup = ageGroup;
     }
 
-   
-
     /**
      * @return the total
      */
@@ -95,11 +93,39 @@ public class HighestCompletedTemp {
     }
 
     /**
-     * @param HighestCompletedAgeGroupTemp the HighestCompletedAgeGroupTemp to set
+     * @param HighestCompletedAgeGroupTemp the HighestCompletedAgeGroupTemp to
+     * set
      */
     public void setHighestCompletedAgeGroupTemp(ArrayList<HighestCompletedAgeGroupTemp> HighestCompletedAgeGroupTemp) {
         this.HighestCompletedAgeGroupTemp = HighestCompletedAgeGroupTemp;
     }
 
-   
+    /**
+     * @return the validation
+     */
+    public int getValidation() {
+        return validation;
+    }
+
+    /**
+     * @param validation the validation to set
+     */
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
 }
