@@ -59,7 +59,7 @@ public class ForumDAO {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT *, DATE_FORMAT(dateCreated,'%b. %d, %Y %h:%i %p') as 'dateOfCreation' FROM FORUMS");
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
@@ -68,7 +68,7 @@ public class ForumDAO {
                     forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
-                    forums.setDateCreated(rs.getDate("dateCreated"));
+                    forums.setDateCreated(rs.getString("dateOfCreation"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
@@ -96,7 +96,7 @@ public class ForumDAO {
         try {
             DBConnectionFactory myFactory = getInstance();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM FORUMS WHERE forumID = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT *, DATE_FORMAT(dateCreated,'%b. %d, %Y %h:%i %p') as 'dateOfCreation' FROM FORUMS WHERE forumID = ?");
                 pstmt.setInt(1, forumID);
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
@@ -104,7 +104,7 @@ public class ForumDAO {
                     forums.setCreatedBy(rs.getInt("createdBy"));
                     forums.setForumTitle(rs.getString("forumTitle"));
                     forums.setBody(rs.getString("body"));
-                    forums.setDateCreated(rs.getDate("dateCreated"));
+                    forums.setDateCreated(rs.getString("dateOfCreation"));
                     forums.setFavoritesCount(getFavorites(forums.getForumID()));
                     forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                     forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
@@ -192,7 +192,7 @@ public class ForumDAO {
 
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM FORUMS WHERE FORUMID = ?");
+                    PreparedStatement pstmt2 = conn.prepareStatement("SELECT *, DATE_FORMAT(dateCreated,'%b. %d, %Y %h:%i %p') as 'dateOfCreation' FROM FORUMS WHERE FORUMID = ?");
 
                     int forumID = rs.getInt("forumID");
 
@@ -204,7 +204,7 @@ public class ForumDAO {
                         forums.setCreatedBy(rs2.getInt("createdBy"));
                         forums.setForumTitle(rs2.getString("forumTitle"));
                         forums.setBody(rs2.getString("body"));
-                        forums.setDateCreated(rs2.getDate("dateCreated"));
+                        forums.setDateCreated(rs2.getString("dateOfCreation"));
                         forums.setFavoritesCount(getFavorites(forums.getForumID()));
                         forums.setCommentsCount(getCommentsCount(forums.getForumID()));
                         forums.setCreatedByName(recordsDAO.GetUserName(forums.getCreatedBy()));
