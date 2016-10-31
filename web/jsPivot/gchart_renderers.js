@@ -185,8 +185,11 @@ var data;
 
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
                                 document.getElementById('showReport').style.display = "block";
-
-                                if ($('#commonReports option:selected').text() != "Commonly Used Reports") {
+                                
+                                var conceptName = $('#commonReports').find(":selected").text();
+                                if(conceptName!='Population by year' 
+                                        && conceptName!='Enrollment in Public and Private Schools' 
+                                        && conceptName!='Actual number of Beds in Private and Public Hospitals'){
                                     //SVG
                                     var chart = $('#output').highcharts();
                                     var render_width = EXPORT_WIDTH;

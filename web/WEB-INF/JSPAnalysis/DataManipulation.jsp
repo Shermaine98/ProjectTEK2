@@ -628,7 +628,7 @@
                 $("#withChartSelection").empty();
                 $('select[name="commonReports"]').empty();
                 //common charts
-                $('select[name="commonReports"]').append("<option selected>Population by year</option>");
+                $('select[name="commonReports"]').append("<option value='Population by year' onSelect='getFactPeople()' selected>Population by year</option>");
                 //$('select[name="commonReports"]').append("<option value='Historical Growth of Population'>Historical Growth of Population</option>");
                 $('select[name="commonReports"]').append("<option value='Household Population by Age Group and Sex'>Household Population by Age Group and Sex</option>");
                 $('select[name="commonReports"]').append("<option value='Household Population by Age Group, Sex and Marital Status'>Household Population by Age Group, Sex and Marital Status</option>");
@@ -662,7 +662,7 @@
                 $("#withChartSelection").empty();
 
                 $('select[name="commonReports"]').empty();
-                $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                $('select[name="commonReports"]').append("<option value='Enrollment in Public and Private Schools'>Enrollment in Public and Private Schools</option>");
                 //$('select[name="commonReports"]').append("<option value='Classroom Requirements in Public Elementary Schools'>Classroom Requirements in Public Elementary Schools</option>");
                 //$('select[name="commonReports"]').append("<option value='Classroom, Teachers Requirements in Public Elementary Schools'>Classroom, Teachers Requirements in Public Elementary Schools</option>");
                 //$('select[name="commonReports"]').append("<option value='Data on Enrollment, Teachers and Classrooms'>Data on Enrollment, Teachers and Classrooms</option>");
@@ -699,7 +699,7 @@
                 $("#withChartSelection").empty();
 
                 $('select[name="commonReports"]').empty();
-                $('select[name="commonReports"]').append("<option disabled selected>Commonly Used Reports</option>");
+                $('select[name="commonReports"]').append("<option value='Actual number of Beds in Private and Public Hospitals'>Actual number of Beds in Private and Public Hospitals</option>");
                 //$('select[name="commonReports"]').append("<option value='Bed Requirement for Hospitals'>Bed Requirement for Hospitals</option>");
                 //$('select[name="commonReports"]').append("<option value='Medical Health Facilities and Personnel, Government and Private Hospitals'>Medical Health Facilities and Personnel, Government and Private Hospitals</option>");
                 $('select[name="commonReports"]').append("<option value='Nutritional Status of the Preschool and Elementary Students'>Nutritional Status of the Preschool and Elementary Students</option>");
@@ -709,6 +709,15 @@
 
             function getData(){
                 var conceptName = $('#commonReports').find(":selected").text();
+                if(conceptName=='Population by year'){
+                    getFactPeople();
+                }
+                if(conceptName=='Enrollment in Public and Private Schools'){
+                    getFactEducation();
+                }
+                if(conceptName=='Actual number of Beds in Private and Public Hospitals'){
+                    getFactHospital();
+                }
                 if(conceptName=='Household Population by Age Group and Sex'){
                     var chart ='Population Pyramid';
                     setHHPopAgeGroupSex(chart);
@@ -762,6 +771,15 @@
             function changeChart(){
                 var conceptName = $('#commonReports').find(":selected").text();
                 var chartSelected = $('#charts').find(":selected").text();
+                if(conceptName=='Population by year'){
+                    getFactPeople();
+                }
+                if(conceptName=='Enrollment in Public and Private Schools'){
+                    getFactEducation();
+                }
+                if(conceptName=='Actual number of Beds in Private and Public Hospitals'){
+                    getFactHospital();
+                }
                 if(conceptName=='Household Population by Age Group and Sex'){
                     var charts=['Bar Chart','Pie Chart','Population Pyramid', 'Table'];
                     addWithChartSelectionsWithBarangays('getFactPeople()',charts);
