@@ -142,9 +142,16 @@ function Viewforums() {
             element.appendChild(para);
 
             var table = document.createElement("table");
-            table.setAttribute("class", "table");
+            table.setAttribute("class", "table dataTable");
             table.setAttribute("style", "margin: 0 auto;");
+            table.setAttribute('id','dataTable');
             para.appendChild(table);
+
+            var thead = document.createElement("thead");
+            thead.setAttribute("style", "display:none;");
+            table.appendChild(thead);
+            
+            $(thead).append('<tr><th></th><th></th><th></th></tr>');
 
             var tbody = document.createElement("tbody");
             tbody.setAttribute("class", "list");
@@ -165,18 +172,19 @@ function Viewforums() {
 
                 $(tbodytr).append('<td><button class="btn btn-block btn-default btn-sm"><i class="glyphicon glyphicon-comment" style="margin-right: 23%;"></i>' + data[i].commentsCount + '</button></td>');
                 $(tbodytr).append('<td class="forumTitleSearch"><span style="display: none;" class="createdBy">' + data[i].createdBy + '</span><span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
-                    <a class="titleName" style="font-size: 22px;"><span class="forumTitle">' + data[i].forumTitle + '</span></a></td>');
+                    <a class="titleName" style="font-size: 18px;"><span class="forumTitle">' + data[i].forumTitle + '</span></a>\n\
+                    <h5 style="color: #777; font-size: 13px;">Created by ' + data[i].createdByName + '</h5></td>');
 
-                var tbodytr2 = document.createElement("tr");
-                tbody.appendChild(tbodytr2);
-                var tr2td = document.createElement("td");
-                tr2td.setAttribute("colspan", "2");
-                tbodytr2.appendChild(tr2td);
-                for (var j = 0; data[i].tags.length > j; j++) {
-                    $(tr2td).append('<p style="margin-right: 2%;" class="tagSearch btn btn-flat btn-default btn-xs">' + data[i].tags[j].tag + '</p>');
-                }
-                $(tbodytr2).append('<td width="70%"><h5 align="right" style="color: #777; font-size: 13px;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</h5></td>');
 
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": false,
+                    "lengthChange": false,
+                    "searching": false,
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    }
+                });
 
                 var options = {
                     valueNames: ['forumTitleSearch', 'tagSearch']

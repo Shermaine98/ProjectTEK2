@@ -25,6 +25,7 @@ public class Comments {
     private int createdBy;
     private int forumID;
     private String commentedDate;
+    private String dateOfComment;
     private String commentedByName;
     private int commentCounts;
     private boolean isLiked;
@@ -37,6 +38,14 @@ public class Comments {
         return idComments;
     }
 
+    public String getDateOfComment() {
+        return dateOfComment;
+    }
+
+    public void setDateOfComment(String dateOfComment) {
+        this.dateOfComment = dateOfComment;
+    }
+    
     /**
      * @param idComments the idComments to set
      */

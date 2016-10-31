@@ -40,8 +40,8 @@ public class Accounts {
             try (Connection conn = myFactory.getConnection()) {
                 String query = "insert into users "
                         + "(userID, email, username, password, division, firstName, lastName, gender,"
-                        + "birthdate, approved, reason)"
-                        + "values (?,?,?,password(?),?,?,?,?,?,?,?)";
+                        + "birthdate, approved, reason, position)"
+                        + "values (?,?,?,password(?),?,?,?,?,?,?,?,?)";
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 pstmt.setInt(1, user.getUserID());
                 pstmt.setString(2, user.getEmail());
@@ -54,6 +54,7 @@ public class Accounts {
                 pstmt.setDate(9, user.getBirthdate());
                 pstmt.setBoolean(10, false);
                 pstmt.setString(11, user.getReason());
+                pstmt.setString(12, "External Researchers");
                 rows = pstmt.executeUpdate();
             }
             return rows == 1;
