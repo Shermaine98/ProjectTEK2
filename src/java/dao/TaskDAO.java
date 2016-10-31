@@ -65,12 +65,10 @@ public class TaskDAO {
                 int z = 0;
                 ArrayList<TaskModel> taskModelFinal = new ArrayList<TaskModel>();
 
-                TaskModel taskModel = new TaskModel();
-
                 for (int i = 0; i < taskModels.size(); i++) {
                     String query = "SELECT * FROM RECORDS Where formID = ?;";
                     PreparedStatement pstmt1 = conn.prepareStatement(query);
-                    int check = taskModel.getFormID();
+                    int check = taskModels.get(i).getFormID();
                     pstmt1.setInt(1, check);
                     ResultSet rs = pstmt1.executeQuery();
                     TaskModel temp = new TaskModel();

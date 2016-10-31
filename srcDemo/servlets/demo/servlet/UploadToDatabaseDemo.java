@@ -74,8 +74,8 @@ public class UploadToDatabaseDemo extends BaseServlet {
 
                 arrTempError = excelByAgeGroup.getArrayError();
                 arrTempNoError = excelByAgeGroup.getArrayNoError();
-
-                if (arrTempError.size() > 6) {
+                
+                if (arrTempError.size() > 3) {
                     request.setAttribute("saveToDB", "ErrorMore");
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataDemoServlet?redirect=byAgeGroupSex");
                     rd.forward(request, response);
@@ -112,7 +112,7 @@ public class UploadToDatabaseDemo extends BaseServlet {
                 arrTempNoError = new ExcelMaritalStatus(wb, sheetNumber).getArrayNoError();
 
                 //boolean checkGrandTotal=ExcelMaritalStatus.isCheckGrandTotal();
-                if (arrTempError.size() > 6) {
+                if (arrTempError.size() > 3) {
                     request.setAttribute("saveToDB", "ErrorMore");
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataDemoServlet?redirect=MaritalStatus");
                     rd.forward(request, response);
@@ -148,7 +148,7 @@ public class UploadToDatabaseDemo extends BaseServlet {
 //                boolean checkGrandTotal = excel.isCheckGrandTotal();
                
 
-                if (arrTempError.size() > 6) {
+                if (arrTempError.size() > 3) {
                     request.setAttribute("saveToDB", "ErrorMore");
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataDemoServlet?redirect=HighestCompleted");
                     rd.forward(request, response);
