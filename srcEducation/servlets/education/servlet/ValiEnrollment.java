@@ -183,7 +183,7 @@ public class ValiEnrollment extends BaseServlet {
             enrollmentTemp.setTotalFemale(totalFemaleError[i].replaceAll(" ", "").replaceAll(",", ""));
             enrollmentTemp.setGrandTotal(grandTotalError[i].replaceAll(" ", "").replaceAll(",", ""));
             enrollmentTemp.setGenderDisparityIndex(GenderDisparityIndexError[i].replaceAll(" ", "").replaceAll(",", ""));
-            arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+            arrEnrollmentDetTemp = new ArrayList<>();
 
             for (; y < 8 + stopper; y++) {
                 
@@ -192,7 +192,7 @@ public class ValiEnrollment extends BaseServlet {
                 EnrollmentDetTemp.setFemaleCount(femaleCountError[y].replaceAll(" ", "").replaceAll(",", ""));
                 EnrollmentDetTemp.setMaleCount(maleCountError[y].replaceAll(" ", "").replaceAll(",", ""));
                 EnrollmentDetTemp.setTotalCount(totalCountError[y].replaceAll(" ", "").replaceAll(",", ""));
-                EnrollmentDetTemp.setValidation(true);
+                EnrollmentDetTemp.setValidation(1);
                 arrEnrollmentDetTemp.add(EnrollmentDetTemp);
             }
 
@@ -255,7 +255,7 @@ public class ValiEnrollment extends BaseServlet {
                 EnrollmentDet.setFemaleCount(Integer.parseInt(femaleCount[y].replaceAll(" ", "").replaceAll(",", "")));
                 EnrollmentDet.setMaleCount(Integer.parseInt(maleCount[y].replaceAll(" ", "").replaceAll(",", "")));
                 EnrollmentDet.setTotalCount(Integer.parseInt(totalCount[y].replaceAll(" ", "").replaceAll(",", "")));
-                EnrollmentDet.setValidation(true);
+                EnrollmentDet.setValidation(1);
                 arrEnrollmentDet.add(EnrollmentDet);
             }
 

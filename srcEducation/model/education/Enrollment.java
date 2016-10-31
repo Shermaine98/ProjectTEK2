@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package model.education;
 
 import java.text.DecimalFormat;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class Enrollment {
 
@@ -29,18 +27,24 @@ public class Enrollment {
     private int totalFemale;
     private int grandTotal;
     private double genderDisparityIndex;
-
     private String uploadedBy;
     private String approvedBy;
-
+    private int validation;
     DecimalFormat df = new DecimalFormat("#,###");
-    
-    
+
+    public int getValidation() {
+        return validation;
+    }
+
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
     public String getFormatcount(int count) {
         String scount = df.format(count);
         return scount;
     }
-    
+
     public int getSchoolID() {
         return schoolID;
     }
@@ -48,7 +52,7 @@ public class Enrollment {
     public void setSchoolID(int schoolID) {
         this.schoolID = schoolID;
     }
-    
+
     private ArrayList<EnrollmentDet> enrollmentDetArrayList = new ArrayList<EnrollmentDet>();
 
     public ArrayList<EnrollmentDet> getEnrollmentDetArrayList() {
@@ -90,7 +94,7 @@ public class Enrollment {
     public void setGenderDisparityIndex(double genderDisparityIndex) {
         this.genderDisparityIndex = genderDisparityIndex;
     }
-    
+
     /**
      * @return the formID
      */

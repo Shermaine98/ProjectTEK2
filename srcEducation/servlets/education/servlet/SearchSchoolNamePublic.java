@@ -47,8 +47,6 @@ public class SearchSchoolNamePublic extends BaseServlet {
             } catch (ParseException | SQLException ex) {
                 getLogger(SearchSchoolNamePublic.class.getName()).log(SEVERE, null, ex);
             }
-             System.out.println(name);
-             System.out.println(schoolName.size());
   
             Gson gson = new Gson();
             String json = gson.toJson(schoolName);

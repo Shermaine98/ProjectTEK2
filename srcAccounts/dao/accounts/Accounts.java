@@ -129,7 +129,6 @@ public class Accounts {
                         + "username = ? and password = password(?) and approved = 1");
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
-                System.out.print(password);
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.isFirst()) {
 
@@ -156,7 +155,6 @@ public class Accounts {
                         + "username = ? and password = password(?) and approved = 1");
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
-                System.out.print(password);
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     User.setUserID(rs.getInt("userID"));

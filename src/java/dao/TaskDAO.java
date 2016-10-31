@@ -56,7 +56,6 @@ public class TaskDAO {
             ResultSet rs2 = pstmt2.executeQuery();
             while(rs2.next()){
                 taskModelTemp.setDateDiff(rs2.getInt("diffDate"));
-                //System.out.println(rs2.getInt("diffDate"));
             }
             
             taskModelTemp.setreportName(rs.getString("reportName"));
@@ -84,7 +83,6 @@ public class TaskDAO {
                     TaskModel temp = new TaskModel();
                     if (rs.next()) {
                         temp.setDateDiff(taskModels.get(i).getDateDiff());
-                        System.out.println(temp.getDateDiff());
                         if (rs.getInt("APPROVED") == 1) {
                             temp.setreportName(taskModels.get(i).getReportName());
                             temp.setDuedate(taskModels.get(i).getDuedate());

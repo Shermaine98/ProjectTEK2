@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package model.education;
 
 /**
@@ -11,23 +9,24 @@ package model.education;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class EnrollmentDet {
+
     private String gradeLevel;
     private int maleCount;
     private int femaleCount;
     private int totalCount;
-    private boolean validation;
+    private int validation;
 
-    public boolean isValidation() {
+    public int isValidation() {
         return validation;
     }
 
-    public void setValidation(boolean validation) {
+    public void setValidation(int validation) {
         this.validation = validation;
     }
-    
+
     public String getGradeLevel() {
         return gradeLevel;
     }
@@ -59,8 +58,5 @@ public class EnrollmentDet {
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
     }
-    
-    
-    
-    
+
 }

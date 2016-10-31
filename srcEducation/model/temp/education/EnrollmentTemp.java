@@ -31,6 +31,8 @@ public class EnrollmentTemp {
     private String genderDisparityIndex;
     private String uploadedBy;
     private String approvedBy;
+    private int validation;
+    private String reason;
 
     DecimalFormat df = new DecimalFormat("#,###");
     
@@ -168,6 +170,34 @@ public class EnrollmentTemp {
      */
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    /**
+     * @return the validation
+     */
+    public int getValidation() {
+        return validation;
+    }
+
+    /**
+     * @param validation the validation to set
+     */
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
   
 }

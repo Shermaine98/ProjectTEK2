@@ -18,13 +18,14 @@ public class EnrollmentDetTemp {
     private String maleCount;
     private String femaleCount;
     private String totalCount;
-    private boolean validation;
-
-    public boolean getValidation() {
+   
+    private String reason;
+ private int validation;
+    public int getValidation() {
         return validation;
     }
 
-    public void setValidation(boolean validation) {
+    public void setValidation(int validation) {
         this.validation = validation;
     }
 
@@ -58,6 +59,20 @@ public class EnrollmentDetTemp {
 
     public void setTotalCount(String totalCount) {
         this.totalCount = totalCount;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
     
     

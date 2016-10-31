@@ -61,7 +61,6 @@ public class AdminHome extends HttpServlet {
                 try {
                     objAccounts.put("name", users.get(i).getDateCreated());
                     objAccounts.put("y", users.get(i).getCount());
-                    System.out.println(users.get(i).getDateCreated() + " " + users.get(i).getCount());
                     jarrayAccounts.put(objAccounts);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);

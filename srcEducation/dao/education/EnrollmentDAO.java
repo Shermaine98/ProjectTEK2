@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package dao.education;
 
 import dao.RecordDAO;
@@ -26,9 +24,8 @@ import static java.util.logging.Logger.getLogger;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class EnrollmentDAO {
 
     public ArrayList<Enrollment> ViewEnrollmentFormID(int formID, String classification) throws ParseException {
@@ -54,6 +51,7 @@ public class EnrollmentDAO {
                     temp.setTotalFemale(rs.getInt("totalFemale"));
                     temp.setGrandTotal(rs.getInt("grandTotal"));
                     temp.setGenderDisparityIndex(rs.getDouble("GenderDisparityIndex"));
+                    temp.setValidation(rs.getInt("Validation"));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM enrollment_det WHERE schoolName = ? and formID =? ");
                     pstmt2.setString(1, temp.getSchoolName());
@@ -65,7 +63,7 @@ public class EnrollmentDAO {
                         EnrollmentDetTemp.setMaleCount(rs2.getInt("maleCount"));
                         EnrollmentDetTemp.setFemaleCount(rs2.getInt("femaleCount"));
                         EnrollmentDetTemp.setTotalCount(rs2.getInt("totalCount"));
-                        EnrollmentDetTemp.setValidation(rs2.getBoolean("validation"));
+                        EnrollmentDetTemp.setValidation(rs2.getInt("validation"));
                         arrenrollmentDet.add(EnrollmentDetTemp);
                     }
                     temp.setEnrollmentDetArrayList(arrenrollmentDet);
@@ -103,6 +101,7 @@ public class EnrollmentDAO {
                     temp.setTotalFemale(rs.getInt("totalFemale"));
                     temp.setGrandTotal(rs.getInt("grandTotal"));
                     temp.setGenderDisparityIndex(rs.getDouble("GenderDisparityIndex"));
+                    temp.setValidation(rs.getInt("Validaton"));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM enrollment_det WHERE schoolName = ? and formID =? ");
                     pstmt2.setString(1, temp.getSchoolName());
@@ -114,7 +113,7 @@ public class EnrollmentDAO {
                         EnrollmentDetTemp.setMaleCount(rs2.getInt("maleCount"));
                         EnrollmentDetTemp.setFemaleCount(rs2.getInt("femaleCount"));
                         EnrollmentDetTemp.setTotalCount(rs2.getInt("totalCount"));
-                        EnrollmentDetTemp.setValidation(rs2.getBoolean("validation"));
+                        EnrollmentDetTemp.setValidation(rs2.getInt("validation"));
                         arrenrollmentDet.add(EnrollmentDetTemp);
                     }
                     temp.setEnrollmentDetArrayList(arrenrollmentDet);
@@ -178,8 +177,8 @@ public class EnrollmentDAO {
 
                 String query = "INSERT INTO enrollment"
                         + "(formID,censusYear,schoolName,district,schoolType,classification,"
-                        + "totalMale,totalFemale,grandTotal,GenderDisparityIndex) "
-                        + "VALUES (?,?,?,?,?,?,?,?,?,?);";
+                        + "totalMale,totalFemale,grandTotal,GenderDisparityIndex, validation) "
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
                 String query2 = "INSERT INTO enrollment_det"
                         + "(formID,censusYear,schoolName,district,schoolType,classification,"
@@ -202,6 +201,7 @@ public class EnrollmentDAO {
                     pstmt.setInt(8, object.getTotalFemale());
                     pstmt.setInt(9, object.getGrandTotal());
                     pstmt.setDouble(10, object.getGenderDisparityIndex());
+                    pstmt.setInt(10, object.getValidation());
                     pstmt.addBatch();
                     i++;
 
@@ -216,7 +216,7 @@ public class EnrollmentDAO {
                         pstmt2.setInt(8, object2.getMaleCount());
                         pstmt2.setInt(9, object2.getFemaleCount());
                         pstmt2.setInt(10, object2.getTotalCount());
-                        pstmt2.setBoolean(11, object2.isValidation());
+                        pstmt2.setInt(11, object2.isValidation());
                         pstmt2.addBatch();
                         z++;
                     }
@@ -437,4 +437,26 @@ public class EnrollmentDAO {
         }
     }
 
+    public String getReason(int reason) {
+        String reasonError = "";
+
+        switch (reason) {
+            case -1:
+                reasonError = "Missing Field/s";
+                break;
+            case -2:
+                reasonError = "Format Error";
+                break;
+            case -3:
+                reasonError = "Summation Error";
+                break;
+            case -4:
+                reasonError = "Quotient Error";
+                break;
+            default:
+                reasonError = "None";
+                break;
+        }
+        return reasonError;
+    }
 }

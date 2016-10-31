@@ -2,9 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
-
 package checker.education;
 
 import model.education.EnrollmentDet;
@@ -14,14 +11,14 @@ import model.temp.education.EnrollmentTemp;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 
+
 /**
  *
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class EnrollmentChecker {
 
     private ArrayList<Enrollment> arrayNoError;
@@ -41,128 +38,654 @@ public class EnrollmentChecker {
         ArrayList<EnrollmentDet> arrEnrollmentDet;
         ArrayList<EnrollmentDetTemp> arrEnrollmentDetTemp;
 
-        EnrollmentDetTemp enrollmentDetTemp;
-        EnrollmentDet enrollmentDet;
-
         for (int i = 0; i < arrError.size(); i++) {
-            enrollmentTemp = new EnrollmentTemp();
-            arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
-            arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+            if (arrError.get(i).getTotalFemale() == null
+                    || arrError.get(i).getTotalMale() == null
+                    || arrError.get(i).getGrandTotal() == null
+                    || arrError.get(i).getGenderDisparityIndex() == null
+                    || arrError.get(i).getTotalFemale().equalsIgnoreCase("")
+                    || arrError.get(i).getTotalMale().equalsIgnoreCase("")
+                    || arrError.get(i).getGrandTotal().equalsIgnoreCase("")
+                    || arrError.get(i).getGenderDisparityIndex().equalsIgnoreCase("")) {
 
-            enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
-            enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
-            enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
-            enrollmentTemp.setSchoolType(enrollmentTemp.getSchoolType());
-         //   enrollmentTemp.setClassification(classification);
-            enrollmentTemp.setTotalMale(String.valueOf(enrollmentTemp.getTotalMale()));
-            enrollmentTemp.setTotalFemale(String.valueOf(enrollmentTemp.getTotalFemale()));
-            enrollmentTemp.setGrandTotal(String.valueOf(enrollmentTemp.getGrandTotal()));
-            enrollmentTemp.setGenderDisparityIndex(String.valueOf(enrollmentTemp.getGenderDisparityIndex()));
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
 
-            for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
-                enrollmentDetTemp = new EnrollmentDetTemp();
-                //if a field is null
-                if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null) {
+                //END SET OTHER STUFF
+                if (arrError.get(i).getTotalFemale() == null || arrError.get(i).getTotalFemale().equalsIgnoreCase("")) {
+                    enrollmentTemp.setTotalFemale("");
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setFemaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
-                    }
+                } else {
+                    enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                }
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setMaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
-                    }
+                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                    enrollmentTemp.setTotalMale("");
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setGradeLevel("-1");
-                    } else {
-                        enrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
-                    }
+                } else {
+                    enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                }
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setTotalCount("-1");
-                    } else {
-                        enrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
-                    }
+                if (arrError.get(i).getGrandTotal() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                    enrollmentTemp.setGrandTotal("");
+                } else {
+                    enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                }
 
-                    enrollmentDetTemp.setValidation(false); //sets the validation to false
-                    arrEnrollmentDetTemp.add(enrollmentDetTemp); //adds the normalized to the mother class
-                    enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp); //set
-                    arrayError.add(enrollmentTemp);
-                } //if a field is not numeric
-                else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
-                        || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
-                        || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                if (arrError.get(i).getGenderDisparityIndex() == null || arrError.get(i).getGenderDisparityIndex().equalsIgnoreCase("")) {
 
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
-                        enrollmentDetTemp.setFemaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
-                    }
-
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
-                        enrollmentDetTemp.setMaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
-                    }
-
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
-                        enrollmentDetTemp.setTotalCount("-1");
-                    } else {
-                        enrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
-                    }
-
-                    enrollmentDetTemp.setValidation(false); //sets the validation to false
-                    arrEnrollmentDetTemp.add(enrollmentDetTemp); //adds the normalized to the mother class
-                    enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp); //set
-                    arrayError.add(enrollmentTemp);
+                    enrollmentTemp.setGenderDisparityIndex("");
                 } else {
 
-                    enrollmentDet = new EnrollmentDet();
+                    enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+                }
+                enrollmentTemp.setValidation(-1);
+                enrollmentTemp.setReason("Missing Field/s");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
 
-                    enrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
-                    enrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
-                    enrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
-                    enrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
-                    enrollmentDet.setValidation(true);
-                    arrEnrollmentDet.add(enrollmentDet);
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
 
                 }
-//                enrollment = new enrollment();
-//                enrollment.setSchoolName(arrError.get(i).getSchoolName());
-//                enrollment.setDistrict(arrError.get(i).getDistrict());
-//                enrollment.setSchoolType(arrError.get(i).getSchoolType());
-//                System.out.println(arrError.get(i).getSchoolName() +" " + arrError.get(i).getDistrict());
-//               // enrollment.setClassification(classification);
-//                System.out.println(arrError.get(i).getTotalMale());
-//                enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
-//                enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
-//                enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-//                enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
-//          
-//                enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
-//                arrayNoError.add(enrollment);
-            }
-            enrollment = new Enrollment();
-            enrollment.setSchoolName(arrError.get(i).getSchoolName());
-            enrollment.setDistrict(arrError.get(i).getDistrict());
-            enrollment.setSchoolType(arrError.get(i).getSchoolType());
-            System.out.println(arrError.get(i).getSchoolName() +" " + arrError.get(i).getDistrict());
-           // enrollment.setClassification(classification);
-            System.out.println(arrError.get(i).getTotalMale());
-            enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
-            enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
-            enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-            enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
 
-            enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
-            arrayNoError.add(enrollment);
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+            } else if (isNumeric(arrError.get(i).getTotalFemale())
+                    || isNumeric(arrError.get(i).getTotalMale())
+                    || isNumeric(arrError.get(i).getGrandTotal())
+                    ) {
+
+                //
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                if (isNumeric(arrError.get(i).getTotalFemale())) {
+                    enrollmentTemp.setTotalFemale("");
+
+                } else {
+                    enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                }
+
+                if (isNumeric(arrError.get(i).getTotalMale())) {
+                    enrollmentTemp.setTotalMale("");
+
+                } else {
+                    enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                }
+
+                if (isNumeric(arrError.get(i).getGrandTotal())) {
+                    enrollmentTemp.setGrandTotal("");
+                } else {
+                    enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                }
+
+       
+
+                    enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+                
+                enrollmentTemp.setValidation(-2);
+                enrollmentTemp.setReason("Format Error/s");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
+
+                }
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+            } else if (Integer.parseInt(arrError.get(i).getGrandTotal())
+                    != Integer.parseInt(arrError.get(i).getTotalMale())
+                    + Integer.parseInt(arrError.get(i).getTotalFemale())) {
+
+                //
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+
+                enrollmentTemp.setValidation(-3);
+                enrollmentTemp.setReason("Summation Error");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
+
+                }
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+            } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
+                    != Float.parseFloat(arrError.get(i).getTotalMale())
+                    / Float.parseFloat(arrError.get(i).getTotalFemale())) {
+                //
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+
+                enrollmentTemp.setValidation(-4);
+                enrollmentTemp.setReason("Quotient Error");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
+
+                }
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+
+            } else {
+
+                boolean x = false;
+
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        x = true;
+
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        x = true;
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        x = true;
+                    }
+                }
+
+                // fix laman here
+                if (x) {
+                    //
+                    enrollmentTemp = new EnrollmentTemp();
+                    //SET OTHER STUFF
+                    enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                    enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                    enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                    enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                    //END SET OTHER STUFF
+                    //
+                    enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                    enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                    enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                    enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+                    enrollmentTemp.setValidation(1);
+
+                    arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                    for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                        EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                                EnrollmentDetTemp.setTotalCount("");
+                            } else {
+                                EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            }
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                                EnrollmentDetTemp.setFemaleCount("");
+
+                            } else {
+                                EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            }
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                                EnrollmentDetTemp.setMaleCount("");
+                            } else {
+                                EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            }
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDetTemp.setValidation(-1);
+                            EnrollmentDetTemp.setReason("Missing Field/s");
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                        } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                                || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                                || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                                EnrollmentDetTemp.setTotalCount("");
+                            } else {
+                                EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            }
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                                EnrollmentDetTemp.setFemaleCount("");
+
+                            } else {
+                                EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            }
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                                EnrollmentDetTemp.setMaleCount("");
+                            } else {
+                                EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            }
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDetTemp.setValidation(-2);
+                            EnrollmentDetTemp.setReason("Format Error");
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                        } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                                != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                                + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            EnrollmentDetTemp.setValidation(-3);
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDetTemp.setReason("Summation Error");
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            EnrollmentDetTemp.setValidation(1);
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                        }
+
+                    }
+
+                    enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                    arrayError.add(enrollmentTemp);
+                } else {
+                    enrollment = new Enrollment();
+
+                    // set stuff
+                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                    enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                    enrollment.setDistrict(arrError.get(i).getDistrict());
+                    enrollment.setSchoolType(arrError.get(i).getSchoolType());
+
+                    //END SET OTHER STUFF
+                    //
+                    enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                    enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                    enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setValidation(1);
+
+                    arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+                    for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+                        EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+                        EnrollmentDet.setValidation(1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    }
+                    enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                    arrayNoError.add(enrollment);
+                }
+
+            }
+
         }
     }
 
@@ -183,116 +706,675 @@ public class EnrollmentChecker {
         ArrayList<EnrollmentDet> arrEnrollmentDet;
         ArrayList<EnrollmentDetTemp> arrEnrollmentDetTemp;
 
-        EnrollmentDetTemp enrollmentDetTemp;
-        EnrollmentDet enrollmentDet;
-
         for (int i = 0; i < arrError.size(); i++) {
-            enrollmentTemp = new EnrollmentTemp();
-            arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
-            arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+            if (arrError.get(i).getTotalFemale() == null
+                    || arrError.get(i).getTotalMale() == null
+                    || arrError.get(i).getGrandTotal() == null
+                    || arrError.get(i).getGenderDisparityIndex() == null
+                    || arrError.get(i).getTotalFemale().equalsIgnoreCase("")
+                    || arrError.get(i).getTotalMale().equalsIgnoreCase("")
+                    || arrError.get(i).getGrandTotal().equalsIgnoreCase("")
+                    || arrError.get(i).getGenderDisparityIndex().equalsIgnoreCase("")) {
 
-            enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
-            enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
-            enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
-            enrollmentTemp.setSchoolType(enrollmentTemp.getSchoolType());
-            enrollmentTemp.setClassification(enrollmentTemp.getClassification());
-            enrollmentTemp.setTotalMale(String.valueOf(enrollmentTemp.getTotalMale()));
-            enrollmentTemp.setTotalFemale(String.valueOf(enrollmentTemp.getTotalFemale()));
-            enrollmentTemp.setGrandTotal(String.valueOf(enrollmentTemp.getGrandTotal()));
-            enrollmentTemp.setGenderDisparityIndex(String.valueOf(enrollmentTemp.getGenderDisparityIndex()));
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
 
-            for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
-                enrollmentDetTemp = new EnrollmentDetTemp();
-                //if a field is null
-                if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null) {
+                enrollmentTemp.setFormID(formID);
+                enrollmentTemp.setCensusYear(year);
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setFemaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
-                    }
+                //END SET OTHER STUFF
+                if (arrError.get(i).getTotalFemale() == null || arrError.get(i).getTotalFemale().equalsIgnoreCase("")) {
+                    enrollmentTemp.setTotalFemale("");
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setMaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
-                    }
+                } else {
+                    enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                }
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setGradeLevel("-1");
-                    } else {
-                        enrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
-                    }
+                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                    enrollmentTemp.setTotalMale("");
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
-                        enrollmentDetTemp.setTotalCount("-1");
-                    } else {
-                        enrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
-                    }
+                } else {
+                    enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                }
 
-                    enrollmentDetTemp.setValidation(false); //sets the validation to false
-                    arrEnrollmentDetTemp.add(enrollmentDetTemp); //adds the normalized to the mother class
-                    enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp); //set
-                    arrayError.add(enrollmentTemp);
-                } //if a field is not numeric
-                else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
-                        || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
-                        || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                if (arrError.get(i).getGrandTotal() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                    enrollmentTemp.setGrandTotal("");
+                } else {
+                    enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                }
 
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
-                        enrollmentDetTemp.setFemaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
-                    }
+                if (arrError.get(i).getGenderDisparityIndex() == null || arrError.get(i).getGenderDisparityIndex().equalsIgnoreCase("")) {
 
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
-                        enrollmentDetTemp.setMaleCount("-1");
-                    } else {
-                        enrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
-                    }
-
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
-                        enrollmentDetTemp.setTotalCount("-1");
-                    } else {
-                        enrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
-                    }
-
-                    enrollmentDetTemp.setValidation(false); //sets the validation to false
-                    arrEnrollmentDetTemp.add(enrollmentDetTemp); //adds the normalized to the mother class
-                    enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp); //set
-                    arrayError.add(enrollmentTemp);
+                    enrollmentTemp.setGenderDisparityIndex("");
                 } else {
 
-                    enrollmentDet = new EnrollmentDet();
+                    enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+                }
 
-                    enrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
-                    enrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
-                    enrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
-                    enrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
-                    enrollmentDet.setValidation(true);
-                    arrEnrollmentDetTemp.add(enrollmentDetTemp);
+                enrollmentTemp.setValidation(-1);
+                enrollmentTemp.setReason("Missing Field/s");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
 
                 }
-                enrollment = new Enrollment();
-                enrollment.setSchoolName(arrError.get(i).getSchoolName());
-                enrollment.setDistrict(arrError.get(i).getDistrict());
-                enrollment.setSchoolType(enrollmentTemp.getSchoolType());
-                enrollment.setClassification(enrollmentTemp.getClassification());
-                enrollment.setTotalMale(Integer.parseInt(enrollmentTemp.getTotalMale()));
-                enrollment.setTotalFemale(Integer.parseInt(enrollmentTemp.getTotalFemale()));
-                enrollment.setGrandTotal(Integer.parseInt(enrollmentTemp.getGrandTotal()));
-                enrollment.setGenderDisparityIndex(Double.parseDouble(enrollmentTemp.getGenderDisparityIndex()));
-                enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
-                arrayNoError.add(enrollment);
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+            } else if (isNumeric(arrError.get(i).getTotalFemale())
+                    || isNumeric(arrError.get(i).getTotalMale())
+                    || isNumeric(arrError.get(i).getGrandTotal())
+                    ) {
+
+                //
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+
+                enrollmentTemp.setFormID(formID);
+                enrollmentTemp.setCensusYear(year);
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                if (isNumeric(arrError.get(i).getTotalFemale())) {
+                    enrollmentTemp.setTotalFemale("");
+
+                } else {
+                    enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                }
+
+                if (isNumeric(arrError.get(i).getTotalMale())) {
+                    enrollmentTemp.setTotalMale("");
+
+                } else {
+                    enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                }
+
+                if (isNumeric(arrError.get(i).getGrandTotal())) {
+                    enrollmentTemp.setGrandTotal("");
+                } else {
+                    enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                }
+
+        
+                    enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+      
+
+                enrollmentTemp.setValidation(-2);
+                enrollmentTemp.setReason("Format Error/s");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
+
+                }
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+            } else if (Integer.parseInt(arrError.get(i).getGrandTotal())
+                    != Integer.parseInt(arrError.get(i).getTotalMale())
+                    + Integer.parseInt(arrError.get(i).getTotalFemale())) {
+
+                //
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+
+                enrollmentTemp.setFormID(formID);
+                enrollmentTemp.setCensusYear(year);
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+
+                enrollmentTemp.setValidation(-3);
+                enrollmentTemp.setReason("Summation Error");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
+
+                }
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+            } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
+                    != Float.parseFloat(arrError.get(i).getTotalMale())
+                    / Float.parseFloat(arrError.get(i).getTotalFemale())) {
+                //
+                enrollmentTemp = new EnrollmentTemp();
+                //SET OTHER STUFF
+
+                enrollmentTemp.setFormID(formID);
+                enrollmentTemp.setCensusYear(year);
+                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+
+                enrollmentTemp.setValidation(-4);
+                enrollmentTemp.setReason("Quotient Error");
+                arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-1);
+                        EnrollmentDetTemp.setReason("Missing Field/s");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDetTemp.setTotalCount("");
+                        } else {
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDetTemp.setFemaleCount("");
+
+                        } else {
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDetTemp.setMaleCount("");
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        }
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDetTemp.setValidation(-2);
+                        EnrollmentDetTemp.setReason("Format Error");
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(-3);
+                        EnrollmentDetTemp.setReason("Summation Error");
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    } else {
+                        EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                        EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                        EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                        EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                    }
+
+                }
+
+                enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                arrayError.add(enrollmentTemp);
+
+            } else {
+
+                boolean x = false;
+
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        x = true;
+
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        x = true;
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        x = true;
+                    }
+                }
+
+                // fix laman here
+                if (x) {
+                    //
+                    enrollmentTemp = new EnrollmentTemp();
+                    //SET OTHER STUFF
+                    enrollmentTemp.setFormID(formID);
+                    enrollmentTemp.setCensusYear(year);
+                    enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                    enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
+                    enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
+                    enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
+
+                    //END SET OTHER STUFF
+                    //
+                    enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
+                    enrollmentTemp.setTotalMale(arrError.get(i).getTotalMale());
+                    enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
+                    enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
+                    enrollmentTemp.setValidation(1);
+
+                    arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
+                    for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                        EnrollmentDetTemp EnrollmentDetTemp = new EnrollmentDetTemp();
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                                EnrollmentDetTemp.setTotalCount("");
+                            } else {
+                                EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            }
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                                EnrollmentDetTemp.setFemaleCount("");
+
+                            } else {
+                                EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            }
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                                EnrollmentDetTemp.setMaleCount("");
+                            } else {
+                                EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            }
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDetTemp.setValidation(-1);
+                            EnrollmentDetTemp.setReason("Missing Field/s");
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                        } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                                || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                                || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                                EnrollmentDetTemp.setTotalCount("");
+                            } else {
+                                EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            }
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                                EnrollmentDetTemp.setFemaleCount("");
+
+                            } else {
+                                EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            }
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                                EnrollmentDetTemp.setMaleCount("");
+                            } else {
+                                EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            }
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDetTemp.setValidation(-2);
+                            EnrollmentDetTemp.setReason("Format Error");
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+
+                        } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                                != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                                + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            EnrollmentDetTemp.setValidation(-3);
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDetTemp.setReason("Summation Error");
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                        } else {
+                            EnrollmentDetTemp.setMaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount());
+                            EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
+                            EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
+                            EnrollmentDetTemp.setValidation(1);
+                            EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            arrEnrollmentDetTemp.add(EnrollmentDetTemp);
+                        }
+
+                    }
+
+                    enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
+                    arrayError.add(enrollmentTemp);
+                } else {
+                    enrollment = new Enrollment();
+
+                    // set stuff
+                    enrollment.setFormID(formID);
+                    enrollment.setCensusYear(year);
+                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                    enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                    enrollment.setDistrict(arrError.get(i).getDistrict());
+                    enrollment.setSchoolType(arrError.get(i).getSchoolType());
+
+                    //END SET OTHER STUFF
+                    //
+                    enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                    enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                    enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setValidation(1);
+                    arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+
+                    for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+                        EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    }
+                    enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                    arrayNoError.add(enrollment);
+                }
+
             }
+
         }
     }
 
     public EnrollmentChecker() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public ArrayList<Enrollment> transformData(ArrayList<EnrollmentTemp> arrError) {
@@ -302,87 +1384,650 @@ public class EnrollmentChecker {
         EnrollmentDet enrollmentDet;
 
         for (int i = 0; i < arrError.size(); i++) {
-            enrollment = new Enrollment();
-            arrEnrollmentDet = new ArrayList<EnrollmentDet>();
-            for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
-                enrollmentDet = new EnrollmentDet();
-                enrollment.setCensusYear(arrError.get(i).getCensusYear());
+            if (arrError.get(i).getTotalFemale() == null
+                    || arrError.get(i).getTotalMale() == null
+                    || arrError.get(i).getGrandTotal() == null
+                    || arrError.get(i).getGenderDisparityIndex() == null
+                    || arrError.get(i).getTotalFemale().equalsIgnoreCase("")
+                    || arrError.get(i).getTotalMale().equalsIgnoreCase("")
+                    || arrError.get(i).getGrandTotal().equalsIgnoreCase("")
+                    || arrError.get(i).getGenderDisparityIndex().equalsIgnoreCase("")) {
+
+                enrollment = new Enrollment();
+                //SET OTHER STUFF
+
                 enrollment.setFormID(arrError.get(i).getFormID());
+                enrollment.setCensusYear(arrError.get(i).getCensusYear());
                 enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                 enrollment.setSchoolName(arrError.get(i).getSchoolName());
                 enrollment.setDistrict(arrError.get(i).getDistrict());
                 enrollment.setSchoolType(arrError.get(i).getSchoolType());
-                enrollment.setClassification(arrError.get(i).getClassification());
-                enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+
+                //END SET OTHER STUFF
+                if (arrError.get(i).getTotalFemale() == null || arrError.get(i).getTotalFemale().equalsIgnoreCase("")) {
+                    enrollment.setTotalFemale(-1);
+
+                } else {
+                    enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                }
+
+                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                    enrollment.setTotalMale(-1);
+
+                } else {
+                    enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                }
+
+                if (arrError.get(i).getGrandTotal() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                    enrollment.setGrandTotal(-1);
+                } else {
+                    enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                }
+
+                if (arrError.get(i).getGenderDisparityIndex() == null || arrError.get(i).getGenderDisparityIndex().equalsIgnoreCase("")) {
+
+                    enrollment.setGenderDisparityIndex(-1);
+                } else {
+
+                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                }
+
+                enrollment.setValidation(-1);
+                arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-2);
+                        arrEnrollmentDet.add(EnrollmentDet);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(-3);
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else {
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    }
+
+                }
+
+                enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                transformData.add(enrollment);
+            } else if (isNumeric(arrError.get(i).getTotalFemale())
+                    || isNumeric(arrError.get(i).getTotalMale())
+                    || isNumeric(arrError.get(i).getGrandTotal())
+                   ) {
+
+                //
+                enrollment = new Enrollment();
+                //SET OTHER STUFF
+
+                enrollment.setFormID(arrError.get(i).getFormID());
+                enrollment.setCensusYear(arrError.get(i).getCensusYear());
+                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                enrollment.setDistrict(arrError.get(i).getDistrict());
+                enrollment.setSchoolType(arrError.get(i).getSchoolType());
+
+                //END SET OTHER STUFF
+                //
+                if (isNumeric(arrError.get(i).getTotalFemale())) {
+                    enrollment.setTotalFemale(-1);
+
+                } else {
+                    enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                }
+
+                if (isNumeric(arrError.get(i).getTotalMale())) {
+                    enrollment.setTotalMale(-1);
+
+                } else {
+                    enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                }
+
+                if (isNumeric(arrError.get(i).getGrandTotal())) {
+                    enrollment.setGrandTotal(-1);
+                } else {
+                    enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                }
+
+                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                
+                enrollment.setValidation(-2);
+                arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-2);
+                        arrEnrollmentDet.add(EnrollmentDet);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(-3);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else {
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    }
+
+                }
+
+                enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                transformData.add(enrollment);
+            } else if (Integer.parseInt(arrError.get(i).getGrandTotal())
+                    != Integer.parseInt(arrError.get(i).getTotalMale())
+                    + Integer.parseInt(arrError.get(i).getTotalFemale())) {
+
+                //
+                enrollment = new Enrollment();
+                //SET OTHER STUFF
+
+                enrollment.setFormID(arrError.get(i).getFormID());
+                enrollment.setCensusYear(arrError.get(i).getCensusYear());
+                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                enrollment.setDistrict(arrError.get(i).getDistrict());
+                enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                //END SET OTHER STUFF
+                //
                 enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                 enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
                 enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
 
-                if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel().equalsIgnoreCase("")
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")
-                        || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                enrollment.setValidation(-3);
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
-                        enrollmentDet.setFemaleCount(-1);
+                arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-2);
+                        arrEnrollmentDet.add(EnrollmentDet);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(-3);
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDet.add(EnrollmentDet);
                     } else {
-                        enrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDet.add(EnrollmentDet);
                     }
 
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
-                        enrollmentDet.setMaleCount(-1);
-                    } else {
-                        enrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
-                    }
-
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel().equalsIgnoreCase("")) {
-                        enrollmentDet.setGradeLevel("-1");
-                    } else {
-                        enrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
-                    }
-
-                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
-                        enrollmentDet.setTotalCount(-1);
-                    } else {
-                        enrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
-                    }
-
-                    enrollmentDet.setValidation(false); //sets the validation to false
-                    arrEnrollmentDet.add(enrollmentDet); //adds the normalized to the mother class
-                    enrollment.setEnrollmentDetArrayList(arrEnrollmentDet); //set
-                    transformData.add(enrollment);
-                } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
-                        || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
-                        || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
-
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
-                        enrollmentDet.setFemaleCount(-1);
-                    } else {
-                        enrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
-                    }
-
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
-                        enrollmentDet.setMaleCount(-1);
-                    } else {
-                        enrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
-                    }
-
-                    if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
-                        enrollmentDet.setTotalCount(-1);
-                    } else {
-                        enrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
-                    }
-
-                    enrollmentDet.setValidation(false); //sets the validation to false
-                    arrEnrollmentDet.add(enrollmentDet); //adds the normalized to the mother class
-                    enrollment.setEnrollmentDetArrayList(arrEnrollmentDet); //set
-                    transformData.add(enrollment);
                 }
+
+                enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                transformData.add(enrollment);
+            } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
+                    != Float.parseFloat(arrError.get(i).getTotalMale())
+                    / Float.parseFloat(arrError.get(i).getTotalFemale())) {
+                //
+                enrollment = new Enrollment();
+                //SET OTHER STUFF
+
+                enrollment.setFormID(arrError.get(i).getFormID());
+                enrollment.setCensusYear(arrError.get(i).getCensusYear());
+                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                enrollment.setDistrict(arrError.get(i).getDistrict());
+                enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                //END SET OTHER STUFF
+                //
+                enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+
+                enrollment.setValidation(-4);
+                arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                    EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                            EnrollmentDet.setTotalCount(-1);
+                        } else {
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                            EnrollmentDet.setFemaleCount(-1);
+
+                        } else {
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        }
+
+                        if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                            EnrollmentDet.setMaleCount(-1);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        }
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(-2);
+                        arrEnrollmentDet.add(EnrollmentDet);
+
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(-3);
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    } else {
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    }
+
+                }
+
+                enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                transformData.add(enrollment);
+
+            } else {
+
+                boolean x = false;
+
+                for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+                    if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                            || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                        x = true;
+
+                    } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        x = true;
+                    } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                            != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                            + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                        x = true;
+                    }
+                }
+
+                // fix laman here
+                if (x) {
+                    //
+
+                    enrollment = new Enrollment();
+                    enrollment.setFormID(arrError.get(i).getFormID());
+                    enrollment.setCensusYear(arrError.get(i).getCensusYear());
+                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                    enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                    enrollment.setDistrict(arrError.get(i).getDistrict());
+                    enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                    //END SET OTHER STUFF
+                    //
+                    enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                    enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                    enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setValidation(1);
+
+                    arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+
+                    for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+
+                        EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                        if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")
+                                || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount().equalsIgnoreCase("")) {
+                                EnrollmentDet.setTotalCount(-1);
+                            } else {
+                                EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                            }
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount().equalsIgnoreCase("")) {
+                                EnrollmentDet.setFemaleCount(-1);
+
+                            } else {
+                                EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                            }
+
+                            if (arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount() == null || arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount().equalsIgnoreCase("")) {
+                                EnrollmentDet.setMaleCount(-1);
+                            } else {
+                                EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                            }
+                            EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDet.setValidation(-1);
+                            arrEnrollmentDet.add(EnrollmentDet);
+                        } else if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                                || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                                || isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())) {
+                                EnrollmentDet.setTotalCount(-1);
+                            } else {
+                                EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                            }
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())) {
+                                EnrollmentDet.setFemaleCount(-1);
+
+                            } else {
+                                EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                            }
+
+                            if (isNumeric(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+                                EnrollmentDet.setMaleCount(-1);
+                            } else {
+                                EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                            }
+                            EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            EnrollmentDet.setValidation(-2);
+                            arrEnrollmentDet.add(EnrollmentDet);
+
+                        } else if (Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount())
+                                != Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount())
+                                + Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount())) {
+
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                            EnrollmentDet.setValidation(-3);
+                            EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            arrEnrollmentDet.add(EnrollmentDet);
+                        } else {
+                            EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                            EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                            EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                            EnrollmentDet.setValidation(1);
+                            EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                            arrEnrollmentDet.add(EnrollmentDet);
+                        }
+
+                    }
+
+                    enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                    transformData.add(enrollment);
+                } else {
+                    enrollment = new Enrollment();
+
+                    // set stuff
+                    enrollment.setFormID(arrError.get(i).getFormID());
+                    enrollment.setCensusYear(arrError.get(i).getCensusYear());
+                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                    enrollment.setSchoolName(arrError.get(i).getSchoolName());
+                    enrollment.setDistrict(arrError.get(i).getDistrict());
+                    enrollment.setSchoolType(arrError.get(i).getSchoolType());
+
+                    //END SET OTHER STUFF
+                    //
+                    enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
+                    enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
+                    enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
+                    enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                    enrollment.setValidation(1);
+                    arrEnrollmentDet = new ArrayList<EnrollmentDet>();
+                    for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
+                        EnrollmentDet EnrollmentDet = new EnrollmentDet();
+                        EnrollmentDet.setMaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()));
+                        EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
+                        EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
+                        EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
+
+                        EnrollmentDet.setValidation(1);
+                        arrEnrollmentDet.add(EnrollmentDet);
+                    }
+                    enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
+                    arrayNoError.add(enrollment);
+                }
+
             }
+
         }
         return transformData;
     }
@@ -390,7 +2035,7 @@ public class EnrollmentChecker {
     public static boolean isNumeric(String str) {
         return !StringUtils.isNumeric(str);
     }
-
+    
 
     public ArrayList<Enrollment> getArrayNoError() {
         return arrayNoError;
