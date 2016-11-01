@@ -306,13 +306,14 @@
         <!-- ./wrapper -->
         <script>
             $(document).ready(function () {
-                var y = 1;
+                var y = 0;
                 $(".completed").each(function () {
                     var x = $(this).text();
                     if (x === "Completed") {
                         y++;
                     }
-                    if (y === 9) {
+                    //alert(y);
+                    if (y == 9) {
                         $('#integrate').addClass('btn-primary');
                         $('#integrate').prop('disabled', false);
                     }else{
