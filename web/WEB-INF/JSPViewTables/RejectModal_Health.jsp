@@ -27,7 +27,7 @@
     <body>
         <div id="rejectModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-                <form id="rejectServlet" action="approveReportsHealth" method="post">
+                <form id="rejectServlet" action="ApproveReportsHealth" method="post">
                     <div class="modal-content">
                         <div class="modal-header marooon">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -60,16 +60,7 @@
         </div>
         <script>
 
-            $(document).ready(function () {
-                $('#rejectReport').attr('disabled', true);
-                $('textarea').on('keyup', function () {
-                    var textarea_value = $("#textReason").val();
-                    if (textarea_value != '') {
-                        $('#rejectReport').attr('disabled', false);
-                    } else {
-                        $('#rejectReport').attr('disabled', true);
-                    }
-                });
+
 
                 $('#rejectReport').click(function () {
                     var fromID = $('#formID').val();
@@ -79,7 +70,6 @@
                     document.getElementById('rejectServlet').submit();
                 });
 
-            });
         </script>
     </body>
 </html>

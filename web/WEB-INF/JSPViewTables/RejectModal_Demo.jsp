@@ -60,11 +60,7 @@
         </div>
         <script>
 
-            $(document).ready(function () {
-                $('#rejectReport').attr('disabled', true);
-                $('#textReason').on('change', function () {
-                    $('#rejectReport').attr('disabled', false);
-                });
+          
 
                 $('#rejectReport').click(function () {
                     var fromID = $('#formID').val();
@@ -73,8 +69,6 @@
                     document.getElementById('rUser').setAttribute('value', rUser);
                     document.getElementById('rejectServlet').submit();
                 });
-
-            });
         </script>
     </body>
 </html>
