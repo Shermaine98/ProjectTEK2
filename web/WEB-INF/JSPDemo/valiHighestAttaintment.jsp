@@ -205,7 +205,7 @@
                 <img src="img/arrowdown.png" style='width:70px; height:70px; margin-top:40%'
                      alt="Scroll to Button"/></div></a>
         <a href="#top"><div id="_top" class="hidden" title="Scroll to Top"
-                            style="position: fixed; bottom: 50px; right: 5px; opacity: 0.5; cursor: pointer;">
+                            style="position: fixed; bottom: 60px; right: 5px; opacity: 0.5; cursor: pointer;">
                 <img src="img/arrowup.png" style='width:70px; height:70px; margin-top:40%'
                      alt="Scroll to Top"/></div></a>
         <script>
