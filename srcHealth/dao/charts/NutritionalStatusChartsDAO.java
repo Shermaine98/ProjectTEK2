@@ -49,7 +49,7 @@ public class NutritionalStatusChartsDAO {
                     temp.setPupilsWeighedMale(rs.getInt("pupilsWeighedMale"));
                     temp.setPupilsWeighedFemale(rs.getInt("pupilsWeighedFemale"));
                     temp.setPupilsWeighedTotal(rs.getInt("pupilsWeighedTotal"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM nutritional_status_BMI WHERE  formID = ? and gradeLevel = ? and district = ?");
                     pstmt2.setInt(1, temp.getFormID());
@@ -105,7 +105,7 @@ public class NutritionalStatusChartsDAO {
                     temp.setPupilsWeighedMale(rs.getInt("pupilsWeighedMale"));
                     temp.setPupilsWeighedFemale(rs.getInt("pupilsWeighedFemale"));
                     temp.setPupilsWeighedTotal(rs.getInt("pupilsWeighedTotal"));
-                    temp.setValidation(rs.getBoolean("validation"));
+                    temp.setValidation(rs.getInt("validation"));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM nutritional_status_BMI WHERE  formID = ? and gradeLevel = ? and district = ?");
                     pstmt2.setInt(1, temp.getFormID());

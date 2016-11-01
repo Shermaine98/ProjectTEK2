@@ -17,7 +17,8 @@ public class NutritionalStatusBMITemp {
     private String maleCount;
     private String femaleCount;
     private String totalCount;
-
+     private int validation;
+    private String reason;
     /**
      * @return the BMI
      */
@@ -72,5 +73,33 @@ public class NutritionalStatusBMITemp {
      */
     public void setTotalCount(String totalCount) {
         this.totalCount = totalCount;
+    }
+
+    /**
+     * @return the validation
+     */
+    public int getValidation() {
+        return validation;
+    }
+
+    /**
+     * @param validation the validation to set
+     */
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

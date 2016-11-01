@@ -26,7 +26,8 @@ public class NutritionalStatusTemp {
     private String pupilsWeighedTotal;
     private String pupilsWeighedMale;
     private String pupilsWeighedFemale;
-    private boolean validation;
+    private int validation;
+    private String reason;
     
     private ArrayList<NutritionalStatusBMITemp> NutritionalStatusBMITemp;
 
@@ -95,14 +96,14 @@ public class NutritionalStatusTemp {
     /**
      * @return the validation
      */
-    public boolean isValidation() {
+    public int isValidation() {
         return validation;
     }
 
     /**
      * @param validation the validation to set
      */
-    public void setValidation(boolean validation) {
+    public void setValidation(int validation) {
         this.validation = validation;
     }
 
@@ -202,6 +203,20 @@ public class NutritionalStatusTemp {
      */
     public void setNutritionalStatusTemp(ArrayList<NutritionalStatusBMITemp> NutritionalStatusBMITemp) {
         this.NutritionalStatusBMITemp = NutritionalStatusBMITemp;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
    

@@ -156,7 +156,7 @@ public class ValiNutritionalStatus extends BaseServlet {
             nutritionalStatusTemp.setPupilsWeighedMale(pupilsWeighedMaleError[i].replaceAll(" ", "").replaceAll(",", ""));
             nutritionalStatusTemp.setPupilsWeighedFemale(pupilsWeighedFemaleError[i].replaceAll(" ", "").replaceAll(",", ""));
             nutritionalStatusTemp.setPupilsWeighedTotal(pupilsWeighedTotalError[i].replaceAll(" ", "").replaceAll(",", ""));
-            nutritionalStatusTemp.setValidation(true);
+            nutritionalStatusTemp.setValidation(-1);
             arrNutritionalStatusBMITemp = new ArrayList<NutritionalStatusBMITemp>();
             
             for (; y < 5 + stopper; y++) {
@@ -219,7 +219,7 @@ public class ValiNutritionalStatus extends BaseServlet {
             nutritionalStatus.setPupilsWeighedMale(Integer.parseInt(pupilsWeighedMale[i].replaceAll(" ", "").replaceAll(",", "")));
             nutritionalStatus.setPupilsWeighedFemale(Integer.parseInt(pupilsWeighedFemale[i].replaceAll(" ", "").replaceAll(",", "")));
             nutritionalStatus.setPupilsWeighedTotal(Integer.parseInt(pupilsWeighedTotal[i].replaceAll(" ", "").replaceAll(",", "")));
-             nutritionalStatus.setValidation(true);
+             nutritionalStatus.setValidation(1);
             arrNutritionalStatusBMI = new ArrayList<NutritionalStatusBMI>();
             for (; y < 5 + stopper; y++) {
                 NutritionalStatusBMI NutritionalStatusBMI = new NutritionalStatusBMI();
