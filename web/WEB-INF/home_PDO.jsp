@@ -50,6 +50,9 @@
                 background-color: #008D4C;
                 color: #fff;
             }
+            .span__LABEL{
+                width: 80px; display:block;
+            }
         </style>
     </head>
     <body>
@@ -85,15 +88,15 @@
                                                 <td class="ts name"><%= arrTask.get(i).getReportName()%></td>
                                                 <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="label label-danger span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
                                                 <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
 
                                                 <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("saved")) {%>
-                                                <td class="status"><span class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="label label-info span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
                                                 <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=Saved&Navi=true"><input type="button"  class="btn btn-primary btn-sm" value="Go to Saved Reports" /></a></td>
 
                                                 <% } else {%>
-                                                <td class="status"><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="label label-warning span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
                                                 <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
 
                                                 <% }%>
@@ -270,17 +273,17 @@
                                                 <td class="ts name"><%= task.get(i).getReportName()%></td>
                                                 <td class="date"><%= task.get(i).getSduedate()%></td>
                                                 <% if (task.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td class="status"><span class="completed label label-danger"><%=task.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="completed label label-danger span__LABEL"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status"><span class="completed label label-info"><%=task.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="completed label label-info span__LABEL"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("Incomplete")) {%>
-                                                <td class="status"><span class="completed label label-warning"><%=task.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="completed label label-warning span__LABEL"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status"><span class="completed label label-danger"><%=task.get(i).getStatus()%></span></td>
+                                                <td class="status"><span class="completed label label-danger span__LABEL"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("pending")) {%>
-                                                <td class="status"><span  class="completed label label-default"><%=task.get(i).getStatus()%></span></td>
+                                                <td class="status"><span  class="completed label label-default span__LABEL"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else {%>
-                                                <td><span class="completed label label-success"><%=task.get(i).getStatus()%></span></td>
+                                                <td><span class="completed label label-success span__LABEL"><%=task.get(i).getStatus()%></span></td>
                                                     <% }%>
                                             </tr>
                                             <% }%>
