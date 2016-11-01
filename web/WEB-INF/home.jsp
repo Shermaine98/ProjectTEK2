@@ -42,6 +42,9 @@
             a{
                 cursor: pointer; cursor: hand;
             }
+            .span__LABEL{
+                width: 80px; display:block;
+            }
         </style>
     </head>
     <body>
@@ -66,7 +69,7 @@
                                     <table id="taskTable" class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th width="45%">Task</th>
+                                                <th width="40%">Task</th>
                                                 <th><a class="sort" data-sort="sector">Sector <span class="fa fa-sort" style="margin-left: 5%"></span></a></th>
                                                 <th><a class="sort" data-sort="date">Due Date <span class="fa fa-sort" style="margin-left: 5%"></span></a></th>
                                                 <th><a class="sort" data-sort="status">Status <span class="fa fa-sort" style="margin-left: 5%"></span></a></th>
@@ -85,23 +88,23 @@
                                                 <td class="sector"><%= arrTask.get(i).getSector()%></td>
                                                 <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td class="status"><span style="width: 100px"  class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
-                                                 <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
+                                                <td class="status"><span  class="label label-danger span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                 <td style="float:right"><input type="button" style="width: 98px;" id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status"><span style="width: 100px" class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
-                                                 <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report"/></td>
+                                                <td class="status"><span class="label label-info span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                 <td style="float:right"><input type="button" style="width: 98px;"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report"/></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("Incomplete")) {%>
-                                                <td class="status"><span style="width: 100px" class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
-                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report" /></td>
+                                                <td class="status"><span class="label label-warning span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button" style="width: 98px;"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status"><span style="width: 100px" class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
-                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
+                                                <td class="status"><span class="label label-danger span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button" style="width: 98px;"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("pending")) {%>
-                                                <td class="status"><span style="width: 100px" class="label label-default"><%= arrTask.get(i).getStatus()%></span></td>
-                                                  <td style="float:right"><input type="button" style="width: 100px"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
+                                                <td class="status"><span class="label label-default span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button" style="width: 98px;"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else {%>
-                                                <td><span class="label label-success"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="float:right"><input   type="button" disabled id="uploadData" class="btn btn-sm btn-default" value="Disabled" /></td>
+                                                <td><span class="label label-success span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td style="float:right"><input type="button" style="width: 98px;" disabled id="uploadData" class="btn btn-sm btn-default" value="Disabled" /></td>
                                                     <% }%>
                                             </tr>
                                             <%}
