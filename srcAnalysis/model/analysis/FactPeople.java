@@ -418,12 +418,25 @@ public class FactPeople {
                                                     people.get(c).setIsOutlier(false);
                                                 }
                                                 else{
-                                                    float secondGrowthRate = Math.abs(getGrowthRateForTwoYears(thirdPopulation, secondPopulation, 1));
                                                     if(Math.abs(growthRate) <= 0){
                                                         people.get(c).setIsOutlier(false);
                                                     } else{
                                                         people.get(c).setIsOutlier(true);
                                                     }
+                                                }
+                                                if(people.get(c).getIsOutlier()){
+                                                    System.out.println("---Population----");
+                                                    System.out.println("Baranagay: " + people.get(c).getBarangay());
+                                                    System.out.println("Census Year: " + people.get(c).getCensusYear());
+                                                    System.out.println("Growth Rate: " + growthRate);
+                                                    System.out.println("People in the Growth Rate: " + peopleInTheGrowthRate);
+                                                    System.out.println("First Population: " +  firstPopulation);
+                                                    System.out.println("Second Population: " + secondPopulation);
+                                                    System.out.println("Third Population: " + thirdPopulation);
+                                                    System.out.print(minusGrowthRate + " > " + thirdPopulation + " > " + plusGrowthRate + "\n");
+                                                    //System.out.println("IsOutlier" +  people.get(c).get());
+                                                    System.out.println("Gender: " +  people.get(c).getGender());
+                                                    //System.out.println("Age Group: " +  people.get(c).getAgeBracket());
                                                 }
                                             }
                                         }
