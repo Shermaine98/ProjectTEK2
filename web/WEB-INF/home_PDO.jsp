@@ -270,17 +270,17 @@
                                                 <td class="ts name"><%= task.get(i).getReportName()%></td>
                                                 <td class="date"><%= task.get(i).getSduedate()%></td>
                                                 <% if (task.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td class="status"><span class="completed label label-danger">Completed</span></td>
+                                                <td class="status"><span class="completed label label-danger"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status"><span class="completed label label-info">Completed</span></td>
+                                                <td class="status"><span class="completed label label-info"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("Incomplete")) {%>
-                                                <td class="status"><span class="completed label label-warning">Completed</span></td>
+                                                <td class="status"><span class="completed label label-warning"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status"><span class="completed label label-danger">Completed</span></td>
+                                                <td class="status"><span class="completed label label-danger"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else if (task.get(i).getStatus().equalsIgnoreCase("pending")) {%>
-                                                <td class="status"><span  class="completed label label-default">Completed</span></td>
+                                                <td class="status"><span  class="completed label label-default"><%=task.get(i).getStatus()%></span></td>
                                                     <% } else {%>
-                                                <td><span class="label label-success">Completed</span></td>
+                                                <td><span class="completed label label-success"><%=task.get(i).getStatus()%></span></td>
                                                     <% }%>
                                             </tr>
                                             <% }%>
@@ -306,17 +306,17 @@
         <!-- ./wrapper -->
         <script>
             $(document).ready(function () {
-                var y = 0;
+                var y = 1;
                 $(".completed").each(function () {
-                    var x = $(this).val();
-
+                    var x = $(this).text();
                     if (x === "Completed") {
                         y++;
                     }
-
                     if (y === 9) {
                         $('#integrate').addClass('btn-primary');
                         $('#integrate').prop('disabled', false);
+                    }else{
+                       $('#integrate').prop('disabled', true);
                     }
                 });
 
