@@ -502,19 +502,19 @@ public class FactPeople {
                                                 float peopleInTheGrowthRateDivorced = Math.abs(((float)secondDivorced   * (growthRateDivorced/100)));
                                                 float peopleInTheGrowthRateUnknown  = Math.abs(((float)secondUnknown    * (growthRateUnknown/100)));
                                                 //gets the range. This is the minus side
-                                                float minusGrowthRateSingle     = secondSingle - peopleInTheGrowthRateSingle    -25;
-                                                float minusGrowthRateMarried    = secondMarried - peopleInTheGrowthRateMarried  -25;
-                                                float minusGrowthRateWidowed    = secondWidowed - peopleInTheGrowthRateWidowed  -25;
-                                                float minusGrowthRateLiveIn     = secondLiveIn - peopleInTheGrowthRateLiveIn    -25;
-                                                float minusGrowthRateDivorced   = secondDivorced - peopleInTheGrowthRateDivorced-25;
-                                                float minusGrowthRateUnknown    = secondUnknown - peopleInTheGrowthRateUnknown  -25;
+                                                float minusGrowthRateSingle     = Math.round(secondSingle - peopleInTheGrowthRateSingle    -25);
+                                                float minusGrowthRateMarried    = Math.round(secondMarried - peopleInTheGrowthRateMarried  -25);
+                                                float minusGrowthRateWidowed    = Math.round(secondWidowed - peopleInTheGrowthRateWidowed  -25);
+                                                float minusGrowthRateLiveIn     = Math.round(secondLiveIn - peopleInTheGrowthRateLiveIn    -25);
+                                                float minusGrowthRateDivorced   = Math.round(secondDivorced - peopleInTheGrowthRateDivorced-25);
+                                                float minusGrowthRateUnknown    = Math.round(secondUnknown - peopleInTheGrowthRateUnknown  -25);
                                                 //gets the range. This is the plus side
-                                                float plusGrowthRateSingle      = secondSingle + peopleInTheGrowthRateSingle    +25;
-                                                float plusGrowthRateMarried     = secondMarried + peopleInTheGrowthRateMarried  +25;
-                                                float plusGrowthRateWidowed     = secondWidowed + peopleInTheGrowthRateWidowed  +25;
-                                                float plusGrowthRateLiveIn      = secondLiveIn + peopleInTheGrowthRateLiveIn    +25;
-                                                float plusGrowthRateDivorced    = secondDivorced + peopleInTheGrowthRateDivorced+25;
-                                                float plusGrowthRateUnknown     = secondUnknown + peopleInTheGrowthRateUnknown  +25;
+                                                float plusGrowthRateSingle      = Math.round(secondSingle + peopleInTheGrowthRateSingle     +25);
+                                                float plusGrowthRateMarried     = Math.round(secondMarried + peopleInTheGrowthRateMarried   +25);
+                                                float plusGrowthRateWidowed     = Math.round(secondWidowed + peopleInTheGrowthRateWidowed   +25);
+                                                float plusGrowthRateLiveIn      = Math.round(secondLiveIn + peopleInTheGrowthRateLiveIn     +25);
+                                                float plusGrowthRateDivorced    = Math.round( secondDivorced + peopleInTheGrowthRateDivorced+25);
+                                                float plusGrowthRateUnknown     = Math.round(secondUnknown + peopleInTheGrowthRateUnknown   +25);
                                                 
                                                 if(thirdSingle >= minusGrowthRateSingle && thirdSingle <= plusGrowthRateSingle){
                                                     people.get(c).setIsSingleOutlier(false);

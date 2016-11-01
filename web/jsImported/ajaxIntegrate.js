@@ -11,7 +11,7 @@ function integrate() {
     $("#integrateLoad").modal("show");
     timer = setTimeout(function () {
         $.ajax({
-            url: "ServletETL",
+            url: "ETLServlet",
             type: 'POST',
             dataType: "JSON"
             , success: function (data) {
@@ -29,6 +29,7 @@ function integrate() {
                     $("#notificationHeader").text("Success!");
                     $("#modal_Header").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
+                    $("#notificationBodyModal").empty();
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
                     $("#notificationModal").modal("show");
                   
