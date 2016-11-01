@@ -380,6 +380,14 @@
         <servlet-name>AdminHome</servlet-name>
         <servlet-class>servlets.accounts.AdminHome</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditEducationFromServlet</servlet-name>
+        <servlet-class>servlets.education.servlet.EditEducationFromServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditHealthFormServlet</servlet-name>
+        <servlet-class>servlets.health.servlet.EditHealthFormServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -735,6 +743,14 @@
     <servlet-mapping>
         <servlet-name>AdminHome</servlet-name>
         <url-pattern>/AdminHome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditEducationFromServlet</servlet-name>
+        <url-pattern>/EditEducationFromServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditHealthFormServlet</servlet-name>
+        <url-pattern>/EditHealthFormServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
