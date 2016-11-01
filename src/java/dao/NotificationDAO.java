@@ -181,6 +181,8 @@ public class NotificationDAO {
                     ResultSet rs = pstmt1.executeQuery();
 
                     if (rs.next()) {
+                           z = rs.getRow();
+                         if (z > 0) {
                             TaskModel temp = new TaskModel();
                             temp.setreportName(taskModel.get(i).getReportName());
                             temp.setDuedate(taskModel.get(i).getDuedate());
@@ -191,6 +193,7 @@ public class NotificationDAO {
                             //no use but to save for now
                             temp.setFormID(taskModel.get(i).getFormID());
                             taskModelFinal.add(temp);
+                         }
                         
                     }
                     rs.close();
