@@ -65,7 +65,7 @@
                         <div class="col-md-8" style="float:left;">
                             <div class="box box-solid">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Pending Tasks For The Year</h3>
+                                    <h3 class="box-title">Tasks For The Year</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div id="pendingList" class="box-body">

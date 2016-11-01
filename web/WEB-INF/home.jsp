@@ -57,7 +57,7 @@
                         <div class="col-md-8">
                             <div class="box box-solid">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Pending Tasks For The Year</h3>
+                                    <h3 class="box-title">Tasks For The Year</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div id="pending" class="box-body">
@@ -85,23 +85,23 @@
                                                 <td class="sector"><%= arrTask.get(i).getSector()%></td>
                                                 <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
-                                                <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span style="width: 100px"  class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("For Approval")) {%>
-                                                <td class="status"><span class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span style="width: 100px" class="label label-info"><%= arrTask.get(i).getStatus()%></span></td>
                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report"/></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("Incomplete")) {%>
-                                                <td class="status"><span class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span style="width: 100px" class="label label-warning"><%= arrTask.get(i).getStatus()%></span></td>
                                                   <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Edit Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("rejected")) {%>
-                                                <td class="status"><span class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td class="status"><span style="width: 100px" class="label label-danger"><%= arrTask.get(i).getStatus()%></span></td>
                                                   <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("pending")) {%>
-                                                <td class="status"><span class="label label-default"><%= arrTask.get(i).getStatus()%></span></td>
-                                                  <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
+                                                <td class="status"><span style="width: 100px" class="label label-default"><%= arrTask.get(i).getStatus()%></span></td>
+                                                  <td style="float:right"><input type="button" style="width: 100px"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else {%>
                                                 <td><span class="label label-success"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="float:right"><input type="button" disabled id="uploadData" class="btn btn-sm btn-default" value="Disabled" /></td>
+                                                <td style="float:right"><input   type="button" disabled id="uploadData" class="btn btn-sm btn-default" value="Disabled" /></td>
                                                     <% }%>
                                             </tr>
                                             <%}
