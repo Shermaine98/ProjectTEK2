@@ -22,14 +22,16 @@ function integrate() {
                     $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
                     $("#notificationModal").modal("show");
-                    // Set a timeout to hide the element again
-                    setTimeout(function () {
-                        $("#modal_Header").css({background: ""});
-                        $("#notificationModal").modal("hide");
-                        $("#notificationHeader").text("");
-                        $("#notificationBodyModal").empty();
-                    }, 4000);
+                   
 
+                } else {
+                    $("#integrateLoad").modal("hide");
+                    $("#notificationHeader").text("Success!");
+                    $("#modal_Header").css({background: "#00a65a"});
+                    $("#notificationHeader").css({color: "#FFFFFF"});
+                    $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
+                    $("#notificationModal").modal("show");
+                  
                 }
 
             }, error: function (XMLHttpRequest, textStatus, exception) {

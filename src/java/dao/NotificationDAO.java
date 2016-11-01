@@ -181,8 +181,8 @@ public class NotificationDAO {
                     ResultSet rs = pstmt1.executeQuery();
 
                     if (rs.next()) {
-                           z = rs.getRow();
-                         if (z > 0) {
+                        z = rs.getRow();
+                        if (z > 0) {
                             TaskModel temp = new TaskModel();
                             temp.setreportName(taskModel.get(i).getReportName());
                             temp.setDuedate(taskModel.get(i).getDuedate());
@@ -193,8 +193,8 @@ public class NotificationDAO {
                             //no use but to save for now
                             temp.setFormID(taskModel.get(i).getFormID());
                             taskModelFinal.add(temp);
-                         }
-                        
+                        }
+
                     }
                     rs.close();
                     pstmt1.close();
@@ -217,19 +217,21 @@ public class NotificationDAO {
         Date todate1 = new Date();
         RecordDAO recordDAO = new RecordDAO();
         for (int i = 0; i < taskModel.size(); i++) {
-            
-            if (taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
+
+            if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")) {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
                 int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
                 TaskModel temp = new TaskModel();
-                temp.setreportName(taskModel.get(i).getReportName());
-                temp.setDuedate(taskModel.get(i).getDuedate());
-                temp.setTimeStamp(String.valueOf(dateDelayed));
-                temp.setReportType(taskModel.get(i).getReportType());
-                temp.setStatus(taskModel.get(i).getStatus());
-                temp.setFormID(taskModel.get(i).getFormID());
-                temp.setName("none");
-                taskModelFinal.add(temp);
+                if (dateDelayed > 5) {
+                    temp.setreportName(taskModel.get(i).getReportName());
+                    temp.setDuedate(taskModel.get(i).getDuedate());
+                    temp.setTimeStamp(String.valueOf(dateDelayed));
+                    temp.setReportType(taskModel.get(i).getReportType());
+                    temp.setStatus(taskModel.get(i).getStatus());
+                    temp.setFormID(taskModel.get(i).getFormID());
+                    temp.setName("none");
+                    taskModelFinal.add(temp);
+                }
             }
         }
 
