@@ -389,8 +389,8 @@
         <servlet-class>servlets.health.servlet.EditHealthFormServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletETL</servlet-name>
-        <servlet-class>servlet.etl.ServletETL</servlet-class>
+        <servlet-name>ETLServlet</servlet-name>
+        <servlet-class>servlet.etl.ETLServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
@@ -757,8 +757,8 @@
         <url-pattern>/EditHealthFormServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletETL</servlet-name>
-        <url-pattern>/ServletETL</url-pattern>
+        <servlet-name>ETLServlet</servlet-name>
+        <url-pattern>/ETLServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
