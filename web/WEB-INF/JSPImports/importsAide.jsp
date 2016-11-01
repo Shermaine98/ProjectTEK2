@@ -197,6 +197,18 @@ and open the template in the editor.
                                 <span>Internal Reports Library</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=PublishedReports">
+                                <i class="fa fa-file-archive-o"></i>
+                                <span>Published Reports</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=forums">
+                                <i class="fa fa-comments"></i>
+                                <span>Forums</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

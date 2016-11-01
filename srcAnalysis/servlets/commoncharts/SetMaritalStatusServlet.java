@@ -70,6 +70,9 @@ public class SetMaritalStatusServlet extends HttpServlet {
             ArrayList<Integer> censusYears = censusYearDAO.retrieveYears();            
             ArrayList<String> district = chartsDistrict.retrieveDistricts();
             ArrayList<FactPeople> people = chartPeople.retrieveMaritalStatus();
+            FactPeople factPeople = new FactPeople();
+            
+            factPeople.setOutliersMaritalStatus(censusYears, people);
 
             for(int i = 0; i < people.size(); i++){
                 JSONObject objPeople = new JSONObject();
@@ -86,6 +89,12 @@ public class SetMaritalStatusServlet extends HttpServlet {
                     objPeople.put("zone", people.get(i).getZone());
                     objPeople.put("barangay", people.get(i).getBarangay());
                     objPeople.put("gender", people.get(i).getGender());
+                    objPeople.put("isSingleOutlier", people.get(i).isIsSingleOutlier());
+                    objPeople.put("isMarriedOutlier", people.get(i).isIsMarriedOutlier());
+                    objPeople.put("isWidowedOutlier", people.get(i).isIsWidowedOutlier());
+                    objPeople.put("isDivorcedOutlier", people.get(i).isIsDivorcedOutlier());
+                    objPeople.put("isLiveInOutlier", people.get(i).isIsLiveInOutlier());
+                    objPeople.put("isUnknownOutlier", people.get(i).isIsUnknownOutlier());
                     jarrayPeople.put(objPeople);
                 } catch (JSONException ex) {
                     getLogger(SetAnalysisDataServlet.class.getName()).log(SEVERE, null, ex);

@@ -209,6 +209,10 @@ public class ServletAccess extends BaseServlet {
                 request.setAttribute("reportSet", "ageGroup");
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
                 rd.forward(request, response);
+            } //FORUMS
+            else if (redirect.equalsIgnoreCase("forums")) {
+                rd = request.getRequestDispatcher("/WEB-INF/home_others.jsp");
+                rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("ReportSearchForum")) {
                 String yearReport = request.getParameter("yearReport");
                 String sectorReport = request.getParameter("sectorReport");

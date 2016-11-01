@@ -249,6 +249,12 @@ and open the template in the editor.
                                 <span>Published Reports</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=forums">
+                                <i class="fa fa-comments"></i>
+                                <span>Forums</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
