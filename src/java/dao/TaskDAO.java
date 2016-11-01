@@ -86,7 +86,7 @@ public class TaskDAO {
                             temp.setreportName(taskModels.get(i).getReportName());
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
-                            temp.setStatus("Approved");
+                            temp.setStatus("Completed");
                             temp.setSector(taskModels.get(i).getSector());
                             temp.setFormID(taskModels.get(i).getFormID());
                             taskModelFinal.add(temp);

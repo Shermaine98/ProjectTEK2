@@ -101,7 +101,7 @@
                                                   <td style="float:right"><input type="button"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else {%>
                                                 <td><span class="label label-success"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="float:right"><input type="button" disabled id="uploadData" class="btn btn-sm btn-default" value="disabled" /></td>
+                                                <td style="float:right"><input type="button" disabled id="uploadData" class="btn btn-sm btn-default" value="Disabled" /></td>
                                                     <% }%>
                                             </tr>
                                             <%}
