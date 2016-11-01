@@ -121,7 +121,7 @@
                                             <td><input name="totalCountError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalCount()%>" style="width: auto" readonly /></td>
                                             <td><input name="pupilsWeighedTotal" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedTotal()%>" readonly/></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
-                                            <td><input name="bTotalCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount() + NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount()%>"  readonly/></td>
+                                            <td><input name="bTotalCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()%>"  readonly/></td>
                                                 <% } %>
                                         </tr>
                                         <%
@@ -180,7 +180,7 @@
                                             <td><input name="totalCount" class="centerTD" type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getTotalCount())%>" style="width: auto" readonly /></td>
                                             <td><input name="pupilsWeighedTotal" class="centerTD"  type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getPupilsWeighedTotal())%>" readonly/></td>
                                                 <%for (int y = 0; y < NutritionalStatus.get(i).getNutritionalStatusBMI().size(); y++) {%>
-                                            <td><input name="bTotalCount" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getFemaleCount() + NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getMaleCount())%>"  readonly/></td>
+                                            <td><input name="bTotalCount" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getTotalCount() %>"  readonly/></td>
                                                 <% } %>
                                         </tr>
                                         <%

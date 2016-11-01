@@ -105,7 +105,6 @@ public class NutritionalStatusChecker {
                     if (ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount() == null
                             || ArrError.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount() == null
                             || ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount().equalsIgnoreCase("")) {
-
                         if (ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount() == null || ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount().equalsIgnoreCase("")) {
                             NutritionalStatusBMITemp.setFemaleCount("");
                         } else {
@@ -510,7 +509,14 @@ public class NutritionalStatusChecker {
                          NutritionalStatusBMITemp.setValidation(-3);
                         NutritionalStatusBMITemp.setReason("Summation Error");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
-                    } 
+                    } else {
+                        NutritionalStatusBMITemp.setBMI(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getBMI());
+                        NutritionalStatusBMITemp.setMaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount());
+                        NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
+                        NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
+                        NutritionalStatusBMITemp.setValidation(1);
+                        arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
+                    }
                 }
                
                 NutritionalStatusTemp.setNutritionalStatusTemp(arrNutritionalStatusBMITemp);
