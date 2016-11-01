@@ -26,7 +26,7 @@
 
         <div class="wrapper">
             <!--Content Wrapper. Contains page content-->
-            <div class="content-wrapper">
+            <div id="top" class="content-wrapper">
                 <section class="content">
                     <div class="row">
 
@@ -106,6 +106,41 @@
                 </section>
             </div>
         </div>
+        <div id="bottom"></div>
+        <a href="#bottom"><div id="_bottom" class="hidden"  title="Scroll to Button"
+                               style="position: fixed; top:40px; right: 5px; opacity: 0.5; cursor: pointer;">
+                <img src="img/arrowdown.png" style='width:70px; height:70px; margin-top:40%'
+                     alt="Scroll to Button"/></div></a>
+        <a href="#top"><div id="_top" class="hidden" title="Scroll to Top"
+                            style="position: fixed; bottom: 50px; right: 5px; opacity: 0.5; cursor: pointer;">
+                <img src="img/arrowup.png" style='width:70px; height:70px; margin-top:40%'
+                     alt="Scroll to Top"/></div></a>
         <script src="jsImported/approveReject.js" type="text/javascript"></script>
+        <script>
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - 50000) {
+                    document.getElementById("_top").className = "";
+                    document.getElementById("_bottom").className = "hidden";
+                }
+                else {
+                    document.getElementById("_bottom").className = "";
+                    document.getElementById("_top").className = "hidden";
+                }
+            });
+
+            $("a[href='#top']").click(function () {
+                $("html, body").animate({scrollTop: 0}, "slow");
+                return false;
+            });
+
+            $("a[href='#bottom']").click(function () {
+                $('html, body').animate({
+                    scrollTop: $(document).height()
+                },
+                        1500);
+                return false;
+            });
+
+        </script>
     </body>
 </html>
