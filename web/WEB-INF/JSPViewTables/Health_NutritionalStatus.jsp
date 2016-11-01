@@ -111,7 +111,7 @@
 
                         </div>
                         <div>
-                            <form id="approveServlet" action="approveReportsHealth" method="post">
+                            <form id="approveServlet" action="ApproveReportsHealth" method="post">
                                 <input type="hidden" name="sUser" id="sUser" value="<%= user.getUserID()%>" />
                                 <input type="hidden" name="sformID" id="sformID" />
                                 <input type="hidden" name="decision" value="approve" />
