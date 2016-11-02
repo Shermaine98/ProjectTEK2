@@ -218,6 +218,37 @@ public class NotificationDAO {
         RecordDAO recordDAO = new RecordDAO();
         for (int i = 0; i < taskModel.size(); i++) {
 
+            if (taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
+                //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
+                int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
+                TaskModel temp = new TaskModel();
+                if (dateDelayed > 5) {
+                    temp.setreportName(taskModel.get(i).getReportName());
+                    temp.setDuedate(taskModel.get(i).getDuedate());
+                    temp.setTimeStamp(String.valueOf(dateDelayed));
+                    temp.setReportType(taskModel.get(i).getReportType());
+                    temp.setStatus(taskModel.get(i).getStatus());
+                    temp.setFormID(taskModel.get(i).getFormID());
+                    temp.setName("none");
+                    taskModelFinal.add(temp);
+                }
+            }
+        }
+
+        return taskModelFinal;
+
+    }
+    
+    // TODO: @Gian
+      public ArrayList<TaskModel> NotificationAlertsUploader(int year, String user) throws SQLException, ParseException {
+
+        ArrayList<TaskModel> taskModelFinal = new ArrayList<TaskModel>();
+        TaskDAO taskDAO = new TaskDAO();
+        ArrayList<TaskModel> taskModel = taskDAO.getTaskUploadeStatus(year, user);
+        Date todate1 = new Date();
+        RecordDAO recordDAO = new RecordDAO();
+        for (int i = 0; i < taskModel.size(); i++) {
+
             if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")) {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
                 int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
