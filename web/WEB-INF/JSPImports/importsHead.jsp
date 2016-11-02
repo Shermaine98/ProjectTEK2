@@ -167,11 +167,11 @@ and open the template in the editor.
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
-<!--                        <li>
-                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=homePDO">
-                                <i class="fa fa-dashboard"></i><span>Dashboard</span>
-                            </a>
-                        </li>-->
+                        <!--                        <li>
+                                                    <a href="${pageContext.request.contextPath}/ServletAccess?redirect=homePDO">
+                                                        <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                                                    </a>
+                                                </li>-->
                         <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=homePDO">
                                 <i class="fa fa-home"></i><span> Home</span>
@@ -223,7 +223,7 @@ and open the template in the editor.
                         <li class="treeview">
                             <a href="#" onclick='$("#clicked-span").removeClass("fa-angle-down");
                                     $("#clicked-span").addClass("fa-angle-left");'>
-                                    <span class=" fa-file-word-o fa"></span>
+                                <span class=" fa-file-word-o fa"></span>
                                 <span>Report Generation</span>
                                 <span id="clicked-span" class="fa fa-angle-down" style="float: right;"></span>
                             </a>
@@ -334,8 +334,18 @@ and open the template in the editor.
                                                 for (var i = 0; i < data.length; i++) {
                                                     if (i != 0)
                                                         $("#myDropdown").append('<hr/>');
-                                                    $("#myDropdown").append('<li class="padding2"><a class="task" style="text-decoration:none;">'
-                                                            + data[i].task + '</a><br/><h6 class="p">Recently Uploaded By ' + data[i].name + '<br/>' + data[i].time + '</h6></li>');
+                                                    if (data[i].status === "For Approval") {
+                                                        $("#myDropdown").append('<li class="padding2"><a class="task" style="text-decoration:none;">'
+                                                                + data[i].task + '</a><br/><h6 class="p">Recently Uploaded By ' + data[i].name + '<br/>' + data[i].time + '</h6></li>');
+                                                    }
+                                                    if (data[i].status === "Delayed") {
+                                                        $("#myDropdown").append('<li class="padding2"><a class="delayed" style="text-decoration:none;">'
+                                                                + data[i].task + '</a><br/><h6 class="p">The Report is delayed for <br/>' + data[i].time + ' days </h6></li>');
+                                                    }
+                                                    if (data[i].status === "Pending") {
+                                                        $("#myDropdown").append('<li class="padding2"><a class="delayed" style="text-decoration:none;">'
+                                                                + data[i].task + '</a><br/><h6 class="p">The Report is due for <br/>' + data[i].time + ' days </h6></li>');
+                                                    }
                                                 }
 
                                             }, error: function (XMLHttpRequest, textStatus, exception) {

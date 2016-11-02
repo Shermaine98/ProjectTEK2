@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package servlets.servlet;
 
 import dao.NotificationDAO;
@@ -28,7 +27,7 @@ import org.json.JSONObject;
  * @author Gian Carlo Roxas
  * @author shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class NotificationsPusher extends HttpServlet {
 
@@ -50,49 +49,55 @@ public class NotificationsPusher extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             ArrayList<TaskModel> notification = new ArrayList<TaskModel>();
             String position = request.getParameter("position");
-             int year = Calendar.getInstance().get(Calendar.YEAR);
-    //IV - Health
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            //IV - Health
 //III - Education
 //I - Demo
             NotificationDAO notificationDAO = new NotificationDAO();
-            if (position.equals("IT Admin")) {
-
-            } else if (position.equalsIgnoreCase("Project Development Officer IV")) {
-                ArrayList<TaskModel> temp = new ArrayList<TaskModel>();
-                temp = notificationDAO.NotificationApprovalRecord(year, "Project Development Officer IV");
-                for (TaskModel temp1 : temp) {
-                    if (temp1.getReportType().equalsIgnoreCase("Health")) {
-                        notification.add(temp1);
-                    }
-                }
-            } else if (position.equalsIgnoreCase("Project Development Officer I")) {
-                ArrayList<TaskModel> temp = new ArrayList<TaskModel>();
-                 temp = notificationDAO.NotificationApprovalRecord(year, "Project Development Officer I");
-                for (TaskModel temp1 : temp) {
-                    if (temp1.getReportType().equalsIgnoreCase("Demographics")) {
-                        notification.add(temp1);
-                    }
-                }
-            } else if (position.equalsIgnoreCase("Project Development Officer III")) {
-                ArrayList<TaskModel> temp = new ArrayList<TaskModel>();
-                temp = notificationDAO.NotificationApprovalRecord(year, "Project Development Officer III");
-                for (TaskModel temp1 : temp) {
-                    if (temp1.getReportType().equalsIgnoreCase("Education")) {
-                        notification.add(temp1);
-                    }
-                }
-            } else {
-                
-                ArrayList<TaskModel> rejected = new ArrayList<TaskModel>();
-                ArrayList<TaskModel> delayed = new ArrayList<TaskModel>();
-                ArrayList<TaskModel> approved = new ArrayList<TaskModel>();
-                approved =   notificationDAO.NotificationApprovalRecord(year, position);
-                rejected =  notificationDAO.NotificationRejected(year, position);
-                delayed = notificationDAO.NotificationAlertUploader(year, position);
+            if (position.equalsIgnoreCase("Project Development Officer IV")) {
+                ArrayList<TaskModel> ForApproval = new ArrayList<>();
+                ForApproval = notificationDAO.NotificationApprovalRecord(year, "Health");
+                ArrayList<TaskModel> delayed = new ArrayList<>();
+                ArrayList<TaskModel> pending = new ArrayList<>();
+                delayed = notificationDAO.NotificationAlertDelayedHead(year, position, "Health");
+                pending = notificationDAO.NotificationAlertsPendingHead(year, position, "Health");
                 notification.addAll(delayed);
-                notification.addAll(approved);
-                notification.addAll(rejected);
+                notification.addAll(pending);
+                notification.addAll(ForApproval);
+            } else if (position.equalsIgnoreCase("Project Development Officer I")) {
+                ArrayList<TaskModel> ForApproval = new ArrayList<>();
+                ForApproval = notificationDAO.NotificationApprovalRecord(year, "Demographics");
+                ArrayList<TaskModel> delayed = new ArrayList<>();
+                ArrayList<TaskModel> pending = new ArrayList<>();
+                delayed = notificationDAO.NotificationAlertDelayedHead(year, position, "Demographics");
+                pending = notificationDAO.NotificationAlertsPendingHead(year, position, "Demographics");
+                notification.addAll(delayed);
+                notification.addAll(pending);
+                notification.addAll(ForApproval);
+            } else if (position.equalsIgnoreCase("Project Development Officer III")) {
 
+                ArrayList<TaskModel> ForApproval = new ArrayList<>();
+                ForApproval = notificationDAO.NotificationApprovalRecord(year, "Education");
+                ArrayList<TaskModel> delayed = new ArrayList<>();
+                ArrayList<TaskModel> pending = new ArrayList<>();
+                delayed = notificationDAO.NotificationAlertDelayedHead(year, position, "Education");
+                pending = notificationDAO.NotificationAlertsPendingHead(year, position, "Education");
+                notification.addAll(delayed);
+                notification.addAll(pending);
+                notification.addAll(ForApproval);
+            } else if (position.equalsIgnoreCase("Administrative Aide VI")) {
+                ArrayList<TaskModel> approvalsDone = new ArrayList<>();
+                approvalsDone = notificationDAO.NotificationUploder(year, position);
+                ArrayList<TaskModel> rejected = new ArrayList<>();
+                rejected = notificationDAO.NotificationRejected(year, position);
+                ArrayList<TaskModel> delayed = new ArrayList<>();
+                ArrayList<TaskModel> pending = new ArrayList<>();
+                delayed = notificationDAO.NotificationAlertDelayedUploader(year, position);
+                pending = notificationDAO.NotificationAlertsPendingUploader(year, position);
+                notification.addAll(delayed);
+                notification.addAll(pending);
+                notification.addAll(approvalsDone);
+                notification.addAll(rejected);
             }
 
             JSONArray array = new JSONArray();

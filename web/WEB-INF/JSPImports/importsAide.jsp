@@ -320,6 +320,10 @@ and open the template in the editor.
                                                                 $("#myDropdown").append('<li class="padding2"><a class="delayed" style="text-decoration:none;">'
                                                                         + data[i].task + '</a><br/><h6 class="p">The Report is delayed for <br/>' + data[i].time + ' days </h6></li>');
                                                             }
+                                                            if (data[i].status === "Pending") {
+                                                                $("#myDropdown").append('<li class="padding2"><a class="delayed" style="text-decoration:none;">'
+                                                                        + data[i].task + '</a><br/><h6 class="p">The Report is due for <br/>' + data[i].time + ' days </h6></li>');
+                                                            }
 
                                                         }
 
