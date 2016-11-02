@@ -35,14 +35,14 @@
                             String redirect = (String) request.getAttribute("page");
                             if (redirect.equalsIgnoreCase("upload")) {
                         %>
-                        <div class="box-header with-border" style="margin-bottom: 2%;">
+                        <div class="box-header with-border">
                             <center>
                                 <h1 class="box-title" style="margin-right: 1%;"><b>Preview of Household Population 10 years old & over by Age Group, Sex and Marital Status for </b></h1>
                                 <h1 class="box-title" id="text_year"></h1>
                             </center>
                         </div>
                         <%} else {%>
-                        <div class="box-header with-border" style="margin-bottom: 2%;">
+                        <div class="box-header with-border">
                             <center>
                                 <h1 class="box-title" style="margin-right: 1%;"><b>Edit Saved Report |Household Population 10 years old & over by Age Group, Sex and Marital Status for </b></h1>
                                 <h1 class="box-title" id="text_year"></h1>
@@ -78,7 +78,7 @@
                                                     <th class="centerTD">Single</th>
                                                     <th class="centerTD">Married</th>
                                                     <th class="centerTD">Widowed</th>
-                                                    <th class="centerTD">Divorced/Separated</th>
+                                                    <th class="centerTD">Divorced/<br>Separated</th>
                                                     <th class="centerTD">Common Law/ Live-in</th>
                                                     <th class="centerTD">Unknown</th>
                                                     <th class="centerTD">Total</th>
@@ -101,7 +101,8 @@
                                                     <td width="5%" class="commonLawLiveInError"><input class="centerTD" id="commonLawLiveInError" type="text" name="commonLawLiveInError" value="<%=error.get(i).getCommonLawLiveIn()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
                                                     <td width="5%" class="unknownError"><input class="centerTD" id="unknownError" type="text" name="unknownError" value="<%=error.get(i).getUnknown()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
                                                     <td width="5%" class="totalError"><input  class="centerTD" id="totalError" type="text" name="totalError" value="<%=error.get(i).getTotal()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=error.get(i).getValidation()%>"/><input type="text" id="reasonNum"  value="<%=error.get(i).getErrorReason()%>"/></td>
+                                                    <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=error.get(i).getValidation()%>"/>
+                                                        <input type="text" readonly id="reasonNum"  value="<%=error.get(i).getErrorReason()%>"/></td>
                                                 </tr>
                                                 <%
 
@@ -130,7 +131,7 @@
                                                     <th class="centerTD">Single</th>
                                                     <th class="centerTD">Married</th>
                                                     <th class="centerTD">Widowed</th>
-                                                    <th class="centerTD">Divorced/Separated</th>
+                                                    <th class="centerTD">Divorced/<br>Separated</th>
                                                     <th class="centerTD">Common Law/ Live-in</th>
                                                     <th class="centerTD">Unknown</th>
                                                     <th class="centerTD">Total</th>
