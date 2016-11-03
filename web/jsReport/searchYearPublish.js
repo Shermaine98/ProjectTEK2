@@ -2257,7 +2257,7 @@ function setAnalysis() {
 
 
                 encodeImage(data[i].path, function (dataURL) {
-                    $(para2).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + dataURL + '">');
+                    $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
                 });
 
 //                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
@@ -4358,7 +4358,7 @@ function setMatrix() {
 
 
                 encodeImage(data[i].path, function (dataURL) {
-                    $(para2).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + dataURL + '">');
+                    $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
                 });
 
                 var table = document.createElement("table");
