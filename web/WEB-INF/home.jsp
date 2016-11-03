@@ -301,7 +301,7 @@
                 } else if (formName === "Enrollment in Private School") {
                     window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=ePrivate");
                 } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory");
+                    window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=publicDirectory");
                 } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
                     window.location.replace("${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=privateDirectory");
                 } else if (formName === "Household Population by Age Group and Sex") {
