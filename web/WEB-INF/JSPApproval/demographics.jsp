@@ -39,8 +39,7 @@
                 </section>
 
 
-                <%
-                    String temp = (String) request.getAttribute("message");
+                <%                    String temp = (String) request.getAttribute("message");
                     if (temp.equalsIgnoreCase("success")) {
                 %>
                 <div class="callout callout-success">
@@ -69,21 +68,35 @@
                 </div>
                 <%}%>
 
-                <select class="form-control select" id="theSelect" onChange="changeDiv(this)">
-                    <option disabled selected>Choose Demographic Report</option>
-                    <option value="1">Household Population by Age Group and Sex</option>
-                    <option value="2">Household Population 10 years old & over by Age group, Sex and Marital Status</option>
-                    <option value="3">Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex</option>
-                </select>
-
-                <% String subject = request.getAttribute("subject").toString();%>
-                <input type="text" hidden value="<%=subject%>" id="report_title" />
-
 
                 <%
                     ArrayList<Record> age = (ArrayList<Record>) request.getAttribute("age");
                     ArrayList<Record> marital = (ArrayList<Record>) request.getAttribute("marital");
                     ArrayList<Record> highest = (ArrayList<Record>) request.getAttribute("highest");%>
+
+                <% if (age.size() == 0 && marital.size() == 0 && highest.size() == 0) {%>
+                <div class="box box-solid box-archived" style="width: 80%; margin: 0 auto;">
+                    <div class="box-body">
+                        <h5 align="center">There are no demographic reports for approval.</h5>
+                    </div>
+                </div>
+                <% } else { %>
+
+                <select class="form-control select" id="theSelect" onChange="changeDiv(this)">
+                    <option disabled selected>Choose Demographic Report</option>
+                    <% if (age.size() > 0) {%>
+                    <option value="1">Household Population by Age Group and Sex</option>
+                    <%}
+                        if (marital.size() > 0) {%>
+                    <option value="2">Household Population 10 years old & over by Age group, Sex and Marital Status</option>
+                    <%}
+                        if (highest.size() > 0) {%>
+                    <option value="3">Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex</option>
+                    <% } %>
+                </select>
+                <%}%>
+                <% String subject = request.getAttribute("subject").toString();%>
+                <input type="text" hidden value="<%=subject%>" id="report_title" />
 
                 <section class="content">
                     <div class="row">

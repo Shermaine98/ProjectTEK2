@@ -66,16 +66,7 @@
                     <p>Something went wrong while rejecting the report</p>
                 </div>
                 <%}%>
-                <select class="form-control select" onChange="changeDiv(this)" id="theSelect">
-                    <option disabled selected>Choose Education Report</option>
-                    <option value="1">Enrollment in Public Schools</option>
-                    <option value="2">Enrollment in Private Schools</option>
-                    <option value="3">Number of Teachers and Classrooms for Public Schools</option>
-                    <option value="4">Number of Teachers and Classrooms for Private Schools</option>
-                </select>
 
-                <% String subject = request.getAttribute("subject").toString();%>
-                <input type="text" hidden value="<%=subject%>" id="report_title" />
 
                 <%
                     ArrayList<Record> publicEnrollment = (ArrayList<Record>) request.getAttribute("publicEnrollment");
@@ -83,6 +74,33 @@
 
                     ArrayList<Record> directoryPublic = (ArrayList<Record>) request.getAttribute("directoryPublic");
                     ArrayList<Record> directoryPrivate = (ArrayList<Record>) request.getAttribute("directoryPrivate");%>
+
+                <% if (publicEnrollment.size() == 0 && privateEnrollment.size() == 0
+                            && directoryPublic.size() == 0 && directoryPrivate.size() == 0) {%>
+                <div class="box box-solid box-archived" style="width: 80%; margin: 0 auto;">
+                    <div class="box-body">
+                        <h5 align="center">There are no education reports for approval.</h5>
+                    </div>
+                </div>
+                <% } else { %>
+                <select class="form-control select" onChange="changeDiv(this)" id="theSelect">
+                    <option disabled selected>Choose Education Report</option>
+                    <% if (publicEnrollment.size() > 0) {%>
+                    <option value="1">Enrollment in Public Schools</option>
+                    <%}
+                        if (privateEnrollment.size() > 0) {%>
+                    <option value="2">Enrollment in Private Schools</option>
+                    <%}
+                        if (directoryPublic.size() > 0) {%>
+                    <option value="3">Number of Teachers and Classrooms for Public Schools</option>
+                    <%}
+                        if (directoryPrivate.size() > 0) {%>
+                    <option value="4">Number of Teachers and Classrooms for Private Schools</option>
+                    <%}%>
+                </select>
+                <%}%>
+                <% String subject = request.getAttribute("subject").toString();%>
+                <input type="text" hidden value="<%=subject%>" id="report_title" />
 
                 <section class="content">
                     <div class="row">
@@ -253,7 +271,6 @@
                                                     <td> <input align="center" id ="ClickedTableDirectoryPri" class="btn btn-flat btn-success" style="margin: 0 auto 5% auto"  value="View Data"/></td>
                                                 </tr>
                                                 <% a = true;
-
 
                                                     }
                                                     if (a == false) {

@@ -67,18 +67,31 @@
                 </div>
                 <%}%>
 
-                <select class="form-control select" onChange="changeDiv(this)" id="theSelect">
-                    <option disabled selected>Choose Health Report</option>
-                    <option value="1">Reports of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender for Approval</option>
-                    <option value="2">List of Hospitals</option>
-                </select>
-
-                <% String subject = request.getAttribute("subject").toString();%>
-                <input type="text" hidden value="<%=subject%>" id="report_title" />
-
                 <%
                     ArrayList<Record> ListOfHospital = (ArrayList<Record>) request.getAttribute("directory");
                     ArrayList<Record> NutritionalStatus = (ArrayList<Record>) request.getAttribute("NutritionalStatus");%>
+
+
+                <% if (ListOfHospital.size() == 0 && NutritionalStatus.size() == 0) {%>
+                <div class="box box-solid box-archived" style="width: 80%; margin: 0 auto;">
+                    <div class="box-body">
+                        <h5 align="center">There are no health reports for approval.</h5>
+                    </div>
+                </div>
+                <% } else { %>
+                <select class="form-control select" onChange="changeDiv(this)" id="theSelect">
+                    <option disabled selected>Choose Health Report</option>
+                    <% if (ListOfHospital.size() > 0) {%>
+                    <option value="1">Reports of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender for Approval</option>
+                    <%}
+                        if (NutritionalStatus.size() > 0) {%>
+                    <option value="2">List of Hospitals</option>
+                    <%}%>
+                </select>
+                <%}%>
+                
+                <% String subject = request.getAttribute("subject").toString();%>
+                <input type="text" hidden value="<%=subject%>" id="report_title" />
 
                 <section class="content">
                     <div class="row">
