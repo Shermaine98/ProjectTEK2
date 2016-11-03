@@ -10,7 +10,7 @@ $(document).ready(function () {
         var year = document.getElementById('reportYear').value;
         var sector = document.getElementById('reportSector').value;
         var reportTitle = document.getElementById('reportTitle').value;
-       
+
         if (reportTitle == "Matrix") {
             document.getElementById('integrateData').style.display = "none";
             document.getElementById('contentHere').style.display = "block";
@@ -60,7 +60,7 @@ function setAnalysisS(year, sector) {
                 element.appendChild(para);
 
                 $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
-           
+
                 $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -2249,11 +2249,18 @@ function setAnalysis() {
 
             for (var i = 0; i < data.length; i++) {
                 var para = document.createElement("div");
+                var para2 = document.createElement("div");
                 var element = document.getElementById("content");
                 para.setAttribute("style", "width:90%; margin: 0 auto; ");
                 element.appendChild(para);
+                para.appendChild(para2);
 
-                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
+
+                encodeImage(data[i].path, function (dataURL) {
+                    $(para2).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + dataURL + '">');
+                });
+
+//                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
                 $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -4342,17 +4349,18 @@ function setMatrix() {
 
             for (var i = 0; i < data.length; i++) {
                 var para = document.createElement("div");
+                var para2 = document.createElement("div");
                 var element = document.getElementById("content");
                 para.setAttribute("style", "box-body");
                 element.appendChild(para);
-                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + data[i].path + '">');
-        
-                 
-                encodeImage(data[i].path, function (dataURL) {
-                  $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="imagePrint"  src="' + dataURL + '">');
+                para.appendChild(para2);
+//                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + data[i].path + '">');
 
+
+                encodeImage(data[i].path, function (dataURL) {
+                    $(para2).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + dataURL + '">');
                 });
-                
+
                 var table = document.createElement("table");
                 table.setAttribute("class", "table table-hover table-bordered");
                 table.setAttribute("style", " margin: 0 auto;");
