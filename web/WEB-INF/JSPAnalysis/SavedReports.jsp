@@ -346,7 +346,7 @@
 
                                 <input type="hidden" class="draftID" name="isDraft" id="reportDraftIntegration" />
                                 <button class="btn btn-primary pull-right" type="button" onClick="onClickModal(this)" >Publish</button>
-                                <button class="btn btn-primary button-submit pull-right" type="button" style="margin-right: 1%;" onClick="setDraft(this)">Save</button>
+                                <button class="btn btn-primary button-submit pull-right" type="button" style="margin-right: 1%;" onClick="setDraftModal(this)">Save</button>
 
 
                             </div>
