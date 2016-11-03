@@ -221,7 +221,7 @@ public class NotificationDAO {
             if (taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
                 int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
                 TaskModel temp = new TaskModel();
-                if (dateDelayed > 1) {
+                if (dateDelayed >= 1) {
                     temp.setreportName(taskModel.get(i).getReportName());
                     temp.setDuedate(taskModel.get(i).getDuedate());
                     temp.setTimeStamp(String.valueOf(dateDelayed));
@@ -246,11 +246,15 @@ public class NotificationDAO {
        
         for (int i = 0; i < taskModel.size(); i++) {
 
-            if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")) {
+            if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")||taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
-                int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
+                int dateDelayed = taskModel.get(i).getDateDiff();
+                System.out.println("Delayed "+dateDelayed);
                 TaskModel temp = new TaskModel();
-                if (dateDelayed > 5) {
+                if (dateDelayed >= 0 && dateDelayed <=5) {
+                    if(taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")){
+                        taskModel.get(i).setStatus("Pending");
+                    }
                     temp.setreportName(taskModel.get(i).getReportName());
                     temp.setDuedate(taskModel.get(i).getDuedate());
                     temp.setTimeStamp(String.valueOf(dateDelayed));
@@ -275,11 +279,15 @@ public class NotificationDAO {
      
         for (int i = 0; i < taskModel.size(); i++) {
 
-            if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")) {
+            if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")||taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
-                int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
+                int dateDelayed = taskModel.get(i).getDateDiff();
+                System.out.println("Delayed "+dateDelayed);
                 TaskModel temp = new TaskModel();
-                if (dateDelayed > 5) {
+                if (dateDelayed >= 0 && dateDelayed <=5) {
+                    if(taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")){
+                        taskModel.get(i).setStatus("Pending");
+                    }
                     temp.setreportName(taskModel.get(i).getReportName());
                     temp.setDuedate(taskModel.get(i).getDuedate());
                     temp.setTimeStamp(String.valueOf(dateDelayed));
@@ -308,7 +316,7 @@ public class NotificationDAO {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
                 int dateDelayed = Math.abs(taskModel.get(i).getDateDiff());
                 TaskModel temp = new TaskModel();
-                if (dateDelayed > 1) {
+                if (dateDelayed >= 1) {
                     temp.setreportName(taskModel.get(i).getReportName());
                     temp.setDuedate(taskModel.get(i).getDuedate());
                     temp.setTimeStamp(String.valueOf(dateDelayed));
