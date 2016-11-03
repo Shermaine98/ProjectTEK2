@@ -199,13 +199,13 @@
                         </td>
                     </tr>
                 </table>
+            </div>
 
                 <!-- CHARTS, change id value -->
                 <div id="print" style="width:90%;">
 
                 </div>
                 <!--TABLE-->
-            </div>
 
             <footer>
                 <p style="text-align: right;"><pagenum/></p>
