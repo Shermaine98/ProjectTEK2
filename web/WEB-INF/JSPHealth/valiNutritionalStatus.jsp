@@ -47,11 +47,11 @@
                                 <%                                String redirect = (String) request.getAttribute("page");
                                     if (redirect.equalsIgnoreCase("upload")) {
                                 %>
-                                <h1 class="box-title"><b>Preview of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for </b></h1>
-                                <h1 class="box-title" id="text_year"></h1>
+                                <h1 class="box-title"><b>Preview of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for <p class="box-title" id="text_year"></p></b></h1>
+                                
                                 <% } else if (redirect.equalsIgnoreCase("edit")) {%>
-                                <h1 class="box-title"><b>Edit Saved Report | Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for </b></h1>
-                                <h1 class="box-title" id="text_year"></h1>
+                                <h1 class="box-title"><b>Edit Saved Report | Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for <p class="box-title" id="text_year"></p> </b></h1>
+                                
                                 <%}%>
                                 <br>
                                 <!--END FOR THE PAGE TITLE-->
@@ -180,7 +180,7 @@
                                             <td><input name="totalCount" class="centerTD" type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getTotalCount())%>" style="width: auto" readonly /></td>
                                             <td><input name="pupilsWeighedTotal" class="centerTD"  type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getPupilsWeighedTotal())%>" readonly/></td>
                                                 <%for (int y = 0; y < NutritionalStatus.get(i).getNutritionalStatusBMI().size(); y++) {%>
-                                            <td><input name="bTotalCount" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getTotalCount() %>"  readonly/></td>
+                                            <td><input name="bTotalCount" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatus.get(i).getFormatcount(NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getTotalCount()) %>"  readonly/></td>
                                                 <% } %>
                                         </tr>
                                         <%
