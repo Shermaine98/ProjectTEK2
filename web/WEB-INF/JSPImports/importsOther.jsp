@@ -141,7 +141,8 @@ and open the template in the editor.
         <!-- Bootstrap 3.3.6 -->
         <script src="AdminLTE/bootstrap/js/bootstrap.min.js"></script>
         <!-- daterangepicker -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <script src="AdminLTE/plugins/daterangepicker/moment.min.js"></script>
+
         <script src="AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
         <!-- datepicker -->
         <script src="AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>

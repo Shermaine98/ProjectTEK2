@@ -27,9 +27,9 @@
         <!--UPDATING THE FILE/ ERROR-->
         <script src="jsDemoImports/highestUpdate.js" type="text/javascript"></script>
 
-        <!--Pace Imports-->
-        <script src="Pace/pace.js"></script>
-        <link href="Pace/dataurl.css" rel="stylesheet" />
+       <!--Pace Imports-->
+        <script src="AdminLTE/plugins/pace/pace.js" type="text/javascript"></script>
+        <link href="AdminLTE/plugins/pace/dataurl.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body>

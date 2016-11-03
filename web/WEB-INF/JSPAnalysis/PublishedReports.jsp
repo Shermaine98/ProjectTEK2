@@ -213,33 +213,43 @@
         </div>
 
         <script>
-            $(document).on("xepOnlineStatus", function (event, state) {
-                if (state === "Started") {
-                    var screenTop = $(document).scrollTop();
-                    var screenHeight = $(document).height();
-                    $('#spinner-overlay').css('top', screenTop);
-                    $('#spinner-overlay').css('height', screenHeight);
-                    $('#spinner-overlay').toggle('show');
-                } else if (state === "Finished") {
-                    console.log("Save to PDF Finished Loading");
-                    $('#spinner-overlay').toggle('show');
-                    doneyet();
-                }
-
-            });
             $('#save_integrated').click(function () {
                 print_div('integrated');
-                xepOnline.Formatter.Format('TESTING',
+
+                var screenTop = $(document).scrollTop();
+                var screenHeight = $(document).height();
+                $('#spinner-overlay').css('top', screenTop);
+                $('#spinner-overlay').css('height', screenHeight);
+                $('#spinner-overlay').toggle('show');
+
+
+                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
-                        {render:'download'},
+                        {render: 'download'},
                         {embedLocalImages: 'true'});
+
+                $('#spinner-overlay').toggle('hide');
+                doneyet();
             });
+            
+            
             $('#save_reports').click(function () {
                 print_div('reports');
+                
+                     var screenTop = $(document).scrollTop();
+                var screenHeight = $(document).height();
+                $('#spinner-overlay').css('top', screenTop);
+                $('#spinner-overlay').css('height', screenHeight);
+                $('#spinner-overlay').toggle('show');
+                
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
-                        {render:'download'},
+                        {render: 'download'},
                         {embedLocalImages: 'true'});
+
+                 $('#spinner-overlay').toggle('hide');
+                doneyet();        
+
             });
 
             var year;
@@ -314,7 +324,7 @@
                     $('#submitBtn').click(setIntegrated());
                 }
             }
-            
+
             function updateButton() {
                 if ($('#searchCensusYear').val()) {
                     $('#button').removeClass('btn-default');
