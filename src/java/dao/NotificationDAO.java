@@ -249,7 +249,6 @@ public class NotificationDAO {
             if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")||taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
                 int dateDelayed = taskModel.get(i).getDateDiff();
-                System.out.println("Delayed "+dateDelayed);
                 TaskModel temp = new TaskModel();
                 if (dateDelayed >= 0 && dateDelayed <=5) {
                     if(taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")){
@@ -282,7 +281,6 @@ public class NotificationDAO {
             if (taskModel.get(i).getStatus().equalsIgnoreCase("Pending")||taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")) {
                 //long dateDelayed = Math.round(taskModel.get(i).getDuedate().getTime() - todate1.getTime());
                 int dateDelayed = taskModel.get(i).getDateDiff();
-                System.out.println("Delayed "+dateDelayed);
                 TaskModel temp = new TaskModel();
                 if (dateDelayed >= 0 && dateDelayed <=5) {
                     if(taskModel.get(i).getStatus().equalsIgnoreCase("Delayed")){
