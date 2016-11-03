@@ -60,6 +60,7 @@ function setAnalysisS(year, sector) {
                 element.appendChild(para);
 
                 $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
+           
                 $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -4344,7 +4345,14 @@ function setMatrix() {
                 var element = document.getElementById("content");
                 para.setAttribute("style", "box-body");
                 element.appendChild(para);
-                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + data[i].path + '">');
+                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image" style="display: block;  src="' + data[i].path + '">');
+        
+                 
+                encodeImage(data[i].path, function (dataURL) {
+                  $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="imagePrint"  style="display: none; src="' + dataURL + '">');
+
+                });
+                
                 var table = document.createElement("table");
                 table.setAttribute("class", "table table-hover table-bordered");
                 table.setAttribute("style", " margin: 0 auto;");
@@ -4377,4 +4385,18 @@ function setMatrix() {
             console.log(XMLHttpRequest.responseText);
         }
     });
+}
+
+function encodeImage(imageUri, callback) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext("2d");
+    var img = new Image();
+    img.onload = function () {
+        c.width = this.width;
+        c.height = this.height;
+        ctx.drawImage(img, 0, 0);
+        var dataURL = c.toDataURL("image/png");
+        callback(dataURL)
+    };
+    img.src = imageUri;
 }
