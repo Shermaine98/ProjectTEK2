@@ -4345,11 +4345,11 @@ function setMatrix() {
                 var element = document.getElementById("content");
                 para.setAttribute("style", "box-body");
                 element.appendChild(para);
-                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image" style="display: block;  src="' + data[i].path + '">');
+                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + data[i].path + '">');
         
                  
                 encodeImage(data[i].path, function (dataURL) {
-                  $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="imagePrint"  style="display: none; src="' + dataURL + '">');
+                  $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="imagePrint"  src="' + dataURL + '">');
 
                 });
                 

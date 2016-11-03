@@ -338,9 +338,6 @@
             }
 
             function print_div(prints) {
-                document.getElementById("image").style.display = "none";
-                document.getElementById("imagePrint").style.display = "block";
-                
                 if (prints == "integrated") {
                     jQuery('#print').html(jQuery("#integrated__reports").html());
                 } else if (prints == "reports") {
@@ -349,8 +346,7 @@
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
-                document.getElementById("imagePrint").style.display = "none";
-                     document.getElementById("image").style.display = "block";
+
                 var d = new Date();
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth();
