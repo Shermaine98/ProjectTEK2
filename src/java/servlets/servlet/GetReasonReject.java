@@ -67,7 +67,7 @@ public class GetReasonReject extends HttpServlet {
 
             record = recordDAO.GetForReasons(Integer.parseInt(formID));
             TaskDAO taskDAO = new TaskDAO();
-            ArrayList<TaskModel> taskModel = taskDAO.getTaskUploadeStatus(year, chck.getPosition());
+            ArrayList<TaskModel> taskModel = taskDAO.getTaskUploaderStatus(year, chck.getPosition());
 
             for (int i = 0; i < taskModel.size(); i++) {
                 if (taskModel.get(i).getFormID() == record.getFormID()) {

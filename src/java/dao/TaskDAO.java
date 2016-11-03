@@ -64,8 +64,42 @@ public class TaskDAO {
         }
         return taskModel;
     }
+    
+    public ArrayList<TaskModel> getTaskHeadForApproval(int year, String sector) throws ParseException, SQLException {
 
-    public ArrayList<TaskModel> getTaskUploadeStatus(int year, String position) throws ParseException {
+        DBConnectionFactory myFactory1 = DBConnectionFactory.getInstance();
+        ArrayList<TaskModel> taskModel;
+        try (Connection conn = myFactory1.getConnection()) {
+            taskModel = new ArrayList<>();
+            String query = "select * from task where `reportType` = 'Upload' and  `sector` = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, sector);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int formId = rs.getInt("reportID")  + year;
+                TaskModel taskModelTemp = new TaskModel();
+                taskModelTemp.setReportType(rs.getString("reportType"));
+                taskModelTemp.setSector(rs.getString("sector"));
+                taskModelTemp.setDuedate(formatter.parse(year + "/" + rs.getInt("month") + "/" + rs.getInt("day")));
+                String query2 = "select datediff(?,NOW()) as 'diffDate';";
+                PreparedStatement pstmt2 = conn.prepareStatement(query2);
+                pstmt2.setString(1, year + "/" + rs.getInt("month") + "/" + rs.getInt("day"));
+                
+                ResultSet rs2 = pstmt2.executeQuery();
+                while(rs2.next()){
+                    taskModelTemp.setDateDiff(rs2.getInt("diffDate"));
+                }
+                
+                taskModelTemp.setreportName(rs.getString("reportName"));
+                taskModelTemp.setFormID(formId);
+                taskModel.add(taskModelTemp);
+            }
+          conn.close();
+        }
+        return taskModel;
+    }
+
+    public ArrayList<TaskModel> getTaskUploaderStatus(int year, String position) throws ParseException {
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             ArrayList<TaskModel> taskModels = getTask(year, position);
@@ -178,6 +212,7 @@ public class TaskDAO {
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
+                            temp.setDateDiff(taskModel.get(i).getDateDiff());
                             taskModelFinal.add(temp);
                         } else if (status.equalsIgnoreCase("0")) {
                             TaskModel temp = new TaskModel();
@@ -188,6 +223,7 @@ public class TaskDAO {
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
+                             temp.setDateDiff(taskModel.get(i).getDateDiff());
                             taskModelFinal.add(temp);
                         }
 
@@ -204,6 +240,7 @@ public class TaskDAO {
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Delayed");
+                             temp.setDateDiff(taskModel.get(i).getDateDiff());
                             taskModelFinal.add(temp);
                         } else {
                             temp.setreportName(taskModel.get(i).getReportName());
@@ -212,6 +249,7 @@ public class TaskDAO {
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Pending");
+                             temp.setDateDiff(taskModel.get(i).getDateDiff());
                             taskModelFinal.add(temp);
                         }
                     }
@@ -238,6 +276,7 @@ public class TaskDAO {
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
+                             temp.setDateDiff(taskModel.get(i).getDateDiff());
                             taskModelFinal.add(temp);
                         } else if (status.equalsIgnoreCase("0")) {
                             TaskModel temp = new TaskModel();
@@ -247,7 +286,7 @@ public class TaskDAO {
                             temp.setStatus("Completed");
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
-
+ temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setSector(taskModel.get(i).getSector());
                             taskModelFinal.add(temp);
                         }
@@ -262,7 +301,7 @@ public class TaskDAO {
                             temp.setDuedate(taskModel.get(i).getDuedate());
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
-
+ temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Delayed");
                             taskModelFinal.add(temp);
@@ -272,6 +311,7 @@ public class TaskDAO {
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
+                             temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setStatus("Pending");
                             taskModelFinal.add(temp);
                         }
@@ -298,7 +338,7 @@ public class TaskDAO {
                             temp.setStatus("Saved");
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
-
+ temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setSector(taskModel.get(i).getSector());
                             taskModelFinal.add(temp);
                         } else if (status.equalsIgnoreCase("0")) {
@@ -309,7 +349,7 @@ public class TaskDAO {
                             temp.setStatus("Completed");
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
-
+ temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setSector(taskModel.get(i).getSector());
                             taskModelFinal.add(temp);
                         }
@@ -324,7 +364,7 @@ public class TaskDAO {
                             temp.setDuedate(taskModel.get(i).getDuedate());
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
-
+ temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setSector(taskModel.get(i).getSector());
                             temp.setStatus("Delayed");
                             taskModelFinal.add(temp);
@@ -334,6 +374,7 @@ public class TaskDAO {
                             temp.setReportType(taskModel.get(i).getReportType());
                             temp.setFormID(taskModel.get(i).getFormID());
                             temp.setSector(taskModel.get(i).getSector());
+                             temp.setDateDiff(taskModel.get(i).getDateDiff());
                             temp.setStatus("Pending");
                             taskModelFinal.add(temp);
                         }

@@ -105,19 +105,23 @@
                                         </tr>
                                         <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroupTemp().size(); y += 2) {%>
                                         <tr>
-                                            <th class='errorH' ><input type="text"   name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
-                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
-                                            <td><input type="text" name="validation2" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
-                                            <th class='errorH'><input type="text" name="highestCompletedError" readonly value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
-                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
-                                            <td><input type="text" name="validation2" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
+                                            <th class='errorH' ><input type="text" name="highestCompletedError" readonly 
+                                                                       value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
+                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  
+                                                                      onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
+                                            <td width="10%"><input type="text" name="validation2" style="display:none;" 
+                                                                   value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
+                                            <th class='errorH'><input type="text" name="highestCompletedError" readonly 
+                                                                      value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
+                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  
+                                                                      onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+                                                                      value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
+                                            <td width="10%"><input type="text" name="validation2" style="display:none;" 
+                                                                   value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
                                         </tr>
                                         <% }%>
                                         <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th colspan="4"></th>
                                             <th>Total</th>
                                             <td class='Errototal'><input type="text" class="ErrortotalI centerTD" name="totalError" style="float:right;" readonly value="<%=highestError.get(i).getTotal()%>" /></td>
                                         </tr>
@@ -129,7 +133,7 @@
 
 
                             <div align="center">
-                                <a href="javascript:window.print()"><input align="center" class="btn btn-success" style="margin: 1% auto 5% auto" type="button" value="Print Error Summary"/></a>
+                                <a onclick="print_div()"><input align="center" class="btn btn-success" style="margin: 1% auto 5% auto" type="button" value="Print Error Summary"/></a>
                             </div>
 
                             <!--END IS FOR THE PAGE RESULT DATA WITH ERROR-->
@@ -192,14 +196,43 @@
                             </div>
                             <!--END IS FOR THE PAGE RESULT FOR DATA WITH NO ERROR-->
                             <input type="hidden" name="page" value="<%=redirect%>"/>
-                                <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
-                              <input name="errorMessage" type="hidden" value="<%=temp%>" />
+                            <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
+                            <input name="errorMessage" type="hidden" value="<%=temp%>" />
                         </form>
                     </div>
                 </section>
             </div>
         </div>
+        
+        <div class="visible-print">
+
+            <div style="margin-bottom: 6%;" align="center">
+                <img src="img/Caloocan-Logo.png" alt=""/><br>
+                <h4>City Planning and Development Department</h4>
+                <p>Household Population 5 Years Old and Over by Highest<br> Grade/Year Completed, Age Group, and Sex<br>
+                    Errors Summary Report for 2016<br>
+                    Prepared By: <%= user.getFirstName()%> <%= user.getLastName()%></p>
+                <p id="DateHere"></p>
+            </div>
+            <!--TABLE-->
+            <p style="margin-left: 5%;">Please provide the correct inputs for the missing and incorrect fields as seen in the table below.</p>
+            <div id="printTable" style="width: 90%; margin-left: auto; margin-right: auto;">
+            </div>
+            <footer>
+                <div style='text-align:center;
+                     position:fixed;
+                     height:50px;
+                     background-color:red;
+                     bottom:0px;
+                     left:0px;
+                     right:0px;
+                     margin-bottom:0px;'>Page 1
+                    <!--<span class="pageCounter"></span>/<span class="totalPages"></span>-->
+                </div>
+            </footer>
+        </div>
         <div id="bottom"></div>
+        
         <a href="#bottom"><div id="_bottom" class="hidden"  title="Scroll to Button"
                                style="position: fixed; top:40px; right: 5px; opacity: 0.5; cursor: pointer;">
                 <img src="img/arrowdown.png" style='width:70px; height:70px; margin-top:40%'
@@ -217,8 +250,7 @@
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - 50000) {
                     document.getElementById("_top").className = "";
                     document.getElementById("_bottom").className = "hidden";
-                }
-                else {
+                } else {
                     document.getElementById("_bottom").className = "";
                     document.getElementById("_top").className = "hidden";
                 }
@@ -236,6 +268,34 @@
                         1500);
                 return false;
             });
+
+            function print_div() {
+
+                var m_names = new Array("January", "February", "March",
+                        "April", "May", "June", "July", "August", "September",
+                        "October", "November", "December");
+
+                var d = new Date();
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth();
+                var curr_year = d.getFullYear();
+                var today = m_names[curr_month] + " " + curr_date
+                        + ", " + curr_year;
+
+                $('#error-ageGroup').DataTable().destroy(false);
+                $("#DateHere").html(today);
+                jQuery('#printTable').html(jQuery("#errorsDiv").html());
+                window.print();
+                document.body.onfocus = doneyet();
+            }
+            function doneyet() {
+                document.body.onfocus = "";
+                $('#printTable').empty();
+            }
+
+            var d = new Date();
+            var n = d.getFullYear();
+            document.getElementById('text_year').innerHTML = "<b>" + n + "</b>";
 
         </script>
     </body>

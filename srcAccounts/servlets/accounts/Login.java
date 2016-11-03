@@ -126,7 +126,7 @@ public class Login extends HttpServlet {
 //I - Demo
                     if (user.getPosition().equals("Project Development Officer IV")) {
                         ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year,user.getPosition(), "Health");
-                         ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploadeStatus(year,"Administrative Aide VI");
+                         ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploaderStatus(year,"Administrative Aide VI");
                         request.setAttribute("tasks", taskUploader);
                         request.setAttribute("tasksHead", arrayTask);
                         rd = context.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
@@ -139,7 +139,7 @@ public class Login extends HttpServlet {
                         request.setAttribute("tasksHead", arrayTask);
                         rd = context.getRequestDispatcher("/WEB-INF/home_PDO.jsp");
                     } else {
-                        ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploadeStatus(year,user.getPosition());
+                        ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploaderStatus(year,user.getPosition());
                         request.setAttribute("tasks", taskUploader);
                         rd = context.getRequestDispatcher("/WEB-INF/home.jsp");
                     }

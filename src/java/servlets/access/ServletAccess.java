@@ -94,7 +94,7 @@ public class ServletAccess extends BaseServlet {
 
 //HOME   
             if (redirect.equalsIgnoreCase("home")) {
-                ArrayList<TaskModel> arrayTask = taskDAO.getTaskUploadeStatus(year, chck.getPosition());
+                ArrayList<TaskModel> arrayTask = taskDAO.getTaskUploaderStatus(year, chck.getPosition());
                 request.setAttribute("tasks", arrayTask);
                 request.setAttribute("page", "home");
                 rd = request.getRequestDispatcher("/WEB-INF/home.jsp");
@@ -115,7 +115,7 @@ public class ServletAccess extends BaseServlet {
 
                 if (chck.getPosition().equals("Project Development Officer IV")) {
                     ArrayList<TaskModel> arrayTask = taskDAO.checkTaskHead(year, chck.getPosition(), "Health");
-                    ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploadeStatus(year, "Administrative Aide VI");
+                    ArrayList<TaskModel> taskUploader = taskDAO.getTaskUploaderStatus(year, "Administrative Aide VI");
 
                     request.setAttribute("tasks", taskUploader);
                     request.setAttribute("tasksHead", arrayTask);
@@ -228,9 +228,7 @@ public class ServletAccess extends BaseServlet {
             } else {
                 request.getRequestDispatcher("index.jsp").include(request, response);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(ServletAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
 
