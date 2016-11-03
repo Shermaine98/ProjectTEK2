@@ -72,7 +72,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
             if (x) {
                 request.setAttribute("page", "Upload");
                 request.setAttribute("saveToDB", "SuccessDB");
-                if (classification.equalsIgnoreCase("Private")) {
+                if (classification.equalsIgnoreCase("private")) {
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
                     rd.forward(request, response);
                 } else {
@@ -83,7 +83,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
             } else {
                 request.setAttribute("page", "Upload");
                 request.setAttribute("saveToDB", "notSuccess");
-                if (classification.equalsIgnoreCase("Private")) {
+                if (classification.equalsIgnoreCase("private")) {
                     RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
                     rd.forward(request, response);
                 } else {

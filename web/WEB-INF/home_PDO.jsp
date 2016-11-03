@@ -176,7 +176,7 @@
                                         if (aPrivateDirectory >= 1) {%>
                                     <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=approval_privatedirectory">
                                         <button class="btn btn-warning smallButtonStyle"><%=aPrivateDirectory%></button></a>
-                                    <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Public Schools</p>
+                                    <p class="expand" id='directoryPrivate' onclick="expand('directoryPrivate');">Number of Teachers and Classrooms in Private Schools</p>
                                     <% }
                                         }
                                     } else if (user.getPosition().equals("Project Development Officer IV")) {
