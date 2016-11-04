@@ -2252,18 +2252,18 @@ function setAnalysis() {
             sector: sector
         },
         success: function (data) {
-           if (data.length === 0) {
+            if (data.length === 0) {
                 errorMessage(year);
                 $("#info").empty();
                 $("#content").empty();
                 $("#prepared_by").empty();
-                
-                 document.getElementById('integrateData').style.display = "none";
+
+                document.getElementById('integrateData').style.display = "none";
                 document.getElementById('contentHere').style.display = "none";
                 document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no analysis reports available for the year " + year + ".");
-            }else{
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no analysis reports available for the year " + year + ".";
+            } else {
                 $("#content").empty();
                 $("#prepared_by").empty();
                 $("#info").empty();
@@ -2307,21 +2307,21 @@ function setIntegrated() {
             sector: sector
         },
         success: function (data) {
-            
+
             console.log(data.length);
-          if (data.length === 0) {
+            if (data.length === 0) {
                 errorMessage(year);
                 $("#info").empty();
                 $("#content").empty();
                 $("#prepared_by").empty();
-                
+
                 document.getElementById('integrateData').style.display = "none";
                 document.getElementById('contentHere').style.display = "none";
                 document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no integrated analysis reports available for the year " + year + ".");
-                
-            }  else{
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no integrated analysis reports available for the year " + year + ".";
+
+            } else {
                 $("#content").empty();
                 $("#prepared_by").empty();
                 $("#integratedanalysis").empty();
@@ -4359,7 +4359,7 @@ function setIntegrated() {
 //        analysischart = {};
                 }
                 //CHART END
-            } 
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
         }
@@ -4391,8 +4391,8 @@ function setMatrix() {
                 document.getElementById('integrateData').style.display = "none";
                 document.getElementById('contentHere').style.display = "none";
                 document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no matrix analysis reports available for the year " + year + ".");
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no matrix analysis reports available for the year " + year + ".";
             } else {
                 $("#info").empty();
                 $("#content").empty();
@@ -4457,7 +4457,7 @@ function encodeImage(imageUri, callback) {
 
 function errorMessage(year) {
     $("#notificationHeader").empty();
-       $("#notificationBodyModal").empty();
+    $("#notificationBodyModal").empty();
     $("#notificationHeader").css({color: "#FFFFFF"});
     $("#modal_Header").css({background: "#F70A0A"});
     $("#notificationHeader").text("Warning!");
