@@ -21,22 +21,29 @@ function integrate() {
                     $("#modal_Header").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
-                    $("#modal-footer").append('<a href="${pageContext.request.contextPath}/ServletAccess?redirect=StandardManipulation"><button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button></a>');
-                    $("#notificationModal").modal("show");
+                    $("#notificationModalFooter").empty();
+                    $("#notificationModalFooter").append('<a href="ServletAccess?redirect=StandardManipulation"><button type="button"class="btn btn-success" >Proceed to Integrated Analytics</button></a>');
+                    $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
 
+                    $("#notificationModal").modal("show");
+                    $('#integrate').prop('disabled', true);
+                    $('#integrate').addClass('btn-default');
+                    $('#integratetooltip').prop('title', 'All reports are integrated');
                 } else {
                     $("#integrateLoad").modal("hide");
                     $("#notificationHeader").text("Success!");
                     $("#modal_Header").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
-                    $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
-                    $("#modal-footer").append('<a href="${pageContext.request.contextPath}/ServletAccess?redirect=StandardManipulation"><button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button></a>');
+                    $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data</p>");
+                    $("#notificationModalFooter").empty();
+                    $("#notificationModalFooter").append('<a href="ServletAccess?redirect=StandardManipulation"><button type="button" class="btn btn-success" >Proceed to Integrated Analytics</button></a>');
+                    $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
                     $("#notificationModal").modal("show");
+                    $('#integrate').prop('disabled', true);
+                    $('#integrate').addClass('btn-default');
+                    $('#integratetooltip').prop('title', 'All reports are integrated');
 
                 }
-                $("#notificationBodyModal").empty();
-                $("#modal-footer").empty();
-                $("#modal-footer").append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 alert(exception);
             }

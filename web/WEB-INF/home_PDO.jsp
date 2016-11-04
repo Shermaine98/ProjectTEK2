@@ -248,12 +248,10 @@
 
                         <div class="col-md-8">
                             <div class="box box-solid">
-                                <div id="integratetooltip" class="box-header with-border"  data-toggle="tooltip"
-                                     title="All reports need to be completed in order to integrate all data" data-placement="right" >
+                                <div id="integratetooltip" class="box-header with-border"   data-toggle="tooltip"  title="" data-placement="right" >
                                     <h3 class="box-title">Uploads Summary</h3>
 
-                                    <input class="btn btn-default btn-sm" type="button"
-                                           onClick="integrate()" value="Integrate Data" id="integrate" style="float:right;" disabled />
+                                    <input class="btn  btn-sm" type="button" onClick="integrate()" value="Integrate Data" id="integrate" style="float:right;" disabled />
                                 </div>
                                 <!-- /.box-header -->
                                 <div id="status" class="box-body">
@@ -315,18 +313,25 @@
                     type: 'POST',
                     dataType: "JSON"
                     , success: function (data) {
+                        console.log(data);
                         if (data === true) {
                             $('#integrate').prop('disabled', true);
+                            $('#integrate').addClass('btn-default');
+                            $('#integratetooltip').prop('title', 'All reports are integrated');
+
                         } else {
                             $(".completed").each(function () {
                                 var x = $(this).text();
                                 if (x === "Completed") {
                                     y++;
                                 }
-               
                                 if (y == 9) {
-                                    $('#integrate').addClass('btn-primary');
                                     $('#integrate').prop('disabled', false);
+                                    $('#integratetooltip').prop('title', 'Reports are available for Integration');
+                                } else {
+                                    $('#integrate').prop('disabled', true);
+                                    $('#integrate').addClass('btn-default');
+                                    $('#integratetooltip').prop('title', 'All reports need to be completed in order to integrate all data');
                                 }
                             });
                         }

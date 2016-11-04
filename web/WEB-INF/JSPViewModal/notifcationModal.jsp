@@ -19,7 +19,7 @@
                     <div  id="notificationBodyModal" class="form-inline notification_body_modal">
                         <!-- Modal content-->
                     </div>
-                    <div class="modal-footer">
+                    <div id="notificationModalFooter" class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
