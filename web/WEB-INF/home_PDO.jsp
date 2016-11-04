@@ -269,7 +269,7 @@
                                         <tbody class="list">
                                             <%
                                                 for (int i = 0; i < task.size(); i++) {%>
-                                             <tr>
+                                            <tr>
                                                 <td class="ts name"><%= task.get(i).getReportName()%></td>
                                                 <td class="date"><%= task.get(i).getSduedate()%></td>
                                                 <% if (task.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
@@ -310,20 +310,30 @@
         <script>
             $(document).ready(function () {
                 var y = 0;
-                $(".completed").each(function () {
-                    var x = $(this).text();
-                    if (x === "Completed") {
-                        y++;
-                    }
-                    //alert(y);
-                    if (y == 9) {
-                        $('#integrate').addClass('btn-primary');
-                        $('#integrate').prop('disabled', false);
-                    }else{
-                       $('#integrate').prop('disabled', true);
+                $.ajax({
+                    url: "IntegrationCheckerServlet",
+                    type: 'POST',
+                    dataType: "JSON"
+                    , success: function (data) {
+                        if (data === true) {
+                            $('#integrate').prop('disabled', true);
+                        } else {
+                            $(".completed").each(function () {
+                                var x = $(this).text();
+                                if (x === "Completed") {
+                                    y++;
+                                }
+               
+                                if (y == 9) {
+                                    $('#integrate').addClass('btn-primary');
+                                    $('#integrate').prop('disabled', false);
+                                }
+                            });
+                        }
+                    }, error: function (XMLHttpRequest, textStatus, exception) {
+                        alert(exception);
                     }
                 });
-
 
                 var summary = {
                     valueNames: ['name', 'status', 'date']

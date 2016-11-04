@@ -392,6 +392,10 @@
         <servlet-name>ETLServlet</servlet-name>
         <servlet-class>servlet.etl.ETLServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>IntegrationCheckerServlet</servlet-name>
+        <servlet-class>servlet.etl.IntegrationCheckerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -759,6 +763,10 @@
     <servlet-mapping>
         <servlet-name>ETLServlet</servlet-name>
         <url-pattern>/ETLServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IntegrationCheckerServlet</servlet-name>
+        <url-pattern>/IntegrationCheckerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
