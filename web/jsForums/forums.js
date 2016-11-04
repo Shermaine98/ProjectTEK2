@@ -88,39 +88,43 @@ function HotTopic() {
             var element = document.getElementById("hotTopicDiv");
             $('#hotTopicDiv').empty();
 
-            var para = document.createElement("div");
-            element.appendChild(para);
+            if (data.length > 0) {
 
-            var table = document.createElement("table");
-            table.setAttribute("class", "table");
-            table.setAttribute("style", "margin: 0 auto;");
-            para.appendChild(table);
+                var para = document.createElement("div");
+                element.appendChild(para);
 
-            var tbody = document.createElement("tbody");
-            table.appendChild(tbody);
+                var table = document.createElement("table");
+                table.setAttribute("class", "table");
+                table.setAttribute("style", "margin: 0 auto;");
+                para.appendChild(table);
 
-            for (var i = 0; data.length > i; i++) {
+                var tbody = document.createElement("tbody");
+                table.appendChild(tbody);
 
-                var tbodytr = document.createElement("tr");
-                tbody.appendChild(tbodytr);
-                if (data[i].isLike === false) {
-                    $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled">\n\
+                for (var i = 0; data.length > i; i++) {
+
+                    var tbodytr = document.createElement("tr");
+                    tbody.appendChild(tbodytr);
+                    if (data[i].isLike === false) {
+                        $(tbodytr).append('<td><button class="btn btn-flat btn-default btn-sm disabled">\n\
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
-                            + data[i].favoritesCount + '</button></td>');
-                } else {
-                    $(tbodytr).append('<td><button class="btn btn-flat btn-primary btn-sm disabled">\n\
+                                + data[i].favoritesCount + '</button></td>');
+                    } else {
+                        $(tbodytr).append('<td><button class="btn btn-flat btn-primary btn-sm disabled">\n\
                                   <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 25%;"></i>'
-                            + data[i].favoritesCount + '</button></td>');
+                                + data[i].favoritesCount + '</button></td>');
 
-                }
+                    }
 
-                $(tbodytr).append('<span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
+                    $(tbodytr).append('<span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
                     <a class="titleName">' + data[i].forumTitle + '</a></span><br/>\n\
                     <p style="font-size: 13px; color: #a3a3a3;">Created on ' + data[i].dateCreated + ' by ' + data[i].createdByName + '</p></td>');
 
+                }
+
+            } else {
+                $(element).append("<p>There are currently no hot topics.</p>");
             }
-
-
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(exception);
         }
@@ -144,15 +148,15 @@ function Viewforums() {
             var table = document.createElement("table");
             table.setAttribute("class", "table dataTable");
             table.setAttribute("style", "margin: 0;");
-            table.setAttribute('id','dataTable');
-            table.setAttribute('cellspacing','0');
-            table.setAttribute('cellpadding','0');
+            table.setAttribute('id', 'dataTable');
+            table.setAttribute('cellspacing', '0');
+            table.setAttribute('cellpadding', '0');
             para.appendChild(table);
 
             var thead = document.createElement("thead");
             thead.setAttribute("style", "display:none;");
             table.appendChild(thead);
-            
+
             $(thead).append('<tr><th></th><th></th></tr>');
 
             var tbody = document.createElement("tbody");
@@ -171,7 +175,7 @@ function Viewforums() {
 
                 $(tbodytr).append('<td class="forumTitleSearch"><span style="display: none;" class="createdBy">' + data[i].createdBy + '</span><span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\
                     <a class="titleName" style="font-size: 15px;"><span class="forumTitle">' + data[i].forumTitle + '</span></a>\n\
-                    <p style="color: #777; font-size: 10px;">Created by ' + data[i].createdByName + ' on '+ data[i].dateCreated + '</p></td>');
+                    <p style="color: #777; font-size: 10px;">Created by ' + data[i].createdByName + ' on ' + data[i].dateCreated + '</p></td>');
 
                 var tbodytr2 = document.createElement("tr");
                 //tbodytr2.setAttribute('border-style','1');
@@ -191,17 +195,17 @@ function Viewforums() {
 
                 var userList = new List('searchDiv', options);
 
-                
+
             }
             $("#dataTable").DataTable({
-                    "paging": true,
-                    "ordering": false,
-                    "lengthChange": false,
-                    "searching": false,
-                    "info": false, "language": {
-                        "emptyTable": "No Data"
-                    }
-                });
+                "paging": true,
+                "ordering": false,
+                "lengthChange": false,
+                "searching": false,
+                "info": false, "language": {
+                    "emptyTable": "There are no topics posted yet."
+                }
+            });
 
 
         }, error: function (XMLHttpRequest, textStatus, exception) {

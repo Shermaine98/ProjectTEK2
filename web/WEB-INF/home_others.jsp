@@ -140,7 +140,6 @@
                                 </div>
                                 <div class="box-body">
                                     <div id="hotTopicDiv">
-
                                     </div>
                                 </div>
                             </div>
