@@ -4459,7 +4459,7 @@ function errorMessage(year) {
     $("#notificationHeader").empty();
     $("#notificationBodyModal").empty();
     $("#notificationHeader").css({color: "#FFFFFF"});
-    $("#modal_Header").css({background: "#F70A0A"});
+    $("#modal_Header").css({background: "#b34112"});
     $("#notificationHeader").text("Warning!");
     $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">No Report Available for the year/word "' + year + '"</p>');
     $("#notificationModal").modal("show");
