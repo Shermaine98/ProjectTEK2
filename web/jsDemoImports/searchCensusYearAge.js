@@ -177,9 +177,8 @@ function setAgeGroupDataNotification(censusYear) {
 
 function getDataAgeGroup() {
 
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetDataServlet",
         type: 'POST',
@@ -188,16 +187,17 @@ function getDataAgeGroup() {
             censusYear: censusYear
         },
         success: function (data) {
-            var print = data;
-            $('#dataTable').remove();
-
-            var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
+            if (data.length > 0) {
+                document.getElementById('noReport').style.display = "none";
+                var print = data;
+                $('#dataTable').remove();
+                var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str;
-            $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
+                document.getElementById("TableHolder").innerHTML = str;
+                $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
                                     <th>Location</th> \n\
                                     <th>Age Group</th>\n\
                                     <th class="centerTD">Both Sexes</th> \n\
@@ -207,44 +207,46 @@ function getDataAgeGroup() {
 
 
 
-            for (i = 0; i < print[0].ByAgeGroupSexTable.length; i++) {
-                $('#data').append('<tr> \n\
+                for (i = 0; i < print[0].ByAgeGroupSexTable.length; i++) {
+                    $('#data').append('<tr> \n\
                                         <td>' + print[0].ByAgeGroupSexTable[i].location + '</td>  \n\
                                         <td>' + print[0].ByAgeGroupSexTable[i].AgeGroup + '</td> \n\
                                         <td class="centerTD number">' + print[0].ByAgeGroupSexTable[i].BothSexes + '</td> \n\
                                         <td class="centerTD number">' + print[0].ByAgeGroupSexTable[i].Male + '</td> \n\
                                         <td class="centerTD number">' + print[0].ByAgeGroupSexTable[i].Female + '</td>'
-                        + '</tr>');
+                            + '</tr>');
 
+                }
+                //COMA
+                formatTDNumber();
+
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": true,
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    },
+                    "columns": [
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'}
+                    ]
+                });
+
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chart(print);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
-
-
-
-
-            //COMA
-            formatTDNumber();
-
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": true,
-                "info": false, "language": {
-                    "emptyTable": "No Data"
-                },
-                "columns": [
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'}
-                ]
-            });
-
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chart(print);
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -446,9 +448,8 @@ function chart(print) {
 //}
 
 function getMaritalStatusData() {
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetMaritalDataServlet",
         type: 'POST',
@@ -457,17 +458,17 @@ function getMaritalStatusData() {
             censusYear: censusYear
         },
         success: function (data) {
+            if (data.length > 0) {
+                var print = data;
+                $('#dataTable').remove();
 
-            var print = data;
-            $('#dataTable').remove();
-
-            var str = '<table  id="dataTable" class="table table-bordered table-hover dataTable"> <thead id="thead">\n\
+                var str = '<table  id="dataTable" class="table table-bordered table-hover dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str;
-            $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
+                document.getElementById("TableHolder").innerHTML = str;
+                $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
                                     <th style="width:10%">Location</th> \n\
                                     <th style="width:10%">Sex</th>\n\
                                     <th style="width:10%">Age Group</th> \n\
@@ -480,8 +481,8 @@ function getMaritalStatusData() {
                                     <th style="width:10%">Total</th> \n\
                                     </tr>');
 
-            for (i = 0; i < print[0].maritalTable.length; i++) {
-                $('#data').append('<tr> \n\
+                for (i = 0; i < print[0].maritalTable.length; i++) {
+                    $('#data').append('<tr> \n\
                                         <td>' + print[0].maritalTable[i].location + '</td>  \n\
                                         <td>' + print[0].maritalTable[i].sex + '</td> \n\
                                         <td>' + print[0].maritalTable[i].ageGroup + '</td> \n\
@@ -492,25 +493,31 @@ function getMaritalStatusData() {
                                         <td class="centerTD number">' + print[0].maritalTable[i].liveIn + '</td> \n\
                                         <td class="centerTD number">' + print[0].maritalTable[i].unknown + '</td> \n\
                                         <td class="centerTD number">' + print[0].maritalTable[i].total + '</td>'
-                        + '</tr>');
+                            + '</tr>');
 
-            }
-
-            //COMA
-            formatTDNumber();
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": true,
-                "info": false, "language": {
-                    "emptyTable": "No Data"
                 }
-            });
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chartMarital(print);
+
+                //COMA
+                formatTDNumber();
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": true,
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    }
+                });
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chartMarital(print);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -971,8 +978,8 @@ function chartMarital(print) {
         legend: {
             enabled: true
         },
-        yAxis:{
-            title: {text:'Population'}
+        yAxis: {
+            title: {text: 'Population'}
         },
         plotOptions: {
             series: {
@@ -1016,9 +1023,8 @@ function chartMarital(print) {
 
 
 function getSchoolData() {
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     var classification = document.getElementById('form_name').value;
     if (classification == "privateDirectory") {
         classification = "Private";
@@ -1034,23 +1040,23 @@ function getSchoolData() {
             classification: classification
         },
         success: function (data) {
+            if (data.length > 0) {
+                var print = data;
+                $('#dataTable').remove();
+                $('#dataTable2').remove();
 
-            var print = data;
-            $('#dataTable').remove();
-            $('#dataTable2').remove();
-
-            var str = '<table id="dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="incomplete_info">\n\
+                var str = '<table id="dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="incomplete_info">\n\
                             <thead style="display:none;"><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str;
+                document.getElementById("TableHolder").innerHTML = str;
 
-            for (i = 0; i < print[0].det.length; i++) {
-                var totalSeats = print[0].det[i].schoolDirectoryKinderSeats + print[0].det[i].schoolDirectoryElemSeats;
-                console.log(print[0].det[i].schoolDirectoryKinderSeats + print[0].det[i].schoolDirectoryElemSeats);
-                console.log(print[0].det[i].schoolDirectoryKinderSeats + '+' + print[0].det[i].schoolDirectoryElemSeats);
-                $('#data').append('<tr style = "background-color: #454545; color: #fff" >\n\
+                for (i = 0; i < print[0].det.length; i++) {
+                    var totalSeats = print[0].det[i].schoolDirectoryKinderSeats + print[0].det[i].schoolDirectoryElemSeats;
+                    console.log(print[0].det[i].schoolDirectoryKinderSeats + print[0].det[i].schoolDirectoryElemSeats);
+                    console.log(print[0].det[i].schoolDirectoryKinderSeats + '+' + print[0].det[i].schoolDirectoryElemSeats);
+                    $('#data').append('<tr style = "background-color: #454545; color: #fff" >\n\
                                         <th style="vertical-align: bottom; text-align: left;" >Name of School</th>\n\
                                         <td class="nr" colspan = "8" style="border-right: none; text-align: left;">' + print[0].det[i].schoolDirectoryName + '</td>\n\
                                         <td style="border-left: none; text-align: right"></td>\n\
@@ -1081,16 +1087,16 @@ function getSchoolData() {
                                         <th style="text-align:center;">Total</th>\n\
                                     </tr>\n\
                                     <tr>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachersMale   + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachersMale + '</td>\n\
                                         <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachersFemale + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachers       + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachersMale     + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachersFemale   + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachers         + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderClassroom      + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemClassroom        + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderSeats          + '</td>\n\
-                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemSeats            + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderTeachers + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachersMale + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachersFemale + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemTeachers + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderClassroom + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemClassroom + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryKinderSeats + '</td>\n\
+                                        <td class="centerTD number">' + print[0].det[i].schoolDirectoryElemSeats + '</td>\n\
                                     </tr>\n\
                                     <tr>\n\
                                         <th colspan="5" style="text-align:right; margin-right: 2%;">Total Teachers</th>\n\
@@ -1100,26 +1106,32 @@ function getSchoolData() {
                                         <th style="text-align:right; margin-right: 2%;">Total Seats</th>\n\
                                         <td class="number" style="text-align:center;">' + totalSeats + '</td>\n\
                                     </tr>');
-            }
-            //COMA
-            formatTDNumber();
-            $.fn.dataTable.ext.errMode = 'none';
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": false,
-                "pageLength": 12,
-                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
-                "info": false, "language": {
-                    "emptyTable": "No Data"
                 }
-            });
-            
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chartSchool(print, classification);
+                //COMA
+                formatTDNumber();
+                $.fn.dataTable.ext.errMode = 'none';
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": false,
+                    "pageLength": 12,
+                    "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    }
+                });
+
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chartSchool(print, classification);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -1246,9 +1258,8 @@ function chartSchool(print, classification) {
 }
 
 function getHospitalData() {
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     var classification = document.getElementById('form_name').value;
     $.ajax({
         url: "SetHealthDirectoryData",
@@ -1258,23 +1269,23 @@ function getHospitalData() {
             censusYear: censusYear
         },
         success: function (data) {
+            if (data.length > 0) {
+                var print = data;
+                $('#dataTable').remove();
+                $('#dataTable2').remove();
 
-            var print = data;
-            $('#dataTable').remove();
-            $('#dataTable2').remove();
-
-            var str = '<b style="font-size: large">Private Hospitals</b><br><table  id="dataTable" class="table table-bordered table-hover dataTable"> <thead id="thead">\n\
+                var str = '<b style="font-size: large">Private Hospitals</b><br><table  id="dataTable" class="table table-bordered table-hover dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            var str2 = '<b style="font-size: large">Government Hospitals</b><br><table  id="dataTable2" class="table table-bordered table-hover dataTable"> <thead id="thead2">\n\
+                var str2 = '<b style="font-size: large">Government Hospitals</b><br><table  id="dataTable2" class="table table-bordered table-hover dataTable"> <thead id="thead2">\n\
                             </thead>\n\
                             <tbody id="data2">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str + "<br><br>" + str2;
-            $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
+                document.getElementById("TableHolder").innerHTML = str + "<br><br>" + str2;
+                $('#thead').append('<tr style="background-color: #454545; color: #fff">\n\
                                     <th>Name of Hospital</th>\n\
                                     <th>Address</th>\n\
                                     <th>Telephone/Fax Number</th>\n\
@@ -1283,7 +1294,7 @@ function getHospitalData() {
                                     <th>Total No. of Midwives</th>\n\
                                     <th>No. of Beds</th>\n\\n\
                                 </tr>');
-            $('#thead2').append('<tr style="background-color: #454545; color: #fff">\n\
+                $('#thead2').append('<tr style="background-color: #454545; color: #fff">\n\
                                     <th>Name of Hospital</th>\n\
                                     <th>Address</th>\n\
                                     <th>Telephone/Fax Number</th>\n\
@@ -1292,8 +1303,8 @@ function getHospitalData() {
                                     <th>Total No. of Midwives</th>\n\
                                     <th>No. of Beds</th>\n\\n\
                                 </tr>');
-            for (i = 0; i < print[0].privTable.length; i++) {
-                $('#data').append('<tr> \n\
+                for (i = 0; i < print[0].privTable.length; i++) {
+                    $('#data').append('<tr> \n\
                                         <td width="35%">' + print[0].privTable[i].privateDirectoryName + '</td>  \n\
                                         <td width="40%">' + print[0].privTable[i].privateDirectoryAddress + '</td> \n\
                                         <td>' + print[0].privTable[i].privateDirectoryTelephone + '</td> \n\
@@ -1301,60 +1312,66 @@ function getHospitalData() {
                                         <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryNurses + '</td> \n\
                                         <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryMidwives + '</td> \n\
                                         <td class="format centerTD number">' + print[0].privTable[i].privateDirectoryBeds + '</td>'
-                        + '</tr>');
-            }
-            for (i = 0; i < print[0].pubTable.length; i++) {
-                $('#data2').append('<tr> \n\
+                            + '</tr>');
+                }
+                for (i = 0; i < print[0].pubTable.length; i++) {
+                    $('#data2').append('<tr> \n\
                                         <td width="35%">' + print[0].pubTable[i].publicDirectoryName + '</td>  \n\
                                         <td width="40%">' + print[0].pubTable[i].publicDirectoryAddress + '</td> \n\
                                         <td>' + print[0].pubTable[i].publicDirectoryTelephone + '</td> \n\
-                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryDoctors   + '</td> \n\
-                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryNurses    + '</td> \n\
-                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryMidwives  + '</td> \n\
-                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryBeds      + '</td>'
-                        + '</tr>');
-            }
-            //COMA
-            formatTDNumber();
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryDoctors + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryNurses + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryMidwives + '</td> \n\
+                                        <td class="format centerTD number">' + print[0].pubTable[i].publicDirectoryBeds + '</td>'
+                            + '</tr>');
+                }
+                //COMA
+                formatTDNumber();
 
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": true,
-                "info": false, "language": {
-                    "emptyTable": "No Data"
-                },
-                "columns": [
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'}
-                ]
-            });
-            $("#dataTable2").DataTable({
-                "paging": true,
-                "ordering": true,
-                "info": false, "language": {
-                    "emptyTable": "No Data"
-                },
-                "columns": [
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'},
-                    {"orderDataType": "dom-text", type: 'string'}
-                ]
-            });
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chartHealth(print);
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": true,
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    },
+                    "columns": [
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'}
+                    ]
+                });
+                $("#dataTable2").DataTable({
+                    "paging": true,
+                    "ordering": true,
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    },
+                    "columns": [
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'},
+                        {"orderDataType": "dom-text", type: 'string'}
+                    ]
+                });
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chartHealth(print);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -1556,9 +1573,8 @@ function chartHealth(print) {
 }
 
 function getEnrollmentData() {
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     var classification = document.getElementById('form_name').value;
     if (classification == "ePublic") {
         classification = "Public";
@@ -1574,22 +1590,22 @@ function getEnrollmentData() {
             classification: classification
         },
         success: function (data) {
+            if (data.length > 0) {
+                var print = data;
+                $('#dataTable').remove();
+                $('#dataTable2').remove();
 
-            var print = data;
-            $('#dataTable').remove();
-            $('#dataTable2').remove();
-
-            var str = '<table id = "dataTable" class="table table-bordered dataTable">\n\
+                var str = '<table id = "dataTable" class="table table-bordered dataTable">\n\
                             <thead style="display:none;"><tr>\n\
 <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>\n\
 </tr></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str;
+                document.getElementById("TableHolder").innerHTML = str;
 
-            for (i = 0; i < print[0].school.length; i++) {
-                var lol = '<tr style = "background-color: #454545; color: #fff" >\n\
+                for (i = 0; i < print[0].school.length; i++) {
+                    var lol = '<tr style = "background-color: #454545; color: #fff" >\n\
                                             <th colspan="2">School Name</th>\n\
                                             <td colspan="4">' + print[0].school[i].bySchoolName + '</td>\n\
                                             <th colspan="2">District</th>\n\
@@ -1603,52 +1619,58 @@ function getEnrollmentData() {
                                         </tr>\n\
                                         <tr>\n\
                                             <th style="vertical-align: middle">Sex</th>';
-                for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<th style="vertical-align: middle">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGrade + '</th>';
-                }
-                lol += '<th style="vertical-align: middle">Grand Total</th>\n\
+                    for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
+                        lol += '<th style="vertical-align: middle">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGrade + '</th>';
+                    }
+                    lol += '<th style="vertical-align: middle">Grand Total</th>\n\
                                         </tr>\n\
                                         <tr class="EditTable">\n\
                                             <th>Male</th>';
-                for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td class="number" style="text-align:center;">'+ print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + '</td>';
-                }
-                lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalMale + '</td>\n\
+                    for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
+                        lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + '</td>';
+                    }
+                    lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalMale + '</td>\n\
                                             </tr>\n\
                                         <tr>\n\
                                             <th>Female</th>';
-                for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale + '</td>';
-                }
-                lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalFemale + '</td>\n\
+                    for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
+                        lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale + '</td>';
+                    }
+                    lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolTotalFemale + '</td>\n\
                                             </tr>\n\
                                         <tr>\n\
                                             <th>Total</th>';
-                for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
-                    lol += '<td class="number" style="text-align:center;">' + (print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale) + '</td>';
-                }
-                lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGrandTotal + '</td>\n\
+                    for (y = 0; y < print[0].school[i].bySchoolGradeLevel.length; y++) {
+                        lol += '<td class="number" style="text-align:center;">' + (print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeMale + print[0].school[i].bySchoolGradeLevel[y].bySchoolGradeFemale) + '</td>';
+                    }
+                    lol += '<td class="number" style="text-align:center;">' + print[0].school[i].bySchoolGrandTotal + '</td>\n\
                                             </tr>';
-                $('#data').append(lol);
-            }
-            formatTDNumber();
-            //How to hide datatable error
-            $.fn.dataTable.ext.errMode = 'none';
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": false,
-                "pageLength": 12,
-                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
-                "info": false, "language": { 
-                    "emptyTable": "No Data"
+                    $('#data').append(lol);
                 }
-            });
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chartEnrollment(print);
+                formatTDNumber();
+                //How to hide datatable error
+                $.fn.dataTable.ext.errMode = 'none';
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": false,
+                    "pageLength": 12,
+                    "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    }
+                });
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chartEnrollment(print);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -1775,8 +1797,8 @@ function chartEnrollment(print) {
         xAxis: {
             type: "category"
         },
-        yAxis:{
-            title: {text:'Number of Students'}
+        yAxis: {
+            title: {text: 'Number of Students'}
         },
         series: [{
                 name: 'Male',
@@ -1792,9 +1814,8 @@ function chartEnrollment(print) {
 }
 
 function getNutritionalStatus() {
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetNutritionalStatusDataServlet",
         type: 'POST',
@@ -1803,19 +1824,19 @@ function getNutritionalStatus() {
             censusYear: censusYear
         },
         success: function (data) {
+            if (data.length > 0) {
+                var print = data;
+                $('#dataTable').remove();
+                $('#dataTable2').remove();
 
-            var print = data;
-            $('#dataTable').remove();
-            $('#dataTable2').remove();
-
-            var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
+                var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
                             <thead style="display:none"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str;
-            for (i = 0; i < print[0].total.length; i++) {
-                var table = '<tr style="background-color: #454545; color: #fff">\n\
+                document.getElementById("TableHolder").innerHTML = str;
+                for (i = 0; i < print[0].total.length; i++) {
+                    var table = '<tr style="background-color: #454545; color: #fff">\n\
                                                 <th>Location</th>\n\
                                                 <td colspan="3">' + print[0].total[i].getDistrict + '</td>\n\
                                                 <th>Grade Level</th>\n\
@@ -1837,46 +1858,52 @@ function getNutritionalStatus() {
                                                 <th>Male</th>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getTotalMale + '</td>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getPupilsWeighedMale + '</td>';
-                for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                    table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + '</td>';
-                }
-                table += '</tr>\n\
+                    for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
+                        table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + '</td>';
+                    }
+                    table += '</tr>\n\
                                             <tr>\n\
                                                 <th>Female</th>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getTotalFemale + '</td>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getPupilsWeighedFemale + '</td>';
-                for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                    table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts + '</td>';
-                }
-                table += '</tr>\n\
+                    for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
+                        table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts + '</td>';
+                    }
+                    table += '</tr>\n\
                                             <tr>\n\
                                                 <th>Total</th>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getTotalCount + '</td>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getPupilsWeighedTotal + '</td>';
-                for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                    table += '<td class="centerTD number">' + (print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts) + '</td>';
+                    for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
+                        table += '<td class="centerTD number">' + (print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts) + '</td>';
+                    }
+                    table += '</tr>';
+                    $('#data').append(table);
                 }
-                table += '</tr>';
-                $('#data').append(table);
+                formatTDNumber();
+
+                $.fn.dataTable.ext.errMode = 'none';
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": false,
+                    "pageLength": 12,
+                    "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    }
+                });
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chartNutritionalStatus(print);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
-            formatTDNumber();
-            
-            $.fn.dataTable.ext.errMode = 'none';
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": false,
-                "pageLength": 12,
-                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
-                "info": false, "language": {
-                    "emptyTable": "No Data"
-                }
-            });
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chartNutritionalStatus(print);
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -2036,8 +2063,8 @@ function chartNutritionalStatus(print) {
         xAxis: {
             type: "category"
         },
-        yAxis:{
-            title: {text:'Number of Students'}
+        yAxis: {
+            title: {text: 'Number of Students'}
         },
         series: [{
                 name: 'Male',
@@ -2051,9 +2078,8 @@ function chartNutritionalStatus(print) {
 }
 
 function getHighestCompleted() {
-    reportTitle.innerText = $('#form_name').find(":selected").text();
-    document.getElementById('contentHere').style.display = "block";
     var censusYear = document.getElementById('searchCensusYear').value;
+    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetHighestCompletedData",
         type: 'POST',
@@ -2062,20 +2088,20 @@ function getHighestCompleted() {
             censusYear: censusYear
         },
         success: function (data) {
+            if (data.length > 0) {
+                var print = data;
+                $('#dataTable').remove();
 
-            var print = data;
-            $('#dataTable').remove();
+                $('#dataTable2').remove();
 
-            $('#dataTable2').remove();
-
-            var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
+                var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
                             <thead style="display:none"><th></th><th></th><th></th><th></th></thead>\n\
                             <tbody id="data">\n\
                             </tbody>\n\
                             </table>';
-            document.getElementById("TableHolder").innerHTML = str;
-            for (i = 0; i < print[0].table.length; i++) {
-                $('#data').append('<tr style="background-color: #454545; color: #fff">\n\
+                document.getElementById("TableHolder").innerHTML = str;
+                for (i = 0; i < print[0].table.length; i++) {
+                    $('#data').append('<tr style="background-color: #454545; color: #fff">\n\
                                             <th>Location</th>\n\
                                             <td colspan="3">' + print[0].table[i].location + '</td>\n\
                                         </tr>\n\
@@ -2092,46 +2118,52 @@ function getHighestCompleted() {
                                             <th class="centerTD">Total Count</th>\n\
                                         </tr>');
 
-                for (y = 0; y < print[0].table[i].highestCompletedDet.length; y += 2) {
-                    if (print[0].table[i].highestCompletedDet[y + 1] != null) {
-                        $('#data').append('<tr>\n\
+                    for (y = 0; y < print[0].table[i].highestCompletedDet.length; y += 2) {
+                        if (print[0].table[i].highestCompletedDet[y + 1] != null) {
+                            $('#data').append('<tr>\n\
                                                         <th>' + print[0].table[i].highestCompletedDet[y].highestCompleted + '</th>\n\
                                                         <td class="centerTD number">' + print[0].table[i].highestCompletedDet[y].count + '</td>\n\
                                                         <th>' + print[0].table[i].highestCompletedDet[y + 1].highestCompleted + '</th>\n\
                                                         <td class="centerTD number">' + print[0].table[i].highestCompletedDet[y + 1].count + '</td></tr>');
-                    } else {
-                        $('#data').append('<tr>\n\
+                        } else {
+                            $('#data').append('<tr>\n\
                                                         <th>' + print[0].table[i].highestCompletedDet[y].highestCompleted + '</th>\n\
                                                         <td class="centerTD number">' + print[0].table[i].highestCompletedDet[y].count + '</td>\n\
                                                         <th></th>\n\
                                                         <td></td></tr>');
+                        }
                     }
-                }
-                $('#data').append('<tr>\n\
+                    $('#data').append('<tr>\n\
                                             <th></th>\n\
                                             <th></th>\n\
                                             <th>Total</th>\n\
                                             <td class="centerTD number">' + print[0].table[i].total + '</td>\n\
                                         </tr>\n\
                                         <% }%>');
-            }
-            formatTDNumber();
-            $.fn.dataTable.ext.errMode = 'none';
-            $("#dataTable").DataTable({
-                "paging": true,
-                "ordering": false,
-                "pageLength": 12,
-                "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
-                "info": false, "language": {
-                    "emptyTable": "No Data"
                 }
-            });
-            $('#loadingSpinner').hide();
-            $('input:text').focus(
-                    function () {
-                        $('#searchCensusYear').val('');
-                    });
-            chartHighestCompleted(print);
+                formatTDNumber();
+                $.fn.dataTable.ext.errMode = 'none';
+                $("#dataTable").DataTable({
+                    "paging": true,
+                    "ordering": false,
+                    "pageLength": 12,
+                    "lengthMenu": [[12, 24, 36, -1], [12, 24, 36, "All"]],
+                    "info": false, "language": {
+                        "emptyTable": "No Data"
+                    }
+                });
+                $('#loadingSpinner').hide();
+                $('input:text').focus(
+                        function () {
+                            $('#searchCensusYear').val('');
+                        });
+                chartHighestCompleted(print);
+            } else {
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
@@ -2288,8 +2320,8 @@ function chartHighestCompleted(print) {
         legend: {
             enabled: true
         },
-        yAxis:{
-            title: {text:'Population'}
+        yAxis: {
+            title: {text: 'Population'}
         },
         plotOptions: {
             series: {
