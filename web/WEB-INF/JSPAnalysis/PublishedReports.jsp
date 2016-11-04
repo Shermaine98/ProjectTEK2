@@ -188,16 +188,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-10" style="margin: 4% 200px 0 100px; display: none; height: 100px;" id="noReport">
-                            <div class="box box-danger" style="height:100%; ">
-                                <div class="box-body">
-                                    <div id="contentNone" style="width:90%; margin: 3% auto; text-align: center;">
-                                        <!--CONTENTHERE -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </section>
 
@@ -335,17 +325,14 @@
                 year = $('#searchCensusYear').val();
                 var conceptName = $('#form_name').find(":selected").val();
                 if (conceptName === "Matrix") {
-                    document.getElementById('noReport').style.display = "none";
                     document.getElementById('integrateData').style.display = "none";
                     document.getElementById('contentHere').style.display = "block";
                     $('#submitBtn').click(setMatrix());
                 } else if (conceptName === "Analysis") {
-                    document.getElementById('noReport').style.display = "none";
                     document.getElementById('integrateData').style.display = "none";
                     document.getElementById('contentHere').style.display = "block";
                     $('#submitBtn').click(setAnalysis());
                 } else if (conceptName === "Integrated") {
-                    document.getElementById('noReport').style.display = "none";
                     document.getElementById('contentHere').style.display = "none";
                     document.getElementById('integrateData').style.display = "block";
                     $('#submitBtn').click(setIntegrated());
