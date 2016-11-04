@@ -21,8 +21,8 @@ function integrate() {
                     $("#modal_Header").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
+                    $("#modal-footer").append('<a href="${pageContext.request.contextPath}/ServletAccess?redirect=StandardManipulation"><button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button></a>');
                     $("#notificationModal").modal("show");
-                    $("#modal-footer").append('<button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button>');
 
                 } else {
                     $("#integrateLoad").modal("hide");
@@ -30,7 +30,7 @@ function integrate() {
                     $("#modal_Header").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
-                    $("#modal-footer").append('<button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button>');
+                    $("#modal-footer").append('<a href="${pageContext.request.contextPath}/ServletAccess?redirect=StandardManipulation"><button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button></a>');
                     $("#notificationModal").modal("show");
 
                 }
@@ -43,3 +43,4 @@ function integrate() {
         });
     }, 2000);
 }
+
