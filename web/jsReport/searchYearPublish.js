@@ -7,9 +7,9 @@
 $(document).ready(function () {
 
     if ($("#reportTitle3").length != 0) {
-        var year = document.getElementById('reportTitle3').value;
+        var year = document.getElementById('reportYear').value;
         var sector = document.getElementById('reportSector').value;
-        var reportTitle = document.getElementById('reportTitle').value;
+        var reportTitle = document.getElementById('reportTitle3').value;
 
         if (reportTitle == "Matrix") {
             document.getElementById('integrateData').style.display = "none";
@@ -4456,13 +4456,11 @@ function encodeImage(imageUri, callback) {
 }
 
 function errorMessage(year) {
-    
+    $("#notificationHeader").empty();
+       $("#notificationHeader").empty();
     $("#notificationHeader").css({color: "#FFFFFF"});
     $("#modal_Header").css({background: "#F70A0A"});
-    $("#notificationHeader").css({color: "#F70A0A"});
     $("#notificationHeader").text("Warning!");
     $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">No Report Available for the year/word "' + year + '"</p>');
     $("#notificationModal").modal("show");
-    $("#notificationBodyModal").empty();
-    $("#notificationHeader").empty("Warning!");
 }
