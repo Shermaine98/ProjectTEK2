@@ -44,7 +44,10 @@
             }
             .wrapper{
                 /*z-index:1;*/
-                margin-top: 25px;
+
+                <% if (!user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
+                padding: 25px 25px;
+                <%}%>
             }
         </style>
 
@@ -54,6 +57,7 @@
         <div id="spinner-overlay" style="display:none;">
             <center><img src="img/spinner.gif" style="margin-top: 19%; margin-left: 17%; height: 150px;" /></center>
         </div>
+
         <div class="wrapper">
             <!-- Content Wrapper. Contains page content -->
 
@@ -223,7 +227,7 @@
         </div>
 
         <script>
-            
+
             $('#save_integrated').click(function () {
                 print_div('integrated');
 

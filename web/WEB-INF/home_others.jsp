@@ -29,7 +29,7 @@
                 height: 50px;
             }
             .wrapper{
-                padding-top: 30px;
+                padding: 25px 25px;
             }
         </style>
     </head>
