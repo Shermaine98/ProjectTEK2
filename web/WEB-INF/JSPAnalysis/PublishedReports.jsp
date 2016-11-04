@@ -90,7 +90,7 @@
                         String reportTitle = (String) request.getAttribute("reportTitle");
                         String reportSector = (String) request.getAttribute("sectorReport");
                 %>
-                <input type="hidden" id="reportTitle" value="<%=reportTitle%>" />
+                <input type="hidden" id="reportTitle3" value="<%=reportTitle%>" />
                 <input type="hidden" id="reportYear" value="<%=reportYear%>" />
                 <input type="hidden" id="reportSector" value="<%=reportSector%>" />
                 <% }%>
@@ -213,7 +213,7 @@
                 <table style="border: none;">
                     <tr>
                         <td>
-                            <img src="http://i65.tinypic.com/uubsl.png" height="100" />
+                            <img id="imageLogo" alt="Caloocan City" height="100" />
                         </td>
                         <td style="padding-left: 2%;">
                             <h3>City Planning and Development Department</h3>
@@ -237,6 +237,29 @@
         </div>
 
         <script>
+
+
+            $(document).ready(function () {
+                image("index_template/Ph_seal_ncr_caloocan.png", function (dataURL) {
+                    document.getElementById("imageLogo").src = dataURL;
+
+                });
+                function image(imageUri, callback) {
+                    var c = document.createElement('canvas');
+                    var ctx = c.getContext("2d");
+                    var img = new Image();
+                    img.onload = function () {
+                        c.width = this.width;
+                        c.height = this.height;
+                        ctx.drawImage(img, 0, 0);
+                        var dataURL = c.toDataURL("image/png");
+                        callback(dataURL);
+
+                    };
+                    img.src = imageUri;
+                }
+            });
+
 
             $('#save_integrated').click(function () {
                 print_div('integrated');
