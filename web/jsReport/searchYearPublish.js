@@ -46,6 +46,15 @@ function setAnalysisS(year, sector) {
             sector: sector
         },
         success: function (data) {
+                   if(data.length === 0){
+                
+                errorMessage(year);
+                 $("#content").empty();
+            $("#prepared_by").empty();
+            $("#integratedanalysis").empty();
+            }else{
+            
+            
             $("#content").empty();
             $("#prepared_by").empty();
             $("#info").empty();
@@ -63,6 +72,7 @@ function setAnalysisS(year, sector) {
 
                 $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
             }
+        }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
         }
@@ -2282,7 +2292,14 @@ function setIntegrated() {
             sector: sector
         },
         success: function (data) {
-
+       if(data.length === 0){
+                
+                errorMessage(year);
+                 $("#content").empty();
+            $("#prepared_by").empty();
+            $("#integratedanalysis").empty();
+            }else{
+            
             $("#content").empty();
             $("#prepared_by").empty();
             $("#integratedanalysis").empty();
@@ -4320,7 +4337,7 @@ function setIntegrated() {
 //        analysischart = {};
             }
             //CHART END
-
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
         }
@@ -4342,6 +4359,15 @@ function setMatrix() {
             sector: sector
         },
         success: function (data) {
+            
+            if(data.length === 0){
+                
+                errorMessage(year);
+                 $("#content").empty();
+            $("#prepared_by").empty();
+            $("#integratedanalysis").empty();
+            }else{
+            
             $("#info").empty();
             $("#content").empty();
             $("#prepared_by").empty();
@@ -4389,7 +4415,7 @@ function setMatrix() {
 
             }
 
-
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
         }
@@ -4409,3 +4435,11 @@ function encodeImage(imageUri, callback) {
     };
     img.src = imageUri;
 }
+
+function errorMessage(year) {
+    $("#modal_Header").css({background: "#00a65a"});
+    $("#notificationHeader").css({color: "#F70A0A"});
+    $("#notificationBodyModal").append('<p style='padding: 3 % ; text - align:center; '>No Report Available for the year "' + year + '"</p>"');
+     $("#notificationModal").modal("show");
+     $("#notificationBodyModal").empty();
+} 
