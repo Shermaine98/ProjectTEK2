@@ -370,8 +370,7 @@
                         + ", " + curr_year;
 
                 document.getElementById("TESTING").setAttribute("style", "display:block");
-                $('#dataTable').DataTable().destroy(false);
-                document.getElementById("print_year").innerHTML = "Report for the Year " + year;
+                $('#dataTable').DataTable().destroy(false)
                 $("#DateHere").html("Retrieved on " + today);
             }
 

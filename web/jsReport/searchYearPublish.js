@@ -2244,6 +2244,7 @@ function setAnalysis() {
             $("#prepared_by").empty();
             $("#info").empty();
             document.getElementById("prepared_by").innerHTML = "Prepared By  " + data[0].createdBy;
+            document.getElementById("print_year").innerHTML = data[0].sector + " Analysis for " + year;
             $("#reportTitle").empty();
             $("#reportTitle").append(data[0].sector + " Analysis of " + year + " prepared by " + data[0].createdBy);
 
@@ -2286,6 +2287,7 @@ function setIntegrated() {
             $("#prepared_by").empty();
             $("#integratedanalysis").empty();
             document.getElementById("prepared_by").innerHTML = "Prepared By  " + data[0].createdBy;
+            document.getElementById("print_year").innerHTML = data[0].sector + " Integrated Analysis for  " + year;
             $("#info").empty();
             $("#info").append('<input type="text"  value="' + data[0].year + '"/>');
             $("#info").append('<input type="text"  value="' + data[0].sector + '"/>');
@@ -4344,6 +4346,7 @@ function setMatrix() {
             $("#content").empty();
             $("#prepared_by").empty();
             document.getElementById("prepared_by").innerHTML = "Prepared By  " + data[0].createdBy;
+            document.getElementById("print_year").innerHTML = data[0].sector + " Analysis Matrix for " + year;
             $("#reportTitle").empty();
             $("#reportTitle").append(data[0].sector + " Analysis Matrix of " + year + " prepared by " + data[0].createdBy);
 
@@ -4354,7 +4357,7 @@ function setMatrix() {
                 para.setAttribute("style", "box-body");
                 element.appendChild(para);
                 para.appendChild(para2);
-                
+
                 encodeImage(data[i].path, function (dataURL) {
                     $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
                 });
