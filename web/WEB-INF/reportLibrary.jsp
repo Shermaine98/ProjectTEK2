@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="levelOfAccess.jsp"%>
+<%@include file="JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -262,8 +263,6 @@
             function getData() {
                 year = $('#searchCensusYear').val();
                 var conceptName = $('#form_name').find(":selected").text();
-                document.getElementById('noReport').style.display = "none";
-                document.getElementById('contentHere').style.display = "block";
                 if (conceptName == "Household Population By Age Group and Sex") {
                     $('#submitBtn').click(getDataAgeGroup());
                 } else if (conceptName == "Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status") {

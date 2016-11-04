@@ -177,8 +177,8 @@ function setAgeGroupDataNotification(censusYear) {
 
 function getDataAgeGroup() {
 
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetDataServlet",
         type: 'POST',
@@ -187,10 +187,18 @@ function getDataAgeGroup() {
             censusYear: censusYear
         },
         success: function (data) {
-            if (data.length > 0) {
-                document.getElementById('noReport').style.display = "none";
+            if (data[0].ByAgeGroupSexTable.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
+
                 var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
@@ -241,11 +249,6 @@ function getDataAgeGroup() {
                             $('#searchCensusYear').val('');
                         });
                 chart(print);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -448,8 +451,8 @@ function chart(print) {
 //}
 
 function getMaritalStatusData() {
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetMaritalDataServlet",
         type: 'POST',
@@ -458,7 +461,15 @@ function getMaritalStatusData() {
             censusYear: censusYear
         },
         success: function (data) {
-            if (data.length > 0) {
+            if (data[0].maritalTable.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
 
@@ -512,11 +523,6 @@ function getMaritalStatusData() {
                             $('#searchCensusYear').val('');
                         });
                 chartMarital(print);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -1023,8 +1029,8 @@ function chartMarital(print) {
 
 
 function getSchoolData() {
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     var classification = document.getElementById('form_name').value;
     if (classification == "privateDirectory") {
         classification = "Private";
@@ -1040,7 +1046,15 @@ function getSchoolData() {
             classification: classification
         },
         success: function (data) {
-            if (data.length > 0) {
+            if (data[0].det.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1126,11 +1140,6 @@ function getSchoolData() {
                             $('#searchCensusYear').val('');
                         });
                 chartSchool(print, classification);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -1258,8 +1267,8 @@ function chartSchool(print, classification) {
 }
 
 function getHospitalData() {
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     var classification = document.getElementById('form_name').value;
     $.ajax({
         url: "SetHealthDirectoryData",
@@ -1269,7 +1278,15 @@ function getHospitalData() {
             censusYear: censusYear
         },
         success: function (data) {
-            if (data.length > 0) {
+            if (data[0].privTable.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1366,11 +1383,6 @@ function getHospitalData() {
                             $('#searchCensusYear').val('');
                         });
                 chartHealth(print);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -1573,8 +1585,8 @@ function chartHealth(print) {
 }
 
 function getEnrollmentData() {
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     var classification = document.getElementById('form_name').value;
     if (classification == "ePublic") {
         classification = "Public";
@@ -1590,7 +1602,15 @@ function getEnrollmentData() {
             classification: classification
         },
         success: function (data) {
-            if (data.length > 0) {
+            if (data[0].school.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1665,11 +1685,6 @@ function getEnrollmentData() {
                             $('#searchCensusYear').val('');
                         });
                 chartEnrollment(print);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -1814,8 +1829,8 @@ function chartEnrollment(print) {
 }
 
 function getNutritionalStatus() {
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetNutritionalStatusDataServlet",
         type: 'POST',
@@ -1824,7 +1839,15 @@ function getNutritionalStatus() {
             censusYear: censusYear
         },
         success: function (data) {
-            if (data.length > 0) {
+            if (data[0].total.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1898,11 +1921,6 @@ function getNutritionalStatus() {
                             $('#searchCensusYear').val('');
                         });
                 chartNutritionalStatus(print);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -2078,8 +2096,8 @@ function chartNutritionalStatus(print) {
 }
 
 function getHighestCompleted() {
+    reportTitle.innerText = $('#form_name').find(":selected").text();
     var censusYear = document.getElementById('searchCensusYear').value;
-    reportTitle.innerText = $('#form_name').find(":selected").text() + " of " + censusYear;
     $.ajax({
         url: "SetHighestCompletedData",
         type: 'POST',
@@ -2088,10 +2106,17 @@ function getHighestCompleted() {
             censusYear: censusYear
         },
         success: function (data) {
-            if (data.length > 0) {
+            if (data[0].table.length === 0) {
+                errorMessage(censusYear);
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                document.getElementById("contentNone").innerHTML = "";
+                document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
+            } else {
+                document.getElementById('contentHere').style.display = "block";
+                document.getElementById('noReport').style.display = "display";
                 var print = data;
                 $('#dataTable').remove();
-
                 $('#dataTable2').remove();
 
                 var str = '<table id="dataTable" class="table table-bordered table-hover dataTable">\n\
@@ -2158,11 +2183,6 @@ function getHighestCompleted() {
                             $('#searchCensusYear').val('');
                         });
                 chartHighestCompleted(print);
-            } else {
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -2407,3 +2427,13 @@ aTable"> <thead id="thead">\n\
         });
     }
 });
+
+function errorMessage(year) {
+    $("#notificationHeader").empty();
+    $("#notificationBodyModal").empty();
+    $("#notificationHeader").css({color: "#FFFFFF"});
+    $("#modal_Header").css({background: "#b34112"});
+    $("#notificationHeader").text("Warning!");
+    $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">No Report Available for the year/word "' + year + '"</p>');
+    $("#notificationModal").modal("show");
+}
