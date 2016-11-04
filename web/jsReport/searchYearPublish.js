@@ -4354,9 +4354,7 @@ function setMatrix() {
                 para.setAttribute("style", "box-body");
                 element.appendChild(para);
                 para.appendChild(para2);
-//                $(para).append('<img style="width: 90%; margin-bottom: 5%;" id="image"  src="' + data[i].path + '">');
-
-
+                
                 encodeImage(data[i].path, function (dataURL) {
                     $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
                 });
@@ -4372,10 +4370,10 @@ function setMatrix() {
                 thead.appendChild(tr);
                 tr.setAttribute("id", "trcontent");
                 tr.setAttribute("style", "background-color: #454545; color: #fff;");
-                $(tr).append("<td>Observations</td>");
-                $(tr).append("<td>Explanations</td>");
-                $(tr).append("<td>Implications</td>");
-                $(tr).append("<td>Interventions</td>");
+                $(tr).append("<td width='25%'>Observations</td>");
+                $(tr).append("<td width='25%'>Explanations</td>");
+                $(tr).append("<td width='25%'>Implications</td>");
+                $(tr).append("<td width='25%'>Interventions</td>");
                 var tbody = document.createElement("tbody");
 
                 table.appendChild(tbody);

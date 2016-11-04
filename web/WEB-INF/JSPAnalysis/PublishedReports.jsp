@@ -42,6 +42,10 @@
                 width: 100%;
                 overflow: hidden;
             }
+            .wrapper{
+                /*z-index:1;*/
+                margin-top: 25px;
+            }
         </style>
 
         <link href="cssImported/ValidateCSS.css" rel="stylesheet" type="text/css"/>
@@ -50,9 +54,12 @@
         <div id="spinner-overlay" style="display:none;">
             <center><img src="img/spinner.gif" style="margin-top: 19%; margin-left: 17%; height: 150px;" /></center>
         </div>
-        <div class="wrapper" style="z-index:1;">
+        <div class="wrapper">
             <!-- Content Wrapper. Contains page content -->
+
+            <% if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
             <div class="content-wrapper">
+                <% } %>
 
                 <section class="content-header" style="margin-bottom: 1%;">
                     <h1><i class="fa fa-file-archive-o"></i> Published Reports</h1>
@@ -88,7 +95,7 @@
 
 
                 <!-- Content Header (Page header) -->
-                <section class="content">
+                <section class="content" style="min-height: 630px">
                     <div class="row">
                         <div style=" margin: 0 auto; display:block; text-align: center">
                             <div class="form-inline">
@@ -179,7 +186,10 @@
 
                     </div>
                 </section>
+
+                <% if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) {%>
             </div>
+            <% }%>
         </div>
 
         <div style="display:none;" id="TESTING">
@@ -201,11 +211,11 @@
                 </table>
             </div>
 
-                <!-- CHARTS, change id value -->
-                <div id="print" style="width:90%;">
+            <!-- CHARTS, change id value -->
+            <div id="print" style="width:90%;">
 
-                </div>
-                <!--TABLE-->
+            </div>
+            <!--TABLE-->
 
             <footer>
                 <p style="text-align: right;"><pagenum/></p>
@@ -213,6 +223,7 @@
         </div>
 
         <script>
+            
             $('#save_integrated').click(function () {
                 print_div('integrated');
 
@@ -223,7 +234,7 @@
                 $('#spinner-overlay').toggle('show');
 
 
-                 xepOnline.Formatter.Format('TESTING',
+                xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
@@ -231,24 +242,24 @@
                 $('#spinner-overlay').toggle('hide');
                 doneyet();
             });
-            
-            
+
+
             $('#save_reports').click(function () {
                 print_div('reports');
-                
-                     var screenTop = $(document).scrollTop();
+
+                var screenTop = $(document).scrollTop();
                 var screenHeight = $(document).height();
                 $('#spinner-overlay').css('top', screenTop);
                 $('#spinner-overlay').css('height', screenHeight);
                 $('#spinner-overlay').toggle('show');
-                
+
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
 
-                 $('#spinner-overlay').toggle('hide');
-                doneyet();        
+                $('#spinner-overlay').toggle('hide');
+                doneyet();
 
             });
 

@@ -55,29 +55,19 @@ and open the template in the editor.
                 <nav class="navbar navbar-static-top">
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <!-- Notifications: style can be found in dropdown.less -->
-<!--                            <li class="dropdown notifications-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="label label-danger"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">You have 0 notifications</li>
-                                    <li>
-                                         inner menu: contains the actual data 
-                                        <ul class="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">View all</a></li>
-                                </ul>
-                            </li>-->
                             <!-- User Account: style can be found in dropdown.less -->
                             <% User chck = (User) session.getAttribute("user");%>
-
+                            <li>
+                                <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home_guest">
+                                    <b><i class="fa fa-home" style="padding-right: 3px"></i><span>Home</span></b>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/ServletAccess?redirect=PublishedReports">
+                                    <b><i class="fa fa-file-archive-o" style="padding-right: 3px"></i>
+                                    <span>Published Reports</span></b>
+                                </a>
+                            </li>
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <img src="AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
@@ -108,27 +98,6 @@ and open the template in the editor.
                     </div>
                 </nav>
             </header>
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="main-sidebar hidden-print">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
-                        <li class="header">MAIN NAVIGATION</li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=home_guest">
-                                <i class="fa fa-home"></i><span>Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=PublishedReports">
-                                <i class="fa fa-file-archive-o"></i>
-                                <span>Published Reports</span>
-                            </a>
-                        </li>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
         </div>
         <!-- jQuery 2.2.0 -->
         <script src="AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js"></script>
