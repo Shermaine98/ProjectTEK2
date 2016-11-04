@@ -69,6 +69,11 @@ and open the template in the editor.
             .padding2{
                 padding: 2%;
             }
+            .notification_drop{
+                overflow:hidden; 
+                overflow-y:scroll; 
+                max-height: 300px;
+            }
         </style>
     </head>
     <body class="hold-transition skin-yellow-light fixed">
@@ -98,7 +103,7 @@ and open the template in the editor.
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="myFunction()">
                                     <i class="fa fa-bell-o"></i>
                                     <span class="label label-danger" id="value"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu notification_drop">
                                     <li class="header">Notifications</li>
                                     <li id="myDropdown">
                                         <!--CONTENT HERE-->

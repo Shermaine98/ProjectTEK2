@@ -41,6 +41,11 @@ and open the template in the editor.
             .title, h1, h2, h3{
                 font-family: "Roboto", sans-serif;
             }
+            .notification_drop{
+                overflow:hidden; 
+                overflow-y:scroll; 
+                max-height: 300px;
+            }
         </style>
     </head>
     <body class="hold-transition skin-yellow-light fixed">
