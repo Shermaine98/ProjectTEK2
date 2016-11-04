@@ -4457,7 +4457,7 @@ function encodeImage(imageUri, callback) {
 
 function errorMessage(year) {
     $("#notificationHeader").empty();
-       $("#notificationHeader").empty();
+       $("#notificationBodyModal").empty();
     $("#notificationHeader").css({color: "#FFFFFF"});
     $("#modal_Header").css({background: "#F70A0A"});
     $("#notificationHeader").text("Warning!");
