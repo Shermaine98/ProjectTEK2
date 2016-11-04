@@ -36,7 +36,7 @@ public class IntegrationCheckerServlet extends HttpServlet {
              /* TODO output your page here. You may use following sample code. */
             int year = Calendar.getInstance().get(Calendar.YEAR);       
             DaoEtl daoETL = new DaoEtl();
-            boolean x = daoETL.runETLDAO(year); 
+            boolean x = daoETL.checkIntegrated(year); 
 
             Gson gson = new Gson();
             String json = gson.toJson(x);

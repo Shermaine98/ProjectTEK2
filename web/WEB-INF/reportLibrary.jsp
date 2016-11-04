@@ -14,6 +14,7 @@
         <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
         <script src="jsImported/jquery.autocomplete.js" type="text/javascript"></script>
         <script src="jsDemoImports/searchCensusYearAge.js" type="text/javascript"></script>
+        <script src="jsReport/specificViewInternalLibrary.js" type="text/javascript"></script>
         <script src="Highcharts/highcharts.js"></script>
         <script src="Highcharts/modules/data.js"></script>
         <script src="Highcharts/modules/drilldown.js"></script>
@@ -58,9 +59,17 @@
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
-                        <%                            String reportAction = (String) request.getAttribute("reportSet");
+                        <%                            if (null != request.getAttribute("reportSet")) {
+                                String reportAction = (String) request.getAttribute("reportSet");
+                                if (reportAction.equalsIgnoreCase("schoolDirectory") || reportAction.equalsIgnoreCase("Enrollment")) {
+                                    String c = (String) request.getAttribute("classification");
+
                         %>
+                        <input id="classificationSpecific" type="hidden" value="<%=c%>" />
+                        <%}%>
                         <input id="reportSet" type="hidden" value="<%=reportAction%>" />
+                        <%}%>
+
                         <div style=" margin: 0 auto; display:block; text-align: center">
                             <div class="form-inline">
                                 <div class="form-group">
@@ -73,8 +82,8 @@
                                     <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" style="width:800px">
                                         <option disabled selected>Choose Report</option>
                                     </select>
-                                    <input style="width: 100px; border: solid; border-color: #d2d6de; border-width: thin" type="text" 
-                                           class="form-control" onkeyup="updateButton()" name="censusYear" disabled 
+                                    <input style="width: 100px; border: solid; border-color: #d2d6de; border-width: thin" type="text"
+                                           class="form-control" onkeyup="updateButton()" name="censusYear" disabled
                                            id="searchCensusYear" placeholder="Census Year" />
                                     <button disabled id="button" type="button" class="btn btn-default" name="submitBtn" onClick="getData()"><span class="glyphicon glyphicon-search"></span></button>
                                 </div>
@@ -176,14 +185,14 @@
                 var screenHeight = $(document).height();
                 $('#spinner-overlay').css('top', screenTop);
                 $('#spinner-overlay').css('height', screenHeight);
-                $('#spinner-overlay').toggle('show');
+                $('#spinner-overlay').show('slow');
 
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
 
-                $('#spinner-overlay').toggle('hide');
+                $('#spinner-overlay').hide('slow');
                 doneyet();
 
             });

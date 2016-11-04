@@ -182,7 +182,7 @@ public class ServletAccess extends BaseServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAccounts/updateAccounts.jsp");
                 rd.forward(request, response);
             } else if (redirect.equalsIgnoreCase("reportsLibrary")) {
-                request.setAttribute("reportSet", "none");
+
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
                 rd.forward(request, response);
             } //analysis, create report , pubished reports
@@ -207,6 +207,34 @@ public class ServletAccess extends BaseServlet {
             } //from notificaiton
             else if (redirect.equalsIgnoreCase("reportAgeGroup")) {
                 request.setAttribute("reportSet", "ageGroup");
+                rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
+                rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("reportMarital")) {
+                request.setAttribute("reportSet", "marital");
+                rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
+                rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("reportSchoolDirectory")) {
+                String c = request.getParameter("classification");
+                request.setAttribute("reportSet", "schoolDirectory");
+                request.setAttribute("classification", c);
+                rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
+                rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("reportNutritional")) {
+                request.setAttribute("reportSet", "nutritional");
+                rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
+                rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("reportEnrollment")) {
+                String c = request.getParameter("classification");
+                request.setAttribute("reportSet", "Enrollment");
+                request.setAttribute("classification", c);
+                rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
+                rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("reportHighestCompleted")) {
+                request.setAttribute("reportSet", "HighestCompleted");
+                rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
+                rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("reportHospital")) {
+                request.setAttribute("reportSet", "Hospital");
                 rd = request.getRequestDispatcher("/WEB-INF/reportLibrary.jsp");
                 rd.forward(request, response);
             } //FORUMS

@@ -70,8 +70,8 @@ and open the template in the editor.
                 padding: 2%;
             }
             .notification_drop{
-                overflow:hidden; 
-                overflow-y:scroll; 
+                overflow:hidden;
+                overflow-y:scroll;
                 max-height: 300px;
             }
         </style>
@@ -305,10 +305,10 @@ and open the template in the editor.
 
                                                         $("#myDropdown").empty();
                                                         if (data.length === 0) {
+                                                             $("#myDropdown").append('<li class="padding2" style="text-align:center;">No Notifications</li>');
                                                             $("#value").empty();
                                                             $("#value").append("");
-                                                            $("#myDropdown").append('\
-                                                        <li class="padding2" style="text-align:center;">No Notifications</li>');
+
                                                         }
                                                         for (var i = 0; i < data.length; i++) {
                                                             if (i != 0)
@@ -340,23 +340,23 @@ and open the template in the editor.
                                             $('body').on('click', 'a.approved', function () {
                                                 var formName = $(this).text();
                                                 if (formName === "Enrollment in Public School") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportEnrollment&classification=Public");
                                                 } else if (formName === "Enrollment in Private School") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportEnrollment&classification=Private");
                                                 } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportSchoolDirectory&classification=Public");
                                                 } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportSchoolDirectory&classification=Private");
                                                 } else if (formName === "Household Population by Age Group and Sex") {
                                                     window.location.replace("ServletAccess?redirect=reportAgeGroup");
                                                 } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportHighestCompleted");
                                                 } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportMarital");
                                                 } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportNutritional");
                                                 } else if (formName === "List of Hospitals") {
-                                                    window.location.replace("ServletAccess?redirect=reportsLibrary");
+                                                    window.location.replace("ServletAccess?redirect=reportHospital");
                                                 }
 
                                             });
@@ -468,3 +468,4 @@ and open the template in the editor.
             }
         </script>
     </body>
+</html>

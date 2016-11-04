@@ -70,8 +70,8 @@ and open the template in the editor.
                 padding: 2%;
             }
             .notification_drop{
-                overflow:hidden; 
-                overflow-y:scroll; 
+                overflow:hidden;
+                overflow-y:scroll;
                 max-height: 300px;
             }
         </style>
@@ -358,6 +358,7 @@ and open the template in the editor.
                                             }
                                         });
                                     }
+
                                     $('body').on('click', 'a.task', function () {
                                         var formName = $(this).text();
                                         if (formName === "Enrollment in Public School") {

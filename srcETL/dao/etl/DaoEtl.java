@@ -49,7 +49,7 @@ public class DaoEtl {
             DBConnectionFactoryStarSchema myFactory = DBConnectionFactoryStarSchema.getInstance();
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String query = "SELECT EXISTS(SELECT * FROM dim_cencusyear WHERE cencusYear = ?) AS `EXISTS; ";
+                String query = "SELECT EXISTS(SELECT * FROM dim_cencusyear WHERE cencusYear = ?) AS `EXISTS`; ";
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 pstmt.setInt(1, year);
                 ResultSet rs = pstmt.executeQuery();

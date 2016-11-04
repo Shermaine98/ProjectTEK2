@@ -104,7 +104,7 @@
                                                   <td style="float:right"><input type="button" style="width: 98px;"  id="uploadData" class="btn btn-sm btn-primary" value="Upload Report" /></td>
                                                     <% } else {%>
                                                 <td><span class="label label-success span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="float:right"><input type="button" style="width: 98px;" disabled id="uploadData" class="btn btn-sm btn-default" value="Disabled" /></td>
+                                                <td style="float:right"><input type="button" style="width: 98px;"  id="viewReport" class="btn btn-sm btn-primary" value="View Report" /></td>
                                                     <% }%>
                                             </tr>
                                             <%}
@@ -314,6 +314,31 @@
                     window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=percentageDist");
                 } else if (formName === "List of Hospitals") {
                     window.location.replace("${pageContext.request.contextPath}/RetrieveDataHealthServlet?redirect=directoryHosptial");
+                }
+
+            });
+
+              $(document).on("click", "#viewReport", function () {
+
+                var formName = $(this).closest("tr").find(".ts").text();
+                if (formName === "Enrollment in Public School") {
+                    window.location.replace("ServletAccess?redirect=reportEnrollment&classification=Public");
+                } else if (formName === "Enrollment in Private School") {
+                    window.location.replace("ServletAccess?redirect=reportEnrollment&classification=Private");
+                } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
+                    window.location.replace("ServletAccess?redirect=reportSchoolDirectory&classification=Public");
+                } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
+                    window.location.replace("ServletAccess?redirect=reportSchoolDirectory&classification=Private");
+                } else if (formName === "Household Population by Age Group and Sex") {
+                    window.location.replace("ServletAccess?redirect=reportHighestCompleted");
+                } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
+                    window.location.replace("ServletAccess?redirect=reportHighestCompleted");
+                } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
+                    window.location.replace("ServletAccess?redirect=reportMarital");
+                } else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
+                    window.location.replace("ServletAccess?redirect=reportNutritional");
+                } else if (formName === "List of Hospitals") {
+                    window.location.replace("ServletAccess?redirect=reportHospital");
                 }
 
             });
