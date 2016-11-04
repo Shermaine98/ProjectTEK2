@@ -22,19 +22,21 @@ function integrate() {
                     $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
                     $("#notificationModal").modal("show");
-                   
+                    $("#modal-footer").append('<button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button>');
 
                 } else {
                     $("#integrateLoad").modal("hide");
                     $("#notificationHeader").text("Success!");
                     $("#modal_Header").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
-                    $("#notificationBodyModal").empty();
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
+                    $("#modal-footer").append('<button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button>');
                     $("#notificationModal").modal("show");
-                  
-                }
 
+                }
+                $("#notificationBodyModal").empty();
+                $("#modal-footer").empty();
+                $("#modal-footer").append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 alert(exception);
             }
