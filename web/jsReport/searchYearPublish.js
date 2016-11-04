@@ -53,22 +53,22 @@ function setAnalysisS(year, sector) {
             $("#reportTitle").empty();
             $("#reportTitle").append(data[0].sector + " Analysis of " + year + " prepared by " + data[0].createdBy);
 
-                 for (var i = 0; i < data.length; i++) {
-                    var para = document.createElement("div");
-                    var para2 = document.createElement("div");
-                    var element = document.getElementById("content");
-                    para.setAttribute("style", "width:90%; margin: 0 auto; ");
-                    element.appendChild(para);
-                    para.appendChild(para2);
+            for (var i = 0; i < data.length; i++) {
+                var para = document.createElement("div");
+                var para2 = document.createElement("div");
+                var element = document.getElementById("content");
+                para.setAttribute("style", "width:90%; margin: 0 auto; ");
+                element.appendChild(para);
+                para.appendChild(para2);
 
 
-                    encodeImage(data[i].path, function (dataURL) {
-                        $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
-                    });
+                encodeImage(data[i].path, function (dataURL) {
+                    $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
+                });
 
 //                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
-                    $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
-                }
+                $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
+            }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
         }
@@ -2148,44 +2148,44 @@ function setMatrixS(year, sector) {
             $("#reportTitle").empty();
             $("#reportTitle").append(data[0].sector + " Analysis Matrix of " + year + " prepared by " + data[0].createdBy);
 
-             for (var i = 0; i < data.length; i++) {
-                    var para = document.createElement("div");
-                    var para2 = document.createElement("div");
-                    var element = document.getElementById("content");
-                    para.setAttribute("style", "box-body");
-                    element.appendChild(para);
-                    para.appendChild(para2);
+            for (var i = 0; i < data.length; i++) {
+                var para = document.createElement("div");
+                var para2 = document.createElement("div");
+                var element = document.getElementById("content");
+                para.setAttribute("style", "box-body");
+                element.appendChild(para);
+                para.appendChild(para2);
 
-                    encodeImage(data[i].path, function (dataURL) {
-                        $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
-                    });
+                encodeImage(data[i].path, function (dataURL) {
+                    $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
+                });
 
-                    var table = document.createElement("table");
-                    table.setAttribute("class", "table table-hover table-bordered");
-                    table.setAttribute("style", " margin: 0 auto;");
-                    para.appendChild(table);
+                var table = document.createElement("table");
+                table.setAttribute("class", "table table-hover table-bordered");
+                table.setAttribute("style", " margin: 0 auto;");
+                para.appendChild(table);
 
-                    var thead = document.createElement("thead");
-                    table.appendChild(thead);
-                    var tr = document.createElement("tr");
-                    thead.appendChild(tr);
-                    tr.setAttribute("id", "trcontent");
-                    tr.setAttribute("style", "background-color: #454545; color: #fff;");
-                    $(tr).append("<td width='25%'>Observations</td>");
-                    $(tr).append("<td width='25%'>Explanations</td>");
-                    $(tr).append("<td width='25%'>Implications</td>");
-                    $(tr).append("<td width='25%'>Interventions</td>");
-                    var tbody = document.createElement("tbody");
+                var thead = document.createElement("thead");
+                table.appendChild(thead);
+                var tr = document.createElement("tr");
+                thead.appendChild(tr);
+                tr.setAttribute("id", "trcontent");
+                tr.setAttribute("style", "background-color: #454545; color: #fff;");
+                $(tr).append("<td width='25%'>Observations</td>");
+                $(tr).append("<td width='25%'>Explanations</td>");
+                $(tr).append("<td width='25%'>Implications</td>");
+                $(tr).append("<td width='25%'>Interventions</td>");
+                var tbody = document.createElement("tbody");
 
-                    table.appendChild(tbody);
-                    var tbodytr = document.createElement("tr");
-                    tbody.appendChild(tbodytr);
-                    $(tbodytr).append('<td>' + data[i].observations + '</td>');
-                    $(tbodytr).append('<td>' + data[i].explanations + '</td>');
-                    $(tbodytr).append('<td>' + data[i].implications + '</td>');
-                    $(tbodytr).append('<td>' + data[i].interventions + '</td>');
+                table.appendChild(tbody);
+                var tbodytr = document.createElement("tr");
+                tbody.appendChild(tbodytr);
+                $(tbodytr).append('<td>' + data[i].observations + '</td>');
+                $(tbodytr).append('<td>' + data[i].explanations + '</td>');
+                $(tbodytr).append('<td>' + data[i].implications + '</td>');
+                $(tbodytr).append('<td>' + data[i].interventions + '</td>');
 
-                }
+            }
 
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -2252,7 +2252,18 @@ function setAnalysis() {
             sector: sector
         },
         success: function (data) {
-            if (data.length > 0) {
+           if (data.length === 0) {
+                errorMessage(year);
+                $("#info").empty();
+                $("#content").empty();
+                $("#prepared_by").empty();
+                
+                 document.getElementById('integrateData').style.display = "none";
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no analysis reports available for the year " + year + ".");
+            }else{
                 $("#content").empty();
                 $("#prepared_by").empty();
                 $("#info").empty();
@@ -2277,12 +2288,6 @@ function setAnalysis() {
 //                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
                     $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
                 }
-            } else {
-                document.getElementById('integrateData').style.display = "none";
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no analysis reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
@@ -2302,7 +2307,21 @@ function setIntegrated() {
             sector: sector
         },
         success: function (data) {
-            if (data.length > 0) {
+            
+            console.log(data.length);
+          if (data.length === 0) {
+                errorMessage(year);
+                $("#info").empty();
+                $("#content").empty();
+                $("#prepared_by").empty();
+                
+                document.getElementById('integrateData').style.display = "none";
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no integrated analysis reports available for the year " + year + ".");
+                
+            }  else{
                 $("#content").empty();
                 $("#prepared_by").empty();
                 $("#integratedanalysis").empty();
@@ -4340,13 +4359,7 @@ function setIntegrated() {
 //        analysischart = {};
                 }
                 //CHART END
-            } else {
-                document.getElementById('integrateData').style.display = "none";
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no integrated analysis reports available for the year " + year + ".");
-            }
+            } 
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
         }
@@ -4368,7 +4381,19 @@ function setMatrix() {
             sector: sector
         },
         success: function (data) {
-            if (data.length > 0) {
+            console.log(data.length);
+            if (data.length === 0) {
+                errorMessage(year);
+                $("#info").empty();
+                $("#content").empty();
+                $("#prepared_by").empty();
+
+                document.getElementById('integrateData').style.display = "none";
+                document.getElementById('contentHere').style.display = "none";
+                document.getElementById('noReport').style.display = "block";
+                var element = document.getElementById("contentNone");
+                element.append("There are no matrix analysis reports available for the year " + year + ".");
+            } else {
                 $("#info").empty();
                 $("#content").empty();
                 $("#prepared_by").empty();
@@ -4376,7 +4401,6 @@ function setMatrix() {
                 document.getElementById("print_year").innerHTML = data[0].sector + " Analysis Matrix for " + year;
                 $("#reportTitle").empty();
                 $("#reportTitle").append(data[0].sector + " Analysis Matrix of " + year + " prepared by " + data[0].createdBy);
-
                 for (var i = 0; i < data.length; i++) {
                     var para = document.createElement("div");
                     var para2 = document.createElement("div");
@@ -4384,16 +4408,13 @@ function setMatrix() {
                     para.setAttribute("style", "box-body");
                     element.appendChild(para);
                     para.appendChild(para2);
-
                     encodeImage(data[i].path, function (dataURL) {
                         $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
                     });
-
                     var table = document.createElement("table");
                     table.setAttribute("class", "table table-hover table-bordered");
                     table.setAttribute("style", " margin: 0 auto;");
                     para.appendChild(table);
-
                     var thead = document.createElement("thead");
                     table.appendChild(thead);
                     var tr = document.createElement("tr");
@@ -4405,7 +4426,6 @@ function setMatrix() {
                     $(tr).append("<td width='25%'>Implications</td>");
                     $(tr).append("<td width='25%'>Interventions</td>");
                     var tbody = document.createElement("tbody");
-
                     table.appendChild(tbody);
                     var tbodytr = document.createElement("tr");
                     tbody.appendChild(tbodytr);
@@ -4413,14 +4433,7 @@ function setMatrix() {
                     $(tbodytr).append('<td>' + data[i].explanations + '</td>');
                     $(tbodytr).append('<td>' + data[i].implications + '</td>');
                     $(tbodytr).append('<td>' + data[i].interventions + '</td>');
-
                 }
-            } else {
-                document.getElementById('integrateData').style.display = "none";
-                document.getElementById('contentHere').style.display = "none";
-                document.getElementById('noReport').style.display = "block";
-                var element = document.getElementById("contentNone");
-                element.append("There are no matrix analysis reports available for the year " + year + ".");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
@@ -4437,7 +4450,19 @@ function encodeImage(imageUri, callback) {
         c.height = this.height;
         ctx.drawImage(img, 0, 0);
         var dataURL = c.toDataURL("image/png");
-        callback(dataURL)
+        callback(dataURL);
     };
     img.src = imageUri;
+}
+
+function errorMessage(year) {
+    
+    $("#notificationHeader").css({color: "#FFFFFF"});
+    $("#modal_Header").css({background: "#F70A0A"});
+    $("#notificationHeader").css({color: "#F70A0A"});
+    $("#notificationHeader").text("Warning!");
+    $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">No Report Available for the year/word "' + year + '"</p>');
+    $("#notificationModal").modal("show");
+    $("#notificationBodyModal").empty();
+    $("#notificationHeader").empty("Warning!");
 }

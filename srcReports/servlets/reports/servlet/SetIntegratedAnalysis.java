@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -51,22 +52,22 @@ public class SetIntegratedAnalysis extends HttpServlet {
             String sector = request.getParameter("sector");
             String year = request.getParameter("year");
               ReportDAO ReportDAO = new ReportDAO();
-              Integrated Integrated = new Integrated();
+               ArrayList<Integrated>  Integrated = new  ArrayList<>();
              Integrated =  ReportDAO.GetReportIntegratedSubmitted(sector, year);
             JSONArray array = new JSONArray();
-            
+                for (int i = 0; i < Integrated.size(); i++) {
                 JSONObject obj = new JSONObject();
                 try {
-                    obj.put("text", Integrated.getText());
-                    obj.put("year", Integrated.getYear());
-                    obj.put("createdBy", Integrated.getCreatedByName());
-                    obj.put("sector", Integrated.getSector());
+                    obj.put("text", Integrated.get(i).getText());
+                    obj.put("year", Integrated.get(i).getYear());
+                    obj.put("createdBy", Integrated.get(i).getCreatedByName());
+                    obj.put("sector", Integrated.get(i).getSector());
                     array.put(obj);
 
                 } catch (JSONException ex) {
                     Logger.getLogger(SetIntegratedAnalysis.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                }
             
             out.print(array);
             out.flush();

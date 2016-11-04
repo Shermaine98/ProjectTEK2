@@ -691,27 +691,29 @@ public class ReportDAO {
     }
     
     
-    public Integrated GetReportIntegratedSubmitted(String sector, String year) throws ParseException {
+    public ArrayList<Integrated> GetReportIntegratedSubmitted(String sector, String year) throws ParseException {
         RecordDAO recordDAO = new RecordDAO();
         DBConnectionFactory myFactory = getInstance();
         int rows;
         try (Connection conn = myFactory.getConnection()) {
-            Integrated Integrated = new   Integrated();
+              ArrayList<Integrated> arrIntegrated = new ArrayList<Integrated>();
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM integrated_report WHERE `isDraft` = 0 AND `sector` = ? AND `year` = ?;");
             pstmt.setString(1, sector);
             pstmt.setString(2, year);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
+                Integrated Integrated = new Integrated();
                 Integrated.setYear(rs.getInt("year"));
                 Integrated.setSector(rs.getString("sector"));
                 Integrated.setText(rs.getString("text"));
                 Integrated.setIsDraft(rs.getBoolean("isDraft"));
-                Integrated.setCreatedByName(recordDAO.GetUserName(rs.getInt("createdBy")));            
+                Integrated.setCreatedByName(recordDAO.GetUserName(rs.getInt("createdBy")));     
+                arrIntegrated.add(Integrated);
             }
             pstmt.close();
             rs.close();
             conn.close();
-            return Integrated;
+            return arrIntegrated;
         } catch (SQLException ex) {
             getLogger(ReportDAO.class.getName()).log(SEVERE, null, ex);
         }
