@@ -1,7 +1,7 @@
 var wrapper;
 EXPORT_WIDTH = 1000;
 var data;
-
+var tableImage;
 (function () {
     var callWithJQuery;
 
@@ -185,67 +185,110 @@ var data;
 
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
                                 document.getElementById('showReport').style.display = "block";
-                                
-                                var conceptName = $('#commonReports').find(":selected").text();
-                                if(conceptName!='Population by year' 
-                                        && conceptName!='Enrollment in Public and Private Schools' 
-                                        && conceptName!='Actual number of Beds in Private and Public Hospitals'){
-                                    //SVG
-                                    var chart = $('#output').highcharts();
-                                    var render_width = EXPORT_WIDTH;
-                                    var render_height = render_width * chart.chartHeight / chart.chartWidth;
 
-                                    // Get the cart's SVG code
-                                    var svg = chart.getSVG({
-                                        exporting: {
-                                            sourceWidth: chart.chartWidth,
-                                            sourceHeight: chart.chartHeight
+                                var conceptName = $('#commonReports').find(":selected").text();
+
+                                if (conceptName != 'Population by year'
+                                        && conceptName != 'Enrollment in Public and Private Schools'
+                                        && conceptName != 'Actual number of Beds in Private and Public Hospitals') {
+
+                                    if (theChartSelected === "Table") {
+                                        //SVG
+                                        if (this.id === "btnMatrix") {
+                                            var para = document.createElement("div");
+                                            var element = document.getElementById("reportBody");
+                                            para.setAttribute("class", "reportContents");
+                                            element.appendChild(para);
+                                            $('.reportContents').append();
+                                            $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
+                                            chartImage();
+                                            $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + tableImage + '"/>');
+                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="' + tableImage + '">');
+                                            document.getElementById('image').setAttribute( 'src', tableImage);
+
+                                            
+
+                                            $('div#matrix')                         // grab the media content
+                                                    .clone()                          // make a duplicate of it
+                                                    .removeAttr('id')               // remove their ID attributes
+                                                    .appendTo('.reportContents'); // now add it to the media container
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<br><br><br><hr/>');
+                                            para.setAttribute("class", "reportDelete");
+                                        } else if (this.id === "btnReport") {
+                                            var para = document.createElement("div");
+                                            var element = document.getElementById("reportBody");
+                                            para.setAttribute("class", "reportContents");
+                                            element.appendChild(para);
+                                            $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
+                                            chartImage();
+                                            $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + tableImage + '"/>');
+                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="">');
+                                         document.getElementById('image').setAttribute( 'src', tableImage);
+                                            $('div#report').clone().removeAttr('id').appendTo('.reportContents');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<br><br><br><hr/>');
+                                            para.setAttribute("class", "reportDelete");
                                         }
-                                    });
-                                
-                                    
-                                    var image = new Image;
-                                    var canvas = document.createElement('canvas');
-                                    canvas.height = render_height;
-                                    canvas.width = render_width;
-                                    
-                                    image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
-                                    
-                                    canvas.getContext('2d').drawImage(image, 0, 0, render_width, render_height);
-                                    data = canvas.toDataURL("image/png");
-                                    
-                                    
-                                    //SVG
-                                    if (this.id === "btnMatrix") {
-                                        var para = document.createElement("div");
-                                        var element = document.getElementById("reportBody");
-                                        para.setAttribute("class", "reportContents");
-                                        element.appendChild(para);
-                                        $('.reportContents').append();
-                                        $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
-                                        $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
-                                        $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
-                                        console.log("HELLLOOOO" + data);
-                                        $('div#matrix')                         // grab the media content
-                                                .clone()                          // make a duplicate of it
-                                                .removeAttr('id')               // remove their ID attributes
-                                                .appendTo('.reportContents'); // now add it to the media container
-                                        $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
-                                        $('.reportContents').append('<br><br><br><hr/>');
-                                        para.setAttribute("class", "reportDelete");
-                                    } else if (this.id === "btnReport") {
-                                        var para = document.createElement("div");
-                                        var element = document.getElementById("reportBody");
-                                        para.setAttribute("class", "reportContents");
-                                        element.appendChild(para);
-                                        $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
-                                        $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
-                                        $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
-                                        console.log("HELLLOOOO" + data);
-                                        $('div#report').clone().removeAttr('id').appendTo('.reportContents');
-                                        $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
-                                        $('.reportContents').append('<br><br><br><hr/>');
-                                        para.setAttribute("class", "reportDelete");
+                                    } else {
+
+                                        //SVG
+                                        var chart = $('#output').highcharts();
+                                        var render_width = EXPORT_WIDTH;
+                                        var render_height = render_width * chart.chartHeight / chart.chartWidth;
+
+                                        // Get the cart's SVG code
+                                        var svg = chart.getSVG({
+                                            exporting: {
+                                                sourceWidth: chart.chartWidth,
+                                                sourceHeight: chart.chartHeight
+                                            }
+                                        });
+
+
+                                        var image = new Image;
+                                        var canvas = document.createElement('canvas');
+                                        canvas.height = render_height;
+                                        canvas.width = render_width;
+
+                                        image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
+
+                                        canvas.getContext('2d').drawImage(image, 0, 0, render_width, render_height);
+                                        data = canvas.toDataURL("image/png");
+
+
+                                        //SVG
+                                        if (this.id === "btnMatrix") {
+                                            var para = document.createElement("div");
+                                            var element = document.getElementById("reportBody");
+                                            para.setAttribute("class", "reportContents");
+                                            element.appendChild(para);
+                                            $('.reportContents').append();
+                                            $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
+                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
+                                            $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
+
+                                            $('div#matrix')                         // grab the media content
+                                                    .clone()                          // make a duplicate of it
+                                                    .removeAttr('id')               // remove their ID attributes
+                                                    .appendTo('.reportContents'); // now add it to the media container
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<br><br><br><hr/>');
+                                            para.setAttribute("class", "reportDelete");
+                                        } else if (this.id === "btnReport") {
+                                            var para = document.createElement("div");
+                                            var element = document.getElementById("reportBody");
+                                            para.setAttribute("class", "reportContents");
+                                            element.appendChild(para);
+                                            $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
+                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
+                                            $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
+
+                                            $('div#report').clone().removeAttr('id').appendTo('.reportContents');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<br><br><br><hr/>');
+                                            para.setAttribute("class", "reportDelete");
+                                        }
                                     }
                                 } else {
                                     if (this.id === "btnMatrix") {
@@ -257,7 +300,7 @@ var data;
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
-                                        
+
                                         console.log(wrapper.getChart().getImageURI());
                                         $('div#matrix')                         // grab the media content
                                                 .clone()                          // make a duplicate of it
@@ -282,8 +325,8 @@ var data;
                                         para.setAttribute("class", "reportDelete");
                                     }
                                 }
-                            });
-
+                            }
+                            );
                         });
                 wrapper.draw(result[0]);
 
@@ -324,7 +367,8 @@ var data;
                 return result;
 
 
-            };
+            }
+            ;
         };
 
         return $.pivotUtilities.gchart_renderers = {
@@ -343,5 +387,22 @@ var data;
 }).call(this);
 
 
-function save_chart(chart) {
+function chartImage() {
+    
+    
+    
+    
+    html2canvas(document.getElementById("dataTable"), {
+        onrendered: function (canvas) {
+            var img = canvas.toDataURL("image/png");
+             tableImage = img;
+             console.log(tableImage);
+             
+                 var image = new Image;
+               var canvas = document.createElement('canvas');
+               image.src = tableImage;
+                                        canvas.getContext('2d').drawImage(image, 0, 0);
+                                        tableImage = canvas.toDataURL("image/png");
+        }
+    });
 }
