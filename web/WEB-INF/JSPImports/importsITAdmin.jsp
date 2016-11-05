@@ -42,8 +42,8 @@ and open the template in the editor.
                 font-family: "Roboto", sans-serif;
             }
             .notification_drop{
-                overflow:hidden; 
-                overflow-y:scroll; 
+                overflow:hidden;
+                overflow-y:scroll;
                 max-height: 300px;
             }
         </style>
@@ -135,11 +135,11 @@ and open the template in the editor.
                                 <i class="fa fa-check"></i><span>Account Requests Approval</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/ServletAccess?redirect=updates">
+<!--                        <li>
+                            <a href="/ServletAccess?redirect=updates">
                                 <img src="img/edituser.png" width="14" style="margin-right: 3%;"><span>Update Accounts</span>
                             </a>
-                        </li>
+                        </li>-->
                 </section>
                 <!-- /.sidebar -->
             </aside>

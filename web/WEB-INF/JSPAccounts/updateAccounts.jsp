@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : updateAccounts
     Created on : 10 12, 16, 9:57:39 PM
     Author     : Geraldine
@@ -47,6 +47,7 @@
 
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="internal">
+                                        <form>
                                         <table class="uk-table uk-table-hover uk-table-striped" cellspacing="0" width="100%" id="internalTable">
                                             <thead>
                                                 <tr>
@@ -58,6 +59,7 @@
                                                     <th style="text-align:right;">For Your Action</th>
                                                 </tr>
                                             </thead>
+
                                             <tbody>
                                                 <% if (internalUsers.size() == 0) { %>
                                                 <tr>
@@ -66,23 +68,24 @@
                                                 <% } else {
                                                     for (int i = 0; i < internalUsers.size(); i++) {%>
                                                 <tr>
-                                                    <td><input name="name" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input required name="name" class="form-control edit" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= internalUsers.get(i).getFirstName()%> <%= internalUsers.get(i).getLastName()%>"/></td>
-                                                    <td><input name="email" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input required name="email" class="form-control edit" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= internalUsers.get(i).getEmail()%>"/></td>
-                                                    <td><input name="username" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input required name="username" class="form-control edit" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= internalUsers.get(i).getUsername()%>"/></td>
-                                                    <td><input name="division" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input required name="division" class="form-control edit" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= internalUsers.get(i).getDivision()%>"/></td>
-                                                    <td><input name="position" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input required name="position" class="form-control edit" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= internalUsers.get(i).getPosition()%>"/></td>
                                                     <td>
-                                                        <button class="btn btn-success" style="float:right">Update</button>
+                                                        <button type="button" class="btn btn-success" style="float:right">Update</button>
                                                     </td>
                                                 </tr>
                                                 <% }
                                                     }%>
-                                            </tbody></table>
+                                            </tbody>
+                                       </table> </form>
                                     </div>
                                     <!-- /.tab-pane -->
                                     <div class="tab-pane" id="external">
@@ -103,11 +106,11 @@
                                                 <% } else {
                                                     for (int i = 0; i < externalUsers.size(); i++) {%>
                                                 <tr>
-                                                    <td><input name="name" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input name="name" class="form-control" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= externalUsers.get(i).getFirstName()%> <%= externalUsers.get(i).getLastName()%>"/></td>
-                                                    <td><input name="email" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input name="email" class="form-control" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= externalUsers.get(i).getEmail()%>"/></td>
-                                                    <td><input name="username" class="form-control" style="width:100%; background: none; border: none;" readonly 
+                                                    <td><input name="username" class="form-control" style="width:100%; background: none; border: none;" readonly
                                                                value="<%= externalUsers.get(i).getUsername()%>"/></td>
                                                     <td>
                                                         <button class="btn btn-success" style="float:right">Update</button>
