@@ -273,7 +273,7 @@
 
 
                 xepOnline.Formatter.Format('TESTING',
-                        {pageWidth: '11in', pageHeight: '8.5in'},
+                        {pageWidth: '8.5in', pageHeight: '11in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
 
@@ -292,7 +292,7 @@
                 $('#spinner-overlay').toggle('show');
 
                 xepOnline.Formatter.Format('TESTING',
-                        {pageWidth: '11in', pageHeight: '8.5in'},
+                        {pageWidth: '8.5in', pageHeight: '11in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
 
