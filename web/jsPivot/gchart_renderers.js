@@ -212,7 +212,7 @@ var tableImage;
                                                     .clone()                          // make a duplicate of it
                                                     .removeAttr('id')               // remove their ID attributes
                                                     .appendTo('.reportContents'); // now add it to the media container
-                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
                                         } else if (this.id === "btnReport") {
@@ -226,7 +226,7 @@ var tableImage;
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="">');
                                          document.getElementById('image').setAttribute( 'src', tableImage);
                                             $('div#report').clone().removeAttr('id').appendTo('.reportContents');
-                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
                                         }
@@ -272,7 +272,7 @@ var tableImage;
                                                     .clone()                          // make a duplicate of it
                                                     .removeAttr('id')               // remove their ID attributes
                                                     .appendTo('.reportContents'); // now add it to the media container
-                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
                                         } else if (this.id === "btnReport") {
@@ -285,7 +285,7 @@ var tableImage;
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
 
                                             $('div#report').clone().removeAttr('id').appendTo('.reportContents');
-                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
                                         }
@@ -299,14 +299,14 @@ var tableImage;
                                         $('.reportContents').append();
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
-                                        $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
+                                        $('.reportContents').append('<input type="hidden" id="imageSrc"  name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
 
                                         console.log(wrapper.getChart().getImageURI());
                                         $('div#matrix')                         // grab the media content
                                                 .clone()                          // make a duplicate of it
                                                 .removeAttr('id')               // remove their ID attributes
                                                 .appendTo('.reportContents'); // now add it to the media container
-                                        $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                        $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                         $('.reportContents').append('<br><br><br><hr/>');
                                         para.setAttribute("class", "reportDelete");
                                     } else if (this.id === "btnReport") {
@@ -320,7 +320,7 @@ var tableImage;
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
                                         console.log(wrapper.getChart().getImageURI());
                                         $('div#report').clone().removeAttr('id').appendTo('.reportContents');
-                                        $('.reportContents').append('<button class="btn btn-danger btn-sm" onclick="deleteDiv(this)">Delete Chart</button>');
+                                        $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                         $('.reportContents').append('<br><br><br><hr/>');
                                         para.setAttribute("class", "reportDelete");
                                     }

@@ -91,9 +91,9 @@
                         String reportTitle = (String) request.getAttribute("reportTitle");
                         String reportSector = (String) request.getAttribute("sectorReport");
                 %>
-                <input type="hidden" id="reportTitle3" value="<%=reportTitle%>" />
-                <input type="hidden" id="reportYear" value="<%=reportYear%>" />
-                <input type="hidden" id="reportSector" value="<%=reportSector%>" />
+                <input type="text" id="reportTitle3" value="<%=reportTitle%>" />
+                <input type="text" id="reportYear" value="<%=reportYear%>" />
+                <input type="text" id="reportSector" value="<%=reportSector%>" />
                 <% }%>
                 <!--END Specific Report-->
 
@@ -114,8 +114,8 @@
                                     <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" style="width:800px">
                                         <option disabled selected>Choose Report</option>
                                     </select>
-                                    <input style="width: 100px; border: solid; border-color: #d2d6de; border-width: thin" type="text" 
-                                           class="form-control" onkeyup="updateButton()" disabled name="censusYear"  id="searchCensusYear" 
+                                    <input style="width: 100px; border: solid; border-color: #d2d6de; border-width: thin" type="text"
+                                           class="form-control" onkeyup="updateButton()" disabled name="censusYear"  id="searchCensusYear"
                                            placeholder="Census Year" />
                                     <button disabled id="button" type="button" class="btn btn-default" name="submitBtn" onClick="getData()"><span class="glyphicon glyphicon-search"></span></button>
                                 </div>
