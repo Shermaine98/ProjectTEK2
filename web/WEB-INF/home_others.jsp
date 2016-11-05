@@ -1,7 +1,7 @@
 <%--
     Document   : home_others
     Created on : 07 15, 16, 10:17:46 PM
-    Author     : Geraldine
+    Author     : Geraldine, Gian, Shermaine
 --%>
 
 
