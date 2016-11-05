@@ -1,7 +1,7 @@
 <%--
     Document   : RejectModal
     Created on : 07 19, 16, 12:50:08 AM
-    Author     : Geraldine
+    Author     : Geraldine, Gian, Shermaine
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

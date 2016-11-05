@@ -1,7 +1,7 @@
 <%--
     Document   : approvalsInternal
     Created on : 07 5, 16, 9:34:28 PM
-    Author     : Geraldine
+    Author     : Geraldine, Gian, Shermaine
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
