@@ -195,8 +195,8 @@
 
                         <div class="form-inline" align="center">
                             <div class="form-group" style="background: transparent;">
-                                <input name="lat" class="form-control" id="lat" type="text" placeholder="Latitude"  />
-                                <input name="long" class="form-control" id="long" type="text" placeholder="Longitude" />
+                                <input name="lat" class="form-control" id="lat" value="0" type="hidden"  />
+                                <input name="long" class="form-control" id="long" value="0" type="hidden"/>
                                 <input name="classification" id="classification" type="hidden" />
                             </div>
                         </div>

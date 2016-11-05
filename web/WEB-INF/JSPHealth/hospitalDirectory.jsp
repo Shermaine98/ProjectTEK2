@@ -17,7 +17,7 @@
         <script src="jsHealthImports/UpdateInvalidHealthDirectory.js" type="text/javascript"></script>
         <script src="jsImported/ePreventEnter.js" type="text/javascript"></script>
         <script src="jsImported/directoryChecker.js" type="text/javascript"></script>
-       
+
     </head>
     <body>
         <div class="wrapper">
@@ -107,8 +107,8 @@
                                             <!--</div>-->
                                             <div class="form-inline" style="margin-top:3%;">
                                                 <label style="width: 20%;">Points: </label>
-                                                <input style="margin-right: 3%;" class="form-control" name="lat" id="lat" type="text" required  />
-                                                <input class="form-control" name="long" id="long" type="text"  required />
+                                                <input style="margin-right: 3%;" class="form-control" name="lat" id="lat" type="hidden" value="0"  />
+                                                <input class="form-control" name="long" id="long" type="hidden" value="0"   />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -304,16 +304,5 @@
 
             </div>
         </div>
-
-        <script>
-            $(document).ready(function () {
-                $('#myModal').on('shown', function () {
-                    google.maps.event.trigger(map, "resize");
-                });
-            });
-        </script>
-        <script>
-
-        </script>
     </body>
 </html>
