@@ -91,13 +91,11 @@
                         String reportTitle = (String) request.getAttribute("reportTitle");
                         String reportSector = (String) request.getAttribute("sectorReport");
                 %>
-                <input type="hide" id="reportTitle3" value="<%=reportTitle%>" />
-                <input type="hide" id="reportYear" value="<%=reportYear%>" />
-                <input type="hide" id="reportSector" value="<%=reportSector%>" />
+                <input type="hidden" id="reportTitle3" value="<%=reportTitle%>" />
+                <input type="hidden" id="reportYear" value="<%=reportYear%>" />
+                <input type="hidden" id="reportSector" value="<%=reportSector%>" />
                 <% }%>
                 <!--END Specific Report-->
-
-
 
                 <!-- Content Header (Page header) -->
                 <section class="content" style="min-height: 630px">
@@ -105,16 +103,26 @@
                         <div style=" margin: 0 auto; display:block; text-align: center">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <select id="category" name="category" class="form-control" onchange="updateReport()">
+                                    <select id="category" name="category" class="form-control" onchange="updateReport()"
+                                            <% if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
+                                            style="width:200px"
+                                            <%} else {%>
+                                            style="width:200px"
+                                            <%}%>>
                                         <option disabled selected>Choose Sector</option>
                                         <option value="Education">Education</option>
                                         <option value="Demographics">Demographics</option>
                                         <option value="Health">Health</option>
                                     </select>
-                                    <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" style="width:800px">
+                                    <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" 
+                                            <% if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
+                                            style="width:800px"
+                                            <%} else {%>
+                                            style="width:850px"
+                                            <%}%>>
                                         <option disabled selected>Choose Report</option>
                                     </select>
-                                    <input style="width: 100px; border: solid; border-color: #d2d6de; border-width: thin" type="text"
+                                    <input style="width: 150px; border: solid; border-color: #d2d6de; border-width: thin" type="text"
                                            class="form-control" onkeyup="updateButton()" disabled name="censusYear"  id="searchCensusYear"
                                            placeholder="Census Year" />
                                     <button disabled id="button" type="button" class="btn btn-default" name="submitBtn" onClick="getData()"><span class="glyphicon glyphicon-search"></span></button>
