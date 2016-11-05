@@ -1,7 +1,7 @@
 <%--
     Document   : showTableEnrollement
     Created on : Jul 15, 2016, 3:19:30 PM
-    Author     : Shermaine
+    Author     :  Geraldine, Gian, Shermaine
 --%>
 
 <%@page import="model.education.Enrollment"%>
