@@ -168,9 +168,9 @@ function Viewforums() {
                 var tbodytr = document.createElement("tr");
                 tbody.appendChild(tbodytr);
                 if (data[i].isLike === false) {
-                    $(tbodytr).append('<td><button style ="margin-right:6%" class="btn btn-flat btn-default btn-xs nDefault" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up""></i>&nbsp;' + data[i].favoritesCount + '</button><button class="btn btn-flat btn-default btn-xs"><i class="glyphicon glyphicon-comment" ></i>&nbsp;' + data[i].commentsCount + '</button></td>');
+                    $(tbodytr).append('<td style="width:23%"><button style ="margin-right:5%" class="btn btn-flat btn-default btn-xs nDefault" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up""></i>&nbsp;' + data[i].favoritesCount + '</button><button class="btn btn-flat btn-default btn-xs"><i class="glyphicon glyphicon-comment" ></i>&nbsp;' + data[i].commentsCount + '</button></td>');
                 } else {
-                    $(tbodytr).append('<td><button style ="margin-right:6%" class="btn btn-flat btn-primary btn-xs nPrimary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up""></i>&nbsp;' + data[i].favoritesCount + '</button><button class="btn btn-flat btn-default btn-xs"><i class="glyphicon glyphicon-comment" ></i>&nbsp;' + data[i].commentsCount + '</button></td>');
+                    $(tbodytr).append('<td style="width:23%"><button style ="margin-right:5%" class="btn btn-flat btn-primary btn-xs nPrimary" id="btnFavorite"> <i class="glyphicon glyphicon-thumbs-up""></i>&nbsp;' + data[i].favoritesCount + '</button><button class="btn btn-flat btn-default btn-xs"><i class="glyphicon glyphicon-comment" ></i>&nbsp;' + data[i].commentsCount + '</button></td>');
                 }
 
                 $(tbodytr).append('<td class="forumTitleSearch"><span style="display: none;" class="createdBy">' + data[i].createdBy + '</span><span style="display: none;" class="forumId">' + data[i].forumID + '</span> \n\

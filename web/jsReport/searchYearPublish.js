@@ -76,6 +76,7 @@ function setAnalysisS(year, sector) {
 }
 
 function setIntegratedS(year, sector) {
+    var yearSearch = year;
     $.ajax({
         url: "SetIntegratedAnalysis",
         type: 'POST',
@@ -114,7 +115,6 @@ function setIntegratedS(year, sector) {
                     $('#barangays').empty();
                     $('#districts').empty();
                     print = data;
-                    var yearSearch = document.getElementById('searchCensusYear').value;
                     for (var i = 0; i < print[0].years.length; i++) {
                         if (print[0].years[i].year <= yearSearch) {
                             $('#years').append('<input type="checkbox" class="filter" id="year" value="'
@@ -211,414 +211,424 @@ function setIntegratedS(year, sector) {
             }
             function chart(print) {
 
-                var total = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'c';
-                    item["type"] = 'column';
-                    data = [];
+        var total = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'c';
+            item["type"] = 'column';
+            data = [];
 
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (i == 0 || i == 1) {
-                            item['color'] = '#7CB5EC';
-                        } else if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                            if (print[0].schoolAge[x].isOutlier == true) {
-                                var isFiltered = false;
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                        if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                            isFiltered = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (isFiltered) {
-                                    item["color"] = "#FF0000";
-                                }
-                                break;
-                            } else {
-                                item['color'] = '#7CB5EC';
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].schoolAge[x].district == print[0].districts[y].district) {
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (i == 0 || i == 1) {
+                    item['color'] = '#7CB5EC';
+                } else if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                    if(print[0].schoolAge[x].isOutlier == true){
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].schoolAge[x].district == print[0].districts[y].district){
                                 if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                    totals = totals + parseInt(print[0].schoolAge[x].people, 10);
+                                    isFiltered = true;
+                                    break;
                                 }
                             }
                         }
+                        if(isFiltered){
+                            item["color"] = "#FF0000";
+                        }
+                        break;
                     }
-                    item["y"] = totals;
-                    total.push(item);
+                    else{
+                        item['color'] = '#7CB5EC';
+                    }
                 }
-
-
-                var totalEnrollment = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'e';
-                    data = [];
-                    for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
-                                    totals = totals + print[0].enrollmentSchoolAge[x].enrollment;
-                                }
-
-                            }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                            totals = totals + parseInt(print[0].schoolAge[x].people, 10);
                         }
                     }
-                    item["y"] = totals;
-                    totalEnrollment.push(item);
                 }
+            }
+            item["y"] = totals;
+            total.push(item);
+        }
 
-                var drilldowns = [];
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    var northOutlier = false;
-                    var southOutlier = false;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' School-going age population';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'c';
 
-                    data = [];
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
+        var totalEnrollment = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'e';
+            data = [];
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
+                            totals = totals + print[0].enrollmentSchoolAge[x].enrollment;
+                        }
+                        
+                    }
+                }
+            }
+            item["y"] = totals;
+            totalEnrollment.push(item);
+        }
+
+        var drilldowns = [];
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var northOutlier = false;
+            var southOutlier = false;
+            item = {};
+            item["name"] = print[0].years[i].year + ' School-going age population';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'c';
+
+            data = [];
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH"){
+                    if (print[0].schoolAge[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                                    isFiltered = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(isFiltered){
+                            southOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
+                    if (print[0].schoolAge[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                                    isFiltered = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(isFiltered){
+                            northOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].schoolAge[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].schoolAge[x].people, 10);
+                        } else if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].schoolAge[x].people, 10);
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northc';
+            if (i == 0 || i == 1 || northOutlier == false) {
+                item['color'] = '#7CB5EC';
+            } else if (northOutlier) {
+                item2['color'] = '#FF0000';
+            }
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southc';
+            if (i == 0 || i == 1 || southOutlier == false) {
+                item['color'] = '#7CB5EC';
+            } else if (southOutlier) {
+                item2['color'] = '#FF0000';
+            }
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldowns.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Elementary Enrollment';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'e';
+
+            data = [];
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
+                        } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northe';
+            data.push(item2);
+
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southe';
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldowns.push(item);
+        }
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan School-Going Age Population';
+            item["id"] = print[0].years[i].year + 'southc';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].schoolAge[x].district;
+                            item2["y"] = print[0].schoolAge[x].people;
+                            if (i == 0 || i == 1 || print[0].schoolAge[x].isOutlier == false) {
+                                item['color'] = '#7CB5EC';
+                            } else if (print[0].schoolAge[x].isOutlier) {
+                                item2['color'] = '#FF0000';
+                            }
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+
+
+
+        for (var y = 0; y < print[0].years.length; y++) {
+            var northIOutlier = false;
+            var northIIOutlier = false;
+            var northIIIOutlier = false;
+            var northIVOutlier = false;
+            var northi = 0;
+            var northii = 0;
+            var northiii = 0;
+            var northiv = 0;
+            item = {};
+            item["name"] = print[0].years[y].year + ' North Caloocan School-Going Age Population';
+            item["id"] = print[0].years[y].year + 'northc';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year){
+                    if(print[0].schoolAge[x].zone == "NORTH") {
+                        if (print[0].schoolAge[x].district === "Caloocan North IV") {
                             if (print[0].schoolAge[x].isOutlier) {
-                                var isFiltered = false;
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                        if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                            isFiltered = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (isFiltered) {
-                                    southOutlier = true;
-                                    break;
-                                }
+                                northIVOutlier = true;
+                                break;
                             }
                         }
                     }
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
-                            if (print[0].schoolAge[x].isOutlier) {
-                                var isFiltered = false;
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                        if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                            isFiltered = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (isFiltered) {
-                                    northOutlier = true;
-                                    break;
-                                }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    if (print[0].schoolAge[x].district === "Caloocan North III") {
+                        if (print[0].schoolAge[x].isOutlier) {
+                            northIIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    if (print[0].schoolAge[x].district === "Caloocan North II") {
+                        if (print[0].schoolAge[x].isOutlier) {
+                            northIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    if (print[0].schoolAge[x].district === "Caloocan North I") {
+                        if (print[0].schoolAge[x].isOutlier) {
+                            northIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    for(var z = 0; z < print[0].districts.length; z++){
+                        if(print[0].schoolAge[x].district == print[0].districts[z].district){
+                            if (print[0].schoolAge[x].district === "Caloocan North IV") {
+                                northiv = northiv + print[0].schoolAge[x].people;
+                            } else if (print[0].schoolAge[x].district === "Caloocan North III") {
+                                northiii = northiii + print[0].schoolAge[x].people;
+                            } else if (print[0].schoolAge[x].district === "Caloocan North II") {
+                                northii = northii + print[0].schoolAge[x].people;
+                            } else if (print[0].schoolAge[x].district === "Caloocan North I") {
+                                northi = northi + print[0].schoolAge[x].people;
                             }
                         }
                     }
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].schoolAge[x].people, 10);
-                                } else if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].schoolAge[x].people, 10);
-                                }
-                            }
-                        }
-                    }
+                }
+                if (x === print[0].schoolAge.length - 1) {
+                    
+                }
+            }
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North I' == print[0].districts[z].district){
                     item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northc';
-                    if (i == 0 || i == 1 || northOutlier == false) {
+                    item2["name"] = 'Caloocan North I';
+                    if (y == 0 || y == 1 || northIOutlier == false) {
                         item['color'] = '#7CB5EC';
-                    } else if (northOutlier) {
+                    } else if (northIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    item2["y"] = northi;
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North II' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North II';
+                    item2["y"] = northii;
+                    if (y == 0 || y == 1 || northIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIOutlier) {
                         item2['color'] = '#FF0000';
                     }
                     data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North III' == print[0].districts[z].district){
                     item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southc';
-                    if (i == 0 || i == 1 || southOutlier == false) {
+                    item2["name"] = 'Caloocan North III';
+                    item2["y"] = northiii;
+                    if (y == 0 || y == 1 || northIIIOutlier == false) {
                         item['color'] = '#7CB5EC';
-                    } else if (southOutlier) {
+                    } else if (northIIIOutlier) {
                         item2['color'] = '#FF0000';
                     }
                     data.push(item2);
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldowns.push(item);
                 }
+            }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Elementary Enrollment';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'e';
-
-                    data = [];
-                    for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                }
-                            }
-                        }
-                    }
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North IV' == print[0].districts[z].district){
                     item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northe';
+                    item2["name"] = 'Caloocan North IV';
+                    item2["y"] = northiv;
+                    if (y == 0 || y == 1 || northIVOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIVOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
                     data.push(item2);
-
-                    item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southe';
-                    data.push(item2);
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldowns.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
 
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan School-Going Age Population';
-                    item["id"] = print[0].years[i].year + 'southc';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].schoolAge[x].district;
-                                    item2["y"] = print[0].schoolAge[x].people;
-                                    if (i == 0 || i == 1 || print[0].schoolAge[x].isOutlier == false) {
-                                        item['color'] = '#7CB5EC';
-                                    } else if (print[0].schoolAge[x].isOutlier) {
-                                        item2['color'] = '#FF0000';
-                                    }
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldowns.push(item);
-                }
-
-
-
-                for (var y = 0; y < print[0].years.length; y++) {
-                    var northIOutlier = false;
-                    var northIIOutlier = false;
-                    var northIIIOutlier = false;
-                    var northIVOutlier = false;
-                    var northi = 0;
-                    var northii = 0;
-                    var northiii = 0;
-                    var northiv = 0;
-                    item = {};
-                    item["name"] = print[0].years[y].year + ' North Caloocan School-Going Age Population';
-                    item["id"] = print[0].years[y].year + 'northc';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (print[0].years[y].year == print[0].schoolAge[x].year) {
-                            if (print[0].schoolAge[x].zone == "NORTH") {
-                                if (print[0].schoolAge[x].district === "Caloocan North IV") {
-                                    if (print[0].schoolAge[x].isOutlier) {
-                                        northIVOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                            if (print[0].schoolAge[x].district === "Caloocan North III") {
-                                if (print[0].schoolAge[x].isOutlier) {
-                                    northIIIOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                            if (print[0].schoolAge[x].district === "Caloocan North II") {
-                                if (print[0].schoolAge[x].isOutlier) {
-                                    northIIOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                            if (print[0].schoolAge[x].district === "Caloocan North I") {
-                                if (print[0].schoolAge[x].isOutlier) {
-                                    northIOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    for (var x = 0; x < print[0].schoolAge.length; x++) {
-                        if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                            for (var z = 0; z < print[0].districts.length; z++) {
-                                if (print[0].schoolAge[x].district == print[0].districts[z].district) {
-                                    if (print[0].schoolAge[x].district === "Caloocan North IV") {
-                                        northiv = northiv + print[0].schoolAge[x].people;
-                                    } else if (print[0].schoolAge[x].district === "Caloocan North III") {
-                                        northiii = northiii + print[0].schoolAge[x].people;
-                                    } else if (print[0].schoolAge[x].district === "Caloocan North II") {
-                                        northii = northii + print[0].schoolAge[x].people;
-                                    } else if (print[0].schoolAge[x].district === "Caloocan North I") {
-                                        northi = northi + print[0].schoolAge[x].people;
-                                    }
-                                }
-                            }
-                        }
-                        if (x === print[0].schoolAge.length - 1) {
-
-                        }
-                    }
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North I' == print[0].districts[z].district) {
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Enrollment';
+            item["id"] = print[0].years[i].year + 'northe';
+            item["type"] = 'column';
+            data = [];
+            for (x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
                             item2 = {};
-                            item2["name"] = 'Caloocan North I';
-                            if (y == 0 || y == 1 || northIOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            item2["y"] = northi;
+                            item2["name"] = print[0].enrollmentSchoolAge[x].district;
+                            item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
                             data.push(item2);
                         }
                     }
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
 
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North II' == print[0].districts[z].district) {
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Enrollment';
+            item["id"] = print[0].years[i].year + 'southe';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
                             item2 = {};
-                            item2["name"] = 'Caloocan North II';
-                            item2["y"] = northii;
-                            if (y == 0 || y == 1 || northIIOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIIOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
+                            item2["name"] = print[0].enrollmentSchoolAge[x].district;
+                            item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
                             data.push(item2);
                         }
                     }
-
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North III' == print[0].districts[z].district) {
-                            item2 = {};
-                            item2["name"] = 'Caloocan North III';
-                            item2["y"] = northiii;
-                            if (y == 0 || y == 1 || northIIIOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIIIOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                        }
-                    }
-
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North IV' == print[0].districts[z].district) {
-                            item2 = {};
-                            item2["name"] = 'Caloocan North IV';
-                            item2["y"] = northiv;
-                            if (y == 0 || y == 1 || northIVOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIVOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                        }
-                    }
-                    item['data'] = data;
-                    drilldowns.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Enrollment';
-                    item["id"] = print[0].years[i].year + 'northe';
-                    item["type"] = 'column';
-                    data = [];
-                    for (x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].enrollmentSchoolAge[x].district;
-                                    item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldowns.push(item);
+        // Create the chart
+        $('#container').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
                 }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Enrollment';
-                    item["id"] = print[0].years[i].year + 'southe';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].enrollmentSchoolAge[x].district;
-                                    item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldowns.push(item);
-                }
-
-                // Create the chart
-                $('#container').highcharts({
-                    chart: {
-                        type: 'column',
-                        drilled: false,
-                        zoomType: 'xy',
-                        panning: true,
-                        panKey: 'shift'//,
 //                events: {
 //                    drilldown: function (e) {
 //                        var chart2 = $('#container2').highcharts(),
@@ -656,642 +666,845 @@ function setIntegratedS(year, sector) {
 //                        }
 //                    }
 //                }
-                    },
-                    title: {
-                        text: 'School Going Age Population vs. Enrollment'
-                    },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    series: [{
-                            name: 'Caloocan City',
-                            type: 'column',
-                            data: total
-                        }, {
-                            name: 'Enrollment',
-                            type: 'spline',
-                            data: totalEnrollment
-                        }
-                    ],
-                    drilldown: {
-                        series:
-                                drilldowns
-                    }
-                });
+            },
+            title: {
+                text: 'School Going Age Population vs. Enrollment'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: ""
+                }
+            },
+            series: [{
+                    name: 'Caloocan City',
+                    type: 'column',
+                    data: total
+                }, {
+                    name: 'Enrollment',
+                    type: 'spline',
+                    data: totalEnrollment
+                }
+            ],
+            drilldown: {
+                series:
+                        drilldowns
+            }
+        });
 
 
-                // Create the chart
-                var totalPeople = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'p';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (i == 0 || i == 1) {
-                            item['color'] = '#7CB5EC';
-                        } else if (print[0].years[i].year == print[0].people[x].year) {
-                            if (print[0].people[x].isOutlier == true) {
-                                var isFiltered = false;
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].people[x].district == print[0].districts[y].district) {
-                                        if (print[0].years[i].year == print[0].people[x].year) {
-                                            isFiltered = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (isFiltered) {
-                                    item["color"] = "#FF0000";
-                                }
-                                break;
-                            } else {
-                                item['color'] = '#7CB5EC';
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].people[x].district == print[0].districts[y].district) {
+        // Create the chart
+        var totalPeople = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'p';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (i == 0 || i == 1) {
+                    item['color'] = '#7CB5EC';
+                } else if (print[0].years[i].year == print[0].people[x].year) {
+                    if(print[0].people[x].isOutlier == true){
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].people[x].district == print[0].districts[y].district){
                                 if (print[0].years[i].year == print[0].people[x].year) {
-                                    totals = totals + parseInt(print[0].people[x].people, 10);
+                                    isFiltered = true;
+                                    break;
                                 }
                             }
                         }
+                        if(isFiltered){
+                            item["color"] = "#FF0000";
+                        }
+                        break;
                     }
-                    item["y"] = totals
-                    totalPeople.push(item);
+                    else{
+                        item['color'] = '#7CB5EC';
+                    }
                 }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].people[x].year) {
+                            totals = totals + parseInt(print[0].people[x].people, 10);
+                        }
+                    }
+                }
+            }
+            item["y"] = totals;
+            totalPeople.push(item);
+        }
 
 
-                var totalBeds = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'b';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year) {
-                                    totals = totals + print[0].hospitals[x].beds;
+        var totalBeds = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            var totalPopulation = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'b';
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            totals = totals + print[0].hospitals[x].beds;
+                        }
+                    }
+                }
+            }
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
+            totalBeds.push(item);
+        }
+
+        var totalDoctors = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            var totalPopulation = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'd';
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            totals = totals + print[0].hospitals[x].doctors;
+                        }
+                    }
+                }
+            }
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
+            totalDoctors.push(item);
+        }
+
+        var totalNurses = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'n';
+            data = [];
+            var totalPopulation=0;
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            totals = totals + print[0].hospitals[x].nurses;
+                        }
+                    }
+                }
+            }
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
+            totalNurses.push(item);
+        }
+
+        var drilldownsHospital = [];
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var southOutlier = false;
+            var northOutlier = false;
+            item = {};
+            item["name"] = 'Population';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'p';
+            item["yAxis"] = 1;
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH"){
+                    if (print[0].people[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].people[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].people[x].year) {
+                                    isFiltered = true;
+                                    break;
                                 }
                             }
                         }
-                    }
-                    item["y"] = totals;
-                    totalBeds.push(item);
-                }
-
-                var totalDoctors = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'd';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year) {
-                                    totals = totals + print[0].hospitals[x].doctors;
-                                }
-
-                            }
+                        if(isFiltered){
+                            southOutlier = true;
+                            break;
                         }
                     }
-                    item["y"] = totals;
-                    totalDoctors.push(item);
                 }
-
-                var totalNurses = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'n';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year) {
-                                    totals = totals + print[0].hospitals[x].nurses;
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
+                    if (print[0].people[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].people[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].people[x].year) {
+                                    isFiltered = true;
+                                    break;
                                 }
                             }
                         }
+                        if(isFiltered){
+                            northOutlier = true;
+                            break;
+                        }
                     }
-                    item["y"] = totals;
-                    totalNurses.push(item);
                 }
+            }
+                for (var x = 0; x < print[0].people.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[x].district == print[0].districts[y].district){
+                            if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
+                                south = south + parseInt(print[0].people[x].people, 10);
+                            } else if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
+                                north = north + parseInt(print[0].people[x].people, 10);
+                            }
 
-                var drilldownsHospital = [];
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    var southOutlier = false;
-                    var northOutlier = false;
-                    item = {};
-                    item["name"] = 'Caloocan City Population';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'p';
+                        }
+                    }
+                    if (x === print[0].people.length - 1) {
+                        item2 = {};
+                        item2["name"] = 'North Caloocan';
+                        item2["y"] = north;
+                        //item2["tooltip"] = north;
+                        item2["suffix"] = "";
+                        item2["drilldown"] = print[0].years[i].year + 'northp';
+                        if (i == 0 || i == 1 || northOutlier == false) {
+                            item['color'] = '#7CB5EC';
+                        } else if (northOutlier) {
+                            item2['color'] = '#FF0000';
+                        }
+                        data.push(item2);
+                        item2 = {};
+                        item2["name"] = 'South Caloocan';
+                        item2["y"] = south;
+                        item2["drilldown"] = print[0].years[i].year + 'southp';
+                        item2["tooltip"] = south;
+                        item2["suffix"] = "";
+                        if (i == 0 || i == 1 || southOutlier == false) {
+                            item['color'] = '#7CB5EC';
+                        } else if (southOutlier) {
+                            item2['color'] = '#FF0000';
+                        }
+                        data.push(item2);
+                    }
+                } 
+            item['data'] = data;
+            souths.push(item);
+            drilldownsHospital.push(item);
+            }
+            
+        
 
-                    data = [];
-                    for (var x = 0; x < print[0].people.length; x++) {
+        for (var y = 0; y < print[0].years.length; y++) {
+            var northIOutlier = false;
+            var northIIOutlier = false;
+            var northIIIOutlier = false;
+            var northIVOutlier = false;
+            var northi = 0;
+            var northii = 0;
+            var northiii = 0;
+            var northiv = 0;
+            item = {};
+            item["name"] = 'Population';
+            item["id"] = print[0].years[y].year + 'northp';
+            item["type"] = 'column';
+            item["yAxis"] = 1;
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year){
+                    if(print[0].people[x].zone == "NORTH") {
+                        if (print[0].people[x].district === "Caloocan North IV") {
+                            if (print[0].people[x].isOutlier) {
+                                northIVOutlier = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    if (print[0].people[x].district === "Caloocan North III") {
+                        if (print[0].people[x].isOutlier) {
+                            northIIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    if (print[0].people[x].district === "Caloocan North II") {
+                        if (print[0].people[x].isOutlier) {
+                            northIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    if (print[0].people[x].district === "Caloocan North I") {
+                        if (print[0].people[x].isOutlier) {
+                            northIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    for(var z = 0; z < print[0].districts.length; z++){
+                        if(print[0].people[x].district == print[0].districts[z].district){
+                            if (print[0].people[x].district === "Caloocan North IV") {
+                                northiv = northiv + print[0].people[x].people;
+                            } else if (print[0].people[x].district === "Caloocan North III") {
+                                northiii = northiii + print[0].people[x].people;
+                            } else if (print[0].people[x].district === "Caloocan North II") {
+                                northii = northii + print[0].people[x].people;
+                            } else if (print[0].people[x].district === "Caloocan North I") {
+                                northi = northi + print[0].people[x].people;
+                            }
+                        }
+                    }
+                }
+            }
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North I' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North I';
+                    if (y == 0 || y == 1 || northIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    item2["y"] = northi;
+                    item2["tooltip"] = northi;
+                    item2["suffix"] = "";
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North II' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North II';
+                    item2["y"] = northii;
+                    item2["tooltip"] = northii;
+                    if (y == 0 || y == 1 || northIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North III' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North III';
+                    item2["y"] = northiii;
+                    item2["tooltip"] = northiii;
+                    if (y == 0 || y == 1 || northIIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North IV' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North IV';
+                    item2["y"] = northiv;
+                    item2["tooltip"] = northiv;
+                    if (y == 0 || y == 1 || northIVOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIVOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+        
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var totalPopulationSouth = 0;
+            var north = 0;
+            var totalPopulationNorth = 0;
+            item = {};
+            item["name"] ='Hospital Beds';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'b';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            south = south + parseInt(print[0].hospitals[x].beds, 10);
+                        } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            north = north + parseInt(print[0].hospitals[x].beds, 10);
+                        }
+                    }
+                }
+            }
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["drilldown"] = print[0].years[i].year + 'northb';
+            data.push(item2);
+
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["drilldown"] = print[0].years[i].year + 'southb';
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldownsHospital.push(item);
+        }
+        
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var totalPopulationSouth = 0;
+            var north = 0;
+            var totalPopulationNorth = 0;
+            item = {};
+            item["name"] = 'Nurses';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'n';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            south = south + parseInt(print[0].hospitals[x].nurses, 10);
+                        } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            north = north + parseInt(print[0].hospitals[x].nurses, 10);
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["tooltip"]=Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["name"] = 'North Caloocan';
+            item2["drilldown"] = print[0].years[i].year + 'northn';
+            data.push(item2);
+
+            item2 = {};
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["name"] = 'South Caloocan';
+            item2["drilldown"] = print[0].years[i].year + 'southn';
+            data.push(item2);
+            
+            
+            item['data'] = data;
+            //souths.push(item);
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var totalPopulationSouth = 0;
+            var totalPopulationNorth = 0;
+            item = {};
+            item["name"] = 'Doctors';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'd';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            south = south + parseInt(print[0].hospitals[x].doctors, 10);
+                        } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            north = north + parseInt(print[0].hospitals[x].doctors, 10);
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"] = 0;
+            item2["drilldown"] = print[0].years[i].year + 'northd';
+            item2["name"] = 'North Caloocan';
+            data.push(item2);
+
+            item2 = {};
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["drilldown"] = print[0].years[i].year + 'southd';
+            item2["name"] = 'South Caloocan';
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Population';
+            item["id"] = print[0].years[i].year + 'southp';
+            item["type"] = 'column';
+            item["yAxis"] = 1;
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
-                            if (print[0].people[x].isOutlier) {
-                                var isFiltered = false;
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].people[x].district == print[0].districts[y].district) {
-                                        if (print[0].years[i].year == print[0].people[x].year) {
-                                            isFiltered = true;
-                                            break;
-                                        }
+                            for(var y = 0; y < print[0].districts.length; y++){
+                                if(print[0].people[x].district == print[0].districts[y].district){
+                                    item2 = {};
+                                    item2["name"] = print[0].people[x].district;
+                                    item2["y"] = print[0].people[x].people;
+                                    item2["tooltip"]=print[0].people[x].people;
+                                    
+                                    if (i == 0 || i == 1 || print[0].people[x].isOutlier == false) {
+                                        item['color'] = '#7CB5EC';
+                                    } else if (print[0].people[x].isOutlier) {
+                                        item2['color'] = '#FF0000';
                                     }
-                                }
-                                if (isFiltered) {
-                                    southOutlier = true;
-                                    break;
+                                    data.push(item2);
                                 }
                             }
                         }
                     }
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
-                            if (print[0].people[x].isOutlier) {
-                                var isFiltered = false;
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].people[x].district == print[0].districts[y].district) {
-                                        if (print[0].years[i].year == print[0].people[x].year) {
-                                            isFiltered = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (isFiltered) {
-                                    northOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].people[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].people[x].people, 10);
-                                } else if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].people[x].people, 10);
-                                }
-
-                            }
-                        }
-                        if (x === print[0].people.length - 1) {
-                            item2 = {};
-                            item2["name"] = 'North';
-                            item2["y"] = north;
-                            item2["drilldown"] = print[0].years[i].year + 'northp';
-                            if (i == 0 || i == 1 || northOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                            item2 = {};
-                            item2["name"] = 'South';
-                            item2["y"] = south;
-                            item2["drilldown"] = print[0].years[i].year + 'southp';
-                            if (i == 0 || i == 1 || southOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (southOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                        }
-                    }
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsHospital.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-
-
-                for (var y = 0; y < print[0].years.length; y++) {
-                    var northIOutlier = false;
-                    var northIIOutlier = false;
-                    var northIIIOutlier = false;
-                    var northIVOutlier = false;
-                    var northi = 0;
-                    var northii = 0;
-                    var northiii = 0;
-                    var northiv = 0;
-                    item = {};
-                    item["name"] = print[0].years[y].year + ' North Caloocan Population';
-                    item["id"] = print[0].years[y].year + 'northp';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (print[0].years[y].year == print[0].people[x].year) {
-                            if (print[0].people[x].zone == "NORTH") {
-                                if (print[0].people[x].district === "Caloocan North IV") {
-                                    if (print[0].people[x].isOutlier) {
-                                        northIVOutlier = true;
-                                        break;
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Beds';
+            item["id"] = print[0].years[i].year + 'southb';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].beds/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
                     }
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                            if (print[0].people[x].district === "Caloocan North III") {
-                                if (print[0].people[x].isOutlier) {
-                                    northIIIOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                            if (print[0].people[x].district === "Caloocan North II") {
-                                if (print[0].people[x].isOutlier) {
-                                    northIIOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                            if (print[0].people[x].district === "Caloocan North I") {
-                                if (print[0].people[x].isOutlier) {
-                                    northIOutlier = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                            for (var z = 0; z < print[0].districts.length; z++) {
-                                if (print[0].people[x].district == print[0].districts[z].district) {
-                                    if (print[0].people[x].district === "Caloocan North IV") {
-                                        northiv = northiv + print[0].people[x].people;
-                                    } else if (print[0].people[x].district === "Caloocan North III") {
-                                        northiii = northiii + print[0].people[x].people;
-                                    } else if (print[0].people[x].district === "Caloocan North II") {
-                                        northii = northii + print[0].people[x].people;
-                                    } else if (print[0].people[x].district === "Caloocan North I") {
-                                        northi = northi + print[0].people[x].people;
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Beds';
+            item["id"] = print[0].years[i].year + 'northb';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
-                        }
-                    }
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North I' == print[0].districts[z].district) {
                             item2 = {};
-                            item2["name"] = 'Caloocan North I';
-                            if (y == 0 || y == 1 || northIOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            item2["y"] = northi;
+                            var ratio = (print[0].hospitals[x].beds/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["tooltip"]=Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
                             data.push(item2);
                         }
                     }
-
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North II' == print[0].districts[z].district) {
-                            item2 = {};
-                            item2["name"] = 'Caloocan North II';
-                            item2["y"] = northii;
-                            if (y == 0 || y == 1 || northIIOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIIOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                        }
-                    }
-
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North III' == print[0].districts[z].district) {
-                            item2 = {};
-                            item2["name"] = 'Caloocan North III';
-                            item2["y"] = northiii;
-                            if (y == 0 || y == 1 || northIIIOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIIIOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                        }
-                    }
-
-                    for (var z = 0; z < print[0].districts.length; z++) {
-                        if ('Caloocan North IV' == print[0].districts[z].district) {
-                            item2 = {};
-                            item2["name"] = 'Caloocan North IV';
-                            item2["y"] = northiv;
-                            if (y == 0 || y == 1 || northIVOutlier == false) {
-                                item['color'] = '#7CB5EC';
-                            } else if (northIVOutlier) {
-                                item2['color'] = '#FF0000';
-                            }
-                            data.push(item2);
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years.year + ' Caloocan City Hospital Beds';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'b';
-
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].hospitals[x].beds, 10);
-                                } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].hospitals[x].beds, 10);
-                                }
-                            }
-                        }
-                    }
-                    item2 = {};
-                    item2["name"] = 'North Caloocan Hospital Beds';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northb';
-                    data.push(item2);
-
-                    item2 = {};
-                    item2["name"] = 'South Caloocan Hospital Beds';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southb';
-                    data.push(item2);
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsHospital.push(item);
-                }
-
-
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Caloocan City Hospital Nurses';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'n';
-
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].hospitals[x].nurses, 10);
-                                } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].hospitals[x].nurses, 10);
-                                }
-                            }
-                        }
-                    }
-                    item2 = {};
-                    item2["name"] = 'North Caloocan Hospital Beds';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northn';
-                    data.push(item2);
-
-                    item2 = {};
-                    item2["name"] = 'South Caloocan Hospital Beds';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southn';
-                    data.push(item2);
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsHospital.push(item);
-                }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Caloocan City Hospital Doctors';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'd';
-
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].hospitals[x].doctors, 10);
-                                } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].hospitals[x].doctors, 10);
-                                }
-                            }
-                        }
-                    }
-                    item2 = {};
-                    item2["name"] = 'North Caloocan Hospital Doctors';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northd';
-                    data.push(item2);
-
-                    item2 = {};
-                    item2["name"] = 'South Caloocan Hospital Doctors';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southd';
-                    data.push(item2);
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsHospital.push(item);
-                }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Population';
-                    item["id"] = print[0].years[i].year + 'southp';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].people.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].people[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].people[x].district == print[0].districts[y].district) {
-                                            item2 = {};
-                                            item2["name"] = print[0].people[x].district;
-                                            item2["y"] = print[0].people[x].people;
-                                            if (i == 0 || i == 1 || print[0].people[x].isOutlier == false) {
-                                                item['color'] = '#7CB5EC';
-                                            } else if (print[0].people[x].isOutlier) {
-                                                item2['color'] = '#FF0000';
-                                            }
-                                            data.push(item2);
-                                        }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Doctors';
+            item["id"] = print[0].years[i].year + 'southd';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].doctors/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["tooltip"]=Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Hospital Beds';
-                    item["id"] = print[0].years[i].year + 'southb';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].hospitals[x].district;
-                                    item2["y"] = print[0].hospitals[x].beds;
-                                    data.push(item2);
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Doctors';
+            item["id"] = print[0].years[i].year + 'northd';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].doctors/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Hospital Beds';
-                    item["id"] = print[0].years[i].year + 'northb';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].hospitals[x].district;
-                                    item2["y"] = print[0].hospitals[x].beds;
-                                    data.push(item2);
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Nurses';
+            item["id"] = print[0].years[i].year + 'southn';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].nurses/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Hospital Doctors';
-                    item["id"] = print[0].years[i].year + 'southd';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].hospitals[x].district;
-                                    item2["y"] = print[0].hospitals[x].doctors;
-                                    data.push(item2);
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Nurses';
+            item["id"] = print[0].years[i].year + 'northn';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].nurses/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
                 }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Hospital Doctors';
-                    item["id"] = print[0].years[i].year + 'northd';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].hospitals[x].district;
-                                    item2["y"] = print[0].hospitals[x].doctors;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
-                }
-
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Hospital Nurses';
-                    item["id"] = print[0].years[i].year + 'southn';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].hospitals[x].district;
-                                    item2["y"] = print[0].hospitals[x].nurses;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
-                }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Hospital Nurses';
-                    item["id"] = print[0].years[i].year + 'northn';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].hospitals.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].hospitals[x].district;
-                                    item2["y"] = print[0].hospitals[x].nurses;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsHospital.push(item);
-                }
-                $('#container2').highcharts({
-                    chart: {
-                        type: 'column',
-                        drilled: false,
-                        zoomType: 'xy',
-                        panning: true,
-                        panKey: 'shift'//,
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+        $('#container2').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            }
 //      events:{
 //      	drilldown: function(e) {
 //          var chart = $('#container').highcharts(),
@@ -1315,811 +1528,855 @@ function setIntegratedS(year, sector) {
 //          
 //        }
 //      }
-                    },
-                    title: {
-                        text: 'Population vs. Hospital Total number of Beds, Doctors and Nurses'
-                    },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    plotOptions: {
-                        column: {
+            },
+            title: {
+                text: 'Population vs. Hospital Total number of Beds, Doctors and Nurses'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            plotOptions: {
+                column: {
 //        stacking: 'normal'
-                            dataLabels: {
-                                enabled: true
-                            },
-                            series: {
-                                allowPointSelect: true
-                            }
-                        },
-                    },
-                    series: [{
-                            name: 'Population',
-                            type: 'column',
-                            data: totalPeople
-                        }, {
-                            name: 'Beds',
-                            type: 'column',
-                            data: totalBeds
-                        }, {
-                            name: 'Doctors',
-                            type: 'column',
-                            data: totalDoctors
-                        }, {
-                            name: 'Nurses',
-                            type: 'column',
-                            data: totalNurses
-                        }
-                    ],
-                    drilldown: {
-                        series: drilldownsHospital
+                    series: {
+                        allowPointSelect: true
                     }
-                });
+                }
+            },yAxis: [{ // Primary yAxis
+                title: {
+                    text: 'Ratio'
+                },
+                opposite: true
 
-                var totalSeverelyWasted = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'sw';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                    totals = totals + parseInt(print[0].nutrition[x].severelyWasted, 10);
-                                }
-                            }
-                        }
+            }, { // Secondary yAxis
+                //gridLineWidth: 0,
+                title: {
+                    text: 'Population',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
                     }
-                    item["y"] = totals;
-                    totalSeverelyWasted.push(item);
+                },
+                labels: {
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
                 }
 
-                var totalNormal = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'normal';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                    totals = totals + parseInt(print[0].nutrition[x].normal, 10);
-                                }
-                            }
-                        }
+            }],
+            series: [{
+                    name: 'Population',
+                    type: 'column',
+                    data: totalPeople,
+                    yAxis: 1
+                }, {
+                    name: 'Beds',
+                    type: 'spline',
+                    data: totalBeds,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
                     }
-                    item["y"] = totals;
-                    totalNormal.push(item);
+                }, {
+                    name: 'Doctors',
+                    type: 'spline',
+                    data: totalDoctors,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
+                    }
+                }, {
+                    name: 'Nurses',
+                    type: 'spline',
+                    data: totalNurses,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
+                    }
                 }
+            ],
+            drilldown: {
+                series: drilldownsHospital
+            }
+        });
 
-                var totalOverweight = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'overweight';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                    totals = totals + parseInt(print[0].nutrition[x].overweight, 10);
-                                }
-                            }
+        var totalSeverelyWasted = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'sw';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].severelyWasted, 10);
                         }
                     }
-                    item["y"] = totals;
-                    totalOverweight.push(item);
                 }
+            }
+            item["y"] = totals;
+            totalSeverelyWasted.push(item);
+        }
 
-                var totalObese = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'obese';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                    totals = totals + parseInt(print[0].nutrition[x].obese, 10);
-                                }
-                            }
+        var totalNormal = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'normal';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].normal, 10);
                         }
                     }
-                    item["y"] = totals;
-                    totalObese.push(item);
                 }
+            }
+            item["y"] = totals;
+            totalNormal.push(item);
+        }
 
-                var totalWasted = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totals = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'wasted';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                    totals = totals + parseInt(print[0].nutrition[x].wasted, 10);
-                                }
-                            }
+        var totalOverweight = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'overweight';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].overweight, 10);
                         }
                     }
-                    item["y"] = totals;
-                    totalWasted.push(item);
                 }
+            }
+            item["y"] = totals;
+            totalOverweight.push(item);
+        }
 
-                var totalNotWeighed = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var totalsWeighed = 0;
-                    var totalEnrollment = 0;
-                    var total = 0;
-                    var
-                            item = {};
-                    item["name"] = print[0].years[i].year;
-                    item["drilldown"] = print[0].years[i].year + 'notweighed';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                    totalsWeighed = totalsWeighed + parseInt(print[0].nutrition[x].weighed, 10);
-                                }
-                            }
+        var totalObese = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'obese';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].obese, 10);
                         }
                     }
-                    for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
-                                    totalEnrollment = totalEnrollment + print[0].enrollmentSchoolAge[x].enrollment;
-                                }
-                            }
-                        }
-                    }
-                    total = totalEnrollment - totalsWeighed;
-                    item["y"] = total;
-                    totalNotWeighed.push(item);
                 }
+            }
+            item["y"] = totals;
+            totalObese.push(item);
+        }
 
-                var drilldownsNutrtion = [];
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Normal Students';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'normal';
-
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].nutrition[x].normal, 10);
-                                } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].nutrition[x].normal, 10);
-                                }
-                            }
+        var totalWasted = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'wasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].wasted, 10);
                         }
                     }
-                    item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northnormal';
-                    data.push(item2);
-
-                    item3 = {};
-                    item3["name"] = 'South';
-                    item3["y"] = south;
-                    item3["drilldown"] = print[0].years[i].year + 'southnormal';
-                    data.push(item3);
-
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item["y"] = totals;
+            totalWasted.push(item);
+        }
 
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
+        var totalNotWeighed = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totalsWeighed = 0;
+            var totalEnrollment = 0;
+            var total = 0;
+            var
                     item = {};
-                    item["name"] = print[0].years[i].year + ' Severely Wasted Students';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'sw';
-
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].nutrition[x].severelyWasted, 10);
-                                } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].nutrition[x].severelyWasted, 10);
-                                }
-                            }
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'notweighed';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totalsWeighed = totalsWeighed + parseInt(print[0].nutrition[x].weighed, 10);
                         }
                     }
-                    item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northsw';
-                    data.push(item2);
-                    item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southsw';
-                    data.push(item2);
-
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsNutrtion.push(item);
                 }
-
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Wasted Students';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'wasted';
-
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].nutrition[x].wasted, 10);
-                                } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].nutrition[x].wasted, 10);
-                                }
-                            }
-                        }
+            }
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
+                            totalEnrollment = totalEnrollment + print[0].enrollmentSchoolAge[x].enrollment;
+                        }   
                     }
-                    item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northwasted';
-                    data.push(item2);
-                    item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southwasted';
-                    data.push(item2);
-
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            console.log("totalsWeighed " + totalsWeighed);
+            console.log("totalEnrollment " + totalEnrollment);
+            total = totalEnrollment - totalsWeighed;
+            item["y"] = total;
+            totalNotWeighed.push(item);
+        }
 
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Overweight Students';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'overweight';
+        var drilldownsNutrtion = [];
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Normal Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'normal';
 
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].nutrition[x].overweight, 10);
-                                } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].nutrition[x].overweight, 10);
-                                }
-                            }
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                        south = south + parseInt(print[0].nutrition[x].normal, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                        north = north + parseInt(print[0].nutrition[x].normal, 10);
                         }
                     }
-                    item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northoverweight';
-                    data.push(item2);
-                    item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southoverweight';
-                    data.push(item2);
-
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northnormal';
+            data.push(item2);
 
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Obese Students';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'obese';
+            item3 = {};
+            item3["name"] = 'South Caloocan';
+            item3["y"] = south;
+            item3["drilldown"] = print[0].years[i].year + 'southnormal';
+            data.push(item3);
 
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].nutrition[x].obese, 10);
-                                } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].nutrition[x].obese, 10);
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Severely Wasted Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'sw';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].severelyWasted, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].severelyWasted, 10);
                         }
                     }
-
-                    item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = north;
-                    item2["drilldown"] = print[0].years[i].year + 'northobese';
-                    data.push(item2);
-                    item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = south;
-                    item2["drilldown"] = print[0].years[i].year + 'southobese';
-                    data.push(item2);
-
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northsw';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southsw';
+            data.push(item2);
 
-                var souths = [];
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var south = 0;
-                    var north = 0;
-                    var southEnrollment = 0;
-                    var northEnrollment = 0;
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
 
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' Not Weighed Students';
-                    item["type"] = 'column';
-                    item["id"] = print[0].years[i].year + 'notweighed';
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Wasted Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'wasted';
 
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    south = south + parseInt(print[0].nutrition[x].weighed, 10);
-                                } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    north = north + parseInt(print[0].nutrition[x].weighed, 10);
-                                }
-                            }
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].wasted, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].wasted, 10);
                         }
                     }
-                    for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
-                                    southEnrollment = southEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
-                                    northEnrollment = northEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                }
-                            }
-                        }
-                    }
-                    item2 = {};
-                    item2["name"] = 'North';
-                    item2["y"] = (northEnrollment - north);
-                    item2["drilldown"] = print[0].years[i].year + 'northnotweighed';
-                    data.push(item2);
-                    item2 = {};
-                    item2["name"] = 'South';
-                    item2["y"] = (southEnrollment - south);
-                    item2["drilldown"] = print[0].years[i].year + 'southnotweighed';
-                    data.push(item2);
-
-                    item['data'] = data;
-                    souths.push(item);
-                    drilldownsNutrtion.push(item);
-
-                    south = 0;
-                    north = 0;
                 }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northwasted';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southwasted';
+            data.push(item2);
 
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Normal Students';
-                    item["id"] = print[0].years[i].year + 'northnormal';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].normal;
-                                    data.push(item2);
-                                }
-                            }
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Overweight Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'overweight';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].overweight, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].overweight, 10);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northoverweight';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southoverweight';
+            data.push(item2);
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Normal Students';
-                    item["id"] = print[0].years[i].year + 'southnormal';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].normal;
-                                    data.push(item2);
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Obese Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'obese';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].obese, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].obese, 10);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Severely Wasted Students';
-                    item["id"] = print[0].years[i].year + 'northsw';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].severelyWasted;
-                                    data.push(item2);
-                                }
-                            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northobese';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southobese';
+            data.push(item2);
+
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var southEnrollment = 0;
+            var northEnrollment = 0;
+
+            item = {};
+            item["name"] = print[0].years[i].year + ' Not Weighed Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'notweighed';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].weighed, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].weighed, 10);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Severely Wasted Students';
-                    item["id"] = print[0].years[i].year + 'southsw';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].severelyWasted;
-                                    data.push(item2);
-                                }
-                            }
+            }
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
+                            southEnrollment = southEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
+                        } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
+                            northEnrollment = northEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = (northEnrollment - north);
+            item2["drilldown"] = print[0].years[i].year + 'northnotweighed';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = (southEnrollment - south);
+            item2["drilldown"] = print[0].years[i].year + 'southnotweighed';
+            data.push(item2);
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
-                    item["id"] = print[0].years[i].year + 'northwasted';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                //alert(print[0].districts[y].district);
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].wasted;
-                                    data.push(item2);
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+
+            south = 0;
+            north = 0;
+        }
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Normal Students';
+            item["id"] = print[0].years[i].year + 'northnormal';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].normal;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
-                    item["id"] = print[0].years[i].year + 'southwasted';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].wasted;
-                                    data.push(item2);
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Normal Students';
+            item["id"] = print[0].years[i].year + 'southnormal';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].normal;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Overweight Students';
-                    item["id"] = print[0].years[i].year + 'northoverweight';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].overweight;
-                                    data.push(item2);
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Severely Wasted Students';
+            item["id"] = print[0].years[i].year + 'northsw';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].severelyWasted;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Overweight Students';
-                    item["id"] = print[0].years[i].year + 'southoverweight';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].overweight;
-                                    data.push(item2);
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Severely Wasted Students';
+            item["id"] = print[0].years[i].year + 'southsw';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++){
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].severelyWasted;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Obese Students';
-                    item["id"] = print[0].years[i].year + 'northobese';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].obese;
-                                    data.push(item2);
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'northwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        //alert(print[0].districts[y].district);
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Obese Students';
-                    item["id"] = print[0].years[i].year + 'southobese';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].obese;
-                                    data.push(item2);
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'southwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                for (var i = 0; i < print[0].years.length; i++) {
-                    var north = 0;
-                    var northEnrollment = 0;
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
-                    item["id"] = print[0].years[i].year + 'northwasted';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].wasted;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
-                }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
-                    item["id"] = print[0].years[i].year + 'southwasted';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        for (var y = 0; y < print[0].districts.length; y++) {
-                            if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                    item2 = {};
-                                    item2["name"] = print[0].nutrition[x].district;
-                                    item2["y"] = print[0].nutrition[x].wasted;
-                                    data.push(item2);
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
-                }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' South Caloocan Not Weighed Students';
-                    item["id"] = print[0].years[i].year + 'southnotweighed';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
-                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
-                                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "SOUTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
-                                            item2 = {};
-                                            item2["name"] = print[0].nutrition[x].district;
-                                            item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
-                                            data.push(item2);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
-                }
-
-                for (var i = 0; i < print[0].years.length; i++) {
-                    item = {};
-                    item["name"] = print[0].years[i].year + ' North Caloocan Not Weighed Students';
-                    item["id"] = print[0].years[i].year + 'northnotweighed';
-                    item["type"] = 'column';
-                    data = [];
-                    for (var x = 0; x < print[0].nutrition.length; x++) {
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Overweight Students';
+            item["id"] = print[0].years[i].year + 'northoverweight';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
                         if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
-                                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "NORTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
-                                            item2 = {};
-                                            item2["name"] = print[0].nutrition[x].district;
-                                            item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
-                                            data.push(item2);
-                                        }
-                                    }
-                                }
-                            }
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].overweight;
+                            data.push(item2);
                         }
                     }
-                    item['data'] = data;
-                    drilldownsNutrtion.push(item);
                 }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                $('#container3').highcharts({
-                    chart: {
-                        type: 'column',
-                        drilled: false,
-                        zoomType: 'xy',
-                        panning: true,
-                        panKey: 'shift'
-                    },
-                    title: {
-                        text: 'Nutritional Status of the enrolled Elementary Students'
-                    },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    yAxis: {
-                        min: 0,
-                        stackLabels: {
-                            enabled: true
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Overweight Students';
+            item["id"] = print[0].years[i].year + 'southoverweight';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].overweight;
+                            data.push(item2);
                         }
-                    },
-                    plotOptions: {
-                        column: {
-                            stacking: 'normal',
-                            dataLabels: {
-                                enabled: true,
-                                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                                style: {
-                                    textShadow: '0 0 3px white'
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Obese Students';
+            item["id"] = print[0].years[i].year + 'northobese';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].obese;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Obese Students';
+            item["id"] = print[0].years[i].year + 'southobese';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].obese;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var north = 0;
+            var northEnrollment = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'northwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'southwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Not Weighed Students';
+            item["id"] = print[0].years[i].year + 'southnotweighed';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].nutrition[x].district == print[0].districts[y].district){
+                           for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
+                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "SOUTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
+                                    item2 = {};
+                                    item2["name"] = print[0].nutrition[x].district;
+                                    item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
+                                    data.push(item2);
                                 }
                             }
                         }
-                    },
-                    series: [{
-                            name: 'Severely Wasted',
-                            data: totalSeverelyWasted
-                        }, {
-                            name: 'Wasted',
-                            data: totalWasted
-                        }, {
-                            name: 'Normal',
-                            data: totalNormal
-                        },
-                        {
-                            name: 'Overweight',
-                            data: totalOverweight
-                        },
-                        {
-                            name: 'Obese',
-                            data: totalObese
-                        },
-                        {
-                            name: 'Not Weighed',
-                            data: totalNotWeighed
-                        }],
-                    drilldown: {
-                        series: drilldownsNutrtion
                     }
-                });
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Not Weighed Students';
+            item["id"] = print[0].years[i].year + 'northnotweighed';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].nutrition[x].district == print[0].districts[y].district){
+                            for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
+                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "NORTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
+                                    item2 = {};
+                                    item2["name"] = print[0].nutrition[x].district;
+                                    item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
+                                    data.push(item2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        $('#container3').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
+            },
+            title: {
+                text: 'Nutritional Status of the enrolled Elementary Students'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                min: 0,
+                stackLabels: {
+                    enabled: true
+                },
+                title: {
+                    text: ""
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px white'
+                        }
+                    }
+                }
+            },
+            series: [{
+                    name: 'Severely Wasted',
+                    data: totalSeverelyWasted
+                }, {
+                    name: 'Wasted',
+                    data: totalWasted
+                }, {
+                    name: 'Normal',
+                    data: totalNormal
+                },
+                {
+                    name: 'Overweight',
+                    data: totalOverweight
+                },
+                {
+                    name: 'Obese',
+                    data: totalObese
+                },
+                {
+                    name: 'Not Weighed',
+                    data: totalNotWeighed
+                }],
+            drilldown: {
+                series: drilldownsNutrtion
+            }
+        });
 //        year = [];
 //        place = [];
 //        location = [];
 //        analysischart = {};
-            }
+    }
             //CHART END
 
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -2449,414 +2706,424 @@ function setIntegrated() {
                 }
                 function chart(print) {
 
-                    var total = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'c';
-                        item["type"] = 'column';
-                        data = [];
+        var total = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'c';
+            item["type"] = 'column';
+            data = [];
 
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (i == 0 || i == 1) {
-                                item['color'] = '#7CB5EC';
-                            } else if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                if (print[0].schoolAge[x].isOutlier == true) {
-                                    var isFiltered = false;
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                            if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                                isFiltered = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (isFiltered) {
-                                        item["color"] = "#FF0000";
-                                    }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (i == 0 || i == 1) {
+                    item['color'] = '#7CB5EC';
+                } else if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                    if(print[0].schoolAge[x].isOutlier == true){
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                                    isFiltered = true;
                                     break;
-                                } else {
-                                    item['color'] = '#7CB5EC';
                                 }
                             }
                         }
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                        totals = totals + parseInt(print[0].schoolAge[x].people, 10);
-                                    }
-                                }
-                            }
+                        if(isFiltered){
+                            item["color"] = "#FF0000";
                         }
-                        item["y"] = totals;
-                        total.push(item);
+                        break;
                     }
-
-
-                    var totalEnrollment = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'e';
-                        data = [];
-                        for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
-                                        totals = totals + print[0].enrollmentSchoolAge[x].enrollment;
-                                    }
-
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalEnrollment.push(item);
+                    else{
+                        item['color'] = '#7CB5EC';
                     }
-
-                    var drilldowns = [];
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        var northOutlier = false;
-                        var southOutlier = false;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' School-going age population';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'c';
-
-                        data = [];
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
-                                if (print[0].schoolAge[x].isOutlier) {
-                                    var isFiltered = false;
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                            if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                                isFiltered = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (isFiltered) {
-                                        southOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                            totals = totals + parseInt(print[0].schoolAge[x].people, 10);
                         }
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
-                                if (print[0].schoolAge[x].isOutlier) {
-                                    var isFiltered = false;
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                            if (print[0].years[i].year == print[0].schoolAge[x].year) {
-                                                isFiltered = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (isFiltered) {
-                                        northOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].schoolAge[x].people, 10);
-                                    } else if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].schoolAge[x].people, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northc';
-                        if (i == 0 || i == 1 || northOutlier == false) {
-                            item['color'] = '#7CB5EC';
-                        } else if (northOutlier) {
-                            item2['color'] = '#FF0000';
-                        }
-                        data.push(item2);
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southc';
-                        if (i == 0 || i == 1 || southOutlier == false) {
-                            item['color'] = '#7CB5EC';
-                        } else if (southOutlier) {
-                            item2['color'] = '#FF0000';
-                        }
-                        data.push(item2);
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldowns.push(item);
                     }
+                }
+            }
+            item["y"] = totals;
+            total.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Elementary Enrollment';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'e';
 
-                        data = [];
-                        for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                    } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                    }
-                                }
-                            }
+        var totalEnrollment = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'e';
+            data = [];
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
+                            totals = totals + print[0].enrollmentSchoolAge[x].enrollment;
                         }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northe';
-                        data.push(item2);
-
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southe';
-                        data.push(item2);
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldowns.push(item);
+                        
                     }
+                }
+            }
+            item["y"] = totals;
+            totalEnrollment.push(item);
+        }
 
+        var drilldowns = [];
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var northOutlier = false;
+            var southOutlier = false;
+            item = {};
+            item["name"] = print[0].years[i].year + ' School-going age population';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'c';
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan School-Going Age Population';
-                        item["id"] = print[0].years[i].year + 'southc';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].schoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].schoolAge[x].district;
-                                        item2["y"] = print[0].schoolAge[x].people;
-                                        if (i == 0 || i == 1 || print[0].schoolAge[x].isOutlier == false) {
-                                            item['color'] = '#7CB5EC';
-                                        } else if (print[0].schoolAge[x].isOutlier) {
-                                            item2['color'] = '#FF0000';
-                                        }
-                                        data.push(item2);
-                                    }
+            data = [];
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH"){
+                    if (print[0].schoolAge[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                                    isFiltered = true;
+                                    break;
                                 }
                             }
                         }
-                        item['data'] = data;
-                        drilldowns.push(item);
+                        if(isFiltered){
+                            southOutlier = true;
+                            break;
+                        }
                     }
-
-
-
-                    for (var y = 0; y < print[0].years.length; y++) {
-                        var northIOutlier = false;
-                        var northIIOutlier = false;
-                        var northIIIOutlier = false;
-                        var northIVOutlier = false;
-                        var northi = 0;
-                        var northii = 0;
-                        var northiii = 0;
-                        var northiv = 0;
-                        item = {};
-                        item["name"] = print[0].years[y].year + ' North Caloocan School-Going Age Population';
-                        item["id"] = print[0].years[y].year + 'northc';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[y].year == print[0].schoolAge[x].year) {
-                                if (print[0].schoolAge[x].zone == "NORTH") {
-                                    if (print[0].schoolAge[x].district === "Caloocan North IV") {
-                                        if (print[0].schoolAge[x].isOutlier) {
-                                            northIVOutlier = true;
-                                            break;
-                                        }
-                                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
+                    if (print[0].schoolAge[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].schoolAge[x].year) {
+                                    isFiltered = true;
+                                    break;
                                 }
                             }
                         }
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                                if (print[0].schoolAge[x].district === "Caloocan North III") {
-                                    if (print[0].schoolAge[x].isOutlier) {
-                                        northIIIOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
+                        if(isFiltered){
+                            northOutlier = true;
+                            break;
                         }
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                                if (print[0].schoolAge[x].district === "Caloocan North II") {
-                                    if (print[0].schoolAge[x].isOutlier) {
-                                        northIIOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                                if (print[0].schoolAge[x].district === "Caloocan North I") {
-                                    if (print[0].schoolAge[x].isOutlier) {
-                                        northIOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        for (var x = 0; x < print[0].schoolAge.length; x++) {
-                            if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
-                                for (var z = 0; z < print[0].districts.length; z++) {
-                                    if (print[0].schoolAge[x].district == print[0].districts[z].district) {
-                                        if (print[0].schoolAge[x].district === "Caloocan North IV") {
-                                            northiv = northiv + print[0].schoolAge[x].people;
-                                        } else if (print[0].schoolAge[x].district === "Caloocan North III") {
-                                            northiii = northiii + print[0].schoolAge[x].people;
-                                        } else if (print[0].schoolAge[x].district === "Caloocan North II") {
-                                            northii = northii + print[0].schoolAge[x].people;
-                                        } else if (print[0].schoolAge[x].district === "Caloocan North I") {
-                                            northi = northi + print[0].schoolAge[x].people;
-                                        }
-                                    }
-                                }
-                            }
-                            if (x === print[0].schoolAge.length - 1) {
-
-                            }
-                        }
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North I' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North I';
-                                if (y == 0 || y == 1 || northIOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                item2["y"] = northi;
-                                data.push(item2);
-                            }
-                        }
-
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North II' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North II';
-                                item2["y"] = northii;
-                                if (y == 0 || y == 1 || northIIOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIIOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
-                        }
-
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North III' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North III';
-                                item2["y"] = northiii;
-                                if (y == 0 || y == 1 || northIIIOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIIIOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
-                        }
-
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North IV' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North IV';
-                                item2["y"] = northiv;
-                                if (y == 0 || y == 1 || northIVOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIVOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
-                        }
-                        item['data'] = data;
-                        drilldowns.push(item);
                     }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].schoolAge[x].people, 10);
+                        } else if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].schoolAge[x].people, 10);
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northc';
+            if (i == 0 || i == 1 || northOutlier == false) {
+                item['color'] = '#7CB5EC';
+            } else if (northOutlier) {
+                item2['color'] = '#FF0000';
+            }
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southc';
+            if (i == 0 || i == 1 || southOutlier == false) {
+                item['color'] = '#7CB5EC';
+            } else if (southOutlier) {
+                item2['color'] = '#FF0000';
+            }
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldowns.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Enrollment';
-                        item["id"] = print[0].years[i].year + 'northe';
-                        item["type"] = 'column';
-                        data = [];
-                        for (x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].enrollmentSchoolAge[x].district;
-                                        item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
-                                        data.push(item2);
-                                    }
-                                }
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Elementary Enrollment';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'e';
+
+            data = [];
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
+                        } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
+                        }
+                    }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northe';
+            data.push(item2);
+
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southe';
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldowns.push(item);
+        }
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan School-Going Age Population';
+            item["id"] = print[0].years[i].year + 'southc';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].schoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].schoolAge[x].district;
+                            item2["y"] = print[0].schoolAge[x].people;
+                            if (i == 0 || i == 1 || print[0].schoolAge[x].isOutlier == false) {
+                                item['color'] = '#7CB5EC';
+                            } else if (print[0].schoolAge[x].isOutlier) {
+                                item2['color'] = '#FF0000';
+                            }
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+
+
+
+        for (var y = 0; y < print[0].years.length; y++) {
+            var northIOutlier = false;
+            var northIIOutlier = false;
+            var northIIIOutlier = false;
+            var northIVOutlier = false;
+            var northi = 0;
+            var northii = 0;
+            var northiii = 0;
+            var northiv = 0;
+            item = {};
+            item["name"] = print[0].years[y].year + ' North Caloocan School-Going Age Population';
+            item["id"] = print[0].years[y].year + 'northc';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year){
+                    if(print[0].schoolAge[x].zone == "NORTH") {
+                        if (print[0].schoolAge[x].district === "Caloocan North IV") {
+                            if (print[0].schoolAge[x].isOutlier) {
+                                northIVOutlier = true;
+                                break;
                             }
                         }
-                        item['data'] = data;
-                        drilldowns.push(item);
                     }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    if (print[0].schoolAge[x].district === "Caloocan North III") {
+                        if (print[0].schoolAge[x].isOutlier) {
+                            northIIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    if (print[0].schoolAge[x].district === "Caloocan North II") {
+                        if (print[0].schoolAge[x].isOutlier) {
+                            northIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    if (print[0].schoolAge[x].district === "Caloocan North I") {
+                        if (print[0].schoolAge[x].isOutlier) {
+                            northIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Enrollment';
-                        item["id"] = print[0].years[i].year + 'southe';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].enrollmentSchoolAge[x].district;
-                                        item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
-                                        data.push(item2);
-                                    }
-                                }
+            for (var x = 0; x < print[0].schoolAge.length; x++) {
+                if (print[0].years[y].year == print[0].schoolAge[x].year && print[0].schoolAge[x].zone == "NORTH") {
+                    for(var z = 0; z < print[0].districts.length; z++){
+                        if(print[0].schoolAge[x].district == print[0].districts[z].district){
+                            if (print[0].schoolAge[x].district === "Caloocan North IV") {
+                                northiv = northiv + print[0].schoolAge[x].people;
+                            } else if (print[0].schoolAge[x].district === "Caloocan North III") {
+                                northiii = northiii + print[0].schoolAge[x].people;
+                            } else if (print[0].schoolAge[x].district === "Caloocan North II") {
+                                northii = northii + print[0].schoolAge[x].people;
+                            } else if (print[0].schoolAge[x].district === "Caloocan North I") {
+                                northi = northi + print[0].schoolAge[x].people;
                             }
                         }
-                        item['data'] = data;
-                        drilldowns.push(item);
                     }
+                }
+                if (x === print[0].schoolAge.length - 1) {
+                    
+                }
+            }
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North I' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North I';
+                    if (y == 0 || y == 1 || northIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    item2["y"] = northi;
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North II' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North II';
+                    item2["y"] = northii;
+                    if (y == 0 || y == 1 || northIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North III' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North III';
+                    item2["y"] = northiii;
+                    if (y == 0 || y == 1 || northIIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
 
-                    // Create the chart
-                    $('#container').highcharts({
-                        chart: {
-                            type: 'column',
-                            drilled: false,
-                            zoomType: 'xy',
-                            panning: true,
-                            panKey: 'shift'//,
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North IV' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North IV';
+                    item2["y"] = northiv;
+                    if (y == 0 || y == 1 || northIVOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIVOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Enrollment';
+            item["id"] = print[0].years[i].year + 'northe';
+            item["type"] = 'column';
+            data = [];
+            for (x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].enrollmentSchoolAge[x].district;
+                            item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Enrollment';
+            item["id"] = print[0].years[i].year + 'southe';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].enrollmentSchoolAge[x].district;
+                            item2["y"] = print[0].enrollmentSchoolAge[x].enrollment;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldowns.push(item);
+        }
+
+        // Create the chart
+        $('#container').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
 //                events: {
 //                    drilldown: function (e) {
 //                        var chart2 = $('#container2').highcharts(),
@@ -2894,642 +3161,845 @@ function setIntegrated() {
 //                        }
 //                    }
 //                }
-                        },
-                        title: {
-                            text: 'School Going Age Population vs. Enrollment'
-                        },
-                        xAxis: {
-                            type: 'category'
-                        },
-                        series: [{
-                                name: 'Caloocan City',
-                                type: 'column',
-                                data: total
-                            }, {
-                                name: 'Enrollment',
-                                type: 'spline',
-                                data: totalEnrollment
-                            }
-                        ],
-                        drilldown: {
-                            series:
-                                    drilldowns
-                        }
-                    });
+            },
+            title: {
+                text: 'School Going Age Population vs. Enrollment'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: ""
+                }
+            },
+            series: [{
+                    name: 'Caloocan City',
+                    type: 'column',
+                    data: total
+                }, {
+                    name: 'Enrollment',
+                    type: 'spline',
+                    data: totalEnrollment
+                }
+            ],
+            drilldown: {
+                series:
+                        drilldowns
+            }
+        });
 
 
-                    // Create the chart
-                    var totalPeople = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'p';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (i == 0 || i == 1) {
-                                item['color'] = '#7CB5EC';
-                            } else if (print[0].years[i].year == print[0].people[x].year) {
-                                if (print[0].people[x].isOutlier == true) {
-                                    var isFiltered = false;
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].people[x].district == print[0].districts[y].district) {
-                                            if (print[0].years[i].year == print[0].people[x].year) {
-                                                isFiltered = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (isFiltered) {
-                                        item["color"] = "#FF0000";
-                                    }
+        // Create the chart
+        var totalPeople = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'p';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (i == 0 || i == 1) {
+                    item['color'] = '#7CB5EC';
+                } else if (print[0].years[i].year == print[0].people[x].year) {
+                    if(print[0].people[x].isOutlier == true){
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].people[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].people[x].year) {
+                                    isFiltered = true;
                                     break;
-                                } else {
-                                    item['color'] = '#7CB5EC';
                                 }
                             }
                         }
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].people[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].people[x].year) {
-                                        totals = totals + parseInt(print[0].people[x].people, 10);
+                        if(isFiltered){
+                            item["color"] = "#FF0000";
+                        }
+                        break;
+                    }
+                    else{
+                        item['color'] = '#7CB5EC';
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].people[x].year) {
+                            totals = totals + parseInt(print[0].people[x].people, 10);
+                        }
+                    }
+                }
+            }
+            item["y"] = totals;
+            totalPeople.push(item);
+        }
+
+
+        var totalBeds = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            var totalPopulation = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'b';
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            totals = totals + print[0].hospitals[x].beds;
                         }
-                        item["y"] = totals
-                        totalPeople.push(item);
                     }
+                }
+            }
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
+            totalBeds.push(item);
+        }
 
-
-                    var totalBeds = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'b';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year) {
-                                        totals = totals + print[0].hospitals[x].beds;
+        var totalDoctors = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            var totalPopulation = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'd';
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            totals = totals + print[0].hospitals[x].doctors;
                         }
-                        item["y"] = totals;
-                        totalBeds.push(item);
                     }
+                }
+            }
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
+            totalDoctors.push(item);
+        }
 
-                    var totalDoctors = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'd';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year) {
-                                        totals = totals + print[0].hospitals[x].doctors;
-                                    }
-
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalDoctors.push(item);
-                    }
-
-                    var totalNurses = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'n';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year) {
-                                        totals = totals + print[0].hospitals[x].nurses;
+        var totalNurses = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'n';
+            data = [];
+            var totalPopulation=0;
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year) {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year) {
+                                        totalPopulation = totalPopulation + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            totals = totals + print[0].hospitals[x].nurses;
                         }
-                        item["y"] = totals;
-                        totalNurses.push(item);
                     }
+                }
+            }
+            var ratio = (totals/totalPopulation) * 1000;
+            item["y"] = Math.round(ratio);
+            totalNurses.push(item);
+        }
 
-                    var drilldownsHospital = [];
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        var southOutlier = false;
-                        var northOutlier = false;
-                        item = {};
-                        item["name"] = 'Caloocan City Population';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'p';
-
-                        data = [];
-                        for (var x = 0; x < print[0].people.length; x++) {
+        var drilldownsHospital = [];
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var southOutlier = false;
+            var northOutlier = false;
+            item = {};
+            item["name"] = 'Population';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'p';
+            item["yAxis"] = 1;
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH"){
+                    if (print[0].people[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].people[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].people[x].year) {
+                                    isFiltered = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(isFiltered){
+                            southOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
+                    if (print[0].people[x].isOutlier) {
+                        var isFiltered = false;
+                        for(var y = 0; y < print[0].districts.length; y++){
+                            if(print[0].people[x].district == print[0].districts[y].district){
+                                if (print[0].years[i].year == print[0].people[x].year) {
+                                    isFiltered = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(isFiltered){
+                            northOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+                for (var x = 0; x < print[0].people.length; x++) {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].people[x].district == print[0].districts[y].district){
                             if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
-                                if (print[0].people[x].isOutlier) {
-                                    var isFiltered = false;
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].people[x].district == print[0].districts[y].district) {
-                                            if (print[0].years[i].year == print[0].people[x].year) {
-                                                isFiltered = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (isFiltered) {
-                                        southOutlier = true;
-                                        break;
-                                    }
-                                }
+                                south = south + parseInt(print[0].people[x].people, 10);
+                            } else if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
+                                north = north + parseInt(print[0].people[x].people, 10);
                             }
-                        }
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
-                                if (print[0].people[x].isOutlier) {
-                                    var isFiltered = false;
-                                    for (var y = 0; y < print[0].districts.length; y++) {
-                                        if (print[0].people[x].district == print[0].districts[y].district) {
-                                            if (print[0].years[i].year == print[0].people[x].year) {
-                                                isFiltered = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (isFiltered) {
-                                        northOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].people[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].people[x].people, 10);
-                                    } else if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].people[x].people, 10);
-                                    }
 
-                                }
-                            }
-                            if (x === print[0].people.length - 1) {
-                                item2 = {};
-                                item2["name"] = 'North';
-                                item2["y"] = north;
-                                item2["drilldown"] = print[0].years[i].year + 'northp';
-                                if (i == 0 || i == 1 || northOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                                item2 = {};
-                                item2["name"] = 'South';
-                                item2["y"] = south;
-                                item2["drilldown"] = print[0].years[i].year + 'southp';
-                                if (i == 0 || i == 1 || southOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (southOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
                         }
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsHospital.push(item);
                     }
-
-
-
-                    for (var y = 0; y < print[0].years.length; y++) {
-                        var northIOutlier = false;
-                        var northIIOutlier = false;
-                        var northIIIOutlier = false;
-                        var northIVOutlier = false;
-                        var northi = 0;
-                        var northii = 0;
-                        var northiii = 0;
-                        var northiv = 0;
-                        item = {};
-                        item["name"] = print[0].years[y].year + ' North Caloocan Population';
-                        item["id"] = print[0].years[y].year + 'northp';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (print[0].years[y].year == print[0].people[x].year) {
-                                if (print[0].people[x].zone == "NORTH") {
-                                    if (print[0].people[x].district === "Caloocan North IV") {
-                                        if (print[0].people[x].isOutlier) {
-                                            northIVOutlier = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                                if (print[0].people[x].district === "Caloocan North III") {
-                                    if (print[0].people[x].isOutlier) {
-                                        northIIIOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                                if (print[0].people[x].district === "Caloocan North II") {
-                                    if (print[0].people[x].isOutlier) {
-                                        northIIOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                                if (print[0].people[x].district === "Caloocan North I") {
-                                    if (print[0].people[x].isOutlier) {
-                                        northIOutlier = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
-                                for (var z = 0; z < print[0].districts.length; z++) {
-                                    if (print[0].people[x].district == print[0].districts[z].district) {
-                                        if (print[0].people[x].district === "Caloocan North IV") {
-                                            northiv = northiv + print[0].people[x].people;
-                                        } else if (print[0].people[x].district === "Caloocan North III") {
-                                            northiii = northiii + print[0].people[x].people;
-                                        } else if (print[0].people[x].district === "Caloocan North II") {
-                                            northii = northii + print[0].people[x].people;
-                                        } else if (print[0].people[x].district === "Caloocan North I") {
-                                            northi = northi + print[0].people[x].people;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North I' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North I';
-                                if (y == 0 || y == 1 || northIOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                item2["y"] = northi;
-                                data.push(item2);
-                            }
-                        }
-
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North II' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North II';
-                                item2["y"] = northii;
-                                if (y == 0 || y == 1 || northIIOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIIOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
-                        }
-
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North III' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North III';
-                                item2["y"] = northiii;
-                                if (y == 0 || y == 1 || northIIIOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIIIOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
-                        }
-
-                        for (var z = 0; z < print[0].districts.length; z++) {
-                            if ('Caloocan North IV' == print[0].districts[z].district) {
-                                item2 = {};
-                                item2["name"] = 'Caloocan North IV';
-                                item2["y"] = northiv;
-                                if (y == 0 || y == 1 || northIVOutlier == false) {
-                                    item['color'] = '#7CB5EC';
-                                } else if (northIVOutlier) {
-                                    item2['color'] = '#FF0000';
-                                }
-                                data.push(item2);
-                            }
-                        }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
-                    }
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years.year + ' Caloocan City Hospital Beds';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'b';
-
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].hospitals[x].beds, 10);
-                                    } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].hospitals[x].beds, 10);
-                                    }
-                                }
-                            }
-                        }
+                    if (x === print[0].people.length - 1) {
                         item2 = {};
-                        item2["name"] = 'North Caloocan Hospital Beds';
+                        item2["name"] = 'North Caloocan';
                         item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northb';
+                        //item2["tooltip"] = north;
+                        item2["suffix"] = "";
+                        item2["drilldown"] = print[0].years[i].year + 'northp';
+                        if (i == 0 || i == 1 || northOutlier == false) {
+                            item['color'] = '#7CB5EC';
+                        } else if (northOutlier) {
+                            item2['color'] = '#FF0000';
+                        }
                         data.push(item2);
-
                         item2 = {};
-                        item2["name"] = 'South Caloocan Hospital Beds';
+                        item2["name"] = 'South Caloocan';
                         item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southb';
+                        item2["drilldown"] = print[0].years[i].year + 'southp';
+                        item2["tooltip"] = south;
+                        item2["suffix"] = "";
+                        if (i == 0 || i == 1 || southOutlier == false) {
+                            item['color'] = '#7CB5EC';
+                        } else if (southOutlier) {
+                            item2['color'] = '#FF0000';
+                        }
                         data.push(item2);
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsHospital.push(item);
                     }
+                } 
+            item['data'] = data;
+            souths.push(item);
+            drilldownsHospital.push(item);
+            }
+            
+        
 
+        for (var y = 0; y < print[0].years.length; y++) {
+            var northIOutlier = false;
+            var northIIOutlier = false;
+            var northIIIOutlier = false;
+            var northIVOutlier = false;
+            var northi = 0;
+            var northii = 0;
+            var northiii = 0;
+            var northiv = 0;
+            item = {};
+            item["name"] = 'Population';
+            item["id"] = print[0].years[y].year + 'northp';
+            item["type"] = 'column';
+            item["yAxis"] = 1;
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year){
+                    if(print[0].people[x].zone == "NORTH") {
+                        if (print[0].people[x].district === "Caloocan North IV") {
+                            if (print[0].people[x].isOutlier) {
+                                northIVOutlier = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    if (print[0].people[x].district === "Caloocan North III") {
+                        if (print[0].people[x].isOutlier) {
+                            northIIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    if (print[0].people[x].district === "Caloocan North II") {
+                        if (print[0].people[x].isOutlier) {
+                            northIIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    if (print[0].people[x].district === "Caloocan North I") {
+                        if (print[0].people[x].isOutlier) {
+                            northIOutlier = true;
+                            break;
+                        }
+                    }
+                }
+            }
 
+            for (var x = 0; x < print[0].people.length; x++) {
+                if (print[0].years[y].year == print[0].people[x].year && print[0].people[x].zone == "NORTH") {
+                    for(var z = 0; z < print[0].districts.length; z++){
+                        if(print[0].people[x].district == print[0].districts[z].district){
+                            if (print[0].people[x].district === "Caloocan North IV") {
+                                northiv = northiv + print[0].people[x].people;
+                            } else if (print[0].people[x].district === "Caloocan North III") {
+                                northiii = northiii + print[0].people[x].people;
+                            } else if (print[0].people[x].district === "Caloocan North II") {
+                                northii = northii + print[0].people[x].people;
+                            } else if (print[0].people[x].district === "Caloocan North I") {
+                                northi = northi + print[0].people[x].people;
+                            }
+                        }
+                    }
+                }
+            }
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North I' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North I';
+                    if (y == 0 || y == 1 || northIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    item2["y"] = northi;
+                    item2["tooltip"] = northi;
+                    item2["suffix"] = "";
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North II' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North II';
+                    item2["y"] = northii;
+                    item2["tooltip"] = northii;
+                    if (y == 0 || y == 1 || northIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+            
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North III' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North III';
+                    item2["y"] = northiii;
+                    item2["tooltip"] = northiii;
+                    if (y == 0 || y == 1 || northIIIOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIIIOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Caloocan City Hospital Nurses';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'n';
-
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].hospitals[x].nurses, 10);
-                                    } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].hospitals[x].nurses, 10);
+            for(var z = 0; z < print[0].districts.length; z++){
+                if('Caloocan North IV' == print[0].districts[z].district){
+                    item2 = {};
+                    item2["name"] = 'Caloocan North IV';
+                    item2["y"] = northiv;
+                    item2["tooltip"] = northiv;
+                    if (y == 0 || y == 1 || northIVOutlier == false) {
+                        item['color'] = '#7CB5EC';
+                    } else if (northIVOutlier) {
+                        item2['color'] = '#FF0000';
+                    }
+                    data.push(item2);
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+        
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var totalPopulationSouth = 0;
+            var north = 0;
+            var totalPopulationNorth = 0;
+            item = {};
+            item["name"] ='Hospital Beds';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'b';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
-                        }
-                        item2 = {};
-                        item2["name"] = 'North Caloocan Hospital Beds';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northn';
-                        data.push(item2);
-
-                        item2 = {};
-                        item2["name"] = 'South Caloocan Hospital Beds';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southn';
-                        data.push(item2);
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsHospital.push(item);
-                    }
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Caloocan City Hospital Doctors';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'd';
-
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].hospitals[x].doctors, 10);
-                                    } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].hospitals[x].doctors, 10);
+                            south = south + parseInt(print[0].hospitals[x].beds, 10);
+                        } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            north = north + parseInt(print[0].hospitals[x].beds, 10);
                         }
-                        item2 = {};
-                        item2["name"] = 'North Caloocan Hospital Doctors';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northd';
-                        data.push(item2);
-
-                        item2 = {};
-                        item2["name"] = 'South Caloocan Hospital Doctors';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southd';
-                        data.push(item2);
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsHospital.push(item);
                     }
+                }
+            }
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["drilldown"] = print[0].years[i].year + 'northb';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Population';
-                        item["id"] = print[0].years[i].year + 'southp';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].people.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].people[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
-                                        for (var y = 0; y < print[0].districts.length; y++) {
-                                            if (print[0].people[x].district == print[0].districts[y].district) {
-                                                item2 = {};
-                                                item2["name"] = print[0].people[x].district;
-                                                item2["y"] = print[0].people[x].people;
-                                                if (i == 0 || i == 1 || print[0].people[x].isOutlier == false) {
-                                                    item['color'] = '#7CB5EC';
-                                                } else if (print[0].people[x].isOutlier) {
-                                                    item2['color'] = '#FF0000';
-                                                }
-                                                data.push(item2);
-                                            }
-                                        }
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["drilldown"] = print[0].years[i].year + 'southb';
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldownsHospital.push(item);
+        }
+        
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var totalPopulationSouth = 0;
+            var north = 0;
+            var totalPopulationNorth = 0;
+            item = {};
+            item["name"] = 'Nurses';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'n';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
-                        }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
-                    }
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Hospital Beds';
-                        item["id"] = print[0].years[i].year + 'southb';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].hospitals[x].district;
-                                        item2["y"] = print[0].hospitals[x].beds;
-                                        data.push(item2);
+                            south = south + parseInt(print[0].hospitals[x].nurses, 10);
+                        } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            north = north + parseInt(print[0].hospitals[x].nurses, 10);
                         }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
                     }
+                }
+            }
+            item2 = {};
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["tooltip"]=Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["name"] = 'North Caloocan';
+            item2["drilldown"] = print[0].years[i].year + 'northn';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Hospital Beds';
-                        item["id"] = print[0].years[i].year + 'northb';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].hospitals[x].district;
-                                        item2["y"] = print[0].hospitals[x].beds;
-                                        data.push(item2);
+            item2 = {};
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["name"] = 'South Caloocan';
+            item2["drilldown"] = print[0].years[i].year + 'southn';
+            data.push(item2);
+            
+            
+            item['data'] = data;
+            //souths.push(item);
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var totalPopulationSouth = 0;
+            var totalPopulationNorth = 0;
+            item = {};
+            item["name"] = 'Doctors';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'd';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        totalPopulationSouth = totalPopulationNorth + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
-                        }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
-                    }
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Hospital Doctors';
-                        item["id"] = print[0].years[i].year + 'southd';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].hospitals[x].district;
-                                        item2["y"] = print[0].hospitals[x].doctors;
-                                        data.push(item2);
+                            south = south + parseInt(print[0].hospitals[x].doctors, 10);
+                        } else if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        totalPopulationNorth = totalPopulationSouth + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            north = north + parseInt(print[0].hospitals[x].doctors, 10);
                         }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
                     }
+                }
+            }
+            item2 = {};
+            var ratio = (north/totalPopulationNorth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"] = 0;
+            item2["drilldown"] = print[0].years[i].year + 'northd';
+            item2["name"] = 'North Caloocan';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Hospital Doctors';
-                        item["id"] = print[0].years[i].year + 'northd';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].hospitals[x].district;
-                                        item2["y"] = print[0].hospitals[x].doctors;
-                                        data.push(item2);
+            item2 = {};
+            var ratio = (south/totalPopulationSouth) * 1000;
+            item2["y"] = Math.round(ratio);
+            item2["yAxis"]=0;
+            item2["drilldown"] = print[0].years[i].year + 'southd';
+            item2["name"] = 'South Caloocan';
+            data.push(item2);
+            item['data'] = data;
+            souths.push(item);
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Population';
+            item["id"] = print[0].years[i].year + 'southp';
+            item["type"] = 'column';
+            item["yAxis"] = 1;
+            data = [];
+            for (var x = 0; x < print[0].people.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].people[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].people[x].year && print[0].people[x].zone === "SOUTH") {
+                            for(var y = 0; y < print[0].districts.length; y++){
+                                if(print[0].people[x].district == print[0].districts[y].district){
+                                    item2 = {};
+                                    item2["name"] = print[0].people[x].district;
+                                    item2["y"] = print[0].people[x].people;
+                                    item2["tooltip"]=print[0].people[x].people;
+                                    
+                                    if (i == 0 || i == 1 || print[0].people[x].isOutlier == false) {
+                                        item['color'] = '#7CB5EC';
+                                    } else if (print[0].people[x].isOutlier) {
+                                        item2['color'] = '#FF0000';
                                     }
+                                    data.push(item2);
                                 }
                             }
                         }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Hospital Nurses';
-                        item["id"] = print[0].years[i].year + 'southn';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].hospitals[x].district;
-                                        item2["y"] = print[0].hospitals[x].nurses;
-                                        data.push(item2);
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Beds';
+            item["id"] = print[0].years[i].year + 'southb';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].beds/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Hospital Nurses';
-                        item["id"] = print[0].years[i].year + 'northn';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].hospitals.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].hospitals[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].hospitals[x].district;
-                                        item2["y"] = print[0].hospitals[x].nurses;
-                                        data.push(item2);
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Beds';
+            item["id"] = print[0].years[i].year + 'northb';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
                                     }
                                 }
                             }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].beds/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["tooltip"]=Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsHospital.push(item);
                     }
-                    $('#container2').highcharts({
-                        chart: {
-                            type: 'column',
-                            drilled: false,
-                            zoomType: 'xy',
-                            panning: true,
-                            panKey: 'shift'//,
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Doctors';
+            item["id"] = print[0].years[i].year + 'southd';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].doctors/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["tooltip"]=Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Doctors';
+            item["id"] = print[0].years[i].year + 'northd';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].doctors/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Nurses';
+            item["id"] = print[0].years[i].year + 'southn';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "SOUTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "SOUTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].nurses/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = 'Nurses';
+            item["id"] = print[0].years[i].year + 'northn';
+            item["type"] = 'column';
+            var item3 = {}
+            item3["valueSuffix"] = ' per 1,000 population';
+            item["tooltip"]=item3;
+            data = [];
+            for (var x = 0; x < print[0].hospitals.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].hospitals[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].hospitals[x].zone === "NORTH") {
+                            var population = 0;
+                            for (var a = 0; a < print[0].people.length; a++) {
+                                if(print[0].people[a].district == print[0].districts[y].district){
+                                    if (print[0].years[i].year == print[0].people[a].year && print[0].people[a].zone === "NORTH") {
+                                        population = population + parseInt(print[0].people[a].people, 10);
+                                    }
+                                }
+                            }
+                            item2 = {};
+                            var ratio = (print[0].hospitals[x].nurses/population) * 1000;
+                            item2["y"] = Math.round(ratio);
+                            item2["yAxis"]=0;
+                            item2["name"] = print[0].hospitals[x].district;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsHospital.push(item);
+        }
+        $('#container2').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                position: {
+                    align: 'right', // by default
+                    verticalAlign: 'top', // by default
+                    x: -40,
+                    y: 10
+                },
+                relativeTo: 'chart'
+            }
 //      events:{
 //      	drilldown: function(e) {
 //          var chart = $('#container').highcharts(),
@@ -3553,811 +4023,855 @@ function setIntegrated() {
 //          
 //        }
 //      }
-                        },
-                        title: {
-                            text: 'Population vs. Hospital Total number of Beds, Doctors and Nurses'
-                        },
-                        xAxis: {
-                            type: 'category'
-                        },
-                        plotOptions: {
-                            column: {
+            },
+            title: {
+                text: 'Population vs. Hospital Total number of Beds, Doctors and Nurses'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            plotOptions: {
+                column: {
 //        stacking: 'normal'
-                                dataLabels: {
-                                    enabled: true
-                                },
-                                series: {
-                                    allowPointSelect: true
-                                }
-                            },
-                        },
-                        series: [{
-                                name: 'Population',
-                                type: 'column',
-                                data: totalPeople
-                            }, {
-                                name: 'Beds',
-                                type: 'column',
-                                data: totalBeds
-                            }, {
-                                name: 'Doctors',
-                                type: 'column',
-                                data: totalDoctors
-                            }, {
-                                name: 'Nurses',
-                                type: 'column',
-                                data: totalNurses
-                            }
-                        ],
-                        drilldown: {
-                            series: drilldownsHospital
-                        }
-                    });
-
-                    var totalSeverelyWasted = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'sw';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                        totals = totals + parseInt(print[0].nutrition[x].severelyWasted, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalSeverelyWasted.push(item);
+                    series: {
+                        allowPointSelect: true
                     }
+                }
+            },yAxis: [{ // Primary yAxis
+                title: {
+                    text: 'Ratio'
+                },
+                opposite: true
 
-                    var totalNormal = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'normal';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                        totals = totals + parseInt(print[0].nutrition[x].normal, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalNormal.push(item);
+            }, { // Secondary yAxis
+                //gridLineWidth: 0,
+                title: {
+                    text: 'Population',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
                     }
-
-                    var totalOverweight = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'overweight';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                        totals = totals + parseInt(print[0].nutrition[x].overweight, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalOverweight.push(item);
+                },
+                labels: {
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
                     }
+                }
 
-                    var totalObese = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'obese';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                        totals = totals + parseInt(print[0].nutrition[x].obese, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalObese.push(item);
+            }],
+            series: [{
+                    name: 'Population',
+                    type: 'column',
+                    data: totalPeople,
+                    yAxis: 1
+                }, {
+                    name: 'Beds',
+                    type: 'spline',
+                    data: totalBeds,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
                     }
-
-                    var totalWasted = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totals = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'wasted';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                        totals = totals + parseInt(print[0].nutrition[x].wasted, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item["y"] = totals;
-                        totalWasted.push(item);
+                }, {
+                    name: 'Doctors',
+                    type: 'spline',
+                    data: totalDoctors,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
                     }
-
-                    var totalNotWeighed = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var totalsWeighed = 0;
-                        var totalEnrollment = 0;
-                        var total = 0;
-                        var
-                                item = {};
-                        item["name"] = print[0].years[i].year;
-                        item["drilldown"] = print[0].years[i].year + 'notweighed';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year) {
-                                        totalsWeighed = totalsWeighed + parseInt(print[0].nutrition[x].weighed, 10);
-                                    }
-                                }
-                            }
-                        }
-                        for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
-                                        totalEnrollment = totalEnrollment + print[0].enrollmentSchoolAge[x].enrollment;
-                                    }
-                                }
-                            }
-                        }
-                        total = totalEnrollment - totalsWeighed;
-                        item["y"] = total;
-                        totalNotWeighed.push(item);
+                }, {
+                    name: 'Nurses',
+                    type: 'spline',
+                    data: totalNurses,
+                    yAxis: 0,
+                    tooltip: {
+                        valueSuffix: ' per 1,000 population'
                     }
+                }
+            ],
+            drilldown: {
+                series: drilldownsHospital
+            }
+        });
 
-                    var drilldownsNutrtion = [];
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Normal Students';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'normal';
-
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].nutrition[x].normal, 10);
-                                    } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].nutrition[x].normal, 10);
-                                    }
-                                }
-                            }
+        var totalSeverelyWasted = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'sw';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].severelyWasted, 10);
                         }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northnormal';
-                        data.push(item2);
-
-                        item3 = {};
-                        item3["name"] = 'South';
-                        item3["y"] = south;
-                        item3["drilldown"] = print[0].years[i].year + 'southnormal';
-                        data.push(item3);
-
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item["y"] = totals;
+            totalSeverelyWasted.push(item);
+        }
 
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Severely Wasted Students';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'sw';
-
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].nutrition[x].severelyWasted, 10);
-                                    } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].nutrition[x].severelyWasted, 10);
-                                    }
-                                }
-                            }
+        var totalNormal = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'normal';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].normal, 10);
                         }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northsw';
-                        data.push(item2);
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southsw';
-                        data.push(item2);
-
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item["y"] = totals;
+            totalNormal.push(item);
+        }
 
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Wasted Students';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'wasted';
-
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].nutrition[x].wasted, 10);
-                                    } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].nutrition[x].wasted, 10);
-                                    }
-                                }
-                            }
+        var totalOverweight = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'overweight';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].overweight, 10);
                         }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northwasted';
-                        data.push(item2);
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southwasted';
-                        data.push(item2);
-
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item["y"] = totals;
+            totalOverweight.push(item);
+        }
 
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Overweight Students';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'overweight';
-
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].nutrition[x].overweight, 10);
-                                    } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].nutrition[x].overweight, 10);
-                                    }
-                                }
-                            }
+        var totalObese = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'obese';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].obese, 10);
                         }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northoverweight';
-                        data.push(item2);
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southoverweight';
-                        data.push(item2);
-
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item["y"] = totals;
+            totalObese.push(item);
+        }
 
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Obese Students';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'obese';
-
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].nutrition[x].obese, 10);
-                                    } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].nutrition[x].obese, 10);
-                                    }
-                                }
-                            }
+        var totalWasted = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totals = 0;
+            item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'wasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totals = totals + parseInt(print[0].nutrition[x].wasted, 10);
                         }
-
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = north;
-                        item2["drilldown"] = print[0].years[i].year + 'northobese';
-                        data.push(item2);
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = south;
-                        item2["drilldown"] = print[0].years[i].year + 'southobese';
-                        data.push(item2);
-
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item["y"] = totals;
+            totalWasted.push(item);
+        }
 
-                    var souths = [];
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var south = 0;
-                        var north = 0;
-                        var southEnrollment = 0;
-                        var northEnrollment = 0;
-
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' Not Weighed Students';
-                        item["type"] = 'column';
-                        item["id"] = print[0].years[i].year + 'notweighed';
-
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        south = south + parseInt(print[0].nutrition[x].weighed, 10);
-                                    } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        north = north + parseInt(print[0].nutrition[x].weighed, 10);
-                                    }
-                                }
-                            }
+        var totalNotWeighed = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var totalsWeighed = 0;
+            var totalEnrollment = 0;
+            var total = 0;
+            var
+                    item = {};
+            item["name"] = print[0].years[i].year;
+            item["drilldown"] = print[0].years[i].year + 'notweighed';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year) {
+                            totalsWeighed = totalsWeighed + parseInt(print[0].nutrition[x].weighed, 10);
                         }
-                        for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
-                                        southEnrollment = southEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                    } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
-                                        northEnrollment = northEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
-                                    }
-                                }
-                            }
-                        }
-                        item2 = {};
-                        item2["name"] = 'North';
-                        item2["y"] = (northEnrollment - north);
-                        item2["drilldown"] = print[0].years[i].year + 'northnotweighed';
-                        data.push(item2);
-                        item2 = {};
-                        item2["name"] = 'South';
-                        item2["y"] = (southEnrollment - south);
-                        item2["drilldown"] = print[0].years[i].year + 'southnotweighed';
-                        data.push(item2);
-
-                        item['data'] = data;
-                        souths.push(item);
-                        drilldownsNutrtion.push(item);
-
-                        south = 0;
-                        north = 0;
                     }
-
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Normal Students';
-                        item["id"] = print[0].years[i].year + 'northnormal';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].normal;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
-                        }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
+                }
+            }
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year) {
+                            totalEnrollment = totalEnrollment + print[0].enrollmentSchoolAge[x].enrollment;
+                        }   
                     }
+                }
+            }
+            console.log("totalsWeighed " + totalsWeighed);
+            console.log("totalEnrollment " + totalEnrollment);
+            total = totalEnrollment - totalsWeighed;
+            item["y"] = total;
+            totalNotWeighed.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Normal Students';
-                        item["id"] = print[0].years[i].year + 'southnormal';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].normal;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+        var drilldownsNutrtion = [];
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Normal Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'normal';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                        south = south + parseInt(print[0].nutrition[x].normal, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                        north = north + parseInt(print[0].nutrition[x].normal, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northnormal';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Severely Wasted Students';
-                        item["id"] = print[0].years[i].year + 'northsw';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].severelyWasted;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+            item3 = {};
+            item3["name"] = 'South Caloocan';
+            item3["y"] = south;
+            item3["drilldown"] = print[0].years[i].year + 'southnormal';
+            data.push(item3);
+
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Severely Wasted Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'sw';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].severelyWasted, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].severelyWasted, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northsw';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southsw';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Severely Wasted Students';
-                        item["id"] = print[0].years[i].year + 'southsw';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].severelyWasted;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Wasted Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'wasted';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].wasted, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].wasted, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northwasted';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southwasted';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
-                        item["id"] = print[0].years[i].year + 'northwasted';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    //alert(print[0].districts[y].district);
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].wasted;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Overweight Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'overweight';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].overweight, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].overweight, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northoverweight';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southoverweight';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
-                        item["id"] = print[0].years[i].year + 'southwasted';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].wasted;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' Obese Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'obese';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].obese, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].obese, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Overweight Students';
-                        item["id"] = print[0].years[i].year + 'northoverweight';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].overweight;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = north;
+            item2["drilldown"] = print[0].years[i].year + 'northobese';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = south;
+            item2["drilldown"] = print[0].years[i].year + 'southobese';
+            data.push(item2);
+
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+        }
+
+        var souths = [];
+        for (var i = 0; i < print[0].years.length; i++) {
+            var south = 0;
+            var north = 0;
+            var southEnrollment = 0;
+            var northEnrollment = 0;
+
+            item = {};
+            item["name"] = print[0].years[i].year + ' Not Weighed Students';
+            item["type"] = 'column';
+            item["id"] = print[0].years[i].year + 'notweighed';
+
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            south = south + parseInt(print[0].nutrition[x].weighed, 10);
+                        } else if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            north = north + parseInt(print[0].nutrition[x].weighed, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
-
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Overweight Students';
-                        item["id"] = print[0].years[i].year + 'southoverweight';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].overweight;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+                }
+            }
+            for (var x = 0; x < print[0].enrollmentSchoolAge.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].enrollmentSchoolAge[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "SOUTH") {
+                            southEnrollment = southEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
+                        } else if (print[0].years[i].year == print[0].enrollmentSchoolAge[x].year && print[0].enrollmentSchoolAge[x].zone === "NORTH") {
+                            northEnrollment = northEnrollment + parseInt(print[0].enrollmentSchoolAge[x].enrollment, 10);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item2 = {};
+            item2["name"] = 'North Caloocan';
+            item2["y"] = (northEnrollment - north);
+            item2["drilldown"] = print[0].years[i].year + 'northnotweighed';
+            data.push(item2);
+            item2 = {};
+            item2["name"] = 'South Caloocan';
+            item2["y"] = (southEnrollment - south);
+            item2["drilldown"] = print[0].years[i].year + 'southnotweighed';
+            data.push(item2);
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Obese Students';
-                        item["id"] = print[0].years[i].year + 'northobese';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].obese;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+            item['data'] = data;
+            souths.push(item);
+            drilldownsNutrtion.push(item);
+
+            south = 0;
+            north = 0;
+        }
+
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Normal Students';
+            item["id"] = print[0].years[i].year + 'northnormal';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].normal;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Obese Students';
-                        item["id"] = print[0].years[i].year + 'southobese';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].obese;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Normal Students';
+            item["id"] = print[0].years[i].year + 'southnormal';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].normal;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        var north = 0;
-                        var northEnrollment = 0;
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
-                        item["id"] = print[0].years[i].year + 'northwasted';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].wasted;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Severely Wasted Students';
+            item["id"] = print[0].years[i].year + 'northsw';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].severelyWasted;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
-                        item["id"] = print[0].years[i].year + 'southwasted';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            for (var y = 0; y < print[0].districts.length; y++) {
-                                if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                    if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                        item2 = {};
-                                        item2["name"] = print[0].nutrition[x].district;
-                                        item2["y"] = print[0].nutrition[x].wasted;
-                                        data.push(item2);
-                                    }
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Severely Wasted Students';
+            item["id"] = print[0].years[i].year + 'southsw';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++){
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].severelyWasted;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' South Caloocan Not Weighed Students';
-                        item["id"] = print[0].years[i].year + 'southnotweighed';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                        for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
-                                            if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "SOUTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
-                                                item2 = {};
-                                                item2["name"] = print[0].nutrition[x].district;
-                                                item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
-                                                data.push(item2);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'northwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        //alert(print[0].districts[y].district);
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                    for (var i = 0; i < print[0].years.length; i++) {
-                        item = {};
-                        item["name"] = print[0].years[i].year + ' North Caloocan Not Weighed Students';
-                        item["id"] = print[0].years[i].year + 'northnotweighed';
-                        item["type"] = 'column';
-                        data = [];
-                        for (var x = 0; x < print[0].nutrition.length; x++) {
-                            if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
-                                for (var y = 0; y < print[0].districts.length; y++) {
-                                    if (print[0].nutrition[x].district == print[0].districts[y].district) {
-                                        for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
-                                            if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "NORTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
-                                                item2 = {};
-                                                item2["name"] = print[0].nutrition[x].district;
-                                                item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
-                                                data.push(item2);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'southwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].nutrition[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
                         }
-                        item['data'] = data;
-                        drilldownsNutrtion.push(item);
                     }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
 
-                    $('#container3').highcharts({
-                        chart: {
-                            type: 'column',
-                            drilled: false,
-                            zoomType: 'xy',
-                            panning: true,
-                            panKey: 'shift'
-                        },
-                        title: {
-                            text: 'Nutritional Status of the enrolled Elementary Students'
-                        },
-                        xAxis: {
-                            type: 'category'
-                        },
-                        yAxis: {
-                            min: 0,
-                            stackLabels: {
-                                enabled: true
-                            }
-                        },
-                        plotOptions: {
-                            column: {
-                                stacking: 'normal',
-                                dataLabels: {
-                                    enabled: true,
-                                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                                    style: {
-                                        textShadow: '0 0 3px white'
-                                    }
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Overweight Students';
+            item["id"] = print[0].years[i].year + 'northoverweight';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].overweight;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Overweight Students';
+            item["id"] = print[0].years[i].year + 'southoverweight';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].overweight;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Obese Students';
+            item["id"] = print[0].years[i].year + 'northobese';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].obese;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Obese Students';
+            item["id"] = print[0].years[i].year + 'southobese';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].obese;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            var north = 0;
+            var northEnrollment = 0;
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'northwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Wasted Students';
+            item["id"] = print[0].years[i].year + 'southwasted';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                for(var y = 0; y < print[0].districts.length; y++){
+                    if(print[0].nutrition[x].district == print[0].districts[y].district){
+                        if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                            item2 = {};
+                            item2["name"] = print[0].nutrition[x].district;
+                            item2["y"] = print[0].nutrition[x].wasted;
+                            data.push(item2);
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' South Caloocan Not Weighed Students';
+            item["id"] = print[0].years[i].year + 'southnotweighed';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "SOUTH") {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].nutrition[x].district == print[0].districts[y].district){
+                           for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
+                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "SOUTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
+                                    item2 = {};
+                                    item2["name"] = print[0].nutrition[x].district;
+                                    item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
+                                    data.push(item2);
                                 }
                             }
-                        },
-                        series: [{
-                                name: 'Severely Wasted',
-                                data: totalSeverelyWasted
-                            }, {
-                                name: 'Wasted',
-                                data: totalWasted
-                            }, {
-                                name: 'Normal',
-                                data: totalNormal
-                            },
-                            {
-                                name: 'Overweight',
-                                data: totalOverweight
-                            },
-                            {
-                                name: 'Obese',
-                                data: totalObese
-                            },
-                            {
-                                name: 'Not Weighed',
-                                data: totalNotWeighed
-                            }],
-                        drilldown: {
-                            series: drilldownsNutrtion
                         }
-                    });
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        for (var i = 0; i < print[0].years.length; i++) {
+            item = {};
+            item["name"] = print[0].years[i].year + ' North Caloocan Not Weighed Students';
+            item["id"] = print[0].years[i].year + 'northnotweighed';
+            item["type"] = 'column';
+            data = [];
+            for (var x = 0; x < print[0].nutrition.length; x++) {
+                if (print[0].years[i].year == print[0].hospitals[x].year && print[0].nutrition[x].zone === "NORTH") {
+                    for(var y = 0; y < print[0].districts.length; y++){
+                        if(print[0].nutrition[x].district == print[0].districts[y].district){
+                            for (var y = 0; y < print[0].enrollmentSchoolAge.length; y++) {
+                                if (print[0].years[i].year == print[0].enrollmentSchoolAge[y].year && print[0].enrollmentSchoolAge[y].zone === "NORTH" && print[0].enrollmentSchoolAge[y].district == print[0].nutrition[x].district) {
+                                    item2 = {};
+                                    item2["name"] = print[0].nutrition[x].district;
+                                    item2["y"] = print[0].enrollmentSchoolAge[y].enrollment - print[0].nutrition[x].weighed;
+                                    data.push(item2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            item['data'] = data;
+            drilldownsNutrtion.push(item);
+        }
+
+        $('#container3').highcharts({
+            chart: {
+                type: 'column',
+                drilled: false,
+                zoomType: 'xy',
+                panning: true,
+                panKey: 'shift',
+                resetZoomButton: {
+                    position: {
+                        align: 'right', // by default
+                        verticalAlign: 'top', // by default
+                        x: -40,
+                        y: 10
+                    },
+                    relativeTo: 'chart'
+                }
+            },
+            title: {
+                text: 'Nutritional Status of the enrolled Elementary Students'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                min: 0,
+                stackLabels: {
+                    enabled: true
+                },
+                title: {
+                    text: ""
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px white'
+                        }
+                    }
+                }
+            },
+            series: [{
+                    name: 'Severely Wasted',
+                    data: totalSeverelyWasted
+                }, {
+                    name: 'Wasted',
+                    data: totalWasted
+                }, {
+                    name: 'Normal',
+                    data: totalNormal
+                },
+                {
+                    name: 'Overweight',
+                    data: totalOverweight
+                },
+                {
+                    name: 'Obese',
+                    data: totalObese
+                },
+                {
+                    name: 'Not Weighed',
+                    data: totalNotWeighed
+                }],
+            drilldown: {
+                series: drilldownsNutrtion
+            }
+        });
 //        year = [];
 //        place = [];
 //        location = [];
 //        analysischart = {};
-                }
+    }
                 //CHART END
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
