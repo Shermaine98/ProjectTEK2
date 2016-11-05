@@ -359,6 +359,33 @@ and open the template in the editor.
                                         });
                                     }
 
+                                    $('body').on('click', 'a.delayed', function () {
+                                        var formName = $(this).text();
+                                        if (formName === "Health Analysis Matrix") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Matrix");
+                                        } else if (formName === "Education Analysis Matrix") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Matrix");
+                                        } else if (formName === "Demographics Analysis Matrix") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Matrix");
+                                        } else if (formName === "Demographics Analysis") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Analysis");
+                                            //DEMO
+                                        } else if (formName === "Education Analysis") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Analysis");
+                                        } else if (formName === "Health Analysis") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Analysis");
+                                        } else if (formName === "Eudcation Integrated Analysis") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
+                                        }//DEMO END
+                                        else if (formName === "Health Integrated Analysis") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
+                                        } else if (formName === "Demographics Integrated Analysis"") {
+                                            window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
+                                        }
+
+                                    });
+
+
                                     $('body').on('click', 'a.task', function () {
                                         var formName = $(this).text();
                                         if (formName === "Enrollment in Public School") {
@@ -393,7 +420,7 @@ and open the template in the editor.
                                 function myFunction() {
                                     $("#value").empty();
                                     document.getElementById("myDropdown").classList.toggle("show");
-                                    console.log(working);
+                                    console.log("working");
                                 }
                                 function clearStorage() {
                                     sessionStorage.clear();

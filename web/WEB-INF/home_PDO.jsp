@@ -85,15 +85,26 @@
                                             <% if (arrTask.size() != 0) { %>
                                             <% for (int i = 0; i < arrTask.size(); i++) {%>
                                             <tr>
-                                                <td class="ts name"><%= arrTask.get(i).getReportName()%></td>
+                                                <td class="name"><%= arrTask.get(i).getReportName()%></td>
+                                                <td class="ts" style="display:none;"><%= arrTask.get(i).getReportType()%></td>
                                                 <td class="date"><%= arrTask.get(i).getSduedate()%></td>
                                                 <% if (arrTask.get(i).getStatus().equalsIgnoreCase("delayed")) {%>
                                                 <td class="status"><span class="label label-danger span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
-                                                <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=CreateReport"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
 
-                                                <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("saved")) {%>
+                                                <% if (arrTask.get(i).getReportType().equalsIgnoreCase("Analysis")) { %>
+                                                <td  style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=addChartReport&type=Analysis"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
+                                                        <%} else if (arrTask.get(i).getReportType().equalsIgnoreCase("Matrix")) {%>
+                                                <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=addChartReport&type=Matrix"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
+                                                        <%} else if (arrTask.get(i).getReportType().equalsIgnoreCase("Integrated")) {%>
+                                                <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=addChartReport&type=Integrated"><input type="button"  class="btn btn-primary btn-sm" value="Create Report" /></a></td>
+                                                        <%} %>
+                                                        <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("saved")) {%>
                                                 <td class="status"><span class="label label-info span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
                                                 <td style="text-align:right; padding-right: 1%"> <a href="${pageContext.request.contextPath}/ReportAccess?redirect=Saved&Navi=true"><input type="button"  class="btn btn-primary btn-sm" value="Go to Saved Reports" /></a></td>
+
+                                                <% } else if (arrTask.get(i).getStatus().equalsIgnoreCase("Completed")) {%>
+                                                <td class="status"><span class="label label-success span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
+                                                <td style="text-align:right; padding-right: 1%"> <input type="button" id="viewReport"  class="btn btn-primary btn-sm" value="View Reports" /></td>
 
                                                 <% } else {%>
                                                 <td class="status"><span class="label label-warning span__LABEL"><%= arrTask.get(i).getStatus()%></span></td>
@@ -318,7 +329,6 @@
                             $('#integrate').prop('disabled', true);
                             $('#integrate').addClass('btn-default');
                             $('#integratetooltip').prop('title', 'All reports are integrated');
-
                         } else {
                             $(".completed").each(function () {
                                 var x = $(this).text();
@@ -339,17 +349,21 @@
                         alert(exception);
                     }
                 });
-
                 var summary = {
                     valueNames: ['name', 'status', 'date']
                 };
-
                 var summaryList = new List('status', summary);
-
                 var pending = {
                     valueNames: ['name', 'status', 'date']
                 };
                 var pendngList = new List('pendingList', pending);
+
+                $(document).on("click", "#viewReport", function () {
+                    var formName = $(this).closest("tr").find(".ts").text();
+
+                        window.location.replace("ServletAccess?redirect=viewReportPDO&reportTitle=" + formName);
+
+                });
             });
             function expand(x) {
                 document.getElementById(x).classList.remove("expand");

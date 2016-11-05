@@ -253,6 +253,26 @@ public class ServletAccess extends BaseServlet {
                 request.setAttribute("reportTitle", reportTitle);
                 rd = request.getRequestDispatcher("/WEB-INF/JSPAnalysis/PublishedReports.jsp");
                 rd.forward(request, response);
+            } else if (redirect.equalsIgnoreCase("viewReportPDO")) {
+                String reportTitle = request.getParameter("reportTitle");
+                String sectorReport = "none";
+                
+                if (chck.getPosition().equals("Project Development Officer IV")) {
+                    sectorReport = "Health";
+
+                } else if (chck.getPosition().equals("Project Development Officer III")) {
+                    sectorReport = "Education";
+
+                } else if (chck.getPosition().equals("Project Development Officer I")) {
+                    sectorReport = "Demographics";
+                }
+                request.setAttribute("savedMessage", "none");
+                request.setAttribute("ReportSearch", "ReportSearch");
+                request.setAttribute("yearReport", String.valueOf(year));
+                request.setAttribute("sectorReport", sectorReport);
+                request.setAttribute("reportTitle", reportTitle);
+                rd = request.getRequestDispatcher("/WEB-INF/JSPAnalysis/PublishedReports.jsp");
+                rd.forward(request, response);
             } else {
                 request.getRequestDispatcher("index.jsp").include(request, response);
             }
