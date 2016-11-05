@@ -233,7 +233,7 @@ and open the template in the editor.
 
                         </div>
                         <div class="modal-footer" id="modal-footer2">
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="okbtn" >Ok</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="okbtn" >Upload Another File</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
