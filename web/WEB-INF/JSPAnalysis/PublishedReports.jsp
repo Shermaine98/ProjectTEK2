@@ -91,9 +91,9 @@
                         String reportTitle = (String) request.getAttribute("reportTitle");
                         String reportSector = (String) request.getAttribute("sectorReport");
                 %>
-                <input type="text" id="reportTitle3" value="<%=reportTitle%>" />
-                <input type="text" id="reportYear" value="<%=reportYear%>" />
-                <input type="text" id="reportSector" value="<%=reportSector%>" />
+                <input type="hide" id="reportTitle3" value="<%=reportTitle%>" />
+                <input type="hide" id="reportYear" value="<%=reportYear%>" />
+                <input type="hide" id="reportSector" value="<%=reportSector%>" />
                 <% }%>
                 <!--END Specific Report-->
 

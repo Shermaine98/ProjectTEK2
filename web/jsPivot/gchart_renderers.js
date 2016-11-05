@@ -283,7 +283,7 @@ var tableImage;
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
-
+                                            console.log(data);
                                             $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                             $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');

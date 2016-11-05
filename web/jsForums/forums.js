@@ -3,13 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+var tags = [];
 $(document).ready(function () {
     getTags();
     Viewforums();
     HotTopic();
 
     //add like
+    // tag it 
+    $(function () {
+        $('#tagInput').tagit({
+            availableTags: tags
+        });
+    });
+
+
 
     var decision = "forum";
     var isLike;
@@ -270,7 +278,7 @@ function submitNewForum() {
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var tags = [];
+
 
 
 function getTags() {
@@ -289,14 +297,6 @@ function getTags() {
         }
     });
 }
-
-// tag it 
-$(function () {
-    $('#tagInput').tagit({
-        availableTags: tags
-    });
-});
-
 
 
 var ctx = "${pageContext.request.contextPath}";

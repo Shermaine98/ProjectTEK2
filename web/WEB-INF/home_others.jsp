@@ -15,12 +15,13 @@
         <title>Project TEK | Home </title>
         <link href="cssImported/jquery.tagit.css" rel="stylesheet" type="text/css"/>
         <link href="cssImported/tagit.ui-zendesk.css" rel="stylesheet" type="text/css"/>
+         <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
+        <script src="jsImported/jquery.autocomplete.js" type="text/javascript"></script>
+        <script src="jsReport/searchYearPublish.js" type="text/javascript"></script>
         <script src="jsForums/tag-it.js" type="text/javascript"></script>
         <script src="jsForums/forums.js" type="text/javascript"></script>
         <script src="jsImported/list.min.js" type="text/javascript"></script>
-        <script src="jsImported/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
-        <script src="jsImported/jquery.autocomplete.js" type="text/javascript"></script>
-        <script src="jsReport/searchYearPublish.js" type="text/javascript"></script>
+
         <link href="cssImported/search.css" rel="stylesheet" type="text/css"/>
 
 
