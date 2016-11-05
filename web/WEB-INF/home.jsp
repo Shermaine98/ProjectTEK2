@@ -1,7 +1,7 @@
 <%--
     Document   : Home.jsp
     Created on : Jun 8, 2016, 10:13:59 PM
-    Author     : Geraldine Atayan
+    Author     :  Geraldine, Gian, Shermaine
 --%>
 <%@page import="model.TaskModel"%>
 <%@page import="java.util.ArrayList"%>
