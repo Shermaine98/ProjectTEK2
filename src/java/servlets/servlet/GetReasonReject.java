@@ -79,7 +79,7 @@ public class GetReasonReject extends HttpServlet {
             JSONObject obj = new JSONObject();
             try {
                 obj.put("task", newtaskModelUploader.getReportName());
-                obj.put("dueDate", newtaskModelUploader.getDuedate());
+                obj.put("dueDate", sdf.format(newtaskModelUploader.getDuedate()));
                 obj.put("cencusYear", record.getCensusYear());
                 obj.put("reason", record.getReasons());
                 obj.put("uplodedBy", record.getUploadedByByName());

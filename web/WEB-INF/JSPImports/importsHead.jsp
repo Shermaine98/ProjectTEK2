@@ -379,7 +379,7 @@ and open the template in the editor.
                                         }//DEMO END
                                         else if (formName === "Health Integrated Analysis") {
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
-                                        } else if (formName === "Demographics Integrated Analysis"") {
+                                        } else if (formName === "Demographics Integrated Analysis") {
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
                                         }
 
