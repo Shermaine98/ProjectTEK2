@@ -15,29 +15,25 @@
     <% Forums forum = (Forums) request.getAttribute("forum");%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Project TEK | <%=forum.getForumTitle() %> </title>
+        <title>Project TEK | <%=forum.getForumTitle()%> </title>
         <script src="jsForums/comments.js" type="text/javascript"></script>
         <style>
             tr{
                 height: 50px;
             }
-
-            /*            div{
-                            display:inline-block;
-                            position:relative;
-                        }*/
-
-            /*            button{
-                            position:absolute;
-                            bottom:10px;
-                            right:10px;
-                        }*/
+            .wrapper{
+                <% if (!user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
+                padding: 25px 25px;
+                <%}%>
+            }
         </style>
     </head>
     <body>
         <div class ="wrapper">
             <!-- Content Wrapper. Contains page content -->
+            <% if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
             <div class="content-wrapper">
+                <%}%>
                 <!-- Content Header (Page header) -->
                 <section class="content">
                     <div class="row">
@@ -48,7 +44,7 @@
                                 -->
                                 <div id="specificForum" class="box box-grey">
 
-                                    
+
                                     <div class="box-header with-border">
                                         <h1 class="box-title" style="font-size:200%; margin-top:2%; margin-bottom:2%; color:#555555;"><%=forum.getForumTitle()%></h1>
                                     </div>
@@ -69,21 +65,21 @@
                                                             <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i>
                                                             <%=forum.getFavoritesCount()%> </button></h5></td>
                                                             <%} else {%>
-                                                  <h5 style="font-size: 13px; text-align:right;">
-                                                    <button class="btn btn-flat btn-default btn-xs nDefaultS">
-                                                        <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i>
-                                                        <%=forum.getFavoritesCount()%> </button></h5></td>
-                                                        <%}%>
+                                            <h5 style="font-size: 13px; text-align:right;">
+                                                <button class="btn btn-flat btn-default btn-xs nDefaultS">
+                                                    <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 1%;"></i>
+                                                    <%=forum.getFavoritesCount()%> </button></h5></td>
+                                                    <%}%>
                                             </tr>
                                         </table>
                                         <!--<b style="margin-right: 1%; font-weight: normal;">Tags:</b>-->
                                         <div class="pull-right">
-                                        <% for (int i = 1; i < forum.getTags().size(); i++) {%>
+                                            <% for (int i = 1; i < forum.getTags().size(); i++) {%>
                                             <p style="margin-right: 0%;color: #4E85C0; border-style:none; background-color: #E1ECF4" class="btn btn-flat btn-default btn-sm"><%=forum.getTags().get(i).getTag()%></p>
-                                        <%}%>
+                                            <%}%>
                                         </div>
                                         <br>
-                                       
+
 
                                         <input id="forumID" type = "hidden" value="<%=forum.getForumID()%>" />
                                         <input id="forumTitle" type="hidden"  value="<%=forum.getForumTitle()%>" />
@@ -98,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="box">
-                                     <div class="box-body">
+                                    <div class="box-body">
                                         <h4 style='color:#858C93' id='repliesNumber'>&nbsp;<%=forum.getCommentsCount()%> Replies</h4>   
                                         <div id="commentsBox"></div>
                                     </div>
@@ -130,7 +126,9 @@
                             </div>
                         </div>
                 </section>
+                <% if (user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
             </div>
+            <% }%>
         </div>
     </body>
 </html>
