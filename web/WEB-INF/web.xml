@@ -117,10 +117,6 @@
         <servlet-class>servlets.health.servlet.UploadToDatabaseHealth</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ValiNutritionalStatus</servlet-name>
-        <servlet-class>servlets.health.servlet.ValiNutritionalStatus</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ViewReportForApprovalHealth</servlet-name>
         <servlet-class>servlets.health.servlet.ViewReportForApprovalHealth</servlet-class>
     </servlet>
@@ -396,6 +392,10 @@
         <servlet-name>IntegrationCheckerServlet</servlet-name>
         <servlet-class>servlet.etl.IntegrationCheckerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ValiNutritionalStatus</servlet-name>
+        <servlet-class>servlets.health.servlet.ValiNutritionalStatus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -487,10 +487,6 @@
     <servlet-mapping>
         <servlet-name>UploadToDatabaseHealth</servlet-name>
         <url-pattern>/UploadToDatabaseHealth</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ValiNutritionalStatus</servlet-name>
-        <url-pattern>/ValiNutritionalStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewReportForApprovalHealth</servlet-name>
@@ -767,6 +763,10 @@
     <servlet-mapping>
         <servlet-name>IntegrationCheckerServlet</servlet-name>
         <url-pattern>/IntegrationCheckerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValiNutritionalStatus</servlet-name>
+        <url-pattern>/ValiNutritionalStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -518,7 +518,7 @@ public class NutritionalStatusChecker {
 
                 } else {
                     NutritionalStatus = new NutritionalStatus();
-
+                    NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                     NutritionalStatus.setTotalMale(Integer.parseInt(ArrError.get(i).getTotalMale()));
                     NutritionalStatus.setTotalFemale(Integer.parseInt(ArrError.get(i).getTotalFemale()));
@@ -1235,7 +1235,6 @@ public class NutritionalStatusChecker {
                     || isNumeric(ArrError.get(i).getTotalMale())) {
 
                 NutritionalStatus = new NutritionalStatus();
-                NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setValidation(-2);
@@ -1362,7 +1361,6 @@ public class NutritionalStatusChecker {
                     != Integer.parseInt(ArrError.get(i).getTotalFemale()) + Integer.parseInt(ArrError.get(i).getTotalMale())) {
 
                       NutritionalStatus = new NutritionalStatus();
-                NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setValidation(-3);
@@ -1476,7 +1474,6 @@ public class NutritionalStatusChecker {
 
                 if (x) {
                         NutritionalStatus = new NutritionalStatus();
-                NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatus.setValidation(1);
@@ -1567,7 +1564,7 @@ public class NutritionalStatusChecker {
 
                 } else {
                     NutritionalStatus = new NutritionalStatus();
-
+                     NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                     NutritionalStatus.setTotalMale(Integer.parseInt(ArrError.get(i).getTotalMale()));
                     NutritionalStatus.setTotalFemale(Integer.parseInt(ArrError.get(i).getTotalFemale()));

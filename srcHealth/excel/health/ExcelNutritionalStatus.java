@@ -1,8 +1,6 @@
 /*
  *  ProjectTEK - DLSU CCS 2016
- * 
  */
-
 package excel.health;
 
 import checker.health.NutritionalStatusChecker;

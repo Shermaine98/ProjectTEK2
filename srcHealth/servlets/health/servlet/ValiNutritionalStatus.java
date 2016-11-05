@@ -1,8 +1,6 @@
 /*
  *  ProjectTEK - DLSU CCS 2016
- * 
  */
-
 package servlets.health.servlet;
 
 import dao.RecordDAO;

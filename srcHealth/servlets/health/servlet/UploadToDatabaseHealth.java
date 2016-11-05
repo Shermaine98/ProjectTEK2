@@ -71,7 +71,7 @@ public class UploadToDatabaseHealth extends BaseServlet {
                 arrTempError = new ExcelNutritionalStatus(wb, sheetNumber).getArrayError();
                 arrTempNoError = new ExcelNutritionalStatus(wb, sheetNumber).getArrayNoError();
 
-                if (arrTempError.size() > 6) {
+                if (arrTempError.size() > 3) {
                     request.setAttribute("ErrorMessage", "ErrorMore");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);

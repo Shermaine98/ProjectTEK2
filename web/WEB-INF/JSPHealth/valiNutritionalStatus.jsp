@@ -48,10 +48,10 @@
                                     if (redirect.equalsIgnoreCase("upload")) {
                                 %>
                                 <h1 class="box-title"><b>Preview of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for <p class="box-title" id="text_year"></p></b></h1>
-                                
+
                                 <% } else if (redirect.equalsIgnoreCase("edit")) {%>
                                 <h1 class="box-title"><b>Edit Saved Report | Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for <p class="box-title" id="text_year"></p> </b></h1>
-                                
+
                                 <%}%>
                                 <br>
                                 <!--END FOR THE PAGE TITLE-->
@@ -72,7 +72,7 @@
 
 
                         <!--THIS IS FOR THE PAGE RESULT DATA WITH ERROR-->
-                        <form id="UploadDb" action="ValiNutritionalStatus" method="post">
+                        <form id="UploadDb" action="ValiNutritionalStatus" method="POST">
                             <%
                                 ArrayList<NutritionalStatusTemp> NutritionalStatusTemp = (ArrayList<NutritionalStatusTemp>) request.getAttribute("ArrError");
                                 if (NutritionalStatusTemp != null) {
