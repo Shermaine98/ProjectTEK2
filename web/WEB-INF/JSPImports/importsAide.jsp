@@ -95,7 +95,7 @@ and open the template in the editor.
                                 <!--NOTIFICATIONS HIDDEN-->
                                 <input type="hidden" id="yearImport" />
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="myFunction()">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                                     <i class="fa fa-bell-o"></i>
                                     <span class="label label-danger" id="value"></span></a>
                                 <ul class="dropdown-menu notification_drop">
@@ -305,7 +305,7 @@ and open the template in the editor.
 
                                                         $("#myDropdown").empty();
                                                         if (data.length === 0) {
-                                                             $("#myDropdown").append('<li class="padding2" style="text-align:center;">No Notifications</li>');
+                                                            $("#myDropdown").append('<li class="padding2" style="text-align:center;">No Notifications</li>');
                                                             $("#value").empty();
                                                             $("#value").append("");
 
@@ -440,32 +440,34 @@ and open the template in the editor.
                                                 }
                                             });
                                         });
-        </script>
-        <script>
 
-            /* When the user clicks on the button,
-             toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                $("#value").empty();
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
-            function clearStorage() {
-                sessionStorage.clear();
-            }
-// Close the dropdown if the user clicks outside of it
-            window.onclick = function (event) {
-                if (!event.target.matches('.dropbtn')) {
+                                         var dropdown = document.getElementById("value");
+                                          dropdown.addEventListener('click', myFunction, false);
 
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            }
+                                        /* When the user clicks on the button,
+                                         toggle between hiding and showing the dropdown content */
+                                        function myFunction() {
+                                            $("#value").empty();
+                                            document.getElementById("myDropdown").classList.toggle("show");
+                                            console.log("working");
+                                        }
+                                        function clearStorage() {
+                                            sessionStorage.clear();
+                                        }
+                                        // Close the dropdown if the user clicks outside of it
+                                        window.onclick = function (event) {
+                                            if (!event.target.matches('.dropbtn')) {
+
+                                                var dropdowns = document.getElementsByClassName("dropdown-content");
+                                                var i;
+                                                for (i = 0; i < dropdowns.length; i++) {
+                                                    var openDropdown = dropdowns[i];
+                                                    if (openDropdown.classList.contains('show')) {
+                                                        openDropdown.classList.remove('show');
+                                                    }
+                                                }
+                                            }
+                                        }
         </script>
     </body>
 </html>

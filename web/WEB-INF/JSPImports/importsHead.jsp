@@ -100,7 +100,7 @@ and open the template in the editor.
                                 <!--NOTIFICATIONS HIDDEN-->
                                 <input type="hidden" id="yearImport" />
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="myFunction()">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-bell-o"></i>
                                     <span class="label label-danger" id="value"></span></a>
                                 <ul class="dropdown-menu notification_drop">
@@ -276,7 +276,7 @@ and open the template in the editor.
         <!-- Bootstrap 3.3.6 -->
         <script src="AdminLTE/bootstrap/js/bootstrap.min.js"></script>
         <!-- daterangepicker -->
-       <script src="AdminLTE/plugins/daterangepicker/moment.min.js"></script>
+        <script src="AdminLTE/plugins/daterangepicker/moment.min.js"></script>
         <script src="AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
         <!-- datepicker -->
         <script src="AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
@@ -385,31 +385,33 @@ and open the template in the editor.
 
                                     });
                                 });
-        </script>
-        <script>
-            /* When the user clicks on the button,
-             toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                $("#value").empty();
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
-            function clearStorage() {
-                sessionStorage.clear();
-            }
 
-            // Close the dropdown if the user clicks outside of it
-            window.onclick = function (event) {
-                if (!event.target.matches('.dropbtn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            }
+                                var dropdown = document.getElementById("value");
+                                dropdown.addEventListener('click', myFunction, false);
+                                /* When the user clicks on the button,
+                                 toggle between hiding and showing the dropdown content */
+                                function myFunction() {
+                                    $("#value").empty();
+                                    document.getElementById("myDropdown").classList.toggle("show");
+                                    console.log(working);
+                                }
+                                function clearStorage() {
+                                    sessionStorage.clear();
+                                }
+
+                                // Close the dropdown if the user clicks outside of it
+                                window.onclick = function (event) {
+                                    if (!event.target.matches('.dropbtn')) {
+                                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                                        var i;
+                                        for (i = 0; i < dropdowns.length; i++) {
+                                            var openDropdown = dropdowns[i];
+                                            if (openDropdown.classList.contains('show')) {
+                                                openDropdown.classList.remove('show');
+                                            }
+                                        }
+                                    }
+                                }
         </script>
     </body>
 </html>
