@@ -191,6 +191,9 @@ function ViewComments() {
             element.appendChild(table);
             var tbody = document.createElement("tbody");
             table.appendChild(tbody);
+            
+            var repliesNum = ' '+data.length + ' Replies';
+            $('#repliesNumber').text(repliesNum);
 
             for (var i = 0; i < data.length; i++) {
 

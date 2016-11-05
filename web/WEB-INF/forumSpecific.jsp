@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="box">
                                      <div class="box-body">
-                                        <h4 style='color:#858C93'>&nbsp;<%=forum.getCommentsCount()%> Replies</h4>   
+                                        <h4 style='color:#858C93' id='repliesNumber'>&nbsp;<%=forum.getCommentsCount()%> Replies</h4>   
                                         <div id="commentsBox"></div>
                                     </div>
                                     <div class="box-footer clearfix">
