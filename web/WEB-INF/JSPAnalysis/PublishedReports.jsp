@@ -388,6 +388,7 @@
             }
 
             function print_div(prints) {
+                console.log(prints);
                 if (prints == "integrated") {
                     jQuery('#print').html(jQuery("#integrated__reports").html());
                 } else if (prints == "reports") {
