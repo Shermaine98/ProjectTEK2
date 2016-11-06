@@ -235,7 +235,7 @@
                 <p style="text-align: right;"><pagenum/></p>
             </footer>
         </div>
-
+        <img id="hiddenIMG" alt="ChartImage" src="" height="100" />
         <script>
 
 
