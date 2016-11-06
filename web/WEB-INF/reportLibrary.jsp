@@ -185,14 +185,14 @@
                 var screenHeight = $(document).height();
                 $('#spinner-overlay').css('top', screenTop);
                 $('#spinner-overlay').css('height', screenHeight);
-                $('#spinner-overlay').show('slow');
+                $('#spinner-overlay').toggle('show');
 
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '11in', pageHeight: '8.5in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
 
-                $('#spinner-overlay').hide('slow');
+                $('#spinner-overlay').toggle('hide');
                 doneyet();
 
             });
@@ -315,7 +315,6 @@
 
                 document.getElementById("TESTING").setAttribute("style", "display:block");
                 $('#dataTable').DataTable().destroy(false);
-                document.getElementById("print_year").innerHTML = "Report for the Year " + year;
                 $("#DateHere").html("Retrieved on " + today);
                 jQuery('#printChart').html(jQuery("#byAgeGrpSex").html());
                 jQuery('#printTable').html(jQuery("#TableHolder").html());

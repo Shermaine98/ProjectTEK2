@@ -125,6 +125,7 @@ function getDataAgeGroup() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -388,6 +389,7 @@ function getMaritalStatusData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -973,6 +975,7 @@ function getSchoolData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -1004,9 +1007,7 @@ function getSchoolData() {
                                         <th colspan="3" style="text-align:center;">Kinder</th>\n\
                                         <th colspan="3" style="text-align:center;">Elementary</th>\n\
                                         <th rowspan="2" style="vertical-align: bottom; text-align:center;\n\
-                                            border-left: solid;\n\
                                             border-width: thin;\n\
-                                            border-color: #d2d6de;\n\
                                             padding: 1%;">Kinder</th>\n\
                                         <th rowspan="2" style="vertical-align: bottom; text-align:center;">Elementary</th>\n\
                                         <th rowspan="2" style="vertical-align: bottom; text-align:center;">Kinder</th>\n\
@@ -1205,6 +1206,7 @@ function getHospitalData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -1529,6 +1531,7 @@ function getEnrollmentData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -1766,6 +1769,7 @@ function getNutritionalStatus() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -2033,7 +2037,7 @@ function getHighestCompleted() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                
+                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
