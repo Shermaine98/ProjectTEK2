@@ -2536,22 +2536,12 @@ function setAnalysis() {
                     para.appendChild(para2);
 
 
-                    console.log("before encode " + i);
-                    encodeImage(data[i].path, function (image) 
-                    
-                      canvas.getContext('2d').drawImage(image, 0, 0, render_width, render_height);
-                       data = canvas.toDataURL("image/png");
-                        console.log("encode " + i);
-                        $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + image + '">');
-
+                    encodeImage(data[i].path, function (dataURL) {
                         $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
                     });
 
-                    console.log("after encode:");
-
 //                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
                     $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
-                    console.log("ANALYSIS " + i);
                 }
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -4964,18 +4954,14 @@ function encodeImage(imageUri, callback) {
     var c = document.createElement('canvas');
     var ctx = c.getContext("2d");
     var img = new Image();
-
+    img.onload = function () {
         c.width = this.width;
         c.height = this.height;
         ctx.drawImage(img, 0, 0);
         var dataURL = c.toDataURL("image/png");
-           img.src = imageUri;
-    
-        $("#hiddenIMG").attr("src", img.src);
-        
-        console.log(img.src);
-        console.log(dataURL);
-        callback(dataURL, img.src);
+        callback(dataURL);
+    };
+    img.src = imageUri;
 }
 
 function errorMessage(year) {

@@ -45,7 +45,6 @@
             }
             .wrapper{
                 /*z-index:1;*/
-
                 <% if (!user.getDivision().equalsIgnoreCase("Social Development Planning Division")) { %>
                 padding: 25px 25px;
                 <%}%>
@@ -235,14 +234,11 @@
                 <p style="text-align: right;"><pagenum/></p>
             </footer>
         </div>
-        <img id="hiddenIMG" alt="ChartImage" src="" height="100" />
+
         <script>
-
-
             $(document).ready(function () {
                 image("index_template/Ph_seal_ncr_caloocan.png", function (dataURL) {
                     document.getElementById("imageLogo").src = dataURL;
-
                 });
                 function image(imageUri, callback) {
                     var c = document.createElement('canvas');
@@ -254,52 +250,38 @@
                         ctx.drawImage(img, 0, 0);
                         var dataURL = c.toDataURL("image/png");
                         callback(dataURL);
-
                     };
                     img.src = imageUri;
                 }
             });
-
-
             $('#save_integrated').click(function () {
                 print_div('integrated');
-
                 var screenTop = $(document).scrollTop();
                 var screenHeight = $(document).height();
                 $('#spinner-overlay').css('top', screenTop);
                 $('#spinner-overlay').css('height', screenHeight);
                 $('#spinner-overlay').toggle('show');
-
-
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '8.5in', pageHeight: '11in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
-
                 $('#spinner-overlay').toggle('hide');
                 doneyet();
             });
-
-
             $('#save_reports').click(function () {
                 print_div('reports');
-
                 var screenTop = $(document).scrollTop();
                 var screenHeight = $(document).height();
                 $('#spinner-overlay').css('top', screenTop);
                 $('#spinner-overlay').css('height', screenHeight);
                 $('#spinner-overlay').toggle('show');
-
                 xepOnline.Formatter.Format('TESTING',
                         {pageWidth: '8.5in', pageHeight: '11in'},
                         {render: 'download'},
                         {embedLocalImages: 'true'});
-
                 $('#spinner-overlay').toggle('hide');
                 doneyet();
-
             });
-
             var year;
             function updateReport() {
                 var conceptName = $('#category').find(":selected").text();
@@ -312,7 +294,6 @@
                             .append('<option value="Matrix">Demographics Analysis Matrix</option>')
                             .append('<option value="Analysis">Demographics Analysis</option>')
                             .append('<option value="Integrated">Demographics Integrated Analysis</option>');
-
                 } else if (conceptName === "Education") {
                     $('#form_name')
                             .find('option')
@@ -322,7 +303,6 @@
                             .append('<option value="Matrix">Education Analysis Matrix</option>')
                             .append('<option value="Analysis">Education Analysis</option>')
                             .append('<option value="Integrated">Education Integrated Analysis</option>');
-
                 } else if (conceptName === "Health") {
                     $('#form_name')
                             .find('option')
@@ -335,23 +315,18 @@
                 }
                 $('#form_name').removeAttr('disabled');
             }
-
             function updateYear() {
                 document.getElementById('searchCensusYear').style.background = "#FFF";
-
                 var conceptName = $('#form_name').find(":selected").val();
                 if (conceptName == "Matrix") {
                     $('#searchCensusYear').keypress(searchMatrix());
                     $('#searchCensusYear').removeAttr('disabled');
-
                 } else if (conceptName == "Analysis") {
                     $('#searchCensusYear').keypress(searchAnalysis());
                     $('#searchCensusYear').removeAttr('disabled');
-
                 } else if (conceptName == "Integrated") {
                     $('#searchCensusYear').keypress(searchIntegrated());
                     $('#searchCensusYear').removeAttr('disabled');
-
                 }
             }
             function getData() {
@@ -374,7 +349,6 @@
                     $('#submitBtn').click(setIntegrated());
                 }
             }
-
             function updateButton() {
                 if ($('#searchCensusYear').val()) {
                     $('#button').removeClass('btn-default');
@@ -386,7 +360,6 @@
                     $("#button").prop('disabled', true);
                 }
             }
-
             function print_div(prints) {
                 console.log(prints);
                 if (prints == "integrated") {
@@ -397,19 +370,16 @@
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
-
                 var d = new Date();
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth();
                 var curr_year = d.getFullYear();
                 var today = m_names[curr_month] + " " + curr_date
                         + ", " + curr_year;
-
                 document.getElementById("TESTING").setAttribute("style", "display:block");
                 $('#dataTable').DataTable().destroy(false)
                 $("#DateHere").html("Retrieved on " + today);
             }
-
             function doneyet() {
                 // document.body.onfocus = "";
                 document.getElementById("TESTING").setAttribute("style", "display:none");

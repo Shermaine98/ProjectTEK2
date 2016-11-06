@@ -768,7 +768,7 @@ function setElementaryEnrollments(chart){
                     }
                 },
                 title: {
-                    text: 'Enrollment in Public and Elementary Schools'
+                    text: 'Enrollment in Public and Private Elementary Schools'
                 },
                 xAxis: {
                     type: 'category',
@@ -807,7 +807,7 @@ function setElementaryEnrollments(chart){
                     }
                 },
                 title: {
-                    text: 'Enrollment in Public and Elementary Schools'
+                    text: 'Enrollment in Public and Private Elementary Schools'
                 },
                 xAxis: {
                     type: 'category'
