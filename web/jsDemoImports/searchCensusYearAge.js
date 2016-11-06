@@ -389,7 +389,7 @@ function getMaritalStatusData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
@@ -1769,7 +1769,9 @@ function getNutritionalStatus() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                document.getElementById("print_year").innerHTML =
+                        "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender"
+                        + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
                 document.getElementById('noReport').style.display = "display";
                 var print = data;
