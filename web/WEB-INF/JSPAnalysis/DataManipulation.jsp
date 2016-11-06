@@ -245,15 +245,18 @@
                 $("#notificationBodyModal").empty();
                 $("#notificationHeader").css({color: "#FFFFFF"});
                 $("#modal_Header").css({background: "#b34112"});
+                $(".modal-dialog").css({background: "none", "margin-left": "30%", 
+                    "border":  "none",
+                "-webkit-box-shadow": "none",
+	"-moz-box-shadow": "none",
+	"box-shadow": "none"});
                 $("#notificationHeader").text("Delete Chart!");
                 $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure?</p>');
-
 
                 $("#notificationModalFooter").empty();
                 $("#notificationModalFooter").append('<button type="button" id="delete" class="btn btn-danger" onClick="deleteDiv(x)" >Delete Chart</button>');
                 $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
                 $("#notificationModal").modal("show");
-
 
             }
             function deleteDiv(x) {
