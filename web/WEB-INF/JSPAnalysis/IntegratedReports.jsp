@@ -15,10 +15,6 @@
         <script src="Highcharts/modules/exporting.js"></script>
         <script src="jsAnalysisImports/synchronizedCharts.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="Highcharts/highmaps.js" type="text/javascript"></script>
-        <script src="Highcharts/modules/map.js" type="text/javascript"></script>
-        <script src="Highcharts/modules/data.js" type="text/javascript"></script>
-        <script src="jsAnalysisImports/jsHighMaps.js" type="text/javascript"></script>
         <title>Integrated Analytics</title>
 
         <style>
@@ -30,12 +26,6 @@
             textarea{
                 resize: none;
                 width: 100%;
-            }
-            #map {
-                height: 500px;
-                min-width: 310px;
-                max-width: 800px;
-                margin: 0 auto;
             }
             .loading {
                 margin-top: 10em;
