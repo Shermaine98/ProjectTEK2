@@ -184,6 +184,8 @@ var tableImage;
 
 
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
+                                 document.getElementById('notShow').style.display = "block";
+                                  document.getElementById('buttonSave').style.display = "block";
                                 document.getElementById('showReport').style.display = "block";
 
                                 var conceptName = $('#commonReports').find(":selected").text();
