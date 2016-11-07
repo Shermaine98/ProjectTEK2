@@ -192,16 +192,19 @@ var tableImage;
                                         && conceptName != 'Enrollment in Public and Private Schools'
                                         && conceptName != 'Actual number of Beds in Private and Public Hospitals') {
 
-                                    if (theChartSelected === "Table") {
+                                    if (theChartSelected == "Table") {
+                                        chartImage();
+                                        console.log("asd"+tableImage);
                                         //SVG
-                                        if (this.id === "btnMatrix") {
+                                        if (this.id == "btnMatrix") {
+                                            console.log('hi');
                                             var para = document.createElement("div");
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
                                             $('.reportContents').append();
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
-                                            chartImage();
+                                            
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + tableImage + '"/>');
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="' + tableImage + '">');
                                             document.getElementById('image').setAttribute( 'src', tableImage);
@@ -221,7 +224,7 @@ var tableImage;
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
-                                            chartImage();
+                                            //chartImage();
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + tableImage + '"/>');
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="">');
                                          document.getElementById('image').setAttribute( 'src', tableImage);
@@ -388,21 +391,44 @@ var tableImage;
 
 
 function chartImage() {
-    
-    
-    
-    
     html2canvas(document.getElementById("dataTable"), {
         onrendered: function (canvas) {
-            var img = canvas.toDataURL("image/png");
-             tableImage = img;
-             console.log(tableImage);
-             
-                 var image = new Image;
-               var canvas = document.createElement('canvas');
-               image.src = tableImage;
-                                        canvas.getContext('2d').drawImage(image, 0, 0);
-                                        tableImage = canvas.toDataURL("image/png");
+            tableImage = canvas.toDataURL("image/png");
         }
     });
+//    OLD CODE
+//    var img = canvas.toDataURL("image/png");
+//             tableImage = img;
+//             console.log(tableImage);
+//             
+//                 var image = new Image;
+//               var canvas = document.createElement('canvas');
+//               image.src = tableImage;
+//                                        canvas.getContext('2d').drawImage(image, 0, 0);
+//                                        tableImage = canvas.toDataURL("image/png");
+    
+    //HIGH CHARTS CODE
+//                var chart = $('#output').highcharts();
+//                var render_width = EXPORT_WIDTH;
+//                var render_height = render_width * chart.chartHeight / chart.chartWidth;
+//
+//                // Get the cart's SVG code
+//                var svg = chart.getSVG({
+//                    exporting: {
+//                        sourceWidth: chart.chartWidth,
+//                        sourceHeight: chart.chartHeight
+//                    }
+//                });
+//
+//
+//                var image = new Image;
+//                var canvas = document.createElement('canvas');
+//                canvas.height = render_height;
+//                canvas.width = render_width;
+//
+//                image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
+//
+//                canvas.getContext('2d').drawImage(image, 0, 0, render_width, render_height);
+//                data = canvas.toDataURL("image/png");
+
 }
