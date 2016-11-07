@@ -100,7 +100,7 @@ and open the template in the editor.
                                 <!--NOTIFICATIONS HIDDEN-->
                                 <input type="hidden" id="yearImport" />
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownClicked" data-toggle="dropdown">
                                     <i class="fa fa-bell-o"></i>
                                     <span class="label label-danger" id="value"></span></a>
                                 <ul class="dropdown-menu notification_drop">
@@ -413,7 +413,7 @@ and open the template in the editor.
                                     });
                                 });
 
-                                var dropdown = document.getElementById("value");
+                                var dropdown = document.getElementById("dropdownClicked");
                                 dropdown.addEventListener('click', myFunction, false);
                                 /* When the user clicks on the button,
                                  toggle between hiding and showing the dropdown content */
