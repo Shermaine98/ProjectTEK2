@@ -237,10 +237,10 @@
             <%}%>
         <script>
             var theChartSelected;
-
+            
             function deleteDivNotify(a) {
 
-                var x = $(a).closest('.reportDelete');
+               var  x = $(a).closest('.reportDelete');
                 $("#notificationHeader").empty();
                 $("#notificationBodyModal").empty();
                 $("#notificationHeader").css({color: "#FFFFFF"});
@@ -254,13 +254,15 @@
                 $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure?</p>');
 
                 $("#notificationModalFooter").empty();
-                $("#notificationModalFooter").append('<button type="button" id="delete" class="btn btn-danger" onClick="deleteDiv(x)" >Delete Chart</button>');
+                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
                 $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
                 $("#notificationModal").modal("show");
-
-            }
-            function deleteDiv(x) {
-                x.closest('.reportDelete').remove();
+                
+                
+                $('#deleteButton').click(function () {  
+                    console.log(x);
+                     x.remove();
+                 });
 
             }
 

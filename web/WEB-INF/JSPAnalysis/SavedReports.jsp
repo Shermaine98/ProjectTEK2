@@ -10,6 +10,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
+<%@include file="../JSPViewModal/notifcationModal.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -460,15 +461,64 @@
                 $("#saveWarning").modal("show");
             }
 
+
+
             function deleteAnaylsis(a) {
-                $(a).closest('.reportAnalysis').remove();
-                console.log($(a).closest('.reportAnalysis').remove());
+
+                var x = $(a).closest('.reportAnalysis');
+                $("#notificationHeader").empty();
+                $("#notificationBodyModal").empty();
+                $("#notificationHeader").css({color: "#FFFFFF"});
+                $("#modal_Header").css({background: "#b34112"});
+                $(".modal-dialog").css({background: "none", "margin-left": "30%",
+                    "border": "none",
+                    "-webkit-box-shadow": "none",
+                    "-moz-box-shadow": "none",
+                    "box-shadow": "none"});
+                $("#notificationHeader").text("Delete Chart!");
+                $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure?</p>');
+
+                $("#notificationModalFooter").empty();
+                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
+                $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
+                $("#notificationModal").modal("show");
+
+
+                $('#deleteButton').click(function () {
+                    console.log(x);
+                    x.remove();
+                });
+
             }
 
             function deleteMatrix(a) {
-                $(a).closest('.reportMatrix').remove();
-                console.log($(a).closest('.reportMatrix').remove());
+
+                var x = $(a).closest('.reportMatrix');
+                $("#notificationHeader").empty();
+                $("#notificationBodyModal").empty();
+                $("#notificationHeader").css({color: "#FFFFFF"});
+                $("#modal_Header").css({background: "#b34112"});
+                $(".modal-dialog").css({background: "none", "margin-left": "30%",
+                    "border": "none",
+                    "-webkit-box-shadow": "none",
+                    "-moz-box-shadow": "none",
+                    "box-shadow": "none"});
+                $("#notificationHeader").text("Delete Chart!");
+                $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure?</p>');
+
+                $("#notificationModalFooter").empty();
+                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
+                $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
+                $("#notificationModal").modal("show");
+
+
+                $('#deleteButton').click(function () {
+                    console.log(x);
+                    x.remove();
+                });
+
             }
+
 
 
 
