@@ -1628,8 +1628,6 @@ $(document).ready(function () {
                     }
                 }
             }
-            console.log("totalsWeighed " + totalsWeighed);
-            console.log("totalEnrollment " + totalEnrollment);
             total = totalEnrollment - totalsWeighed;
             item["y"] = total;
             totalNotWeighed.push(item);
