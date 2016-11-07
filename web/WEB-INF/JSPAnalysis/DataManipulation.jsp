@@ -130,9 +130,9 @@
                         <!--<div style="margin: 0 auto;">-->
                         <form id="reportForm" action="CreateReport" method="post">
                             <div class="col-md-10" style="display:none; margin: 0 auto; float:none;" id="showReport" align="center">
-                                <div class="box box-solid">
+                                <div id="notShow" class="box box-solid">
                                     <!-- /.box-header -->
-                                    <div class="box-body" align="center">
+                                    <div  class="box-body" align="center">
                                         <div id="reportBody">
 
                                         </div>
@@ -140,7 +140,7 @@
                                 </div>
                                 <div>
                                     <input type="hidden" name="isDraft" id="reportIsDraft" />
-                                    <button class="btn btn-primary button-submit" style="margin-right: 1%;" onClick="setReport('Save')">Save</button>
+                                    <button id="buttonSave" class="btn btn-primary button-submit" style="margin-right: 1%;" onClick="setReport('Save')">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -237,7 +237,7 @@
             <%}%>
         <script>
             var theChartSelected;
-            
+
             function deleteDivNotify(a) {
 
                var  x = $(a).closest('.reportDelete');
@@ -245,7 +245,7 @@
                 $("#notificationBodyModal").empty();
                 $("#notificationHeader").css({color: "#FFFFFF"});
                 $("#modal_Header").css({background: "#b34112"});
-                $(".modal-dialog").css({background: "none", "margin-left": "30%", 
+                $(".modal-dialog").css({background: "none", "margin-left": "30%",
                     "border":  "none",
                 "-webkit-box-shadow": "none",
 	"-moz-box-shadow": "none",
@@ -257,11 +257,16 @@
                 $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
                 $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
                 $("#notificationModal").modal("show");
-                
-                
-                $('#deleteButton').click(function () {  
+
+
+                $('#deleteButton').click(function () {
                     console.log(x);
                      x.remove();
+                     if ($("#image").length == 0) {
+                         console.log("true");
+                         document.getElementById('notShow').style.display = "none";
+                          document.getElementById('buttonSave').style.display = "none";
+                     }
                  });
 
             }
