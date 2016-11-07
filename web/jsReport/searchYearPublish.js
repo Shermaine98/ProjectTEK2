@@ -63,7 +63,7 @@ function setAnalysisS(year, sector) {
 
 
                 encodeImage(data[i].path, function (dataURL) {
-                    $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
+                    $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
                 });
 
 //                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
@@ -2412,7 +2412,7 @@ function setMatrixS(year, sector) {
                 para.appendChild(para2);
 
                 encodeImage(data[i].path, function (dataURL) {
-                    $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
+                    $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
                 });
 
                 var table = document.createElement("table");
@@ -2537,7 +2537,7 @@ function setAnalysis() {
 
 
                     encodeImage(data[i].path, function (dataURL) {
-                        $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
+                        $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
                     });
 
 //                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
@@ -4918,7 +4918,7 @@ function setMatrix() {
                     element.appendChild(para);
                     para.appendChild(para2);
                     encodeImage(data[i].path, function (dataURL) {
-                        $(para2).append('<img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '">');
+                        $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
                     });
                     var table = document.createElement("table");
                     table.setAttribute("class", "table table-hover table-bordered");
