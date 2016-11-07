@@ -1659,6 +1659,8 @@ function setHHPopAgeGroupSex (chart){
             item2["drilldown"] = 'fs'+year+print[0].ageGroups[a].ageGroup; // fn = female south
             if(isSouthOutlier){
                 item2["color"] = "#FF0000";
+            }else {
+                item2["color"] = "#FF9999";
             }
             data.push(item2);
             

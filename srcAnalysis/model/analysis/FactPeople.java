@@ -437,6 +437,7 @@ public class FactPeople {
                                                     //System.out.println("IsOutlier" +  people.get(c).get());
                                                     System.out.println("Gender: " +  people.get(c).getGender());
                                                     //System.out.println("Age Group: " +  people.get(c).getAgeBracket());
+                                                    System.out.println("Age Group: " + secondAgeGroup);
                                                 }
                                             }
                                         }
