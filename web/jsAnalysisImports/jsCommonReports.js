@@ -1,4 +1,10 @@
-    var print;
+/* 
+ *  ProjectTEK - DLSU CCS 2016
+ *  Authors:  Gian Carlo Roxas, Shermaine Sy, Geraldine Atayan
+ */
+
+
+var print;
     var city = "Caloocan City";
     var chartSelected;
     var reportSelected; 
