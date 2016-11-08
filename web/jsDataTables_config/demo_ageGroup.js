@@ -1,3 +1,9 @@
+/* 
+ *  ProjectTEK - DLSU CCS 2016
+ *  Authors: Shermaine Sy, Gian Carlo Roxas, Geraldine Atayan
+ */
+
+
 $(function () {
     $("#dataTable-ageGroup").DataTable({
         "paging": true,

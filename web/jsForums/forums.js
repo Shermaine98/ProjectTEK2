@@ -1,8 +1,9 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ *  Authors: Shermaine Sy, Gian Carlo Roxas, Geraldine Atayan
  */
+
+
 var tags = [];
 $(document).ready(function () {
     getTags();
@@ -253,13 +254,13 @@ function submitNewForum() {
 
 
                 $("#notificationHeader").text("Success!");
-                $("#modal_Header").css({background: "#00a65a"});
+                $("#modalHeader").css({background: "#00a65a"});
                 $("#notificationHeader").css({color: "#FFFFFF"});
                 $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully created a new topic!</p>");
                 $("#notificationModal").modal("show");
                 // Set a timeout to hide the element again
                 setTimeout(function () {
-                    $("#modal_Header").css({background: ""});
+                    $("#modalHeader").css({background: ""});
                     $("#notificationModal").modal("hide");
                     $("#notificationHeader").text("");
                     $("#notificationBodyModal").empty();
