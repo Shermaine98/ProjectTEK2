@@ -108,8 +108,8 @@
 
                                 <tbody>
                                     <tr style = "background-color: #454545; color: #fff" >
-                                        <th style="vertical-align: bottom; text-align: left;" >Name of School</th>
-                                        <td class="nr" colspan = "8" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
+                                        <th colspan="2" style="vertical-align: bottom; text-align: left;" >Name of School</th>
+                                        <td class="nr" colspan = "7" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
                                         <td style="border-left: none; text-align: right">
                                             <button id="updateDirectory" class="upadateBtn btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
                                             <button id="invalidDirectory"  class="deleteBtn btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
