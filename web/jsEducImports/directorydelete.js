@@ -72,9 +72,18 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data === true) {
-                    alert("Directory Deleted");
+                    $("#integrateLoad").modal("hide");
+                    $("#notificationHeader").text("Success!");
+                    $("#modalHeader").css({background: "#00a65a"});
+                    $("#notificationHeader").css({color: "#FFFFFF"});
+                     $("#notificationBodyModal").empty();
+                    $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>Directory Deleted</p>");
+                    $("#notificationModalFooter").empty();
+                    $("#notificationModalFooter").append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
+
+                    $("#notificationModal").modal("show");
                 } else {
-                    alert("Not Sucessfuly Deleted");
+                    console.log("Not Sucessfuly Deleted");
                 }
             }, error: function (XMLHttpRequest, textStatus, exception) {
                 alert(XMLHttpRequest);

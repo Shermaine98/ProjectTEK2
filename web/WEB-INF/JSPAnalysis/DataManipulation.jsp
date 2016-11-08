@@ -244,7 +244,7 @@
                 $("#notificationHeader").empty();
                 $("#notificationBodyModal").empty();
                 $("#notificationHeader").css({color: "#FFFFFF"});
-                $("#modal_Header").css({background: "#b34112"});
+                $("#modalHeader").css({background: "#b34112"});
                 $(".modal-dialog").css({background: "none", "margin-left": "30%",
                     "border":  "none",
                 "-webkit-box-shadow": "none",

@@ -10,6 +10,7 @@
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
 <%@include file="../levelOfAccess.jsp"%>
 <%@ include file="directory_modal.jsp" %>
+<%@ include file="../JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>

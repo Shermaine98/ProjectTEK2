@@ -104,6 +104,24 @@ public class UploadCheckerDirectory extends BaseServlet {
             } catch (SQLException ex) {
                 getLogger(UploadCheckerServlet.class.getName()).log(SEVERE, null, ex);
             }
+        }  else if (page.equalsIgnoreCase("hospital")) {
+            try {
+                //If exsist
+                x = recordDAO.checkExistRecordUploadChecker(90000000, year);
+                if (x == true) {
+                    x = recordDAO.checkExistYearApproved(90000000, year);
+                    if (x == true) {
+                        decision = "approved";
+                    } else {
+                        decision = "reUpload";
+                    }
+                } else {
+                    decision = "upload";
+                }
+
+            } catch (SQLException ex) {
+                getLogger(UploadCheckerServlet.class.getName()).log(SEVERE, null, ex);
+            }
         }
         String json = new Gson().toJson(decision);
         response.setContentType("application/json");
