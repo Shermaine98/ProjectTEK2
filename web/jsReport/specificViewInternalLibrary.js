@@ -112,7 +112,7 @@ function chart(print) {
     }
 
     var malePerBarangay = [];
-    for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
+    for (var i =  print[0].arrTotalMFFemale.length-1; i >= 0; i--) {
         item = {};
         item["name"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation;
         item["y"] = print[0].arrTotalMFFemale[i].arrTotalMFMale;
@@ -120,7 +120,7 @@ function chart(print) {
         malePerBarangay.push(item);
     }
     var femalePerBarangay = [];
-    for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
+    for (var i = print[0].arrTotalMFFemale.length-1; i >= 0 ; i--) {
         item = {};
         item["name"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation;
         item["y"] = print[0].arrTotalMFFemale[i].arrTotalMFFemale;
@@ -203,20 +203,16 @@ function chart(print) {
             events: {
                 drilldown: function (e) {
                     var chart = this;
-                    Highcharts.charts[0].xAxis[0].update({
-                        reversed: true,
-                        labels: {
-                            step: 1
-                        }});
+                    chart.xAxis[0].update({
+                        reversed: true
+                        });
                 },
                 drillup: function (e) {
 
                     var chart = this;
-                    chart.xAxis[0].update({categories: topCategories,
-                        reversed: false,
-                        labels: {
-                            step: 1
-                        }});
+                    chart.xAxis[0].update({
+                        reversed: false
+                    });
                 }
             }
         },
@@ -265,7 +261,7 @@ function chart(print) {
         },
         tooltip: {
             formatter: function () {
-                return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                return '<b>' + this.series.name + ', ' + this.point.name + '</b><br/>' +
                         'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
             }
         },
