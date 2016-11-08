@@ -223,6 +223,33 @@
             </div>
         </div>
         <script>
+            $(document).ready(function () {
+                $('#classification').val("Private");
+            });
+            function changeKinder() {
+                var totalPoints = 0;
+                $('.kinderT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#KteacherTotal').val(totalPoints);
+                totlT();
+            }
+            function changeElem() {
+                var totalPoints = 0;
+                $('.ElemT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#EteacherTotal').val(totalPoints);
+                totlT();
+            }
+            function totlT() {
+                var totalPoints = 0;
+                $('.totalT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#totalTeachers').val(totalPoints);
+            }
+
             function changeSum() {
                 var totalPoints = 0;
                 $('.add').each(function () {
@@ -246,11 +273,6 @@
             }
         </script>
         <script>
-            $(document).ready(function () {
-                $('#myModal').on('shown', function () {
-                    google.maps.event.trigger(map, "resize");
-                });
-            });
             function viewAll() {
                 $('#dataSchool').remove();
 

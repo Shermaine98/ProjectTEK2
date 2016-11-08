@@ -120,10 +120,6 @@
                             <h4 class="modal-title">Edit School Details</h4>
                         </div>
                         <div class="modal-body">
-                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                            <div id="map" style="width: 570px; height:300px"></div>
-
-                            <br/><br/>
                             <p>Please input school details below:</p>
 
                             <div class="form-inline" style="margin-top:3%;">
@@ -151,12 +147,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KteacherMale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="KteacherFemale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="KteacherTotal" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="EteacherMale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="EteacherFemale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="EteacherTotal" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
+                                        <td><input name="KteacherMale" type="number" class="form-control kinderT" min="0" value="0" onchange="changeKinder()" /></td>
+                                        <td><input name="KteacherFemale" type="number" class="form-control kinderT" min="0" value="0" onchange="changeKinder()" /></td>
+                                        <td><input name="KteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
+                                        <td><input name="EteacherMale" type="number" class="form-control ElemT" min="0" value="0" onchange="changeElem()" /></td>
+                                        <td><input name="EteacherFemale" type="number" class="form-control ElemT" min="0" value="0" onchange="changeElem()" /></td>
+                                        <td><input name="EteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
                                     </tr>
                                     <tr>
                                         <th colspan="5" style="text-align:right; vertical-align:middle;">Total Teachers</th>

@@ -252,7 +252,7 @@
                                 </div>
                                 <div class="box-body">
 
-                                    <form id="archivedDirPri" action="ViewArchivesReportForApproval" method="post">
+                                    <form id="archivedDirPri" action="ViewReportsForApprovalEduc" method="post">
                                         <table id="approval" class="table table-striped dataTable" role="grid" aria-describedby="incomplete_info">
                                             <thead>
                                                 <tr>

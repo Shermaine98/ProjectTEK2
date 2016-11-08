@@ -220,6 +220,10 @@
         </div>
 
         <script>
+
+              $(document).ready(function () {
+                $('#classification').val("Public");
+            });
             function changeSum() {
                 var totalPoints = 0;
                 $('.add').each(function () {

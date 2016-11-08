@@ -393,9 +393,9 @@ and open the template in the editor.
                                         } else if (formName === "Enrollment in Private School") {
                                             window.location.replace("ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=private&formID=" + year);
                                         } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("ViewReportsForApprovalEduc?page=directoryApproval&classification=public");
                                         } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("ViewReportsForApprovalEduc?page=directoryApproval&classification=private");
                                             //DEMO
                                         } else if (formName === "Household Population by Age Group and Sex") {
                                             window.location.replace("ViewArchivesReportForApproval?page=byAgeGroupApprovalS&formID=" + year);

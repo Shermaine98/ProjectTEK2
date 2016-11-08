@@ -2,15 +2,15 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package servlets.education.servlet;
 
+import dao.education.DirectorySchoolDAO;
 import dao.education.EnrollmentDAO;
 import model.education.Enrollment;
 import servlets.servlet.BaseServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,17 +19,18 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.education.DirectorySchool;
 
 /**
  *
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class ViewReportsForApprovalEduc extends BaseServlet {
 
-     /**
+    /**
      *
      * @param request servlet request
      * @param response servlet response
@@ -58,12 +59,11 @@ public class ViewReportsForApprovalEduc extends BaseServlet {
             request.setAttribute("clicked", "forView");
             rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/Education_Enrollment.jsp");
             rd.forward(request, response);
-        } 
-        else if (page.equalsIgnoreCase("enrollmentS")) {
+        } else if (page.equalsIgnoreCase("enrollmentS")) {
             EnrollmentDAO DAO = new EnrollmentDAO();
             ArrayList<Enrollment> enrollment = new ArrayList<Enrollment>();
-              
-           if (classification.equalsIgnoreCase("private")) {
+
+            if (classification.equalsIgnoreCase("private")) {
                 try {
                     enrollment = DAO.ViewEnrollmentFormID(140000000 + Integer.parseInt(formID), classification.trim());
                 } catch (ParseException ex) {
@@ -82,9 +82,7 @@ public class ViewReportsForApprovalEduc extends BaseServlet {
             request.setAttribute("clicked", "forView");
             rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/Education_Enrollment.jsp");
             rd.forward(request, response);
-        } 
-
-            //VIEW FOR ADMIN TO APPROVE
+        } //VIEW FOR ADMIN TO APPROVE
         else if (page.equalsIgnoreCase("enrollmentApproval")) {
             EnrollmentDAO DAO = new EnrollmentDAO();
             ArrayList<Enrollment> enrollment = new ArrayList<Enrollment>();
@@ -103,16 +101,14 @@ public class ViewReportsForApprovalEduc extends BaseServlet {
                 }
 
             }
-            
+
             request.setAttribute("enrollment", enrollment);
             request.setAttribute("classification", classification.trim());
             request.setAttribute("clicked", "approvalAdmin");
             out.print("enrollment " + enrollment.size());
             rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/Education_Enrollment.jsp");
             rd.forward(request, response);
-        } 
-
-//VIEW FOR ADMIN TO APPROVE
+        } //VIEW FOR ADMIN TO APPROVE
         else if (page.equalsIgnoreCase("enrollmentApprovalS")) {
             EnrollmentDAO DAO = new EnrollmentDAO();
             ArrayList<Enrollment> enrollment = new ArrayList<Enrollment>();
@@ -136,6 +132,30 @@ public class ViewReportsForApprovalEduc extends BaseServlet {
             request.setAttribute("clicked", "approvalAdmin");
             out.print("enrollment " + enrollment.size());
             rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/Education_Enrollment.jsp");
+            rd.forward(request, response);
+        } //  APPROVAL EDUCATION DIRECTORY
+        else if (page.equalsIgnoreCase("directoryApproval")) {
+            DirectorySchoolDAO DAO = new DirectorySchoolDAO();
+            ArrayList<DirectorySchool> directorySchool = new ArrayList<DirectorySchool>();
+
+            if (classification.equalsIgnoreCase("Public")) {
+                try {
+                    directorySchool = DAO.ViewDirectorySchoolRecentPublic();
+                } catch (ParseException | SQLException ex) {
+                    Logger.getLogger(ViewReportsForApprovalEduc.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    directorySchool = DAO.ViewDirectorySchoolRecentPrivate();
+                } catch (ParseException | SQLException ex) {
+                    Logger.getLogger(ViewReportsForApprovalEduc.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+            request.setAttribute("directorySchool", directorySchool);
+            request.setAttribute("classification", classification.trim());
+            request.setAttribute("clicked", "approvalAdmin");
+            rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/SchoolDirectoryApproval.jsp");
             rd.forward(request, response);
         }
     }

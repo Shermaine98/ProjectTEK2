@@ -35,18 +35,6 @@ $(document).ready(function () {
                 $('#btnsubmit').prop('disabled', true);
                 $('#addnew').prop('disabled', true);
 
-            } else if (data === "reUpload") {
-                $("#modal-body").empty();
-                $("#modal-body").append('<p>This file has already been uploaded. Are you sure you want to reupload?</p>');
-                $("#modal-footer").append('<button id="cancelButton" type="button"class="btn btn-default" data-dismiss="modal">Cancel</button>');
-                $("#modal-footer").append('<button id="submitButton" type="button"class="btn btn-default" data-dismiss="modal">Submit</button>');
-                $("#showModalWarning").modal("show");
-
-                $('#cancelButton').click(function () {
-                    $('#showModalWarning').modal('hide');
-                    $("#modal-body").empty();
-                    $("#modal-footer").empty();
-                });
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(exception);
