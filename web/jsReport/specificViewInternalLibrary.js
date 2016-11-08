@@ -111,6 +111,61 @@ function chart(print) {
     for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
         topCategories.push(print[0].totalAgeGroupSex[i].ageGroup);
     }
+    var ageGroups = [];
+    item = {};
+    item["ageGroup"] = 'Under 1';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '1 - 4';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '5 - 9';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '10 - 14';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '15 - 19';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '20 - 24';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '25 - 29';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '30 - 34';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '35 - 39';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '40 - 44';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '45 - 49';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '50 - 54';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '55 - 59';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '60 - 64';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '65 - 69';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '70 - 74';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '75 - 79';
+    ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '80 and Over';
+    ageGroups.push(item);
 
     var malePerBarangay = [];
     for (var i =  print[0].arrTotalMFFemale.length-1; i >= 0; i--) {
@@ -130,20 +185,28 @@ function chart(print) {
     }
 
     var malePerAgeGroup = [];
-    for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-        item = {};
-        item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
-        item["y"] = -print[0].totalAgeGroupSex[i].male;
-        item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'm';
-        malePerAgeGroup.push(item);
+    for(var a = 0; a < ageGroups.length; a++){
+        for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
+            if(ageGroups[a].ageGroup == print[0].totalAgeGroupSex[i].ageGroup){
+                item = {};
+                item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
+                item["y"] = -print[0].totalAgeGroupSex[i].male;
+                item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'm';
+                malePerAgeGroup.push(item);
+            }
+        }
     }
     var femalePerAgeGroup = [];
-    for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-        item = {};
-        item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
-        item["y"] = print[0].totalAgeGroupSex[i].female;
-        item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'f';
-        femalePerAgeGroup.push(item);
+    for(var a = 0; a < ageGroups.length; a++){
+        for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
+            if(ageGroups[a].ageGroup == print[0].totalAgeGroupSex[i].ageGroup){
+                item = {};
+                item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
+                item["y"] = print[0].totalAgeGroupSex[i].female;
+                item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'f';
+                femalePerAgeGroup.push(item);
+            }
+        }
     }
 
 
