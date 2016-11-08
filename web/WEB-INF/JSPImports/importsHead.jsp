@@ -393,9 +393,9 @@ and open the template in the editor.
                                         } else if (formName === "Enrollment in Private School") {
                                             window.location.replace("ViewReportsForApprovalEduc?page=enrollmentApprovalS&classification=private&formID=" + year);
                                         } else if (formName === "Number of Teachers and Classrooms for Public Schools") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("ViewReportsForApprovalEduc?page=directoryApproval&classification=public");
                                         } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
-                                            window.location.replace("ViewReportsForApprovalEduc?page=reportsLibrary");
+                                            window.location.replace("ViewReportsForApprovalEduc?page=directoryApproval&classification=private");
                                             //DEMO
                                         } else if (formName === "Household Population by Age Group and Sex") {
                                             window.location.replace("ViewArchivesReportForApproval?page=byAgeGroupApprovalS&formID=" + year);
@@ -407,7 +407,7 @@ and open the template in the editor.
                                         else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
                                             window.location.replace("ViewReportForApprovalHealth?page=nutritionalApprovalS&formID=" + year);
                                         } else if (formName === "List of Hospitals") {
-                                            window.location.replace("ViewReportForApprovalHealth?page=reportsLibrary");
+                                            window.location.replace("ViewReportForApprovalHealth?page=directoryApprovalS&formID=" + year);
                                         }
 
                                     });

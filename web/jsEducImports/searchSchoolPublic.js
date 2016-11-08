@@ -1,13 +1,12 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ *  Authors: Shermaine Sy, Gian Carlo Roxas, Geraldine Atayan
  */
 
 
 function autoCompleteSchool() {
     $("#schoolNameSearch").devbridgeAutocomplete({
-        serviceUrl: 'searchSchoolNamePublic',
+        serviceUrl: 'SearchSchoolNamePublic',
         type: 'POST',
         showNoSuggestionNotice: true,
         noSuggestionNotice: 'No existing school'
@@ -19,7 +18,7 @@ function setSchoolData() {
 
     var classification = "public";
     $.ajax({
-        url: "setSchoolData",
+        url: "SetSchoolData",
         type: 'POST',
         dataType: "JSON",
         data: {

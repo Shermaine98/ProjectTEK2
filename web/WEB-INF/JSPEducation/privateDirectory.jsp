@@ -10,6 +10,7 @@
 <!--IMPORTING HTML IMPORTS (bootstrap + scripts)-->
 <%@include file="../levelOfAccess.jsp"%>
 <%@ include file="directory_modal.jsp" %>
+<%@ include file="../JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +27,7 @@
         <script src="jsEducImports/directorydelete.js" type="text/javascript"></script>
         <script src="jsImported/directoryChecker.js" type="text/javascript"></script>
 
-      
+
     </head>
     <body>
 
@@ -63,7 +64,7 @@
                                     <button class="btn btn-default" onClick="setSchoolData()"><span class="glyphicon glyphicon-search"></span></button>
                                     <button class="btn btn-default" id="viewAll" disabled="disabled" onclick="viewAll()">View All</button>
                                     <!-- Trigger the modal with a button -->
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Add New</button>
+                                    <button class="btn btn-primary" id="addnew" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Add New</button>
                                     <form id="submitAll" action="UpdateSchoolDirectory" method="post" class="pull-right">
                                         <input type="hidden" name="redirect" value="submitAll"/>
                                         <input type="hidden" name="censusYear" id= "year"/>
@@ -107,11 +108,11 @@
 
                                 <tbody>
                                     <tr style = "background-color: #454545; color: #fff" >
-                                        <th style="vertical-align: bottom; text-align: left;" >Name of School</th>
-                                        <td class="nr" colspan = "8" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
+                                        <th colspan="2" style="vertical-align: bottom; text-align: left;" >Name of School</th>
+                                        <td class="nr" colspan = "7" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
                                         <td style="border-left: none; text-align: right">
-                                            <button id="updateDirectory" class="btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
-                                            <button id="invalidDirectory"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                                            <button id="updateDirectory" class="upadateBtn btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
+                                            <button id="invalidDirectory"  class="deleteBtn btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -222,6 +223,33 @@
             </div>
         </div>
         <script>
+            $(document).ready(function () {
+                $('#classification').val("Private");
+            });
+            function changeKinder() {
+                var totalPoints = 0;
+                $('.kinderT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#KteacherTotal').val(totalPoints);
+                totlT();
+            }
+            function changeElem() {
+                var totalPoints = 0;
+                $('.ElemT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#EteacherTotal').val(totalPoints);
+                totlT();
+            }
+            function totlT() {
+                var totalPoints = 0;
+                $('.totalT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#totalTeachers').val(totalPoints);
+            }
+
             function changeSum() {
                 var totalPoints = 0;
                 $('.add').each(function () {
@@ -245,11 +273,6 @@
             }
         </script>
         <script>
-            $(document).ready(function () {
-                $('#myModal').on('shown', function () {
-                    google.maps.event.trigger(map, "resize");
-                });
-            });
             function viewAll() {
                 $('#dataSchool').remove();
 

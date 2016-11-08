@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../levelOfAccess.jsp"%>
+<%@ include file="../JSPViewModal/notifcationModal.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -61,11 +62,7 @@
                                             <h4 class="modal-title">Add New Hospital</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                                            <div id="map" style="width: 570px; height:300px"></div>
-                                            <br/><br/>
                                             <p>Please input hospital details below:</p>
-
                                             <div class="form-inline" style="margin-top:3%;">
                                                 <label class="width20">Classification: </label>
                                                 <select required class="form-control" style="width: 65%" name="classification">
@@ -106,7 +103,6 @@
                                             <input style="display: inline; margin-left: 3%;" type="radio" name="accredited" value="false"> False<br>
                                             <!--</div>-->
                                             <div class="form-inline" style="margin-top:3%;">
-                                                <label style="width: 20%;">Points: </label>
                                                 <input style="margin-right: 3%;" class="form-control" name="lat" id="lat" type="hidden" value="0"  />
                                                 <input class="form-control" name="long" id="long" type="hidden" value="0"   />
                                             </div>
@@ -188,7 +184,7 @@
                             <div class="box box-solid box-archived">
                                 <div class="box-header">
                                     <h3 class="box-title">List of <b>Government Hospitals</b></h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Add New</button>
+                                    <button type="button" class="btn btn-primary approvedDisabled" data-toggle="modal" data-target="#myModal" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Add New</button>
                                 </div>
 
                                 <div class="box-body">
@@ -225,8 +221,8 @@
                                                 <td class="accreditation"><%=directoryHealth.get(i).isAccreditation()%></td>
                                                 <td width="15%">
                                                     <input type="hidden" id="censusYear" value="<%=directoryHealth.get(i).getYear()%>"/>
-                                                    <button id="invalidDirectory"  class="btn btn-danger btn-flat btn-sm pull-right" style="width:50%;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-                                                    <button id="edit"  class="btn btn-success btn-flat btn-sm pull-right" style="width:50%;"><span class="fa fa-edit"></span> Edit</button></td>
+                                                    <button id="invalidDirectory"  class="approvedDisabled btn btn-danger btn-flat btn-sm pull-right" style="width:50%;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                                                    <button id="edit"  class="approvedDisabled btn btn-success btn-flat btn-sm pull-right" style="width:50%;"><span class="fa fa-edit"></span> Edit</button></td>
                                             </tr>
                                             <% }
                                                 }
@@ -241,7 +237,7 @@
                             <div class="box box-solid box-archived">
                                 <div class="box-header">
                                     <h3 class="box-title">List of <b>Private Hospitals</b></h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Add New</button>
+                                    <button type="button" class="btn btn-primary approvedDisabled" data-toggle="modal" data-target="#myModal" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Add New</button>
                                 </div>
                                 <div class="box-body">
 
@@ -278,8 +274,8 @@
                                                 <td class="accreditation"><%=directoryHealth.get(i).isAccreditation()%></td>
                                                 <td width="15%">
                                                     <input type="hidden" id="censusYear" value="<%=directoryHealth.get(i).getYear()%>"/>
-                                                    <button id="invalidDirectory"  class="btn btn-danger btn-flat btn-sm pull-right" style="width:50%;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-                                                    <button id="edit"  class="btn btn-success btn-flat btn-sm pull-right" style="width:50%;"><span class="fa fa-edit"></span> Edit</button></td>
+                                                    <button id="invalidDirectory"  class="approvedDisabled btn btn-danger btn-flat btn-sm pull-right" style="width:50%;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                                                    <button id="edit"  class="approvedDisabled btn btn-success btn-flat btn-sm pull-right" style="width:50%;"><span class="fa fa-edit"></span> Edit</button></td>
                                             </tr>
                                             <% }
                                                 }
@@ -294,7 +290,7 @@
                     </div>
                     <div align="center" style="margin-bottom: 2%;">
                         <form id="submitAll" action="UpdateHealthDirectory" method="post">
-                            <input class="btn btn-primary" id="btnsubmit" type="Submit" value="Submit List of Hospitals Report" />
+                            <input class="approvedDisabled btn btn-primary" id="btnsubmit" type="Submit" value="Submit List of Hospitals Report" />
                             <input type="hidden" name="redirect" value="submitAll"/>
                             <input type="hidden" name="uploadedBy" value="<%=user.getUserID()%>"/>
                             <input type="hidden" id= "classification" name="classification" value="hospital"/>

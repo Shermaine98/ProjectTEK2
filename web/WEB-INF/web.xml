@@ -20,7 +20,6 @@
         <filter-name>ServletFilter</filter-name>
         <url-pattern>/ServletFilter</url-pattern>
     </filter-mapping>
-   
     <servlet>
         <servlet-name>ServletAccess</servlet-name>
         <servlet-class>servlets.access.ServletAccess</servlet-class>
@@ -393,6 +392,10 @@
         <servlet-name>ValiNutritionalStatus</servlet-name>
         <servlet-class>servlets.health.servlet.ValiNutritionalStatus</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadCheckerDirectory</servlet-name>
+        <servlet-class>servlets.servlet.UploadCheckerDirectory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAccess</servlet-name>
         <url-pattern>/ServletAccess</url-pattern>
@@ -421,7 +424,6 @@
         <error-code>405</error-code>
         <location>/ErrorHandler</location>
     </error-page>
-
     <error-page>
         <error-code>404</error-code>
         <location>/ErrorHandler</location>
@@ -781,6 +783,10 @@
     <servlet-mapping>
         <servlet-name>ValiNutritionalStatus</servlet-name>
         <url-pattern>/ValiNutritionalStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadCheckerDirectory</servlet-name>
+        <url-pattern>/UploadCheckerDirectory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

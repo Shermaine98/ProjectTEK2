@@ -78,17 +78,9 @@
         <div class="wrapper">
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1><i class="fa fa-upload"></i> </h1>
-                </section>
-                <ol class="breadcrumb" style='background: transparent; margin-left: 3%; font-size: 120%;'>
-                    <li class="title">Health</li>
-                    <li class="active title">List of Hospitals</li>
-                </ol>
                 <section class="content">
                     <div class="row">
-
+                        <h3 style="text-align:center; margin-left: 2%; margin-right: 2%; margin-bottom: 3%;">Report for Approval | List of Hospitals</h3>
 
                         <%                    ArrayList<DirectoryHealth> directoryHealth = (ArrayList<DirectoryHealth>) request.getAttribute("directoryHealth");%>
                         <input type="hidden" id="formID" value="<%= directoryHealth.get(0).getFormID()%>" />
@@ -96,12 +88,12 @@
                         <div class="col-md-12">
                             <div class="box box-solid box-archived">
                                 <div class="box-header">
-                                    <h3 class="box-title">Approval List of <b>Government Hospitals</b></h3>
+                                    <h3 class="box-title">List of <b>Government Hospitals</b></h3>
                                 </div>
 
                                 <div class="box-body">
-                                    <table id="approved" class="table table-striped dataTable" role="grid" aria-describedby="incomplete_info">
-                                        <thead>
+                                    <table id="approved" class="table table-bordered" role="grid" aria-describedby="incomplete_info">
+                                        <thead style="background-color: #454545; color: #fff">
                                             <tr>
                                                 <th>Name of Hospital</th>
                                                 <th>Address</th>
@@ -148,8 +140,8 @@
                                 </div>
                                 <div class="box-body">
 
-                                    <table id="archived" class="table table-striped dataTable" role="grid" aria-describedby="incomplete_info">
-                                        <thead>
+                                    <table id="archived" class="table table-bordered" role="grid" aria-describedby="incomplete_info">
+                                        <thead style="background-color: #454545; color: #fff">
                                             <tr>
                                                 <th>Name of Hospital</th>
                                                 <th>Address</th>
@@ -184,10 +176,10 @@
                                             %>
                                         </tbody>
                                     </table>
-                                    <input id ="approvedReport" class="btn btn-flat btn-success" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Approve Report"/>
-                                    <input class="btn btn-flat btn-danger" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Reject Report" data-toggle="modal" data-target="#rejectModal"/>
-                                    <input type="hidden" id= "page" value="directoryApproval"/>
                                 </div>
+                                <input id ="approvedReport" class="btn btn-flat btn-success" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Approve Report"/>
+                                <input class="btn btn-flat btn-danger" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Reject Report" data-toggle="modal" data-target="#rejectModal"/>
+                                <input type="hidden" id= "page" value="directoryApproval"/>
                             </div>
                             <form id="approveServlet" action="ApproveReportsHealth" method="post">
                                 <input type="hidden" name="sUser" id="sUser" value="<%= user.getUserID()%>" />
@@ -200,7 +192,5 @@
             </div>
         </div>
         <script src="jsImported/approveReject.js" type="text/javascript"></script>
-
-
     </body>
 </html>

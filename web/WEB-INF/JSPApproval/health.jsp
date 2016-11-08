@@ -81,15 +81,15 @@
                 <% } else { %>
                 <select class="form-control select" onChange="changeDiv(this)" id="theSelect">
                     <option disabled selected>Choose Health Report</option>
-                    <% if (ListOfHospital.size() > 0) {%>
+                    <% if (NutritionalStatus.size() > 0) {%>
                     <option value="1">Reports of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender for Approval</option>
                     <%}
-                        if (NutritionalStatus.size() > 0) {%>
+                        if (ListOfHospital.size() > 0) {%>
                     <option value="2">List of Hospitals</option>
                     <%}%>
                 </select>
                 <%}%>
-                
+
                 <% String subject = request.getAttribute("subject").toString();%>
                 <input type="text" hidden value="<%=subject%>" id="report_title" />
 

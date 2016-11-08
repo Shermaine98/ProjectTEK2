@@ -58,10 +58,8 @@ public class RetrieveDataHealthServlet extends BaseServlet {
             try {
                 ErrRecords = NutritionalStatusDAO.getValidationFalse();
                 records = recordDAO.GetForApproval(800000000, 899999999);
-            } catch (ParseException ex) {
+            } catch (ParseException | SQLException ex) {
                 getLogger(RetrieveDataHealthServlet.class.getName()).log(SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(RetrieveDataHealthServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (saveToDb != null) {
                 request.setAttribute("saveToDB", saveToDb);
@@ -78,12 +76,10 @@ public class RetrieveDataHealthServlet extends BaseServlet {
 
         } else if (redirect.equalsIgnoreCase("directoryHosptial")) {
             DirectoryHospitalDAO directoryHospitalDAO = new DirectoryHospitalDAO();
-            ArrayList<DirectoryHealth> directoryHealth = new ArrayList<DirectoryHealth>();
+            ArrayList<DirectoryHealth> directoryHealth = new ArrayList<>();
             try {
                 directoryHealth = directoryHospitalDAO.ViewDirectoryHospitalRecent();
-            } catch (ParseException ex) {
-                Logger.getLogger(RetrieveDataHealthServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } catch (ParseException | SQLException ex) {
                 Logger.getLogger(RetrieveDataHealthServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             
@@ -111,7 +107,6 @@ public class RetrieveDataHealthServlet extends BaseServlet {
             request.setAttribute("page", "approvalAdmin");
             request.setAttribute("message", "none");
             request.setAttribute("NutritionalStatus", nutrition);
-            
             ArrayList<Record> directory = new ArrayList<>();
             try {
                 directory = recordDAO.GetForApproval(90000000, 99999999);
@@ -121,10 +116,10 @@ public class RetrieveDataHealthServlet extends BaseServlet {
 
             request.setAttribute("message", "none");
             request.setAttribute("directory", directory);
-            
-            request.setAttribute("subject", "");
+            request.setAttribute("subject", "hospitaldirectory");
             rd = request.getRequestDispatcher("/WEB-INF/JSPApproval/health.jsp");
             rd.forward(request, response);
+            
         } else if (redirect.contains("approval_")) {
             if (redirect.equalsIgnoreCase("approval_nutritional")) {
                 request.setAttribute("subject", "nutritional");
@@ -136,10 +131,18 @@ public class RetrieveDataHealthServlet extends BaseServlet {
             } catch (ParseException ex) {
                 Logger.getLogger(RetrieveDataHealthServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            ArrayList<Record> directory = new ArrayList<>();
+            try {
+                directory = recordDAO.GetForApproval(90000000, 99999999);
+            } catch (ParseException ex) {
+                Logger.getLogger(RetrieveDataHealthServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             request.setAttribute("page", "approvalAdmin");
             request.setAttribute("message", "none");
             request.setAttribute("NutritionalStatus", nutrition);
+            request.setAttribute("directory", directory);
             rd = request.getRequestDispatcher("/WEB-INF/JSPApproval/health.jsp");
             rd.forward(request, response);
         }

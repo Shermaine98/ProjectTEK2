@@ -42,6 +42,31 @@
                 width: 100%;
                 overflow: hidden;
             }
+
+            #loadingSpinner{
+                background: #666666;  
+                display: none;        
+                position: absolute;   
+                top: 0;                  
+                right: 0;                
+                bottom: 0;
+                left: 0;
+                z-index: 99;
+                opacity: 0.3;
+            }
+
+            .blur{
+                -webkit-filter: blur(5px);
+                -moz-filter: blur(5px);
+                -o-filter: blur(5px);
+                -ms-filter: blur(5px);
+                filter: blur(5px);
+            }
+
+            #spinnerIMG{
+                width: 140px; height: 140px; 
+                margin-top: 25%; z-index: 3;
+            }
         </style>
 
         <link href="cssImported/ValidateCSS.css" rel="stylesheet" type="text/css"/>
@@ -99,13 +124,15 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <center>
+                                        <div id="loadingSpinner">
+                                            <img id="spinnerIMG" src="img/spinner.gif" />
+                                        </div>
                                         <div id="byAgeGrpSex" style="width:80%;">
-                                            <center><img id="loadingSpinner" src="img/spinner.gif" style="width:3%; height:3%; margin-top:10%;"><div class="col-md-12"></center>
+                                        </div>
+                                        <!--TABLE-->
+                                        <div id="TableHolder" style="margin-top:3%; width: 90%; margin-left: auto; margin-right: auto;">
                                         </div>
                                     </center>
-                                    <!--TABLE-->
-                                    <div id="TableHolder" style="margin-top:3%; width: 90%; margin-left: auto; margin-right: auto;">
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -270,6 +297,7 @@
                 }
             }
             function getData() {
+                $("#loadingSpinner").show();
                 year = $('#searchCensusYear').val();
                 var conceptName = $('#form_name').find(":selected").text();
                 if (conceptName == "Household Population By Age Group and Sex") {

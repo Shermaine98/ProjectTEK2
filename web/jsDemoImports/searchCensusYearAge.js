@@ -1,7 +1,6 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  ProjectTEK - DLSU CCS 2016
+ *  Authors: Shermaine Sy, Gian Carlo Roxas, Geraldine Atayan
  */
 
 
@@ -125,9 +124,10 @@ function getDataAgeGroup() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                $('#loadingSpinner').show();
+                document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
 
@@ -144,8 +144,6 @@ function getDataAgeGroup() {
                                     <th class="centerTD">Male Count</th>\n\
                                     <th class="centerTD">Female Count</th> \n\
                                     </tr>');
-
-
 
                 for (i = 0; i < print[0].ByAgeGroupSexTable.length; i++) {
                     $('#data').append('<tr> \n\
@@ -391,7 +389,7 @@ function getMaritalStatusData() {
             } else {
                 document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
 
@@ -439,12 +437,12 @@ function getMaritalStatusData() {
                         "emptyTable": "No Data"
                     }
                 });
-                $('#loadingSpinner').hide();
                 $('input:text').focus(
                         function () {
                             $('#searchCensusYear').val('');
                         });
                 chartMarital(print);
+                $("#loadingSpinner").hide();
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
@@ -975,9 +973,9 @@ function getSchoolData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1206,9 +1204,9 @@ function getHospitalData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1531,9 +1529,9 @@ function getEnrollmentData() {
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -1773,7 +1771,7 @@ function getNutritionalStatus() {
                         "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender"
                         + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
@@ -2034,14 +2032,14 @@ function getHighestCompleted() {
         success: function (data) {
             if (data[0].table.length === 0) {
                 errorMessage(censusYear);
-               // document.getElementById('contentHere').style.display = "none";
+                // document.getElementById('contentHere').style.display = "none";
                 document.getElementById('noReport').style.display = "block";
                 document.getElementById("contentNone").innerHTML = "";
                 document.getElementById("contentNone").innerHTML = "There are no " + $('#form_name').find(":selected").text() + " reports available for the year " + censusYear + ".";
             } else {
-                document.getElementById("print_year").innerHTML =$('#form_name').find(":selected").text() + " Report for " + year;
+                document.getElementById("print_year").innerHTML = $('#form_name').find(":selected").text() + " Report for " + year;
                 document.getElementById('contentHere').style.display = "block";
-                document.getElementById('noReport').style.display = "display";
+                document.getElementById('noReport').style.display = "none";
                 var print = data;
                 $('#dataTable').remove();
                 $('#dataTable2').remove();
