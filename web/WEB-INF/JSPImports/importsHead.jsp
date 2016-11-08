@@ -407,7 +407,7 @@ and open the template in the editor.
                                         else if (formName === "Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender") {
                                             window.location.replace("ViewReportForApprovalHealth?page=nutritionalApprovalS&formID=" + year);
                                         } else if (formName === "List of Hospitals") {
-                                            window.location.replace("ViewReportForApprovalHealth?page=reportsLibrary");
+                                            window.location.replace("ViewReportForApprovalHealth?page=directoryApprovalS&formID=" + year);
                                         }
 
                                     });

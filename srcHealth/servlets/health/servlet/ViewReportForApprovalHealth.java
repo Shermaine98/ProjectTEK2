@@ -111,5 +111,19 @@ public class ViewReportForApprovalHealth extends BaseServlet {
             rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/Health_NutritionalStatus.jsp");
             rd.forward(request, response);
         }
+        
+        else if (page.equalsIgnoreCase("directoryApprovalS")) {
+            DirectoryHospitalDAO DAO = new DirectoryHospitalDAO();
+            ArrayList<DirectoryHealth> directoryHealth = new ArrayList<DirectoryHealth>();
+            try {
+                directoryHealth = DAO.ViewByDirectoryHospital(Integer.parseInt(formID));
+        
+            } catch (ParseException ex) {
+                Logger.getLogger(ViewReportForApprovalHealth.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("directoryHealth", directoryHealth);
+            rd = request.getRequestDispatcher("/WEB-INF/JSPViewTables/hospitalDirectoryApproval.jsp");
+            rd.forward(request, response);
+        }
     }
 }
