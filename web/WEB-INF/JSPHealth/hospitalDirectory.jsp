@@ -61,11 +61,7 @@
                                             <h4 class="modal-title">Add New Hospital</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                                            <div id="map" style="width: 570px; height:300px"></div>
-                                            <br/><br/>
                                             <p>Please input hospital details below:</p>
-
                                             <div class="form-inline" style="margin-top:3%;">
                                                 <label class="width20">Classification: </label>
                                                 <select required class="form-control" style="width: 65%" name="classification">
@@ -106,7 +102,6 @@
                                             <input style="display: inline; margin-left: 3%;" type="radio" name="accredited" value="false"> False<br>
                                             <!--</div>-->
                                             <div class="form-inline" style="margin-top:3%;">
-                                                <label style="width: 20%;">Points: </label>
                                                 <input style="margin-right: 3%;" class="form-control" name="lat" id="lat" type="hidden" value="0"  />
                                                 <input class="form-control" name="long" id="long" type="hidden" value="0"   />
                                             </div>

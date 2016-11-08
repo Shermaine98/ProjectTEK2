@@ -26,7 +26,7 @@
         <script src="jsEducImports/directorydelete.js" type="text/javascript"></script>
         <script src="jsImported/directoryChecker.js" type="text/javascript"></script>
 
-      
+
     </head>
     <body>
 
@@ -63,7 +63,7 @@
                                     <button class="btn btn-default" onClick="setSchoolData()"><span class="glyphicon glyphicon-search"></span></button>
                                     <button class="btn btn-default" id="viewAll" disabled="disabled" onclick="viewAll()">View All</button>
                                     <!-- Trigger the modal with a button -->
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Add New</button>
+                                    <button class="btn btn-primary" id="addnew" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Add New</button>
                                     <form id="submitAll" action="UpdateSchoolDirectory" method="post" class="pull-right">
                                         <input type="hidden" name="redirect" value="submitAll"/>
                                         <input type="hidden" name="censusYear" id= "year"/>
@@ -110,8 +110,8 @@
                                         <th style="vertical-align: bottom; text-align: left;" >Name of School</th>
                                         <td class="nr" colspan = "8" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
                                         <td style="border-left: none; text-align: right">
-                                            <button id="updateDirectory" class="btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
-                                            <button id="invalidDirectory"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                                            <button id="updateDirectory" class="upadateBtn btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
+                                            <button id="invalidDirectory"  class="deleteBtn btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                                         </td>
                                     </tr>
                                     <tr>

@@ -7,7 +7,7 @@
 
 function autoCompleteSchool() {
     $("#schoolNameSearch").devbridgeAutocomplete({
-        serviceUrl: 'searchSchoolNamePublic',
+        serviceUrl: 'SearchSchoolNamePublic',
         type: 'POST',
         showNoSuggestionNotice: true,
         noSuggestionNotice: 'No existing school'
@@ -19,7 +19,7 @@ function setSchoolData() {
 
     var classification = "public";
     $.ajax({
-        url: "setSchoolData",
+        url: "SetSchoolData",
         type: 'POST',
         dataType: "JSON",
         data: {

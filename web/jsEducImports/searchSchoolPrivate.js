@@ -7,7 +7,7 @@
 
 function autoCompleteSchool() {
     $("#schoolNameSearch").devbridgeAutocomplete({
-        serviceUrl: 'searchSchoolNamePrivate',
+        serviceUrl: 'SearchSchoolNamePrivate',
         type: 'POST',
         showNoSuggestionNotice: true,
         noSuggestionNotice: 'No existing School'
@@ -18,7 +18,7 @@ function setSchoolData() {
      var schoolName = document.getElementById('schoolNameSearch').value;
     var classification = "private";
     $.ajax({
-        url: "setSchoolData",
+        url: "SetSchoolData",
         type: 'POST',
         dataType: "JSON",
         data: {
@@ -65,7 +65,7 @@ function setSchoolData() {
                     <th>Male</th>\n\
                     <th>Female</th>\n\
                     <th>Total</th>\n\
-                </tr>')
+                </tr>');
 
             $('#data').append('<tr>');
             var totalKinder;
