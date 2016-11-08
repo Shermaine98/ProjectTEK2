@@ -2,6 +2,7 @@ var wrapper;
 EXPORT_WIDTH = 1000;
 var data;
 var tableImage;
+var image2 = new Image();
 (function () {
     var callWithJQuery;
 
@@ -182,37 +183,35 @@ var tableImage;
                             nextButton.disabled = options.hAxis.viewWindow.max >= MAX;
                             changeZoomButton.disabled = false;
 
-
+ 
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
-                                 document.getElementById('notShow').style.display = "block";
-                                  document.getElementById('buttonSave').style.display = "block";
+                                document.getElementById('notShow').style.display = "block";
+                                document.getElementById('buttonSave').style.display = "block";
                                 document.getElementById('showReport').style.display = "block";
 
                                 var conceptName = $('#commonReports').find(":selected").text();
-
+                          
                                 if (conceptName != 'Population by year'
                                         && conceptName != 'Enrollment in Public and Private Schools'
                                         && conceptName != 'Actual number of Beds in Private and Public Hospitals') {
 
                                     if (theChartSelected == "Table") {
-                                        chartImage();
-                                        console.log("asd"+tableImage);
-                                        //SVG
+                                        html2canvas($("#dataTable"), {
+                                            onrendered: function (canvas) {
+                                                 tableImage = canvas.toDataURL("image/png");
+                                                 image2.src = tableImage;
+                                            },
+                                            allowTaint: false
+                                        });
                                         if (this.id == "btnMatrix") {
-                                            console.log('hi');
                                             var para = document.createElement("div");
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
-                                            $('.reportContents').append();
+                                            //      $('.reportContents').append();
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
-                                            
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + tableImage + '"/>');
-                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="' + tableImage + '">');
-                                            document.getElementById('image').setAttribute( 'src', tableImage);
-
-                                            
-
+                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image2.src + '">');
                                             $('div#matrix')                         // grab the media content
                                                     .clone()                          // make a duplicate of it
                                                     .removeAttr('id')               // remove their ID attributes
@@ -226,10 +225,8 @@ var tableImage;
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
-                                            //chartImage();
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + tableImage + '"/>');
-                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="">');
-                                         document.getElementById('image').setAttribute( 'src', tableImage);
+                                            $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image2.src + '">');
                                             $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                             $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
@@ -301,7 +298,7 @@ var tableImage;
                                         var element = document.getElementById("reportBody");
                                         para.setAttribute("class", "reportContents");
                                         element.appendChild(para);
-                                        $('.reportContents').append();
+                                        //   $('.reportContents').append();
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc"  name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
@@ -388,49 +385,5 @@ var tableImage;
             "Scatter Chart": makeGoogleChart("ScatterChart")
         };
     });
-
 }).call(this);
 
-
-function chartImage() {
-    html2canvas(document.getElementById("dataTable"), {
-        onrendered: function (canvas) {
-            tableImage = canvas.toDataURL("image/png");
-        }
-    });
-//    OLD CODE
-//    var img = canvas.toDataURL("image/png");
-//             tableImage = img;
-//             console.log(tableImage);
-//             
-//                 var image = new Image;
-//               var canvas = document.createElement('canvas');
-//               image.src = tableImage;
-//                                        canvas.getContext('2d').drawImage(image, 0, 0);
-//                                        tableImage = canvas.toDataURL("image/png");
-    
-    //HIGH CHARTS CODE
-//                var chart = $('#output').highcharts();
-//                var render_width = EXPORT_WIDTH;
-//                var render_height = render_width * chart.chartHeight / chart.chartWidth;
-//
-//                // Get the cart's SVG code
-//                var svg = chart.getSVG({
-//                    exporting: {
-//                        sourceWidth: chart.chartWidth,
-//                        sourceHeight: chart.chartHeight
-//                    }
-//                });
-//
-//
-//                var image = new Image;
-//                var canvas = document.createElement('canvas');
-//                canvas.height = render_height;
-//                canvas.width = render_width;
-//
-//                image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
-//
-//                canvas.getContext('2d').drawImage(image, 0, 0, render_width, render_height);
-//                data = canvas.toDataURL("image/png");
-
-}
