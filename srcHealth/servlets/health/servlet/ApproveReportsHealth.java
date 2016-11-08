@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package servlets.health.servlet;
 
 import dao.RecordDAO;
@@ -28,12 +26,11 @@ import static java.util.logging.Logger.getLogger;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class ApproveReportsHealth extends BaseServlet {
 
-     /**
+    /**
      *
      * @param request servlet request
      * @param response servlet response
@@ -66,9 +63,17 @@ public class ApproveReportsHealth extends BaseServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(ApproveReportsHealth.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                ArrayList<Record> directory = new ArrayList<>();
+                try {
+                    directory = recordDAO.GetForApproval(90000000, 99999999);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ApproveReportsHealth.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 request.setAttribute("subject", "");
                 request.setAttribute("message", "success");
                 request.setAttribute("NutritionalStatus", nutrition);
+                request.setAttribute("directory", directory);
                 rd = request.getRequestDispatcher("/WEB-INF/JSPApproval/health.jsp");
                 rd.forward(request, response);
 
@@ -84,7 +89,7 @@ public class ApproveReportsHealth extends BaseServlet {
             String comments = request.getParameter("comments");
             boolean x = false;
             try {
-                x = recordDAO.rejectRecord(parseInt(formID), parseInt(user),comments);
+                x = recordDAO.rejectRecord(parseInt(formID), parseInt(user), comments);
             } catch (SQLException ex) {
                 getLogger(ApproveReportsHealth.class.getName()).log(SEVERE, null, ex);
             }

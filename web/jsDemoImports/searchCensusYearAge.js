@@ -194,9 +194,65 @@ function chart(print) {
     for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
         topCategories.push(print[0].totalAgeGroupSex[i].ageGroup);
     }
+    
+    print[0].ageGroups.length = 0;
+    item = {};
+    item["ageGroup"] = 'Under 1';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '1 - 4';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '5 - 9';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '10 - 14';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '15 - 19';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '20 - 24';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '25 - 29';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '30 - 34';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '35 - 39';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '40 - 44';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '45 - 49';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '50 - 54';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '55 - 59';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '60 - 64';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '65 - 69';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '70 - 74';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '75 - 79';
+    print[0].ageGroups.push(item);
+    item = {};
+    item["ageGroup"] = '80 and Over';
+    print[0].ageGroups.push(item);
 
     var malePerBarangay = [];
-    for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
+    for (var i = print[0].arrTotalMFFemale.length-1; i >= 0 ; i--) {
         item = {};
         item["name"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation;
         item["y"] = print[0].arrTotalMFFemale[i].arrTotalMFMale;
@@ -204,7 +260,7 @@ function chart(print) {
         malePerBarangay.push(item);
     }
     var femalePerBarangay = [];
-    for (var i = 0; i < print[0].arrTotalMFFemale.length; i++) {
+    for (var i = print[0].arrTotalMFFemale.length-1; i >= 0 ; i--) {
         item = {};
         item["name"] = print[0].arrTotalMFFemale[i].arrTotalMFlocation;
         item["y"] = print[0].arrTotalMFFemale[i].arrTotalMFFemale;
@@ -213,20 +269,28 @@ function chart(print) {
     }
 
     var malePerAgeGroup = [];
-    for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-        item = {};
-        item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
-        item["y"] = -print[0].totalAgeGroupSex[i].male;
-        item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'm';
-        malePerAgeGroup.push(item);
+    for(var a = 0; a < print[0].ageGroups.length; a++){
+        for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
+            if(print[0].ageGroups[a].ageGroup == print[0].totalAgeGroupSex[i].ageGroup){
+                item = {};
+                item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
+                item["y"] = -print[0].totalAgeGroupSex[i].male;
+                item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'm';
+                malePerAgeGroup.push(item);
+            }
+        }
     }
     var femalePerAgeGroup = [];
-    for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
-        item = {};
-        item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
-        item["y"] = print[0].totalAgeGroupSex[i].female;
-        item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'f';
-        femalePerAgeGroup.push(item);
+    for(var a = 0; a < print[0].ageGroups.length; a++){
+        for (var i = 0; i < print[0].totalAgeGroupSex.length; i++) {
+            if(print[0].ageGroups[a].ageGroup == print[0].totalAgeGroupSex[i].ageGroup){
+                item = {};
+                item["name"] = print[0].totalAgeGroupSex[i].ageGroup;
+                item["y"] = print[0].totalAgeGroupSex[i].female;
+                item["drilldown"] = print[0].totalAgeGroupSex[i].ageGroup + 'f';
+                femalePerAgeGroup.push(item);
+            }
+        }
     }
 
 
@@ -283,26 +347,26 @@ function chart(print) {
                     y: 10
                 },
                 relativeTo: 'chart'
-            },
-            events: {
-                drilldown: function (e) {
-                    var chart = this;
-                    Highcharts.charts[0].xAxis[0].update({
-                        reversed: true,
-                        labels: {
-                            step: 1
-                        }});
-                },
-                drillup: function (e) {
-
-                    var chart = this;
-                    chart.xAxis[0].update({categories: topCategories,
-                        reversed: false,
-                        labels: {
-                            step: 1
-                        }});
-                }
-            }
+            }//,
+//            events: {
+//                drilldown: function (e) {
+//                    var chart = this;
+//                    Highcharts.charts[0].xAxis[0].update({
+//                        reversed: true,
+//                        labels: {
+//                            step: 1
+//                        }});
+//                },
+//                drillup: function (e) {
+//
+//                    var chart = this;
+//                    chart.xAxis[0].update({categories: topCategories,
+//                        reversed: false,
+//                        labels: {
+//                            step: 1
+//                        }});
+//                }
+//            }
         },
         title: {
             text: 'Household Population by Age Group and Sex'
