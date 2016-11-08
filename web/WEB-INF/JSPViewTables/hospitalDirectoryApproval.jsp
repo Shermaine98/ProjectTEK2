@@ -184,10 +184,10 @@
                                             %>
                                         </tbody>
                                     </table>
-                                    <input id ="approvedReport" class="btn btn-flat btn-success" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Approve Report"/>
-                                    <input class="btn btn-flat btn-danger" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Reject Report" data-toggle="modal" data-target="#rejectModal"/>
-                                    <input type="hidden" id= "page" value="directoryApproval"/>
                                 </div>
+                                <input id ="approvedReport" class="btn btn-flat btn-success" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Approve Report"/>
+                                <input class="btn btn-flat btn-danger" style="margin-top: 1%; margin-right: 2%; float: right;" type="button" value="Reject Report" data-toggle="modal" data-target="#rejectModal"/>
+                                <input type="hidden" id= "page" value="directoryApproval"/>
                             </div>
                             <form id="approveServlet" action="ApproveReportsHealth" method="post">
                                 <input type="hidden" name="sUser" id="sUser" value="<%= user.getUserID()%>" />
@@ -200,7 +200,5 @@
             </div>
         </div>
         <script src="jsImported/approveReject.js" type="text/javascript"></script>
-
-
     </body>
 </html>
