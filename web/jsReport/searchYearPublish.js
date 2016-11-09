@@ -55,19 +55,11 @@ function setAnalysisS(year, sector) {
 
             for (var i = 0; i < data.length; i++) {
                 var para = document.createElement("div");
-                var para2 = document.createElement("div");
                 var element = document.getElementById("content");
                 para.setAttribute("style", "width:90%; margin: 0 auto; ");
                 element.appendChild(para);
-                para.appendChild(para2);
 
-
-                encodeImage(data[i].path, function (dataURL) {
-                    $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
-                });
-
-//                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
-                $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
+                encodeImageAnalysis(data[i].path, para, data[i].text);
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
             console.log(XMLHttpRequest.responseText);
@@ -2405,41 +2397,13 @@ function setMatrixS(year, sector) {
 
             for (var i = 0; i < data.length; i++) {
                 var para = document.createElement("div");
-                var para2 = document.createElement("div");
                 var element = document.getElementById("content");
                 para.setAttribute("style", "box-body");
                 element.appendChild(para);
-                para.appendChild(para2);
 
-                encodeImage(data[i].path, function (dataURL) {
-                    $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
-                });
-
-                var table = document.createElement("table");
-                table.setAttribute("class", "table table-hover table-bordered");
-                table.setAttribute("style", " margin: 0 auto;");
-                para.appendChild(table);
-
-                var thead = document.createElement("thead");
-                table.appendChild(thead);
-                var tr = document.createElement("tr");
-                thead.appendChild(tr);
-                tr.setAttribute("id", "trcontent");
-                tr.setAttribute("style", "background-color: #454545; color: #fff;");
-                $(tr).append("<td width='25%'>Observations</td>");
-                $(tr).append("<td width='25%'>Explanations</td>");
-                $(tr).append("<td width='25%'>Implications</td>");
-                $(tr).append("<td width='25%'>Interventions</td>");
-                var tbody = document.createElement("tbody");
-
-                table.appendChild(tbody);
-                var tbodytr = document.createElement("tr");
-                tbody.appendChild(tbodytr);
-                $(tbodytr).append('<td>' + data[i].observations + '</td>');
-                $(tbodytr).append('<td>' + data[i].explanations + '</td>');
-                $(tbodytr).append('<td>' + data[i].implications + '</td>');
-                $(tbodytr).append('<td>' + data[i].interventions + '</td>');
-
+                 encodeImageMatrix(data[i].path, para, data[i].observations, data[i].explanations, data[i].implications,  data[i].interventions );
+                
+                
             }
 
 
@@ -2529,19 +2493,11 @@ function setAnalysis() {
 
                 for (var i = 0; i < data.length; i++) {
                     var para = document.createElement("div");
-                    var para2 = document.createElement("div");
                     var element = document.getElementById("content");
                     para.setAttribute("style", "width:90%; margin: 0 auto; ");
                     element.appendChild(para);
-                    para.appendChild(para2);
+                    encodeImageAnalysis(data[i].path, para, data[i].text); 
 
-
-                    encodeImage(data[i].path, function (dataURL) {
-                        $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
-                    });
-
-//                $(para).append('<img style="width: 90%;" id="image"  src="' + data[i].path + '"><br><br>');
-                    $(para).append('<b>Analysis: </b> <br><br>' + data[i].text + "<br>");
                 }
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -4912,36 +4868,11 @@ function setMatrix() {
                 $("#reportTitle").append(data[0].sector + " Analysis Matrix of " + year + " prepared by " + data[0].createdBy);
                 for (var i = 0; i < data.length; i++) {
                     var para = document.createElement("div");
-                    var para2 = document.createElement("div");
                     var element = document.getElementById("content");
                     para.setAttribute("style", "box-body");
-                    element.appendChild(para);
-                    para.appendChild(para2);
-                    encodeImage(data[i].path, function (dataURL) {
-                        $(para2).append('<center><img style="width: 90%; margin-top:5%; margin-bottom: 2%;" id="image"  src="' + dataURL + '"></center>');
-                    });
-                    var table = document.createElement("table");
-                    table.setAttribute("class", "table table-hover table-bordered");
-                    table.setAttribute("style", " margin: 0 auto;");
-                    para.appendChild(table);
-                    var thead = document.createElement("thead");
-                    table.appendChild(thead);
-                    var tr = document.createElement("tr");
-                    thead.appendChild(tr);
-                    tr.setAttribute("id", "trcontent");
-                    tr.setAttribute("style", "background-color: #454545; color: #fff;");
-                    $(tr).append("<td width='25%'>Observations</td>");
-                    $(tr).append("<td width='25%'>Explanations</td>");
-                    $(tr).append("<td width='25%'>Implications</td>");
-                    $(tr).append("<td width='25%'>Interventions</td>");
-                    var tbody = document.createElement("tbody");
-                    table.appendChild(tbody);
-                    var tbodytr = document.createElement("tr");
-                    tbody.appendChild(tbodytr);
-                    $(tbodytr).append('<td>' + data[i].observations + '</td>');
-                    $(tbodytr).append('<td>' + data[i].explanations + '</td>');
-                    $(tbodytr).append('<td>' + data[i].implications + '</td>');
-                    $(tbodytr).append('<td>' + data[i].interventions + '</td>');
+                    element.appendChild(para);                 
+                    encodeImageMatrix(data[i].path, para, data[i].observations, data[i].explanations, data[i].implications,  data[i].interventions );
+
                 }
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
@@ -4950,19 +4881,79 @@ function setMatrix() {
     });
 }
 
-function encodeImage(imageUri, callback) {
+function encodeImageAnalysis(imageUri, para, data) {
     var c = document.createElement('canvas');
     var ctx = c.getContext("2d");
     var img = new Image();
+    img.src = imageUri;
     img.onload = function () {
         c.width = this.width;
         c.height = this.height;
         ctx.drawImage(img, 0, 0);
         var dataURL = c.toDataURL("image/png");
-        callback(dataURL);
+         var image = document.createElement("img");
+            image.setAttribute("style", "width: 90%; margin-top:5%; margin-bottom: 2%;");
+            image.setAttribute("id", "image");
+            image.setAttribute("src", dataURL);
+              var para2 = document.createElement("div");
+                    para2.setAttribute("class","divTEMP");
+                    para.appendChild(para2);
+            document.querySelector(".divTEMP").appendChild(image);
+            $(para).append('<b>Analysis: </b> <br><br>' + data + "<br>");
+           $('.divTEMP').removeClass('divTEMP');
     };
-    img.src = imageUri;
 }
+
+
+function encodeImageMatrix(imageUri, para, observations,explanations,implications,interventions) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext("2d");
+    var img = new Image();
+    img.src = imageUri;
+    img.onload = function () {
+        c.width = this.width;
+        c.height = this.height;
+        ctx.drawImage(img, 0, 0);
+        var dataURL = c.toDataURL("image/png");
+         var image = document.createElement("img");
+            image.setAttribute("style", "width: 90%; margin-top:5%; margin-bottom: 2%;");
+            image.setAttribute("id", "image");
+            image.setAttribute("src", dataURL);
+              var para2 = document.createElement("div");
+                    para2.setAttribute("class","divTEMP");
+                    para.appendChild(para2);
+            document.querySelector(".divTEMP").appendChild(image);
+            
+            var table = document.createElement("table");
+                table.setAttribute("class", "table table-hover table-bordered");
+                table.setAttribute("style", " margin: 0 auto;");
+                para.appendChild(table);
+
+                var thead = document.createElement("thead");
+                table.appendChild(thead);
+                var tr = document.createElement("tr");
+                thead.appendChild(tr);
+                tr.setAttribute("id", "trcontent");
+                tr.setAttribute("style", "background-color: #454545; color: #fff;");
+                $(tr).append("<td width='25%'>Observations</td>");
+                $(tr).append("<td width='25%'>Explanations</td>");
+                $(tr).append("<td width='25%'>Implications</td>");
+                $(tr).append("<td width='25%'>Interventions</td>");
+                var tbody = document.createElement("tbody");
+
+                table.appendChild(tbody);
+                var tbodytr = document.createElement("tr");
+                tbody.appendChild(tbodytr);
+                $(tbodytr).append('<td>' + observations+ '</td>');
+                $(tbodytr).append('<td>' + explanations + '</td>');
+                $(tbodytr).append('<td>' + implications + '</td>');
+                $(tbodytr).append('<td>' + interventions + '</td>');
+
+            
+           $('.divTEMP').removeClass('divTEMP');
+    };
+}
+
 
 function errorMessage(year) {
     $("#notificationHeader").empty();
