@@ -204,7 +204,17 @@ public class HelathRecordsDAO {
                 PreparedStatement pstmt2 = conn.prepareStatement(update);
                 pstmt2.setInt(1, formID);
                 ResultSet rs2 = pstmt2.executeQuery();
-                if (rs2.next()) {
+                
+                 String update2 = "SELECT IF(`VALIDATION` = 1, 'TRUE', 'FALSE') AS `RESULT` \n"
+                        + " FROM nutritional_status_bmi \n"
+                        + " WHERE FORMID = ? \n"
+                        + " ORDER BY `VALIDATION` \n"
+                        + " LIMIT 1;";
+                PreparedStatement pstmt4 = conn.prepareStatement(update2);
+                pstmt4.setInt(1, formID);
+                ResultSet rs3 = pstmt4.executeQuery();
+                
+                if (rs2.next() || rs3.next() ) {
                     String updateValidation = " UPDATE RECORDS \n"
                             + " SET `validated` = ? \n"
                             + " WHERE FORMID = ?;";

@@ -143,8 +143,8 @@ public class NutritionalStatusDAO {
                         + "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
                 String query2 = "INSERT INTO nutritional_status_BMI"
-                        + "(censusYear,formID,district,gradeLevel,BMI,maleCount,femaleCount,totalCount) "
-                        + "VALUES (?,?,?,?,?,?,?,?);";
+                        + "(censusYear,formID,district,gradeLevel,BMI,maleCount,femaleCount,totalCount, validation) "
+                        + "VALUES (?,?,?,?,?,?,?,?,?);";
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 PreparedStatement pstmt2 = conn.prepareStatement(query2);
 
@@ -175,6 +175,7 @@ public class NutritionalStatusDAO {
                         pstmt2.setInt(6, object2.getMaleCount());
                         pstmt2.setInt(7, object2.getFemaleCount());
                         pstmt2.setInt(8, object2.getTotalCount());
+                         pstmt2.setInt(9, object2.getValidation());
                         pstmt2.addBatch();
                         z++;
                     }

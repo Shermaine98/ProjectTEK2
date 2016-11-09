@@ -1106,6 +1106,8 @@ public class NutritionalStatusChecker {
                     || ArrError.get(i).getTotalMale().equalsIgnoreCase("")) {
 
                 NutritionalStatus = new NutritionalStatus();
+                 NutritionalStatus.setFormID(ArrError.get(i).getFormID());
+                    NutritionalStatus.setCensusYear(ArrError.get(i).getCensusYear());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
@@ -1235,6 +1237,8 @@ public class NutritionalStatusChecker {
                     || isNumeric(ArrError.get(i).getTotalMale())) {
 
                 NutritionalStatus = new NutritionalStatus();
+                     NutritionalStatus.setFormID(ArrError.get(i).getFormID());
+                    NutritionalStatus.setCensusYear(ArrError.get(i).getCensusYear());
                 NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setValidation(-2);
@@ -1361,6 +1365,8 @@ public class NutritionalStatusChecker {
                     != Integer.parseInt(ArrError.get(i).getTotalFemale()) + Integer.parseInt(ArrError.get(i).getTotalMale())) {
 
                       NutritionalStatus = new NutritionalStatus();
+                           NutritionalStatus.setFormID(ArrError.get(i).getFormID());
+                    NutritionalStatus.setCensusYear(ArrError.get(i).getCensusYear());
                 NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                 NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                 NutritionalStatus.setValidation(-3);
@@ -1474,8 +1480,10 @@ public class NutritionalStatusChecker {
 
                 if (x) {
                         NutritionalStatus = new NutritionalStatus();
-                NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
-                NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
+                             NutritionalStatus.setFormID(ArrError.get(i).getFormID());
+                    NutritionalStatus.setCensusYear(ArrError.get(i).getCensusYear());
+                     NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
+                       NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatus.setValidation(1);
 
                     NutritionalStatus.setPupilsWeighedFemale(Integer.parseInt(ArrError.get(i).getPupilsWeighedFemale()));
@@ -1564,6 +1572,8 @@ public class NutritionalStatusChecker {
 
                 } else {
                     NutritionalStatus = new NutritionalStatus();
+                         NutritionalStatus.setFormID(ArrError.get(i).getFormID());
+                    NutritionalStatus.setCensusYear(ArrError.get(i).getCensusYear());
                      NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                     NutritionalStatus.setTotalMale(Integer.parseInt(ArrError.get(i).getTotalMale()));

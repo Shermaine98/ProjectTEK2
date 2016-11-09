@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -48,7 +49,7 @@ public class ValiNutritionalStatus extends BaseServlet {
          */
         String page = request.getParameter("page");
         String errorMessage = request.getParameter("errorMessage");
-        String year = request.getParameter("year");
+         int year = Calendar.getInstance().get(Calendar.YEAR);
         String uploadedBy = request.getParameter("uploadedBy");
 
         NutritionalStatusDAO NutritionalStatusDAO = new NutritionalStatusDAO();
@@ -66,23 +67,23 @@ public class ValiNutritionalStatus extends BaseServlet {
          */
         if (page.equalsIgnoreCase("edited")) {
             try {
-                NutritionalStatusDAO.deleteNutritionalStatusRecordAll(800000000 + (Integer.parseInt(year)));
-                recordDAO.deleteRecord(800000000 + Integer.parseInt(year));
+                NutritionalStatusDAO.deleteNutritionalStatusRecordAll(800000000 + year);
+                recordDAO.deleteRecord(800000000 + year);
             } catch (SQLException ex) {
                 Logger.getLogger(ValiNutritionalStatus.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (page.equalsIgnoreCase("upload")) {
             boolean reupload = false;
             try {
-                reupload = recordDAO.checkExistRecordForReupload(800000000, Integer.parseInt(year));
+                reupload = recordDAO.checkExistRecordForReupload(800000000, year);
             } catch (SQLException ex) {
                 Logger.getLogger(ValiNutritionalStatus.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (reupload == true) {
                 try {
-                    NutritionalStatusDAO.deleteNutritionalStatusRecordAll(800000000 + (Integer.parseInt(year)));
-                    recordDAO.deleteRecord(800000000 + (Integer.parseInt(year)));
+                    NutritionalStatusDAO.deleteNutritionalStatusRecordAll(800000000 + year);
+                    recordDAO.deleteRecord(800000000 + year);
                 } catch (SQLException ex) {
                     Logger.getLogger(ValiNutritionalStatus.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -97,7 +98,7 @@ public class ValiNutritionalStatus extends BaseServlet {
          */
         int formID = 0;
         try {
-            formID = NutritionalStatusDAO.getFormID(Integer.parseInt(year.trim()));
+            formID = NutritionalStatusDAO.getFormID(year);
         } catch (SQLException ex) {
             Logger.getLogger(ValiNutritionalStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -145,7 +146,7 @@ public class ValiNutritionalStatus extends BaseServlet {
         for (int i = 0; i < districtError.length; i++) {
             nutritionalStatusTemp = new NutritionalStatusTemp();
             nutritionalStatusTemp.setFormID(formID);
-            nutritionalStatusTemp.setCensusYear(Integer.parseInt(year.trim()));
+            nutritionalStatusTemp.setCensusYear(year);
             nutritionalStatusTemp.setDistrict(districtError[i]);
             nutritionalStatusTemp.setGradeLevel(gradeLevelError[i]);
             nutritionalStatusTemp.setTotalMale(totalMaleError[i].replaceAll(" ", "").replaceAll(",", ""));
@@ -172,8 +173,8 @@ public class ValiNutritionalStatus extends BaseServlet {
         }
 
             //TEMP GET ERROR THEN FIX VARIABLES TO BE SAVE IN DB / NO ERROR ADD IN ArrByAgeGroupSex
-            NutritionalStatusEditedNoError = new NutritionalStatusChecker(NutritionalStatusTemp, Integer.parseInt(year), formID).getArrayNoError();
-            NutritionalStatusEditedTempError = new NutritionalStatusChecker(NutritionalStatusTemp, Integer.parseInt(year), formID).getArrayError();
+            NutritionalStatusEditedNoError = new NutritionalStatusChecker(NutritionalStatusTemp, year, formID).getArrayNoError();
+            NutritionalStatusEditedTempError = new NutritionalStatusChecker(NutritionalStatusTemp, year, formID).getArrayError();
 
             NutritionalStatusChecker toDb = new NutritionalStatusChecker();
             trnasoformedData = toDb.TransformData(NutritionalStatusEditedTempError);
@@ -208,7 +209,7 @@ public class ValiNutritionalStatus extends BaseServlet {
         for (int i = 0; i < district.length; i++) {
             nutritionalStatus = new NutritionalStatus();
             nutritionalStatus.setFormID(formID);
-            nutritionalStatus.setCensusYear(Integer.parseInt(year.trim()));
+            nutritionalStatus.setCensusYear(year);
             nutritionalStatus.setDistrict(district[i]);
             nutritionalStatus.setGradeLevel(gradeLevel[i]);
             nutritionalStatus.setTotalMale(Integer.parseInt(totalMale[i].replaceAll(" ", "").replaceAll(",", "")));
@@ -232,7 +233,7 @@ public class ValiNutritionalStatus extends BaseServlet {
             nutritionalStatus.setNutritionalStatusBMI(arrNutritionalStatusBMI);
             ArrNutritionalStatus.add(nutritionalStatus);
         }
-        x = recordDAO.newRecord(formID, Integer.parseInt(year.trim()), Integer.parseInt(uploadedBy));
+        x = recordDAO.newRecord(formID,year, Integer.parseInt(uploadedBy));
 
         if (x) {
             x = NutritionalStatusDAO.EncodeNutritionalStatus(ArrNutritionalStatus);
@@ -240,12 +241,12 @@ public class ValiNutritionalStatus extends BaseServlet {
             if (x) {
                 try {
 
-                    if (HelathRecordsDAO.RunNutritionalStatus(formID, Integer.parseInt(year.trim()))) {
+                    if (HelathRecordsDAO.RunNutritionalStatus(formID, year)) {
                         request.setAttribute("page", "Upload");
                         request.setAttribute("saveToDB", "successDB");
                         RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=percentageDist");
                         rd.forward(request, response);
-                    } else if (!HelathRecordsDAO.RunNutritionalStatus(formID, Integer.parseInt(year.trim()))) {
+                    } else if (!HelathRecordsDAO.RunNutritionalStatus(formID, year)) {
                         request.setAttribute("page", "Upload");
                         request.setAttribute("saveToDB", "SaveWithError");
                         RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=percentageDist");

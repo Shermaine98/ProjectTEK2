@@ -119,7 +119,7 @@
                                         <tr>
                                             <th>Total</th>
                                             <td><input name="totalCountError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalCount()%>" style="width: auto" readonly /></td>
-                                            <td><input name="pupilsWeighedTotal" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedTotal()%>" readonly/></td>
+                                            <td><input name="pupilsWeighedTotalError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedTotal()%>" readonly/></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
                                             <td><input name="bTotalCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()%>"  readonly/></td>
                                                 <% } %>
