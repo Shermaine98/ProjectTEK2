@@ -109,16 +109,16 @@ var print;
             //removeGenderCheckboxes(analysischart, gender);
             removeGradeLevelCheckboxes(analysischart, gradeLevel);
             
-            if(chartSelected=="0"||chartSelected=="Line Chart"){
+            if(chartSelected=="Line Chart"){
                 drawNutritionalStatus(analysischart, 'spline', false);
             }
-            else if(chartSelected=="0"||chartSelected=="Bar Chart"){
+            else if(chartSelected=="Bar Chart"){
                 drawNutritionalStatus(analysischart, 'column',false);
             }
-            else if(chartSelected=="0"||chartSelected=="Stacked Bar Chart"){
+            else if(chartSelected=="Stacked Bar Chart"){
                 drawNutritionalStatus(analysischart, 'column',true);
             }
-            else if(chartSelected=="0"||chartSelected=="Table"){
+            else if(chartSelected=="Table"){
                 drawNutritionalStatusTable(analysischart);
             }
         }
@@ -482,6 +482,8 @@ function setElementaryEnrollments(chart){
                 "emptyTable": "No Data"
             }
         });
+        var chart = $('#output').highcharts();
+        chart.destroy();
     }
 
     function drawElementaryEnrollment(print, chart, isStacked){
@@ -996,6 +998,8 @@ function setKinderEnrollments(chart){
                 "emptyTable": "No Data"
             }
         });
+        var chart = $('#output').highcharts();
+        chart.destroy();
     }
     
     function drawKinderEnrollment(print, chart, isStacked){
@@ -1414,7 +1418,6 @@ function setHHPopAgeGroupSex (chart){
     });}
             
     function drawHHPopTable(print, year){
-        
         var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
@@ -1539,6 +1542,9 @@ function setHHPopAgeGroupSex (chart){
                 "emptyTable": "No Data"
             }
         });
+        
+        var chart = $('#output').highcharts();
+        chart.destroy();
     }
     
     function drawHHPopPyramid(print, year){
@@ -2360,6 +2366,9 @@ function setHHPopAgeGroupSex (chart){
                 "emptyTable": "No Data"
             }
         });
+        
+        var chart = $('#output').highcharts();
+        chart.destroy();
     }
     
     function drawNutritionalStatus(print, chart, isStacked){
@@ -2926,6 +2935,9 @@ function setHHPopAgeGroupSex (chart){
                 "emptyTable": "No Data"
             }
         });
+        
+        var chart = $('#output').highcharts();
+        chart.destroy();
     }
     
     function drawMaritalStatusBar(print, year, chart){
