@@ -2921,20 +2921,10 @@ function setHHPopAgeGroupSex (chart){
         
         $("#dataTable").DataTable({
             "paging": false,
-            "ordering": true,
+            "ordering": false,
             "info": false, "language": {
                 "emptyTable": "No Data"
-            },
-            "columns": [
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'},
-                {"orderDataType": "dom-text", type: 'string'}
-            ]
+            }
         });
     }
     
