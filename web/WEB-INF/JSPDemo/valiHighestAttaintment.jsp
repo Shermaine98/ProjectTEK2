@@ -82,7 +82,7 @@
                                 if (highestError != null) {
                             %>
                             <div class="DT" id="errorsDiv">
-                                <table class="table table-bordered">
+                                <table id="Highest-table" class="table table-bordered">
                                     <tbody>
                                         <% for (int i = 0; i < highestError.size(); i++) {%>
                                         <tr style="background-color: #454545; color: #fff">
@@ -97,10 +97,10 @@
                                         </tr>
                                         <tr>
                                             <th>Highest Grade Completed</th>
-                                            <th class="centerTD">Total Count</th>
+                                            <th class="errorH centerTD">Total Count</th>
                                             <th>Reason</th>
                                             <th>Highest Grade Completed</th>
-                                            <th class="centerTD">Total Count</th>
+                                            <th class="errorH centerTD">Total Count</th>
                                             <th>Reason</th>
                                         </tr>
                                         <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroupTemp().size(); y += 2) {%>
@@ -109,21 +109,21 @@
                                                                        value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
                                             <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  
                                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
-                                            <td width="10%"><input type="text" name="validation2" style="display:none;" 
+                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;" 
                                                                    value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
                                             <th class='errorH'><input type="text" name="highestCompletedError" readonly 
                                                                       value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
                                             <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  
                                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
                                                                       value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
-                                            <td width="10%"><input type="text" name="validation2" style="display:none;" 
+                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;" 
                                                                    value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
                                         </tr>
                                         <% }%>
                                         <tr>
                                             <th colspan="4"></th>
                                             <th>Total</th>
-                                            <td class='Errototal'><input type="text" class="ErrortotalI centerTD" name="totalError" style="float:right;" readonly value="<%=highestError.get(i).getTotal()%>" /></td>
+                                            <td class='errorH'><input type="text" class="ErrortotalI centerTD" name="totalError" style="float:right;" readonly value="<%=highestError.get(i).getTotal()%>" /></td>
                                         </tr>
                                         <% }%>
                                     </tbody>

@@ -6,35 +6,28 @@
 
 
 $(document).ready(function () {
-    $('td.bothSexesError').css('background-color', '#a93e3e');
-    $('td.maleSexesError').css('background-color', '#a93e3e');
-    $('td.femaleSexesError').css('background-color', '#a93e3e');
-    $('td.bothSexesError').css('color', '#fff');
-    $('td.maleSexesError').css('color', '#fff');
-    $('td.femaleSexesError').css('color', '#fff');
+    $('td.errorH').css('color', '#fff');
+    $('td.errorH').css('background-color', '#a93e3e');
 
 
-    $("#error-ageGroup tbody").on("ready", 'input[type="text"]', function () {
-        var row = $(this).closest("tr");
-        var femaleErorr = parseInt(row.find("#femaleError").val(), 10);
-        var MaleError = parseInt(row.find("#maleError").val(), 10);
-        if (femaleErorr === -1) {
-            row.find("#femaleError").val(0);
+    $('Highest-table tbody tr').each(function () {
+        var $row = $(this);
+
+        var val = $row.find(".errorHI input").val();
+
+        if (parseInt(val, 10) === -1) {
+           val.val("");
         }
-        if (MaleError === -1)
-            row.find("#maleError").val(0);
     });
 
     $("#error-ageGroup tbody").on("change", 'input[type="text"]', function () {
         var row = $(this).closest("tr");
         var femaleErorr = parseInt(row.find("#femaleError").val(), 10);
         var MaleError = parseInt(row.find("#maleError").val(), 10);
-        var bothSexes = femaleErorr + MaleError;
+        //    var bothSexes = femaleErorr + MaleError;
         row.find("#bothSexesError").val(bothSexes);
         row.find("#bothSexesError").val(bothSexes);
-        row.find(".bothSexesError").css('background-color', 'pink');
-        row.find(".maleSexesError").css('background-color', 'pink');
-        row.find(".femaleSexesError").css('background-color', 'pink');
+        row.find(".errorH").css('background-color', 'pink');
     });
 
 });
