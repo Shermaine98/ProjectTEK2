@@ -28,6 +28,12 @@
         <!--Pace Imports-->
         <script src="AdminLTE/plugins/pace/pace.js" type="text/javascript"></script>
         <link href="AdminLTE/plugins/pace/dataurl.css" rel="stylesheet" type="text/css"/>
+        
+        <style>
+            .no_display{
+                display:none;
+            }
+        </style>
     </head>
     <body>
         <div class="wrapper no-print">
@@ -72,78 +78,81 @@
                             <%}%>
                             <!--END FOR THE PAGE RESULT-->
                             <div>
-                                <div class="box-body">
-                                    <form id="UploadDb" action="ValiEnrollment" method="post">
-                                        <%
-                                            ArrayList<EnrollmentTemp> enrollmentTemp = (ArrayList<EnrollmentTemp>) request.getAttribute("ArrError");
-                                            if (enrollmentTemp != null) {
 
-                                        %>
+                                <form id="UploadDb" action="ValiEnrollment" method="post">
+                                    <%
+                                        ArrayList<EnrollmentTemp> enrollmentTemp = (ArrayList<EnrollmentTemp>) request.getAttribute("ArrError");
+                                        if (enrollmentTemp != null) {
+
+                                    %>
+                                    <div class="box-body">
                                         <div class="DT" id="errorsDiv">
                                             <table class="table table-bordered">
-                                                <table class="table table-bordered">
-                                                    <tbody>
-                                                        <%for (int i = 0; i < enrollmentTemp.size(); i++) {%>
-                                                        <tr style = "background-color: #454545; color: #fff" >
-                                                            <th colspan="2">School Name</th>
-                                                            <td colspan="4"><input readonly name="schoolNameError" type="text" value="<%=enrollmentTemp.get(i).getSchoolName()%>"/></td>
-                                                            <th colspan="6">District</th>
-                                                            <td colspan="7"><input name="districtError" type="text"  readonly value="<%=enrollmentTemp.get(i).getDistrict()%>" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th colspan="2">School Type</th>
-                                                            <td colspan="4"><input name="schoolTypeError" type="text" readonly value="<%=enrollmentTemp.get(i).getSchoolType()%>" /></td>
-                                                            <th colspan="6">Gender Disparity Index</th>
-                                                            <td colspan="7"><input name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="vertical-align: middle">Sex</th>
-                                                                <%for (int y = 0; y < enrollmentTemp.get(0).getEnrollmentDetArrayList().size(); y++) {%>
-                                                            <th style="vertical-align: middle"><input id="bothSexesError" type="text" value="<%=enrollmentTemp.get(0).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  readonly/></th>
-                                                                  <th style="vertical-align: middle">Reason</th>  
+                                                <tbody>
+                                                    <%for (int i = 0; i < enrollmentTemp.size(); i++) {%>
+                                                    <tr style = "background-color: #454545; color: #fff" >
+                                                        <th colspan="2">School Name</th>
+                                                        <td colspan="10"><input readonly name="schoolNameError" type="text" value="<%=enrollmentTemp.get(i).getSchoolName()%>"/></td>
+                                                        <th colspan="2">District</th>
+                                                        <td colspan="5"><input name="districtError" type="text"  readonly value="<%=enrollmentTemp.get(i).getDistrict()%>" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="2">School Type</th>
+                                                        <td colspan="4"><input name="schoolTypeError" type="text" readonly value="<%=enrollmentTemp.get(i).getSchoolType()%>" /></td>
+                                                        <th colspan="6">Gender Disparity Index</th>
+                                                        <td colspan="7"><input name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="vertical-align: middle">Sex</th>
+                                                            <%for (int y = 0; y < enrollmentTemp.get(0).getEnrollmentDetArrayList().size(); y++) {%>
+                                                        <th style="vertical-align: middle"><input id="bothSexesError" type="text" value="<%=enrollmentTemp.get(0).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  readonly/></th>
+                                                        <th style="vertical-align: middle">Reason</th>  
                                                             <%}%>
-                                                              
-                                                            <th style="vertical-align: middle">Grand Total</th>
-                                                            <th style="vertical-align: middle">Reason</th>
-                                                        </tr>
-                                                        <tr class='EditTable'>
-                                                            <th>Male</th>
-                                                                <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
-                                                            <td><input name="gradeLevelError" type="hidden" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  />
-                                                                <input name="maleCountError" style="width:60px"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
-                                                                <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
-                                                            <%}%>
-                                                            <td><input name="totalMaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalMale()%>" readonly /></td>
-                                                            <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" readonly /></td>                                                        </tr>
-                                                        <tr>
-                                                            <th>Female</th>
-                                                                <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
-                                                            <td><input name="femaleCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
-                                                               <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
-                                                                <%}%>
-                                                            <td><input name="totalFemaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalFemale()%>" readonly /></td>
-                                                            <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" readonly /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Total</th>
-                                                                <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
-                                                            <td><input name="totalCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()%>"  /></td>
-                                                               <td><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
-                                                                <%}%>
-                                                            <td><input name="grandTotalError" type="text" value="<%= enrollmentTemp.get(i).getGrandTotal()%>" readonly /></td>
-                                                              <td><input name="validation" type="text" value="<%= enrollmentTemp.get(i).getReason()%>" readonly /></td>
-                                                        </tr>
-                                                        <%}%>
-                                                    </tbody>
-                                                </table>
-                                                <div align="center">
-                                                    <a href="javascript:window.print()"><input align="center" class="btn btn-flat btn-success" style="margin: 0 auto 5% auto" type="button" value="Print Error Summary"/></a>
-                                                </div>
-                                        </div>
-                                        <% }
-                                            ArrayList<Enrollment> enrollment = (ArrayList<Enrollment>) request.getAttribute("ArrNoError");
-                                        %>
 
+                                                        <th style="vertical-align: middle">Grand Total</th>
+                                                        <th style="vertical-align: middle">Reason</th>
+                                                    </tr>
+                                                    <tr class='EditTable'>
+                                                        <th>Male</th>
+                                                            <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
+                                                        <td><input name="gradeLevelError" type="hidden" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  />
+                                                            <input name="maleCountError" style="width:60px"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                                        <td rowspan="3" style="vertical-align: middle"><%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>
+                                                            <input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" hidden /></td>
+                                                            <%}%>
+                                                        <td><input name="totalMaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalMale()%>" readonly /></td>
+                                                        <td rowspan="3" style="vertical-align: middle"><%=enrollmentTemp.get(i).getReason()%>
+                                                            <input name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" hidden /></td>                                                        </tr>
+                                                    <tr>
+                                                        <th>Female</th>
+                                                            <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
+                                                        <td><input name="femaleCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                                        <td class="no_display"><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
+                                                            <%}%>
+                                                        <td><input name="totalFemaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalFemale()%>" readonly /></td>
+                                                        <td class="no_display"><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" readonly /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Total</th>
+                                                            <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
+                                                        <td><input name="totalCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()%>"  /></td>
+                                                        <td class="no_display"><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
+                                                            <%}%>
+                                                        <td><input name="grandTotalError" type="text" value="<%= enrollmentTemp.get(i).getGrandTotal()%>" readonly /></td>
+                                                        <td class="no_display"><input name="validation" type="text" value="<%= enrollmentTemp.get(i).getReason()%>" readonly /></td>
+                                                    </tr>
+                                                    <%}%>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div align="center">
+                                        <a href="javascript:window.print()"><input align="center" class="btn btn-flat btn-success" style="margin: 0 auto 5% auto" type="button" value="Print Error Summary"/></a>
+                                    </div>
+                                    <% }
+                                        ArrayList<Enrollment> enrollment = (ArrayList<Enrollment>) request.getAttribute("ArrNoError");
+                                    %>
+                                    <div class="box-body">
                                         <div class="DT">
                                             <table class="table table-bordered">
                                                 <tbody>
@@ -194,30 +203,28 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </div>
+                                    <!--THIS IS FOR THE BACK AND SUBMIT BUTTON-->
 
-                                        <!--THIS IS FOR THE BACK AND SUBMIT BUTTON-->
+                                    <div style="margin-top: 5%;">
+                                        <div style="display:inline; float:left;">
+                                            <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
+                                                <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
+                                            </a></div>
+                                        <div  style="display:inline; float:right;">
+                                            <input  class="btn btn-block btn-success" type="Submit" value="Submit" /></div>
+                                    </div>
+                                    <!--END FOR THE BACK AND SUBMIT BUTTON-->
 
-                                        <div style="margin-top: 5%;">
-                                            <div style="display:inline; float:left;">
-                                                <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
-                                                    <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
-                                                </a></div>
-                                            <div  style="display:inline; float:right;">
-                                                <input  class="btn btn-block btn-success" type="Submit" value="Submit" /></div>
-                                        </div>
-                                        <!--END FOR THE BACK AND SUBMIT BUTTON-->
+                                    <input type="hidden" name="year" class="year" id="year" />
+                                    <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
+                                    <input type="hidden" name="page" value="<%=redirect%>"/>
+                                    <input type="hidden" name="errorMessage" value="<%=temp%>"/>
+                                    <input name="classification" type="hidden" value="<%=classification%>"/>
 
-                                        <input type="hidden" name="year" class="year" id="year" />
-                                        <input type="hidden" name="uploadedBy" value="<%= user.getUserID()%>" />
-                                        <input type="hidden" name="page" value="<%=redirect%>"/>
-                                        <input type="hidden" name="errorMessage" value="<%=temp%>"/>
-                                        <input name="classification" type="hidden" value="<%=classification%>"/>
-
-                                    </form>
-                                </div>
-                                <!--END IS FOR THE PAGE RESULT FOR DATA WITH NO ERROR-->
-
+                                </form>
                             </div>
+                            <!--END IS FOR THE PAGE RESULT FOR DATA WITH NO ERROR-->
                         </div>
                     </div>
                 </section>
