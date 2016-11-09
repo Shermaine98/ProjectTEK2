@@ -11,16 +11,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link href="cssPivot/pivot.css" rel="stylesheet" type="text/css"/>
+
         <script src="jsPivot/html2canvas.js" type="text/javascript"></script>
         <script src="jsPivot/jsapi.js" type="text/javascript"></script>
-        <link href="cssPivot/pivot.css" rel="stylesheet" type="text/css"/>
         <script src="jsPivot/pivot.js" type="text/javascript"></script>
+        <script src="jsPivot/gchart_renderers.js" type="text/javascript"></script>
+
         <script src="Highcharts/highcharts.js"></script>
         <script src="Highcharts/modules/data.js"></script>
         <script src="Highcharts/modules/drilldown.js"></script>
         <script src="Highcharts/modules/exporting.js"></script>
+
         <script src="jsAnalysisImports/jsCommonReports.js" type="text/javascript"></script>
-        <script src="jsPivot/gchart_renderers.js" type="text/javascript"></script>
+
         <title>Customized Analytics</title>
 
         <style>
@@ -227,13 +232,14 @@
             document.getElementById('analysisbuttons').style.display = "none";
             document.getElementById('theButtonsForPivot').style.display = "block";</script>
             <%} else if (user.getPosition().equals("Project Development Officer I")) { %>
-        <script>window.onload = function () {
+        <script>
+           window.onload = function () {
             getFactPeople();
             };
             document.getElementById('analysisbuttons').style.display = "none";
             document.getElementById('theButtonsForPivot').style.display = "block";</script>
-            <%}%>
-            <%}%>
+        <%}%>
+        <%}%>
         <script>
                         var theChartSelected;
                         function deleteDivNotify(a) {
@@ -852,7 +858,7 @@
         <script>
                                 $(document).ready(function() {
                         function TableCharts(){
-               
+
                         }
                         });
 
