@@ -201,6 +201,9 @@ var data;
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
+                                             var tableADD = document.createElement("div");
+                                             tableADD.setAttribute("class", "tableAdd");
+                                             para.appendChild(tableADD);
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             var image2 = new Image();
                                             var tableImage;
@@ -212,12 +215,14 @@ var data;
                                             $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
-                                             para.setAttribute("class", "tableAdd");
                                         } else if (this.id === "btnReport") {
                                             var para = document.createElement("div");
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
+                                             var tableADD = document.createElement("div");
+                                             tableADD.setAttribute("class", "tableAdd");
+                                             para.appendChild(tableADD);
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             var image2 = new Image();
                                             var tableImage;
@@ -226,7 +231,6 @@ var data;
                                             $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
-                                            para.setAttribute("class", "tableAdd");
                                             
                                         }
                                     } else {
@@ -262,6 +266,8 @@ var data;
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
+                                            
+                                            
                                             $('.reportContents').append();
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
