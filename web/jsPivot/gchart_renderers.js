@@ -182,14 +182,14 @@ var data;
                             nextButton.disabled = options.hAxis.viewWindow.max >= MAX;
                             changeZoomButton.disabled = false;
 
- 
+
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
                                 document.getElementById('notShow').style.display = "block";
                                 document.getElementById('buttonSave').style.display = "block";
                                 document.getElementById('showReport').style.display = "block";
 
                                 var conceptName = $('#commonReports').find(":selected").text();
-                          
+
                                 if (conceptName != 'Population by year'
                                         && conceptName != 'Enrollment in Public and Private Schools'
                                         && conceptName != 'Actual number of Beds in Private and Public Hospitals') {
@@ -201,13 +201,13 @@ var data;
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
-                                             var tableADD = document.createElement("div");
-                                             tableADD.setAttribute("class", "tableAdd");
-                                             para.appendChild(tableADD);
+                                            var tableADD = document.createElement("div");
+                                            tableADD.setAttribute("class", "tableAdd");
+                                            para.appendChild(tableADD);
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             var image2 = new Image();
                                             var tableImage;
-                                            createTable(image2 ,tableImage);    
+                                            createTable(image2, tableImage);
                                             $('div#matrix')                         // grab the media content
                                                     .clone()                          // make a duplicate of it
                                                     .removeAttr('id')               // remove their ID attributes
@@ -220,18 +220,18 @@ var data;
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
-                                             var tableADD = document.createElement("div");
-                                             tableADD.setAttribute("class", "tableAdd");
-                                             para.appendChild(tableADD);
+                                            var tableADD = document.createElement("div");
+                                            tableADD.setAttribute("class", "tableAdd");
+                                            para.appendChild(tableADD);
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             var image2 = new Image();
                                             var tableImage;
-                                            createTable(image2 ,tableImage);                                             
+                                            createTable(image2, tableImage);
                                             $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                             $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
                                             para.setAttribute("class", "reportDelete");
-                                            
+
                                         }
                                     } else {
 
@@ -266,8 +266,8 @@ var data;
                                             var element = document.getElementById("reportBody");
                                             para.setAttribute("class", "reportContents");
                                             element.appendChild(para);
-                                            
-                                            
+
+
                                             $('.reportContents').append();
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
@@ -398,17 +398,18 @@ function createTable(image2, tableImage) {
             var input = document.createElement("input");
             input.setAttribute("type", "hidden");
             input.setAttribute("id", "imageSrc");
-             input.setAttribute("name", "imageSrc");
-             input.setAttribute("value", tableImage);
-            
-            
+            input.setAttribute("name", "imageSrc");
+            input.setAttribute("value", tableImage);
+
+
             var image = document.createElement("img");
-                  image.setAttribute("style", "width: 90%;");
+            image.setAttribute("style", "width: 90%;");
             image.setAttribute("id", "image");
-             image.setAttribute("src", image2.src);
-            
+            image.setAttribute("src", image2.src);
+
             document.querySelector(".tableAdd").appendChild(input);
             document.querySelector(".tableAdd").appendChild(image);
+            $('.tableAdd').removeClass('tableAdd');
         },
         allowTaint: false
     });
