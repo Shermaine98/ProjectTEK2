@@ -101,14 +101,27 @@ public class ApproveReportsHealth extends BaseServlet {
                 } catch (ParseException ex) {
                     Logger.getLogger(ApproveReportsHealth.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                ArrayList<Record> directory = new ArrayList<>();
+                try {
+                    directory = recordDAO.GetForApproval(90000000, 99999999);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ApproveReportsHealth.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 request.setAttribute("subject", "");
                 request.setAttribute("message", "successRejected");
                 request.setAttribute("NutritionalStatus", nutrition);
+                request.setAttribute("directory", directory);
                 rd = request.getRequestDispatcher("/WEB-INF/JSPApproval/health.jsp");
                 rd.forward(request, response);
 
             } else {
 
+                ArrayList<Record> directory = new ArrayList<>();
+                try {
+                    directory = recordDAO.GetForApproval(90000000, 99999999);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ApproveReportsHealth.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 try {
                     nutrition = recordDAO.GetForApproval(800000000, 899999999);
                 } catch (ParseException ex) {
@@ -117,6 +130,7 @@ public class ApproveReportsHealth extends BaseServlet {
                 request.setAttribute("subject", "");
                 request.setAttribute("message", "notSuccessRejection");
                 request.setAttribute("NutritionalStatus", nutrition);
+                request.setAttribute("directory", directory);
                 rd = request.getRequestDispatcher("/WEB-INF/JSPApproval/health.jsp");
                 rd.forward(request, response);
 
