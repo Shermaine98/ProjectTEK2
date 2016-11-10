@@ -116,7 +116,7 @@ public class ViewReportForApprovalHealth extends BaseServlet {
             DirectoryHospitalDAO DAO = new DirectoryHospitalDAO();
             ArrayList<DirectoryHealth> directoryHealth = new ArrayList<DirectoryHealth>();
             try {
-                directoryHealth = DAO.ViewByDirectoryHospital(Integer.parseInt(formID));
+                directoryHealth = DAO.ViewByDirectoryHospital(90000000 + Integer.parseInt(formID));
         
             } catch (ParseException ex) {
                 Logger.getLogger(ViewReportForApprovalHealth.class.getName()).log(Level.SEVERE, null, ex);
