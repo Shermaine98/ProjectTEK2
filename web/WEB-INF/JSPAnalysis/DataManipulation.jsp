@@ -114,8 +114,8 @@
                             <div id='withChartSelection' style='margin-left:1%;margin-right:2%;width:98%'>
                             </div>
 
-                            <div id="chartContainer" class="box-body">
-                                <div id="output" style="width:97%; margin-left: 1%; margin-top: 1%; margin-bottom: 1%; margin-right: 1%; ">
+                            <div id="chartContainer" class="box-body col-md-12" style="width:96%; margin-left: 1.5%; margin-top: 1%; margin-bottom: 1%; margin-right: 1.5%;">
+                                <div id="output">
                                 </div>
                             </div>
 
