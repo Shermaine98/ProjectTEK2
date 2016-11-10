@@ -476,7 +476,7 @@
                     "-moz-box-shadow": "none",
                     "box-shadow": "none"});
                 $("#notificationHeader").text("Delete Chart!");
-                $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure?</p>');
+                $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure you want to delete the chart?</p>');
 
                 $("#notificationModalFooter").empty();
                 $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
@@ -504,7 +504,7 @@
                     "-moz-box-shadow": "none",
                     "box-shadow": "none"});
                 $("#notificationHeader").text("Delete Chart!");
-                $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure?</p>');
+                $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure you want to delete the chart?</p>');
 
                 $("#notificationModalFooter").empty();
                 $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
