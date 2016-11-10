@@ -367,6 +367,7 @@
                 } else if (prints == "reports") {
                     jQuery('#print').html(jQuery("#content").html());
                 }
+                $('.images').width("105%");
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
@@ -382,6 +383,7 @@
             }
             function doneyet() {
                 // document.body.onfocus = "";
+                $('.images').width("94%");
                 document.getElementById("TESTING").setAttribute("style", "display:none");
                 $('#printTable').empty();
                 $('#printChart').empty();

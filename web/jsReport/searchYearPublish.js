@@ -4892,14 +4892,16 @@ function encodeImageAnalysis(imageUri, para, data) {
         ctx.drawImage(img, 0, 0);
         var dataURL = c.toDataURL("image/png");
          var image = document.createElement("img");
-            image.setAttribute("style", "width: 90%; margin-top:5%; margin-bottom: 2%;");
+            image.setAttribute("style", "margin-top:2%; margin-bottom: 2%; margin-left:1%; margin-right:3%");
+            image.setAttribute("class", "images");
+            image.setAttribute("width", "94%");
             image.setAttribute("id", "image");
             image.setAttribute("src", dataURL);
               var para2 = document.createElement("div");
                     para2.setAttribute("class","divTEMP");
                     para.appendChild(para2);
             document.querySelector(".divTEMP").appendChild(image);
-            $(para).append('<b>Analysis: </b> <br><br>' + data + "<br>");
+            $(para).append('<b>Analysis: </b> <br>' + data + "<br><br>");
            $('.divTEMP').removeClass('divTEMP');
     };
 }
@@ -4916,7 +4918,9 @@ function encodeImageMatrix(imageUri, para, observations,explanations,implication
         ctx.drawImage(img, 0, 0);
         var dataURL = c.toDataURL("image/png");
          var image = document.createElement("img");
-            image.setAttribute("style", "width: 90%; margin-top:5%; margin-bottom: 2%;");
+            image.setAttribute("style", "margin-top:2%; margin-bottom: 2%; margin-left:3%; margin-right:3%");
+            image.setAttribute("class", "images");
+            image.setAttribute("width", "94%");
             image.setAttribute("id", "image");
             image.setAttribute("src", dataURL);
               var para2 = document.createElement("div");
@@ -4925,8 +4929,9 @@ function encodeImageMatrix(imageUri, para, observations,explanations,implication
             document.querySelector(".divTEMP").appendChild(image);
             
             var table = document.createElement("table");
-                table.setAttribute("class", "table table-hover table-bordered");
-                table.setAttribute("style", " margin: 0 auto;");
+                table.setAttribute("class", "table table-hover table-bordered analysis");
+                table.setAttribute("style", "margin: 0 auto");
+                table.setAttribute("width", "100%");
                 para.appendChild(table);
 
                 var thead = document.createElement("thead");
