@@ -85,8 +85,7 @@ $(document).on("click", "#edit", function () {
     var category = $(this).closest("tr").find(".category").text();
     var accreditation = $(this).closest("tr").find(".accreditation").text();
     var year = $(this).closest("tr").find(".censusYear input").val();
-console.log(year);
-//        alert(doctor);
+
     $("#info").empty();
     $("#tableUpdateBody").empty();
     $("#UpdateModal").modal("show");
