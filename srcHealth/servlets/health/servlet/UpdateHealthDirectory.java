@@ -185,12 +185,12 @@ public class UpdateHealthDirectory extends BaseServlet {
                     if (year != Integer.parseInt(oldyear)) {
                         x = directoryHospitalDAO.UpdateDirectory(hospitalName, Integer.parseInt(oldyear),
                                 Integer.parseInt(totalDoctors), Integer.parseInt(totalNurses),
-                                Integer.parseInt("0"), Integer.parseInt("0"), accreditation,
+                                Integer.parseInt(midwives), Integer.parseInt(numberofBeds), accreditation,
                                 category, tel, classification);
                     } else {
                         x = directoryHospitalDAO.UpdateDirectory(hospitalName, Integer.parseInt(oldyear),
                                 Integer.parseInt(totalDoctors), Integer.parseInt(totalNurses),
-                                Integer.parseInt("0"), Integer.parseInt("0"), accreditation,
+                                Integer.parseInt(midwives), Integer.parseInt(numberofBeds), accreditation,
                                 category, tel, classification);
                     }
                 } catch (SQLException ex) {

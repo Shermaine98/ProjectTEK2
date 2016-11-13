@@ -53,7 +53,6 @@ $(document).on("click", "#invalidDirectory", function () {
         },
         success: function (data) {
             if (data === true) {
-                $("#integrateLoad").modal("hide");
                 $("#notificationHeader").text("Success!");
                 $("#modalHeader").css({background: "#00a65a"});
                 $("#notificationHeader").css({color: "#FFFFFF"});
@@ -82,17 +81,19 @@ $(document).on("click", "#edit", function () {
     var midwives = $(this).closest("tr").find(".midwives").text();
     var beds = $(this).closest("tr").find(".bed").text();
     var classification = $(this).closest("tr").find(".classification").text();
+   
     var category = $(this).closest("tr").find(".category").text();
     var accreditation = $(this).closest("tr").find(".accreditation").text();
-    var year = document.getElementById('censusYear').value;
-
+    var year = $(this).closest("tr").find(".censusYear input").val();
+console.log(year);
 //        alert(doctor);
     $("#info").empty();
     $("#tableUpdateBody").empty();
     $("#UpdateModal").modal("show");
-
+    
 
     if (classification === "Government Hospital") {
+         console.log(classification);
         $("#info").append('<label for="classification" style="width: 35%;">Hospital Classification: </label>');
         $("#info").append('<select required class="form-control" style="width: 55%;" name="classification">\n\
                                                      <option value="' + classification + '">' + classification + '</option> \n\
@@ -161,9 +162,9 @@ $(document).on("click", "#edit", function () {
 <input type="hidden" name="censusYear" value="' + year + '"  /> \n\
                             <input type="text" class="form-control" name="tel" value="' + telephone + '" style="width: 55%; margin-bottom:2%;" required />');
     $("#tableUpdateBody").append('<tr>');
-    $("#tableUpdateBody").append('<td><input type="text" class=form-control name="doctors" value="' + doctor + '" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
-    $("#tableUpdateBody").append('<td><input type="text" class=form-control name="nurses" value="' + nurses + '" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
-    $("#tableUpdateBody").append('<td><input type="text" class="form-control name="midwives" value="' + midwives + '" onkeypress= "return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
+    $("#tableUpdateBody").append('<td><input type="text" class="form-control" name="doctors" value="' + doctor + '" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
+    $("#tableUpdateBody").append('<td><input type="text" class="form-control" name="nurses" value="' + nurses + '" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
+    $("#tableUpdateBody").append('<td><input type="text" class="form-control" name="midwives" value="' + midwives + '" onkeypress= "return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
     $("#tableUpdateBody").append('<td><input type="text" class="form-control" name="beds" value="' + beds + '"  onkeypress= "return event.charCode >= 48 && event.charCode <= 57" required  /></td>');
     $("#tableUpdateBody").append('</tr>');
 

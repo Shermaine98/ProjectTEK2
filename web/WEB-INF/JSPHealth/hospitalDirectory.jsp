@@ -66,13 +66,13 @@
                                             <div class="form-inline" style="margin-top:3%;">
                                                 <label class="width20">Classification: </label>
                                                 <select required class="form-control" style="width: 65%" name="classification">
-                                                    <option value=""></option>
+                                                    <option value="" disabled selected>Choose a Classification</option>
                                                     <option value="Government Hospital">Government Hospital</option>
                                                     <option value="Private Hospital">Private Hospital</option>
                                                 </select><br/><br/>
                                                 <label class="width20">Category </label>
                                                 <select required class="form-control" style="width: 65%" name="category">
-                                                    <option value=""></option>
+                                                    <option value="" disabled selected>Choose a category</option>
                                                     <option value="Level 1">Level 1</option>
                                                     <option value="Level 2">Level 2</option>
                                                     <option value="Level 3">Level 3</option>
@@ -130,7 +130,8 @@
                                             <h4 class="modal-title">Update Hospital Details</h4>
                                         </div>
                                         <div class="modal-body" id="updateBody">
-
+                                            <div id="info" class="form-inline" style="margin-top:3%;">
+                                            </div>
                                             <table id="addhospitalT" class="table table-bordered" style="margin-top:2%;">
                                                 <thead style="background-color: #454545; color: #fff">
                                                     <tr>
@@ -219,7 +220,7 @@
                                                 <td style="display:none;" class="classification"><%=directoryHealth.get(i).getClassification()%></td>
                                                 <td class="category"><%=directoryHealth.get(i).getCategory()%></td>
                                                 <td class="accreditation"><%=directoryHealth.get(i).isAccreditation()%></td>
-                                                <td width="15%">
+                                                <td class="censusYear" width="15%">
                                                     <input type="hidden" id="censusYear" value="<%=directoryHealth.get(i).getYear()%>"/>
                                                     <button id="invalidDirectory"  class="approvedDisabled btn btn-danger btn-flat btn-sm pull-right" style="width:50%;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
                                                     <button id="edit"  class="approvedDisabled btn btn-success btn-flat btn-sm pull-right" style="width:50%;"><span class="fa fa-edit"></span> Edit</button></td>
@@ -272,7 +273,7 @@
                                                 <td style="display:none;" class="classification"><%=directoryHealth.get(i).getClassification()%></td>
                                                 <td class="category"><%=directoryHealth.get(i).getCategory()%></td>
                                                 <td class="accreditation"><%=directoryHealth.get(i).isAccreditation()%></td>
-                                                <td width="15%">
+                                                <td class="censusYear" width="15%">
                                                     <input type="hidden" id="censusYear" value="<%=directoryHealth.get(i).getYear()%>"/>
                                                     <button id="invalidDirectory"  class="approvedDisabled btn btn-danger btn-flat btn-sm pull-right" style="width:50%;"><span class="glyphicon glyphicon-remove"></span> Delete</button>
                                                     <button id="edit"  class="approvedDisabled btn btn-success btn-flat btn-sm pull-right" style="width:50%;"><span class="fa fa-edit"></span> Edit</button></td>
