@@ -19,8 +19,8 @@ function integrate() {
                     $("#integrateLoad").modal("hide");
                     $("#notificationHeader").text("Success!");
                     $("#modal_Header").css({background: "#00a65a"});
-                    $("#notificationHeader").css({color: "#FFFFFF"});
-                    $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
+                    $("#notificationHeader").css({display: "none"});
+                    $("#notificationBodyModal").append("<p style='margin-right: 10%; padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
                     $("#notificationModalFooter").empty();
                     $("#notificationModalFooter").append('<a href="ServletAccess?redirect=StandardManipulation"><button type="button"class="btn btn-success" >Proceed to Integrated Analytics</button></a>');
                     $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
