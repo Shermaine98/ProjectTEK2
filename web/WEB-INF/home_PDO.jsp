@@ -337,6 +337,7 @@
                                 }
                                 if (y == 9) {
                                     $('#integrate').prop('disabled', false);
+                                    $('#integrate').addClass('btn-success');
                                     $('#integratetooltip').prop('title', 'Reports are available for Integration');
                                 } else {
                                     $('#integrate').prop('disabled', true);
