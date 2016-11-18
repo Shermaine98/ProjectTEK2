@@ -203,11 +203,11 @@ public class ValiEnrollment extends BaseServlet {
         }
 
             //TEMP GET ERROR THEN FIX VARIABLES TO BE SAVE IN DB / NO ERROR ADD IN ArrByAgeGroupSex
-            enrollmentEditedNoError = new EnrollmentChecker(arrEnrollmentTemp,year, formID).getArrayNoError();
-            enrollmentStatusEditedTempError = new EnrollmentChecker(arrEnrollmentTemp, year, formID).getArrayError();
+            enrollmentEditedNoError = new EnrollmentChecker(arrEnrollmentTemp,year, formID, classification).getArrayNoError();
+            enrollmentStatusEditedTempError = new EnrollmentChecker(arrEnrollmentTemp, year, formID, classification).getArrayError();
 
             EnrollmentChecker toDb = new EnrollmentChecker();
-            trnasoformedData = toDb.transformData(enrollmentStatusEditedTempError);
+            trnasoformedData = toDb.transformData(enrollmentStatusEditedTempError, classification);
 
             ArrEnrollment.addAll(trnasoformedData);
             ArrEnrollment.addAll(enrollmentEditedNoError);
@@ -247,6 +247,7 @@ public class ValiEnrollment extends BaseServlet {
             enrollment.setTotalFemale(Integer.parseInt(totalFemale[i].replaceAll(" ", "").replaceAll(",", "")));
             enrollment.setGrandTotal(Integer.parseInt(grandTotal[i].replaceAll(" ", "").replaceAll(",", "")));
             enrollment.setGenderDisparityIndex(Double.parseDouble(GenderDisparityIndex[i].replaceAll(" ", "").replaceAll(",", "")));
+            enrollment.setValidation(1);
             arrEnrollmentDet = new ArrayList<EnrollmentDet>();
 
             for (; y < 8 + stopper; y++) {

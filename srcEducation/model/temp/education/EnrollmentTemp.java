@@ -141,7 +141,8 @@ public class EnrollmentTemp {
     }
 
     public void setGenderDisparityIndex(String genderDisparityIndex) {
-        this.genderDisparityIndex = genderDisparityIndex;
+       this.genderDisparityIndex = String.format("%.2f", Double.parseDouble(genderDisparityIndex));
+
     }
 
     /**

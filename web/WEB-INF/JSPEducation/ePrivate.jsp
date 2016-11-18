@@ -130,7 +130,7 @@
                                     <h3 class="box-title">Incomplete Reports</h3>
                                 </div>
                                 <div class="box-body">
-                                    <form id="ErrorPage" action="" method="post">
+                                    <form id="ErrorPage" action="EditEducationFromServlet" method="post">
                                         <table id="incomplete" class="table table-striped dataTable" role="grid" aria-describedby="incomplete_info">
                                             <thead>
                                                 <tr>
@@ -158,7 +158,7 @@
                                             </tbody>
 
                                         </table>
-                                        <input id="page" name="page" type="hidden"  value="editErrorbyeClassroomFurnitures"/>
+                                        <input id="page" name="page" type="hidden"  value="editErrorByPrivate"/>
                                         <input id="iformID" name="formID" type="hidden" />
                                     </form>
                                 </div>

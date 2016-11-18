@@ -18,6 +18,7 @@ public class EnrollmentDet {
     private int femaleCount;
     private int totalCount;
     private int validation;
+    private String reason;
 
     public int isValidation() {
         return validation;
@@ -57,6 +58,20 @@ public class EnrollmentDet {
 
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
 }
