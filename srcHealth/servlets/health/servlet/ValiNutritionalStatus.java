@@ -226,6 +226,7 @@ public class ValiNutritionalStatus extends BaseServlet {
                 NutritionalStatusBMI.setFemaleCount(Integer.parseInt(BfemaleCount[y].replaceAll(" ", "").replaceAll(",", "")));
                 NutritionalStatusBMI.setMaleCount(Integer.parseInt(BmaleCount[y].replaceAll(" ", "").replaceAll(",", "")));
                 NutritionalStatusBMI.setTotalCount(Integer.parseInt(BtotalCount[y].replaceAll(" ", "").replaceAll(",", "")));
+                NutritionalStatusBMI.setValidation(1);
                 arrNutritionalStatusBMI.add(NutritionalStatusBMI);
               
             }

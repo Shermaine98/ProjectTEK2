@@ -169,6 +169,7 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                         NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                         NutritionalStatusBMITemp.setValidation(1);
+                        NutritionalStatusBMITemp.setReason("");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                     }
                 }
@@ -299,6 +300,7 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                         NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                         NutritionalStatusBMITemp.setValidation(1);
+                            NutritionalStatusBMITemp.setReason("");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                     }
                 }
@@ -395,6 +397,7 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                         NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                         NutritionalStatusBMITemp.setValidation(1);
+                        NutritionalStatusBMITemp.setReason("");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                     }
                 }
@@ -430,6 +433,7 @@ public class NutritionalStatusChecker {
                     NutritionalStatusTemp.setGradeLevel(ArrError.get(i).getGradeLevel());
                     NutritionalStatusTemp.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatusTemp.setValidation(1);
+                     NutritionalStatusTemp.setReason("");
 
                     NutritionalStatusTemp.setPupilsWeighedFemale(ArrError.get(i).getPupilsWeighedFemale());
                     NutritionalStatusTemp.setPupilsWeighedMale(ArrError.get(i).getPupilsWeighedMale());
@@ -509,6 +513,7 @@ public class NutritionalStatusChecker {
                             NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                             NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                             NutritionalStatusBMITemp.setValidation(1);
+                            NutritionalStatusBMITemp.setReason("");
                             arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                         }
                     }
@@ -524,6 +529,7 @@ public class NutritionalStatusChecker {
                     NutritionalStatus.setTotalFemale(Integer.parseInt(ArrError.get(i).getTotalFemale()));
                     NutritionalStatus.setTotalCount(Integer.parseInt(ArrError.get(i).getTotalCount()));
                     NutritionalStatus.setValidation(1);
+                    NutritionalStatus.setReason("");
                     NutritionalStatus.setPupilsWeighedFemale(Integer.parseInt(ArrError.get(i).getPupilsWeighedFemale()));
                     NutritionalStatus.setPupilsWeighedMale(Integer.parseInt(ArrError.get(i).getPupilsWeighedMale()));
                     NutritionalStatus.setPupilsWeighedTotal(Integer.parseInt(ArrError.get(i).getPupilsWeighedTotal()));
@@ -535,7 +541,8 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMI.setMaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount()));
                         NutritionalStatusBMI.setFemaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount()));
                         NutritionalStatusBMI.setTotalCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()));
-                        NutritionalStatus.setValidation(1);
+                        NutritionalStatusBMI.setValidation(1);
+                         NutritionalStatusBMI.setReason("");
                         arrNutritionalStatusBMI.add(NutritionalStatusBMI);
 
                     }
@@ -692,6 +699,7 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                         NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                         NutritionalStatusBMITemp.setValidation(1);
+                         NutritionalStatusBMITemp.setReason("");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                     }
                 }
@@ -825,6 +833,7 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                         NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                         NutritionalStatusBMITemp.setValidation(1);
+                         NutritionalStatusBMITemp.setReason("");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                     }
                 }
@@ -923,6 +932,8 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                         NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                         NutritionalStatusBMITemp.setValidation(1);
+                        
+                         NutritionalStatusBMITemp.setReason("");
                         arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                     }
                 }
@@ -962,6 +973,7 @@ public class NutritionalStatusChecker {
                     NutritionalStatusTemp.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatusTemp.setValidation(1);
 
+                         NutritionalStatusTemp.setReason("");
                     NutritionalStatusTemp.setPupilsWeighedFemale(ArrError.get(i).getPupilsWeighedFemale());
                     NutritionalStatusTemp.setPupilsWeighedMale(ArrError.get(i).getPupilsWeighedMale());
                     NutritionalStatusTemp.setPupilsWeighedTotal(ArrError.get(i).getPupilsWeighedTotal());
@@ -1040,6 +1052,7 @@ public class NutritionalStatusChecker {
                             NutritionalStatusBMITemp.setFemaleCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount());
                             NutritionalStatusBMITemp.setTotalCount(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount());
                             NutritionalStatusBMITemp.setValidation(1);
+                            NutritionalStatusBMITemp.setReason("");
                             arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
                         }
                     }
@@ -1057,6 +1070,7 @@ public class NutritionalStatusChecker {
                     NutritionalStatus.setTotalFemale(Integer.parseInt(ArrError.get(i).getTotalFemale()));
                     NutritionalStatus.setTotalCount(Integer.parseInt(ArrError.get(i).getTotalCount()));
                     NutritionalStatus.setValidation(1);
+                     NutritionalStatus.setReason("");
                     NutritionalStatus.setPupilsWeighedFemale(Integer.parseInt(ArrError.get(i).getPupilsWeighedFemale()));
                     NutritionalStatus.setPupilsWeighedMale(Integer.parseInt(ArrError.get(i).getPupilsWeighedMale()));
                     NutritionalStatus.setPupilsWeighedTotal(Integer.parseInt(ArrError.get(i).getPupilsWeighedTotal()));
@@ -1068,7 +1082,8 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMI.setMaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount()));
                         NutritionalStatusBMI.setFemaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount()));
                         NutritionalStatusBMI.setTotalCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()));
-                        NutritionalStatus.setValidation(1);
+                        NutritionalStatusBMI.setValidation(1);
+                        NutritionalStatusBMI.setReason("");
                         arrNutritionalStatusBMI.add(NutritionalStatusBMI);
 
                     }
@@ -1485,6 +1500,7 @@ public class NutritionalStatusChecker {
                      NutritionalStatus.setGradeLevel(ArrError.get(i).getGradeLevel());
                        NutritionalStatus.setDistrict(ArrError.get(i).getDistrict());
                     NutritionalStatus.setValidation(1);
+                    NutritionalStatus.setReason("");
 
                     NutritionalStatus.setPupilsWeighedFemale(Integer.parseInt(ArrError.get(i).getPupilsWeighedFemale()));
                     NutritionalStatus.setPupilsWeighedMale(Integer.parseInt(ArrError.get(i).getPupilsWeighedMale()));
@@ -1563,6 +1579,7 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMI.setFemaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount()));
                         NutritionalStatusBMI.setTotalCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()));
                         NutritionalStatusBMI.setValidation(1);
+                        NutritionalStatusBMI.setReason("");
                         arrNutritionalStatusBMI.add(NutritionalStatusBMI);
                     }
                 }
@@ -1580,6 +1597,7 @@ public class NutritionalStatusChecker {
                     NutritionalStatus.setTotalFemale(Integer.parseInt(ArrError.get(i).getTotalFemale()));
                     NutritionalStatus.setTotalCount(Integer.parseInt(ArrError.get(i).getTotalCount()));
                     NutritionalStatus.setValidation(1);
+                     NutritionalStatus.setReason("");
                     NutritionalStatus.setPupilsWeighedFemale(Integer.parseInt(ArrError.get(i).getPupilsWeighedFemale()));
                     NutritionalStatus.setPupilsWeighedMale(Integer.parseInt(ArrError.get(i).getPupilsWeighedMale()));
                     NutritionalStatus.setPupilsWeighedTotal(Integer.parseInt(ArrError.get(i).getPupilsWeighedTotal()));
@@ -1591,7 +1609,8 @@ public class NutritionalStatusChecker {
                         NutritionalStatusBMI.setMaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount()));
                         NutritionalStatusBMI.setFemaleCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount()));
                         NutritionalStatusBMI.setTotalCount(Integer.parseInt(ArrError.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()));
-                        NutritionalStatus.setValidation(1);
+                        NutritionalStatusBMI.setValidation(1);
+                         NutritionalStatusBMI.setReason("");
                         arrNutritionalStatusBMI.add(NutritionalStatusBMI);
 
                     }

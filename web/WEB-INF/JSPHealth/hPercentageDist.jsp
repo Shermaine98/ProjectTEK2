@@ -71,7 +71,7 @@
                 </div>
                 <%}%>
                 <!--MODAL-->
-                <div data-backdrop="static" id="showModalWarning" class="modal fade" role="dialog">
+                <div data-backdrop="static"  id="showModalWarning" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -84,7 +84,6 @@
 
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <!--END MODAL-->
@@ -123,7 +122,7 @@
                                     <h3 class="box-title">Incomplete Reports</h3>
                                 </div>
                                 <div class="box-body">
-                                    <form id="ErrorPage" action="" method="post">
+                                    <form id="ErrorPage" action="EditHealthFormServlet" method="post">
                                         <table id="incomplete" class="table table-striped dataTable" role="grid" aria-describedby="incomplete_info">
                                             <thead>
                                                 <tr>
@@ -151,7 +150,7 @@
                                             </tbody>
 
                                         </table>
-                                        <input id="page" name="page" type="hidden"  value="Editedbynutritional"/>
+                                        <input id="page" name="page" type="hidden"  value="editErrorByNutritional"/>
                                         <input id="iformID" name="formID" type="hidden" />
                                     </form>
                                 </div>

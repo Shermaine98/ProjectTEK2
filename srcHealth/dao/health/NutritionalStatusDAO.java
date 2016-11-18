@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package dao.health;
 
 import dao.RecordDAO;
@@ -25,10 +24,8 @@ import static java.util.logging.Logger.getLogger;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
-
 public class NutritionalStatusDAO {
 
     public ArrayList<NutritionalStatus> ViewNutritionalStatus(int formID) throws ParseException {
@@ -54,6 +51,7 @@ public class NutritionalStatusDAO {
                     temp.setPupilsWeighedFemale(rs.getInt("pupilsWeighedFemale"));
                     temp.setPupilsWeighedTotal(rs.getInt("pupilsWeighedTotal"));
                     temp.setValidation(rs.getInt("validation"));
+                    temp.setReason(getReason(temp.isValidation()));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM nutritional_status_BMI WHERE  formID = ? and gradeLevel = ? and district = ?");
                     pstmt2.setInt(1, temp.getFormID());
@@ -66,6 +64,8 @@ public class NutritionalStatusDAO {
                         NutritionalStatusBMITemp.setMaleCount(rs2.getInt("maleCount"));
                         NutritionalStatusBMITemp.setFemaleCount(rs2.getInt("femaleCount"));
                         NutritionalStatusBMITemp.setTotalCount(rs2.getInt("totalCount"));
+                        NutritionalStatusBMITemp.setValidation(rs2.getInt("validation"));
+                         NutritionalStatusBMITemp.setReason(getReason(NutritionalStatusBMITemp.getValidation()));
                         arrenrollmentDet.add(NutritionalStatusBMITemp);
                     }
                     temp.setNutritionalStatusBMI(arrenrollmentDet);
@@ -103,8 +103,10 @@ public class NutritionalStatusDAO {
                     temp.setPupilsWeighedFemale(rs.getInt("pupilsWeighedFemale"));
                     temp.setPupilsWeighedTotal(rs.getInt("pupilsWeighedTotal"));
                     temp.setValidation(rs.getInt("validation"));
+                    temp.setReason(getReason(temp.isValidation()));
 
-                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM nutritional_status_BMI WHERE  formID = ? and gradeLevel = ? and district = ?");
+
+                    PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM nutritional_status_BMI WHERE  formID = ? and gradeLevel = ? and district = ?");
                     pstmt2.setInt(1, temp.getFormID());
                     pstmt2.setString(2, temp.getGradeLevel());
                     pstmt2.setString(3, temp.getDistrict());
@@ -115,6 +117,7 @@ public class NutritionalStatusDAO {
                         NutritionalStatusBMITemp.setMaleCount(rs2.getInt("maleCount"));
                         NutritionalStatusBMITemp.setFemaleCount(rs2.getInt("femaleCount"));
                         NutritionalStatusBMITemp.setTotalCount(rs2.getInt("totalCount"));
+                        NutritionalStatusBMITemp.setReason(getReason(NutritionalStatusBMITemp.getValidation()));
                         arrenrollmentDet.add(NutritionalStatusBMITemp);
                     }
                     temp.setNutritionalStatusBMI(arrenrollmentDet);
@@ -129,7 +132,6 @@ public class NutritionalStatusDAO {
         }
         return null;
     }
-
 
     public boolean EncodeNutritionalStatus(ArrayList<NutritionalStatus> newNutritionalStatus) {
         try {
@@ -175,7 +177,7 @@ public class NutritionalStatusDAO {
                         pstmt2.setInt(6, object2.getMaleCount());
                         pstmt2.setInt(7, object2.getFemaleCount());
                         pstmt2.setInt(8, object2.getTotalCount());
-                         pstmt2.setInt(9, object2.getValidation());
+                        pstmt2.setInt(9, object2.getValidation());
                         pstmt2.addBatch();
                         z++;
                     }
@@ -227,23 +229,48 @@ public class NutritionalStatusDAO {
 
             String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
                     + "FROM nutritional_status \n"
-                    + "WHERE `VALIDATION` = 0 AND formID > 700000000 AND formID < 799999999 \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 800000000 AND formID < 899999999 \n"
                     + "GROUP BY formID";
+
+            String query2 = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
+                    + "FROM nutritional_status_BMI \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 800000000 AND formID < 899999999 \n"
+                    + "GROUP BY formID";
+
             ResultSet rs;
-            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-                rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    GlobalRecords temp = new GlobalRecords();
-                    temp.setFormID(rs.getInt("formID"));
-                    temp.setErrorLines(rs.getInt("error"));
-                    recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
-                    temp.setCensusYear(recordDEMO.getCensusYear());
-                    temp.setUploadedByByName(recordDEMO.getUploadedByByName());
-                    ArrByAgeGroupSex.add(temp);
-                }
-                conn.close();
+            ResultSet rs2;
+
+            int nut = 0;
+            int bmi = 0;
+            int formID = 0;
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt2 = conn.prepareStatement(query2);
+            rs = pstmt.executeQuery();
+            rs2 = pstmt2.executeQuery();
+
+            while (rs.next()) {
+                nut = rs.getInt("error");
+                formID = rs.getInt("formID");
             }
-            rs.close();
+
+            while (rs2.next()) {
+                bmi = rs2.getInt("error");
+                formID = rs2.getInt("formID");
+            }
+
+            if (nut + bmi > 0) {
+
+                GlobalRecords temp = new GlobalRecords();
+                temp.setFormID(formID);
+                temp.setErrorLines(nut + bmi);
+                recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
+                temp.setCensusYear(recordDEMO.getCensusYear());
+                temp.setUploadedByByName(recordDEMO.getUploadedByByName());
+                ArrByAgeGroupSex.add(temp);
+            }
+            conn.close();
+
             return ArrByAgeGroupSex;
         }
     }
@@ -257,7 +284,7 @@ public class NutritionalStatusDAO {
             try (Connection conn = myFactory.getConnection()) {
                 String delete = "DELETE FROM nutritional_status_BMI WHERE formID = ?";
                 String delete2 = "DELETE FROM nutritional_status WHERE formID = ?";
-                
+
                 pstmt = conn.prepareStatement(delete);
                 pstmt2 = conn.prepareStatement(delete2);
                 pstmt.setInt(1, formID);
@@ -318,5 +345,28 @@ public class NutritionalStatusDAO {
             getLogger(NutritionalStatusDAO.class.getName()).log(SEVERE, null, ex);
         }
         return false;
+    }
+    
+     public String getReason(int reason) {
+        String reasonError = "";
+
+        switch (reason) {
+            case -1:
+                reasonError = "Missing Field/s";
+                break;
+            case -2:
+                reasonError = "Format Error";
+                break;
+            case -3:
+                reasonError = "Summation Error";
+                break;
+            case -4:
+                reasonError = "Quotient Error";
+                break;
+            default:
+                reasonError = "None";
+                break;
+        }
+        return reasonError;
     }
 }

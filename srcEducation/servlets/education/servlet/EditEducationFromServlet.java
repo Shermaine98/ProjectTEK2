@@ -179,7 +179,7 @@ public class EditEducationFromServlet extends BaseServlet {
 
                 request.setAttribute("ErrorMessage", "Error");
                 request.setAttribute("page", "edited");
-                request.setAttribute("classification", "Private");
+                request.setAttribute("classification", "Public");
                 request.setAttribute("ArrNoError", arrNoError);
                 request.setAttribute("ArrError", arrError);
                 rd = request.getRequestDispatcher("/WEB-INF/JSPEducation/valiEnrollment.jsp");

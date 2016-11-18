@@ -44,19 +44,23 @@
                         <div class="box-header with-border" style="margin-bottom: 2%;">
                             <center>
                                 <!--THIS IS FOR THE PAGE TITLE-->
-                                <%                                String redirect = (String) request.getAttribute("page");
+                                <%
+                                    String redirect = (String) request.getAttribute("page");
                                     if (redirect.equalsIgnoreCase("upload")) {
                                 %>
-                                <h1 class="box-title"><b>Preview of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for <p class="box-title" id="text_year"></p></b></h1>
 
-                                <% } else if (redirect.equalsIgnoreCase("edit")) {%>
-                                <h1 class="box-title"><b>Edit Saved Report | Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for <p class="box-title" id="text_year"></p> </b></h1>
+                                <h1 class="box-title"><b>Preview of Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for</b> </h1>
+                                <h1 class="box-title" id="text_year"></h1>
 
+                                <% } else if (redirect.equalsIgnoreCase("edited")) {%>
+                                <h1 class="box-title"><b>Edit Saved Report | Percentage Distribution of Elementary School Children in Each District in the Division of Caloocan by Nutritional Status/By Gender Report for </b></h1>
+                                <h1 class="box-title" id="text_year"></h1>
                                 <%}%>
                                 <br>
                                 <!--END FOR THE PAGE TITLE-->
                             </center>
                         </div>
+
                         <!--THIS IS FOR THE PAGE RESULT-->
                         <%
                             String temp = (String) request.getAttribute("ErrorMessage");
