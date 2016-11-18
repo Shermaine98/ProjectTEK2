@@ -38,7 +38,7 @@ $(document).ready(function () {
 $(document).on("click", "#invalidDirectory", function () {
     var redirect = "invalid";
     var schoolName = $(this).closest("tr").find(".nr").text();
-    var censusYear = document.getElementById("censusYear").value;
+    var censusYear = $(this).closest("tr").find(".censusYear input").val();
 
     var whichtr = $(this).closest("tr");
     whichtr.remove();
@@ -80,7 +80,7 @@ $(document).on("click", "#edit", function () {
     var nurses = $(this).closest("tr").find(".nurses").text();
     var midwives = $(this).closest("tr").find(".midwives").text();
     var beds = $(this).closest("tr").find(".bed").text();
-    var classification = $(this).closest("tr").find(".classification").text();
+    var classification = $(this).closest("tr").find(".classificationL").text();
    
     var category = $(this).closest("tr").find(".category").text();
     var accreditation = $(this).closest("tr").find(".accreditation").text();
@@ -95,14 +95,14 @@ $(document).on("click", "#edit", function () {
          console.log(classification);
         $("#info").append('<label for="classification" style="width: 35%;">Hospital Classification: </label>');
         $("#info").append('<select required class="form-control" style="width: 55%;" name="classification">\n\
-                                                     <option value="' + classification + '">' + classification + '</option> \n\
-                                                    <option value="private">Private Hospital</option> \n\
+                                                     <option value="Government Hospital">Government Hospital</option> \n\
+                                                    <option value="Private Hospital">Private Hospital</option> \n\
                                                 </select><br/><br/>');
     } else {
         $("#info").append('<label for="classification" style="width: 35%;">Hospital Classification: </label>');
         $("#info").append('<select required class="form-control" style="width: 55%;" name="classification">\n\
-                                                     <option value="' + classification + '">' + classification + '</option> \n\
-                                                    <option value="public">Government Hospital</option>\n\
+                                                     <option value="Private Hospital">Private Hospital</option> \n\
+                                                    <option value="Government Hospital">Government Hospital</option>\n\
                                                 </select><br/><br/>');
     }
 

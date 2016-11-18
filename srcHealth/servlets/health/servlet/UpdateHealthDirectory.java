@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package servlets.health.servlet;
 
 import dao.RecordDAO;
@@ -27,9 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class UpdateHealthDirectory extends BaseServlet {
 
     /**
@@ -50,9 +47,10 @@ public class UpdateHealthDirectory extends BaseServlet {
 
         if (redirect.equalsIgnoreCase("invalid")) {
             String schoolName = request.getParameter("schoolName");
+            String censusYear = request.getParameter("censusYear");
             boolean x = false;
             try {
-                x = directoryHospitalDAO.setDirectoryInactive(schoolName, year);
+                x = directoryHospitalDAO.setDirectoryInactive(schoolName, Integer.parseInt(censusYear));
             } catch (SQLException ex) {
                 Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -61,29 +59,44 @@ public class UpdateHealthDirectory extends BaseServlet {
             response.setCharacterEncoding("utf-8");
             response.getWriter().write(json);
         } else if (redirect.equalsIgnoreCase("submitAll")) {
-            String uploadedBy = request.getParameter("uploadedBy");
-            boolean x = false;
-
+            RecordDAO recorddao = new RecordDAO();
+            boolean checkExist = false;
             try {
-                x = directoryHospitalDAO.SubmitAllHealth(year, Integer.parseInt(uploadedBy));
+                checkExist = recorddao.checkExistRecord(90000000, year);
             } catch (SQLException ex) {
                 Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (x) {
+            if (checkExist) {
                 request.setAttribute("page", "Upload");
                 request.setAttribute("saveToDB", "SuccessDB");
                 rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=directoryHosptial");
                 rd.forward(request, response);
-
             } else {
-                request.setAttribute("page", "Upload");
-                request.setAttribute("saveToDB", "notSuccess");
-                rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=directoryHosptial");
-                rd.forward(request, response);
 
+                String uploadedBy = request.getParameter("uploadedBy");
+                boolean x = false;
+
+                try {
+                    x = directoryHospitalDAO.SubmitAllHealth(year, Integer.parseInt(uploadedBy));
+                } catch (SQLException ex) {
+                    Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (x) {
+                    request.setAttribute("page", "Upload");
+                    request.setAttribute("saveToDB", "SuccessDB");
+                    rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=directoryHosptial");
+                    rd.forward(request, response);
+
+                } else {
+                    request.setAttribute("page", "Upload");
+                    request.setAttribute("saveToDB", "notSuccess");
+                    rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=directoryHosptial");
+                    rd.forward(request, response);
+
+                }
             }
-
         } else if (redirect.equalsIgnoreCase("addNew")) {
 
             String classification = request.getParameter("classification");

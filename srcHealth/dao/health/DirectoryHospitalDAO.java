@@ -306,8 +306,7 @@ public class DirectoryHospitalDAO {
                             + "				d.telephone, d.totalDoctors, d.totalNurses, d.totalMidwives, d.numberOfBeds,\n"
                             + "				d.category, d.isAccredited, d.latitude, d.longitude, 0 , d.active\n"
                             + "                         FROM directory_health d\n"
-                            + "                         WHERE d.active = '1'\n"
-                            + "                         AND d.`alter` = '0';";
+                            + "                         WHERE d.active = '1';";
                     pstmt = conn.prepareStatement(updateValidation);
                     pstmt.setInt(1, 90000000 + year);
                     pstmt.setInt(2, year);

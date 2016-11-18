@@ -217,7 +217,7 @@
                                                 <td class="nurses" style="text-align:center;"><%=directoryHealth.get(i).getFormatcount(directoryHealth.get(i).getNumberOfNurses())%></td>
                                                 <td class="midwives" style="text-align:center;"><%=directoryHealth.get(i).getFormatcount(directoryHealth.get(i).getNumberOfMidwives())%></td>
                                                 <td class="bed" style="text-align:center;"><%=directoryHealth.get(i).getFormatcount(directoryHealth.get(i).getNumberOfBeds())%></td>
-                                                <td style="display:none;" class="classification"><%=directoryHealth.get(i).getClassification()%></td>
+                                                <td style="display:none;" class="classificationL"><%=directoryHealth.get(i).getClassification()%></td>
                                                 <td class="category"><%=directoryHealth.get(i).getCategory()%></td>
                                                 <td class="accreditation"><%=directoryHealth.get(i).isAccreditation()%></td>
                                                 <td class="censusYear" width="15%">
@@ -270,7 +270,7 @@
                                                 <td class="nurses" style="text-align:center;"><%=directoryHealth.get(i).getFormatcount(directoryHealth.get(i).getNumberOfNurses())%></td>
                                                 <td class="midwives" style="text-align:center;"><%=directoryHealth.get(i).getFormatcount(directoryHealth.get(i).getNumberOfMidwives())%></td>
                                                 <td class="bed" style="text-align:center;"><%=directoryHealth.get(i).getFormatcount(directoryHealth.get(i).getNumberOfBeds())%></td>
-                                                <td style="display:none;" class="classification"><%=directoryHealth.get(i).getClassification()%></td>
+                                                <td style="display:none;" class="classificationL"><%=directoryHealth.get(i).getClassification()%></td>
                                                 <td class="category"><%=directoryHealth.get(i).getCategory()%></td>
                                                 <td class="accreditation"><%=directoryHealth.get(i).isAccreditation()%></td>
                                                 <td class="censusYear" width="15%">
