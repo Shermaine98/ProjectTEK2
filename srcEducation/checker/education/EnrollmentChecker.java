@@ -50,7 +50,7 @@ public class EnrollmentChecker {
 
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+              //  enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -63,7 +63,7 @@ public class EnrollmentChecker {
                     enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
                 }
 
-                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getTotalMale().equalsIgnoreCase("")) {
                     enrollmentTemp.setTotalMale("");
 
                 } else {
@@ -163,6 +163,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -180,7 +181,7 @@ public class EnrollmentChecker {
                 //
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+              //  enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -293,6 +294,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -309,7 +311,7 @@ public class EnrollmentChecker {
                 //
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+               // enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -402,6 +404,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -411,13 +414,13 @@ public class EnrollmentChecker {
 
                 enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
                 arrayError.add(enrollmentTemp);
-            } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
-                    != Float.parseFloat(arrError.get(i).getTotalFemale())
-                    / Float.parseFloat(arrError.get(i).getTotalMale())) {
+            } else if (Double.parseDouble(String.format("%.2f", Float.parseFloat(arrError.get(i).getGenderDisparityIndex())))
+                    != Double.parseDouble(String.format("%.2f", Float.parseFloat(arrError.get(i).getTotalFemale())
+                    / Float.parseFloat(arrError.get(i).getTotalMale())))) {
                 //
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+               // enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -510,6 +513,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -552,7 +556,7 @@ public class EnrollmentChecker {
                     //
                     enrollmentTemp = new EnrollmentTemp();
                     //SET OTHER STUFF
-                    enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                   // enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                     enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                     enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                     enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -564,6 +568,7 @@ public class EnrollmentChecker {
                     enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
                     enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
                     enrollmentTemp.setValidation(1);
+                    enrollmentTemp.setReason("");
 
                     arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
                     for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
@@ -644,6 +649,7 @@ public class EnrollmentChecker {
                             EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                             EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                             EnrollmentDetTemp.setValidation(1);
+                            EnrollmentDetTemp.setReason("");
                             EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                             arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -657,10 +663,11 @@ public class EnrollmentChecker {
                     enrollment = new Enrollment();
 
                     // set stuff
-                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                //    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                     enrollment.setSchoolName(arrError.get(i).getSchoolName());
                     enrollment.setDistrict(arrError.get(i).getDistrict());
                     enrollment.setSchoolType(arrError.get(i).getSchoolType());
+
 
                     //END SET OTHER STUFF
                     //
@@ -669,7 +676,7 @@ public class EnrollmentChecker {
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
                     enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
-
+                    enrollment.setReason("");
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
                     for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
                         EnrollmentDet EnrollmentDet = new EnrollmentDet();
@@ -678,6 +685,7 @@ public class EnrollmentChecker {
                         EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
                         EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
                         EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setReason("");
                         arrEnrollmentDet.add(EnrollmentDet);
                     }
                     enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
@@ -695,8 +703,9 @@ public class EnrollmentChecker {
      * public or private
      * @param year year
      * @param formID form id
+     * @param classification
      */
-    public EnrollmentChecker(ArrayList<EnrollmentTemp> arrError, int year, int formID) {
+    public EnrollmentChecker(ArrayList<EnrollmentTemp> arrError, int year, int formID, String classification) {
 
         Enrollment enrollment;
         EnrollmentTemp enrollmentTemp;
@@ -721,7 +730,8 @@ public class EnrollmentChecker {
 
                 enrollmentTemp.setFormID(formID);
                 enrollmentTemp.setCensusYear(year);
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setClassification(classification);
+             //   enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -734,7 +744,7 @@ public class EnrollmentChecker {
                     enrollmentTemp.setTotalFemale(arrError.get(i).getTotalFemale());
                 }
 
-                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getTotalMale().equalsIgnoreCase("")) {
                     enrollmentTemp.setTotalMale("");
 
                 } else {
@@ -836,6 +846,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -856,7 +867,8 @@ public class EnrollmentChecker {
 
                 enrollmentTemp.setFormID(formID);
                 enrollmentTemp.setCensusYear(year);
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setClassification(classification);
+               // enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -967,6 +979,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -986,7 +999,8 @@ public class EnrollmentChecker {
 
                 enrollmentTemp.setFormID(formID);
                 enrollmentTemp.setCensusYear(year);
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setClassification(classification);
+               // enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -1079,6 +1093,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -1088,16 +1103,17 @@ public class EnrollmentChecker {
 
                 enrollmentTemp.setEnrollmentDetArrayList(arrEnrollmentDetTemp);
                 arrayError.add(enrollmentTemp);
-            } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
-                    != Float.parseFloat(arrError.get(i).getTotalFemale())
-                    / Float.parseFloat(arrError.get(i).getTotalMale())) {
+            } else if (Double.parseDouble(String.format("%.2f", Float.parseFloat(arrError.get(i).getGenderDisparityIndex())))
+                    != Double.parseDouble(String.format("%.2f", Float.parseFloat(arrError.get(i).getTotalFemale())
+                    / Float.parseFloat(arrError.get(i).getTotalMale())))) {
                 //
                 enrollmentTemp = new EnrollmentTemp();
                 //SET OTHER STUFF
 
                 enrollmentTemp.setFormID(formID);
                 enrollmentTemp.setCensusYear(year);
-                enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                enrollmentTemp.setClassification(classification);
+              //  enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                 enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                 enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                 enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -1190,6 +1206,7 @@ public class EnrollmentChecker {
                         EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                         EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                         EnrollmentDetTemp.setValidation(1);
+                        EnrollmentDetTemp.setReason("");
                         EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -1234,7 +1251,8 @@ public class EnrollmentChecker {
                     //SET OTHER STUFF
                     enrollmentTemp.setFormID(formID);
                     enrollmentTemp.setCensusYear(year);
-                    enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
+                    enrollmentTemp.setClassification(classification);
+               //     enrollmentTemp.setSchoolID(arrError.get(i).getSchoolID());
                     enrollmentTemp.setSchoolName(arrError.get(i).getSchoolName());
                     enrollmentTemp.setDistrict(arrError.get(i).getDistrict());
                     enrollmentTemp.setSchoolType(arrError.get(i).getSchoolType());
@@ -1246,6 +1264,7 @@ public class EnrollmentChecker {
                     enrollmentTemp.setGrandTotal(arrError.get(i).getGrandTotal());
                     enrollmentTemp.setGenderDisparityIndex(arrError.get(i).getGenderDisparityIndex());
                     enrollmentTemp.setValidation(1);
+                    enrollmentTemp.setReason("");
 
                     arrEnrollmentDetTemp = new ArrayList<EnrollmentDetTemp>();
                     for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
@@ -1326,6 +1345,7 @@ public class EnrollmentChecker {
                             EnrollmentDetTemp.setFemaleCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount());
                             EnrollmentDetTemp.setTotalCount(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount());
                             EnrollmentDetTemp.setValidation(1);
+                            EnrollmentDetTemp.setReason("");
                             EnrollmentDetTemp.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                             arrEnrollmentDetTemp.add(EnrollmentDetTemp);
@@ -1341,7 +1361,8 @@ public class EnrollmentChecker {
                     // set stuff
                     enrollment.setFormID(formID);
                     enrollment.setCensusYear(year);
-                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                    enrollment.setClassification(classification);
+               //     enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                     enrollment.setSchoolName(arrError.get(i).getSchoolName());
                     enrollment.setDistrict(arrError.get(i).getDistrict());
                     enrollment.setSchoolType(arrError.get(i).getSchoolType());
@@ -1353,6 +1374,7 @@ public class EnrollmentChecker {
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
                     enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
+                    enrollment.setReason("");
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
 
                     for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
@@ -1363,6 +1385,7 @@ public class EnrollmentChecker {
                         EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         EnrollmentDet.setValidation(1);
+                       EnrollmentDet.setReason("");
                         arrEnrollmentDet.add(EnrollmentDet);
                     }
                     enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
@@ -1377,7 +1400,7 @@ public class EnrollmentChecker {
     public EnrollmentChecker() {
     }
 
-    public ArrayList<Enrollment> transformData(ArrayList<EnrollmentTemp> arrError) {
+    public ArrayList<Enrollment> transformData(ArrayList<EnrollmentTemp> arrError, String classification) {
         Enrollment enrollment;
         ArrayList<EnrollmentDet> arrEnrollmentDet;
         ArrayList<Enrollment> transformData = new ArrayList<>();
@@ -1398,11 +1421,11 @@ public class EnrollmentChecker {
 
                 enrollment.setFormID(arrError.get(i).getFormID());
                 enrollment.setCensusYear(arrError.get(i).getCensusYear());
-                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+            //    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                 enrollment.setSchoolName(arrError.get(i).getSchoolName());
                 enrollment.setDistrict(arrError.get(i).getDistrict());
                 enrollment.setSchoolType(arrError.get(i).getSchoolType());
-
+                enrollment.setClassification(classification);
                 //END SET OTHER STUFF
                 if (arrError.get(i).getTotalFemale() == null || arrError.get(i).getTotalFemale().equalsIgnoreCase("")) {
                     enrollment.setTotalFemale(-1);
@@ -1411,7 +1434,7 @@ public class EnrollmentChecker {
                     enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                 }
 
-                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getGrandTotal().equalsIgnoreCase("")) {
+                if (arrError.get(i).getTotalMale() == null || arrError.get(i).getTotalMale().equalsIgnoreCase("")) {
                     enrollment.setTotalMale(-1);
 
                 } else {
@@ -1509,6 +1532,7 @@ public class EnrollmentChecker {
                         EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
                         EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
                         EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setReason("");
                         EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDet.add(EnrollmentDet);
@@ -1529,10 +1553,11 @@ public class EnrollmentChecker {
 
                 enrollment.setFormID(arrError.get(i).getFormID());
                 enrollment.setCensusYear(arrError.get(i).getCensusYear());
-                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+               // enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                 enrollment.setSchoolName(arrError.get(i).getSchoolName());
                 enrollment.setDistrict(arrError.get(i).getDistrict());
                 enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                 enrollment.setClassification(classification);
 
                 //END SET OTHER STUFF
                 //
@@ -1637,6 +1662,7 @@ public class EnrollmentChecker {
                         EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
                         EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
                         EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setReason("");
                         arrEnrollmentDet.add(EnrollmentDet);
                     }
 
@@ -1654,10 +1680,11 @@ public class EnrollmentChecker {
 
                 enrollment.setFormID(arrError.get(i).getFormID());
                 enrollment.setCensusYear(arrError.get(i).getCensusYear());
-                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+               // enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                 enrollment.setSchoolName(arrError.get(i).getSchoolName());
                 enrollment.setDistrict(arrError.get(i).getDistrict());
                 enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                 enrollment.setClassification(classification);
                 //END SET OTHER STUFF
                 //
                 enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
@@ -1744,6 +1771,8 @@ public class EnrollmentChecker {
                         EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
                         EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
                         EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setReason("");
+                        
                         EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDet.add(EnrollmentDet);
@@ -1753,19 +1782,20 @@ public class EnrollmentChecker {
 
                 enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);
                 transformData.add(enrollment);
-            } else if (Float.parseFloat(arrError.get(i).getGenderDisparityIndex())
-                    != Float.parseFloat(arrError.get(i).getTotalFemale())
-                    / Float.parseFloat(arrError.get(i).getTotalMale())) {
+            } else if (Double.parseDouble(String.format("%.2f", Float.parseFloat(arrError.get(i).getGenderDisparityIndex())))
+                    != Double.parseDouble(String.format("%.2f", Float.parseFloat(arrError.get(i).getTotalFemale())
+                    / Float.parseFloat(arrError.get(i).getTotalMale())))){
                 //
                 enrollment = new Enrollment();
                 //SET OTHER STUFF
 
                 enrollment.setFormID(arrError.get(i).getFormID());
                 enrollment.setCensusYear(arrError.get(i).getCensusYear());
-                enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+               // enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                 enrollment.setSchoolName(arrError.get(i).getSchoolName());
                 enrollment.setDistrict(arrError.get(i).getDistrict());
                 enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                 enrollment.setClassification(classification);
                 //END SET OTHER STUFF
                 //
                 enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
@@ -1851,6 +1881,7 @@ public class EnrollmentChecker {
                         EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
                         EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
                         EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setReason("");
                         EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         arrEnrollmentDet.add(EnrollmentDet);
@@ -1895,10 +1926,11 @@ public class EnrollmentChecker {
                     enrollment = new Enrollment();
                     enrollment.setFormID(arrError.get(i).getFormID());
                     enrollment.setCensusYear(arrError.get(i).getCensusYear());
-                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                 //   enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                     enrollment.setSchoolName(arrError.get(i).getSchoolName());
                     enrollment.setDistrict(arrError.get(i).getDistrict());
                     enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                     enrollment.setClassification(classification);
                     //END SET OTHER STUFF
                     //
                     enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
@@ -1906,6 +1938,7 @@ public class EnrollmentChecker {
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
                     enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
+                    enrollment.setReason("");
 
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
 
@@ -1984,6 +2017,7 @@ public class EnrollmentChecker {
                             EnrollmentDet.setFemaleCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()));
                             EnrollmentDet.setTotalCount(Integer.parseInt(arrError.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()));
                             EnrollmentDet.setValidation(1);
+                            EnrollmentDet.setReason("");
                             EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                             arrEnrollmentDet.add(EnrollmentDet);
@@ -1999,10 +2033,11 @@ public class EnrollmentChecker {
                     // set stuff
                     enrollment.setFormID(arrError.get(i).getFormID());
                     enrollment.setCensusYear(arrError.get(i).getCensusYear());
-                    enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
+                  //  enrollment.setSchoolID(Integer.parseInt(arrError.get(i).getSchoolID()));
                     enrollment.setSchoolName(arrError.get(i).getSchoolName());
                     enrollment.setDistrict(arrError.get(i).getDistrict());
                     enrollment.setSchoolType(arrError.get(i).getSchoolType());
+                     enrollment.setClassification(classification);
 
                     //END SET OTHER STUFF
                     //
@@ -2011,6 +2046,7 @@ public class EnrollmentChecker {
                     enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
                     enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
                     enrollment.setValidation(1);
+                    enrollment.setReason("");
                     arrEnrollmentDet = new ArrayList<EnrollmentDet>();
                     for (int y = 0; y < arrError.get(i).getEnrollmentDetArrayList().size(); y++) {
                         EnrollmentDet EnrollmentDet = new EnrollmentDet();
@@ -2020,6 +2056,7 @@ public class EnrollmentChecker {
                         EnrollmentDet.setGradeLevel(arrError.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel());
 
                         EnrollmentDet.setValidation(1);
+                        EnrollmentDet.setReason("");
                         arrEnrollmentDet.add(EnrollmentDet);
                     }
                     enrollment.setEnrollmentDetArrayList(arrEnrollmentDet);

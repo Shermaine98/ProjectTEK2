@@ -52,6 +52,7 @@ public class EnrollmentDAO {
                     temp.setGrandTotal(rs.getInt("grandTotal"));
                     temp.setGenderDisparityIndex(rs.getDouble("GenderDisparityIndex"));
                     temp.setValidation(rs.getInt("Validation"));
+                    temp.setReason(getReason(temp.getValidation()));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM enrollment_det WHERE schoolName = ? and formID =? ");
                     pstmt2.setString(1, temp.getSchoolName());
@@ -64,6 +65,7 @@ public class EnrollmentDAO {
                         EnrollmentDetTemp.setFemaleCount(rs2.getInt("femaleCount"));
                         EnrollmentDetTemp.setTotalCount(rs2.getInt("totalCount"));
                         EnrollmentDetTemp.setValidation(rs2.getInt("validation"));
+                        EnrollmentDetTemp.setReason(getReason(EnrollmentDetTemp.isValidation()));
                         arrenrollmentDet.add(EnrollmentDetTemp);
                     }
                     temp.setEnrollmentDetArrayList(arrenrollmentDet);
@@ -102,6 +104,7 @@ public class EnrollmentDAO {
                     temp.setGrandTotal(rs.getInt("grandTotal"));
                     temp.setGenderDisparityIndex(rs.getDouble("GenderDisparityIndex"));
                     temp.setValidation(rs.getInt("Validaton"));
+                    temp.setReason(getReason(temp.getValidation()));
 
                     PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM enrollment_det WHERE schoolName = ? and formID =? ");
                     pstmt2.setString(1, temp.getSchoolName());
@@ -114,6 +117,7 @@ public class EnrollmentDAO {
                         EnrollmentDetTemp.setFemaleCount(rs2.getInt("femaleCount"));
                         EnrollmentDetTemp.setTotalCount(rs2.getInt("totalCount"));
                         EnrollmentDetTemp.setValidation(rs2.getInt("validation"));
+                        EnrollmentDetTemp.setReason(getReason(EnrollmentDetTemp.isValidation()));
                         arrenrollmentDet.add(EnrollmentDetTemp);
                     }
                     temp.setEnrollmentDetArrayList(arrenrollmentDet);
@@ -320,7 +324,7 @@ public class EnrollmentDAO {
 
             String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
                     + "FROM enrollment_det \n"
-                    + "WHERE `VALIDATION` = 0 AND formID > 130000000 AND formID < 139999999 \n"
+                    + "WHERE `VALIDATION` = 0 AND formID > 140000000 AND formID < 149999999\n"
                     + "GROUP BY formID";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -352,7 +356,7 @@ public class EnrollmentDAO {
 
             String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
                     + "FROM enrollment_det \n"
-                    + "WHERE `VALIDATION` = 0 AND formID > 130000000 AND formID < 139999999 \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 130000000 AND formID < 139999999 \n"
                     + "GROUP BY formID";
             ResultSet rs;
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -382,25 +386,52 @@ public class EnrollmentDAO {
             Record recordDEMO = new Record();
             ArrayList<GlobalRecords> ArrByAgeGroupSex = new ArrayList<>();
 
+            ResultSet rs;
+
+            ResultSet rs2;
+
             String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
                     + "FROM enrollment_det \n"
-                    + "WHERE `VALIDATION` = 0 AND formID > 150000000 AND formID < 159999999 \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 140000000 AND formID < 149999999 \n"
                     + "GROUP BY formID";
-            ResultSet rs;
-            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-                rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    GlobalRecords temp = new GlobalRecords();
-                    temp.setFormID(rs.getInt("formID"));
-                    temp.setErrorLines(rs.getInt("error"));
-                    recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
-                    temp.setCensusYear(recordDEMO.getCensusYear());
-                    temp.setUploadedByByName(recordDEMO.getUploadedByByName());
-                    ArrByAgeGroupSex.add(temp);
-                }
+
+            String query2 = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
+                    + "FROM enrollment \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 140000000 AND formID < 149999999 \n"
+                    + "GROUP BY formID";
+
+            int enrollemnt = 0;
+            int enrollmentdet = 0;
+            int formID = 0;
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt2 = conn.prepareStatement(query2);
+            rs = pstmt.executeQuery();
+            rs2 = pstmt2.executeQuery();
+
+            while (rs.next()) {
+                enrollmentdet = rs.getInt("error");
+                formID = rs.getInt("formID");
+            }
+
+            while (rs2.next()) {
+                enrollemnt = rs2.getInt("error");
+                formID = rs2.getInt("formID");
+            }
+
+            if (enrollemnt + enrollmentdet > 0) {
+
+                GlobalRecords temp = new GlobalRecords();
+                temp.setFormID(formID);
+                temp.setErrorLines(enrollmentdet + enrollemnt);
+                recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
+                temp.setCensusYear(recordDEMO.getCensusYear());
+                temp.setUploadedByByName(recordDEMO.getUploadedByByName());
+                ArrByAgeGroupSex.add(temp);
+
                 conn.close();
             }
-            rs.close();
+            //  rs.close();
             return ArrByAgeGroupSex;
         }
     }
@@ -419,20 +450,46 @@ public class EnrollmentDAO {
                     + "WHERE `VALIDATION` = 0 AND formID > 160000000 AND formID < 169999999 \n"
                     + "GROUP BY formID";
             ResultSet rs;
-            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-                rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    GlobalRecords temp = new GlobalRecords();
-                    temp.setFormID(rs.getInt("formID"));
-                    temp.setErrorLines(rs.getInt("error"));
-                    recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
-                    temp.setCensusYear(recordDEMO.getCensusYear());
-                    temp.setUploadedByByName(recordDEMO.getUploadedByByName());
-                    ArrByAgeGroupSex.add(temp);
-                }
+            
+            
+             String query2 = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
+                    + "FROM enrollment \n"
+                    + "WHERE `VALIDATION` = 0 AND formID > 160000000 AND formID < 169999999 \n"
+                    + "GROUP BY formID";
+             ResultSet rs2;
+           
+              int enrollemnt = 0;
+            int enrollmentdet = 0;
+            int formID = 0;
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt2 = conn.prepareStatement(query2);
+            rs = pstmt.executeQuery();
+            rs2 = pstmt2.executeQuery();
+
+            while (rs.next()) {
+                enrollmentdet = rs.getInt("error");
+                formID = rs.getInt("formID");
+            }
+
+            while (rs2.next()) {
+                enrollemnt = rs2.getInt("error");
+                formID = rs2.getInt("formID");
+            }
+
+            if (enrollemnt + enrollmentdet > 0) {
+
+                GlobalRecords temp = new GlobalRecords();
+                temp.setFormID(formID);
+                temp.setErrorLines(enrollmentdet + enrollemnt);
+                recordDEMO = recordDAO.GetbyFormID(temp.getFormID());
+                temp.setCensusYear(recordDEMO.getCensusYear());
+                temp.setUploadedByByName(recordDEMO.getUploadedByByName());
+                ArrByAgeGroupSex.add(temp);
+
                 conn.close();
             }
-            rs.close();
+            //  rs.close();
             return ArrByAgeGroupSex;
         }
     }

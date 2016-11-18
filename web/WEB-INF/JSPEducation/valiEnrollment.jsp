@@ -28,7 +28,7 @@
         <!--Pace Imports-->
         <script src="AdminLTE/plugins/pace/pace.js" type="text/javascript"></script>
         <link href="AdminLTE/plugins/pace/dataurl.css" rel="stylesheet" type="text/css"/>
-        
+
         <style>
             .no_display{
                 display:none;
@@ -54,7 +54,7 @@
                                 </center>
                                 <br>
                             </div>
-                            <% } else if (redirect.equalsIgnoreCase("edit")) {%>
+                            <% } else if (redirect.equalsIgnoreCase("edited")) {%>
                             <div class="box-header with-border" style="margin-bottom: 2%;">
                                 <center>
                                     <h1 class="box-title" style="margin-right: 1%;"><b>Edit Saved Report | Enrollment in <%=classification%> Schools for </b></h1>
@@ -106,7 +106,7 @@
                                                         <th style="vertical-align: middle">Sex</th>
                                                             <%for (int y = 0; y < enrollmentTemp.get(0).getEnrollmentDetArrayList().size(); y++) {%>
                                                         <th style="vertical-align: middle"><input id="bothSexesError" type="text" value="<%=enrollmentTemp.get(0).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  readonly/></th>
-                                                        <th style="vertical-align: middle">Reason</th>  
+                                                        <th style="vertical-align: middle">Reason</th>
                                                             <%}%>
 
                                                         <th style="vertical-align: middle">Grand Total</th>

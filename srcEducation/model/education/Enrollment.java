@@ -30,6 +30,7 @@ public class Enrollment {
     private String uploadedBy;
     private String approvedBy;
     private int validation;
+    private String reason;
     DecimalFormat df = new DecimalFormat("#,###");
 
     public int getValidation() {
@@ -92,7 +93,7 @@ public class Enrollment {
     }
 
     public void setGenderDisparityIndex(double genderDisparityIndex) {
-        this.genderDisparityIndex = genderDisparityIndex;
+        this.genderDisparityIndex = Double.parseDouble(String.format("%.2f", genderDisparityIndex));
     }
 
     /**
@@ -205,5 +206,19 @@ public class Enrollment {
      */
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    /**
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * @param reason the reason to set
+     */
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

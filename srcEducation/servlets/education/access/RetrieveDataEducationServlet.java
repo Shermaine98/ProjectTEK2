@@ -78,7 +78,7 @@ public class RetrieveDataEducationServlet extends BaseServlet {
             ArrayList<GlobalRecords> ErrRecords = new ArrayList<>();
             ArrayList<Record> records = new ArrayList<>();
             try {
-                ErrRecords = enrollmentDAO.getValidationFalseKinderPublic();
+                ErrRecords = enrollmentDAO.getValidationFalsePublicElementary();
                 records = recordDAO.GetForApproval(160000000, 169999999);
             } catch (ParseException | SQLException ex) {
                 getLogger(RetrieveDataEducationServlet.class.getName()).log(SEVERE, null, ex);
