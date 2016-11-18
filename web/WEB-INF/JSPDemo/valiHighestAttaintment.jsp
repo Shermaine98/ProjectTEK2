@@ -1,7 +1,7 @@
 <%--
     Document   : valiHighestAttaintment
     Created on : Jun 18, 2016, 7:01:18 PM
-    Author     : Roxas, Atayan and Sy
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page import="model.temp.demo.HighestCompletedTemp"%>
@@ -105,18 +105,18 @@
                                         </tr>
                                         <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroupTemp().size(); y += 2) {%>
                                         <tr>
-                                            <th class='errorH' ><input type="text" name="highestCompletedError" readonly 
+                                            <th class='errorH' ><input type="text" name="highestCompletedError" readonly
                                                                        value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
-                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  
+                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"
                                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
-                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;" 
+                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;"
                                                                    value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
-                                            <th class='errorH'><input type="text" name="highestCompletedError" readonly 
+                                            <th class='errorH'><input type="text" name="highestCompletedError" readonly
                                                                       value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
-                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"  
-                                                                      onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"
+                                                                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                                                       value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
-                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;" 
+                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;"
                                                                    value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
                                         </tr>
                                         <% }%>
@@ -203,7 +203,7 @@
                 </section>
             </div>
         </div>
-        
+
         <div class="visible-print">
 
             <div style="margin-bottom: 6%;" align="center">
@@ -232,7 +232,7 @@
             </footer>
         </div>
         <div id="bottom"></div>
-        
+
         <a href="#bottom"><div id="_bottom" class="hidden"  title="Scroll to Button"
                                style="position: fixed; top:40px; right: 5px; opacity: 0.5; cursor: pointer;">
                 <img src="img/arrowdown.png" style='width:70px; height:70px; margin-top:40%'

@@ -1,7 +1,7 @@
 <%--
     Document   : directory_modal
     Created on : 07 16, 16, 11:10:04 PM
-    Author     : Geraldine, Gian, Shermaine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

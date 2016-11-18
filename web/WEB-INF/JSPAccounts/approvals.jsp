@@ -1,7 +1,7 @@
 <%--
     Document   : approvals
     Created on : 10 9, 16, 9:20:39 PM
-    Author     : Geraldine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page import="java.util.ArrayList"%>

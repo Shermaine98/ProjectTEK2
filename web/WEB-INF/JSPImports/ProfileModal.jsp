@@ -1,7 +1,7 @@
 <%--
     Document   : ProfileModal
     Created on : Jul 21, 2016, 8:17:35 PM
-    Author     : Geraldine Atayan
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 <%@page import="model.accounts.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

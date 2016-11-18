@@ -1,7 +1,7 @@
 <%--
     Document   : home_others
     Created on : 07 15, 16, 10:17:46 PM
-    Author     : Geraldine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="box">
                                     <div class="box-body">
-                                        <h4 style='color:#858C93' id='repliesNumber'>&nbsp;<%=forum.getCommentsCount()%> Replies</h4>   
+                                        <h4 style='color:#858C93' id='repliesNumber'>&nbsp;<%=forum.getCommentsCount()%> Replies</h4>
                                         <div id="commentsBox"></div>
                                     </div>
                                     <div class="box-footer clearfix">

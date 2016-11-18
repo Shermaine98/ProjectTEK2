@@ -1,7 +1,7 @@
 <%--
     Document   : home
     Created on : Jun 8, 2016, 10:13:59 PM
-    Author     : Geraldine, Gian, Shermaine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 <%@page import="model.GlobalRecords"%>
 <%@page import="model.Record"%>

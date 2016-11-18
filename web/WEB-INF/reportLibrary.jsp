@@ -1,7 +1,7 @@
 <%--
     Document   : reportLibrary
     Created on : 07 14, 16, 10:46:44 PM
-    Author     :  Geraldine, Gian, Shermaine
+    Author     :  Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -44,11 +44,11 @@
             }
 
             #loadingSpinner{
-                background: #666666;  
-                display: none;        
-                position: absolute;   
-                top: 0;                  
-                right: 0;                
+                background: #666666;
+                display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
                 bottom: 0;
                 left: 0;
                 z-index: 99;
@@ -64,7 +64,7 @@
             }
 
             #spinnerIMG{
-                width: 140px; height: 140px; 
+                width: 140px; height: 140px;
                 margin-top: 25%; z-index: 3;
             }
         </style>

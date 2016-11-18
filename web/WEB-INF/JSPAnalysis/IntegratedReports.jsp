@@ -1,7 +1,7 @@
 <%--
-    Document   : StandardManipulation
+    Document   : IntegratedReports
     Created on : 07 19, 16, 12:36:46 AM
-    Author     : Geraldine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

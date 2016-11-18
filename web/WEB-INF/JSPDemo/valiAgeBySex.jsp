@@ -1,7 +1,7 @@
 <%--
     Document   : valiAgeBySex
     Created on : Jun 18, 2016, 7:01:18 PM
-    Author     : shermainesy
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page import="model.demo.ByAgeGroupSex"%>

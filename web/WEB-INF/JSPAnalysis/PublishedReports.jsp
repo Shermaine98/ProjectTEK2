@@ -1,7 +1,7 @@
 <%--
     Document   : reportLibrary
     Created on : 07 14, 16, 10:46:44 PM
-    Author     : Geraldine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -108,7 +108,7 @@
                                         <option value="Demographics">Demographics</option>
                                         <option value="Health">Health</option>
                                     </select>
-                                    <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()" 
+                                    <select id="form_name" name="form_name" class="form-control" disabled onchange="updateYear()"
                                             style="width:800px">
                                         <option disabled selected>Choose Report</option>
                                     </select>

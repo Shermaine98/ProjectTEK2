@@ -1,7 +1,7 @@
 <%--
     Document   : valiNutritionalStatus
     Created on : Jul 3, 2016, 10:06:07 AM
-    Author     : Gian
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page import="model.temp.health.NutritionalStatusTemp"%>

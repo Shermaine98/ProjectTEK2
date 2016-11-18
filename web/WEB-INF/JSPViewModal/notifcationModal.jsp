@@ -1,7 +1,7 @@
 <%--
     Document   : notifcationModal
     Created on : Oct 9, 2016, 2:33:42 PM
-    Author     : Shermaine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

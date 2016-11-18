@@ -1,3 +1,10 @@
+<%--
+    Document   : home_others
+    Created on : 07 15, 16, 10:17:46 PM
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
+--%>
+
+
 <%@page import="model.accounts.User"%>
 <%
     User user = (User) session.getAttribute("user");

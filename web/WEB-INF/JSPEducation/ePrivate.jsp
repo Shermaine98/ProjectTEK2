@@ -1,4 +1,8 @@
-
+<%--
+    Document   : ePrivate
+    Created on : 07 16, 16, 11:10:04 PM
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
+--%>
 
 <%@page import="model.GlobalRecords"%>
 <%@page import="model.Record"%>

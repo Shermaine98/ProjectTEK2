@@ -1,7 +1,7 @@
 <%--
     Document   : updateAccounts
     Created on : 10 12, 16, 9:57:39 PM
-    Author     : Geraldine
+    Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 
 <%@page import="java.util.ArrayList"%>
