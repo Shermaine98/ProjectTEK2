@@ -4928,6 +4928,9 @@ function encodeImageMatrix(imageUri, para, observations,explanations,implication
                     para.appendChild(para2);
             document.querySelector(".divTEMP").appendChild(image);
             
+            var br = document.createElement("br");
+                para.append(br);
+                
             var table = document.createElement("table");
                 table.setAttribute("class", "table table-hover table-bordered analysis");
                 table.setAttribute("style", "margin: 0 auto");
@@ -4953,7 +4956,8 @@ function encodeImageMatrix(imageUri, para, observations,explanations,implication
                 $(tbodytr).append('<td>' + explanations + '</td>');
                 $(tbodytr).append('<td>' + implications + '</td>');
                 $(tbodytr).append('<td>' + interventions + '</td>');
-
+                var br = document.createElement("br");
+                para.append(br);
             
            $('.divTEMP').removeClass('divTEMP');
     };
