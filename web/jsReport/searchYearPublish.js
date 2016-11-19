@@ -4897,12 +4897,16 @@ function encodeImageAnalysis(imageUri, para, data) {
             image.setAttribute("width", "94%");
             image.setAttribute("id", "image");
             image.setAttribute("src", dataURL);
-              var para2 = document.createElement("div");
-                    para2.setAttribute("class","divTEMP");
-                    para.appendChild(para2);
+            var para2 = document.createElement("div");
+            para2.setAttribute("class","divTEMP");
+            para.appendChild(para2);
+            var br = document.createElement("br");
+            para.append(br)
             document.querySelector(".divTEMP").appendChild(image);
             $(para).append('<b>Analysis: </b> <br>' + data + "<br><br>");
-           $('.divTEMP').removeClass('divTEMP');
+            $('.divTEMP').removeClass('divTEMP');
+            var br = document.createElement("br");
+            para.append(br)
     };
 }
 
@@ -4928,6 +4932,9 @@ function encodeImageMatrix(imageUri, para, observations,explanations,implication
                     para.appendChild(para2);
             document.querySelector(".divTEMP").appendChild(image);
             
+            var br = document.createElement("br");
+                para.append(br);
+                
             var table = document.createElement("table");
                 table.setAttribute("class", "table table-hover table-bordered analysis");
                 table.setAttribute("style", "margin: 0 auto");
@@ -4953,7 +4960,8 @@ function encodeImageMatrix(imageUri, para, observations,explanations,implication
                 $(tbodytr).append('<td>' + explanations + '</td>');
                 $(tbodytr).append('<td>' + implications + '</td>');
                 $(tbodytr).append('<td>' + interventions + '</td>');
-
+                var br = document.createElement("br");
+                para.append(br);
             
            $('.divTEMP').removeClass('divTEMP');
     };

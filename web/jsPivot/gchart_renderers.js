@@ -193,8 +193,9 @@ var data;
                                 if (conceptName != 'Population by year'
                                         && conceptName != 'Enrollment in Public and Private Schools'
                                         && conceptName != 'Actual number of Beds in Private and Public Hospitals') {
-
-                                    if (theChartSelected == "Table") {
+                                    //var chartSelected = $('#charts').find(":selected").text();
+                                    console.log("CHART: "+chartSelected);
+                                    if (chartSelected == "Table") {
 
                                         if (this.id == "btnMatrix") {
                                             var para = document.createElement("div");
@@ -288,7 +289,7 @@ var data;
                                             $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                             $('.reportContents').append('<img style="width: 90%;" id="image" src="' + image.src + '">');
                                             $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + data + '"/>');
-                                            console.log(data);
+                                            //console.log(data);
                                             $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                             $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                             $('.reportContents').append('<br><br><br><hr/>');
@@ -306,7 +307,7 @@ var data;
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc"  name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
 
-                                        console.log(wrapper.getChart().getImageURI());
+                                        //console.log(wrapper.getChart().getImageURI());
                                         $('div#matrix')                         // grab the media content
                                                 .clone()                          // make a duplicate of it
                                                 .removeAttr('id')               // remove their ID attributes
@@ -323,7 +324,7 @@ var data;
                                         $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
                                         $('.reportContents').append('<img style="width: 90%;" id="image" src="' + wrapper.getChart().getImageURI() + '">');
                                         $('.reportContents').append('<input type="hidden" id="imageSrc" name = "imageSrc" value="' + wrapper.getChart().getImageURI() + '"/>');
-                                        console.log(wrapper.getChart().getImageURI());
+                                        //console.log(wrapper.getChart().getImageURI());
                                         $('div#report').clone().removeAttr('id').appendTo('.reportContents');
                                         $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                         $('.reportContents').append('<br><br><br><hr/>');
