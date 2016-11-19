@@ -135,11 +135,12 @@
                                         <th colspan="3">Kinder</th>
                                     </tr>
                                     <tr>
-                                        <th>Male</th>
+
                                         <th>Female</th>
+                                        <th>Male</th>
                                         <th>Total</th>
-                                        <th>Male</th>
                                         <th>Female</th>
+                                        <th>Male</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
@@ -147,10 +148,10 @@
                                     <tr>
                                         <td><input name="KteacherMale" id="EditKtM" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control kinderTE"  value="0" onchange="changeKinderE()" /></td>
                                         <td><input name="KteacherFemale" id="EditKtF" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control kinderTE"  value="0" onchange="changeKinderE()" /></td>
-                                        <td><input name="KteacherTotal"  id="EKteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalT" value="0" readonly /></td>
+                                        <td><input name="KteacherTotal"  id="EKteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalTE" value="0" readonly /></td>
                                         <td><input name="EteacherMale" id="EditElemTM" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemTE"  value="0" onchange="changeElemE()" /></td>
                                         <td><input name="EteacherFemale" id="EditElemTF" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemTE" value="0" onchange="changeElemE()" /></td>
-                                        <td><input name="EteacherTotal" id="EditElteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalT"  value="0" readonly /></td>
+                                        <td><input name="EteacherTotal" id="EditElteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalTE"  value="0" readonly /></td>
                                     </tr>
                                     <tr>
                                         <th colspan="5" style="text-align:right; vertical-align:middle;">Total Teachers</th>

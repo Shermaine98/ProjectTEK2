@@ -19,6 +19,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 import model.education.DirectorySchool;
 import model.education.ElemClassrooms;
 import model.education.ElemTeachers;
@@ -50,6 +52,8 @@ public class UpdateSchoolDirectory extends BaseServlet {
         // ServletContext context= getServletContext();
         DirectorySchoolDAO directorySchoolDAO = new DirectorySchoolDAO();
 
+        HttpSession session = request.getSession();
+        User chck = (User) session.getAttribute("user");
         if (redirect.equalsIgnoreCase("invalid")) {
             try {
                 String schoolName = request.getParameter("schoolName");
@@ -67,15 +71,16 @@ public class UpdateSchoolDirectory extends BaseServlet {
         } else if (redirect.equalsIgnoreCase("submitAll")) {
             boolean x;
             int year = Calendar.getInstance().get(Calendar.YEAR);
-            String uploadedBy = request.getParameter("uploadedBy");
 
-            if (classification.equalsIgnoreCase("private")) {
-                x = directorySchoolDAO.SubtmitAllPrivate(year, Integer.parseInt(uploadedBy));
-            } else {
-                x = directorySchoolDAO.SubtmitAllPublic(year, Integer.parseInt(uploadedBy));
+            boolean checkExist = false;
+            try {
+                checkExist = directorySchoolDAO.checkifRecordSubmitted(year - 1);
+            } catch (SQLException ex) {
+                Logger.getLogger(UpdateSchoolDirectory.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (x) {
+            if (checkExist) {
+
                 request.setAttribute("page", "Upload");
                 request.setAttribute("saveToDB", "SuccessDB");
                 if (classification.equalsIgnoreCase("private")) {
@@ -87,18 +92,37 @@ public class UpdateSchoolDirectory extends BaseServlet {
                 }
 
             } else {
-                request.setAttribute("page", "Upload");
-                request.setAttribute("saveToDB", "notSuccess");
+
                 if (classification.equalsIgnoreCase("private")) {
-                    RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
-                    rd.forward(request, response);
+                    x = directorySchoolDAO.SubtmitAllPrivate(year, chck.getUserID());
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
-                    rd.forward(request, response);
+                    x = directorySchoolDAO.SubtmitAllPublic(year, chck.getUserID());
                 }
 
-            }
+                if (x) {
+                    request.setAttribute("page", "Upload");
+                    request.setAttribute("saveToDB", "SuccessDB");
+                    if (classification.equalsIgnoreCase("private")) {
+                        RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                        rd.forward(request, response);
+                    } else {
+                        RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                        rd.forward(request, response);
+                    }
 
+                } else {
+                    request.setAttribute("page", "Upload");
+                    request.setAttribute("saveToDB", "notSuccess");
+                    if (classification.equalsIgnoreCase("private")) {
+                        RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                        rd.forward(request, response);
+                    } else {
+                        RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                        rd.forward(request, response);
+                    }
+
+                }
+            }
         } else if (redirect.equalsIgnoreCase("updateData")) {
 
             int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -131,14 +155,13 @@ public class UpdateSchoolDirectory extends BaseServlet {
             boolean x = false;
             RecordDAO recorddao = new RecordDAO();
             int formid = 0;
-            
+
             try {
                 formid = directorySchoolDAO.getFormID(year, classification);
             } catch (SQLException ex) {
                 Logger.getLogger(AddNewSchool.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
+
             if (classification.equalsIgnoreCase("private")) {
                 try {
                     x = recorddao.checkExistRecord(120000000, year);
@@ -147,9 +170,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
                 }
 
                 if (x == false) {
-
-                    String uploadedBy = request.getParameter("uploadedBy");
-                    x = recorddao.newRecord(120000000 + year, year, Integer.parseInt(uploadedBy));
+                    x = recorddao.newRecord(120000000 + year, year, chck.getUserID());
                 }
 
             } else {
@@ -162,7 +183,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
                 if (x == false) {
 
                     String uploadedBy = request.getParameter("uploadedBy");
-                    x = recorddao.newRecord(190000000 + year, year, Integer.parseInt(uploadedBy));
+                    x = recorddao.newRecord(190000000 + year, year, chck.getUserID());
                 }
 
             }
@@ -171,7 +192,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
             directorySchool.setFormID(formid);
             directorySchool.setSchoolName(schoolName.trim());
             directorySchool.setSchoolID(Integer.parseInt(schoolID.trim()));
-            directorySchool.setCensusYear(Integer.parseInt(oldYear));
+            directorySchool.setCensusYear(year);
             directorySchool.setAddress("");
             directorySchool.setLatitude(0);
             directorySchool.setLongitude(0);
@@ -181,49 +202,52 @@ public class UpdateSchoolDirectory extends BaseServlet {
 
             ElemClassrooms elemClassrooms = new ElemClassrooms();
             elemClassrooms.setGradeLevel("Kinder");
-            elemClassrooms.setClassroomCount(Integer.parseInt(KinderClassRoom));
+            elemClassrooms.setClassroomCount(Integer.parseInt(KinderClassRoom.replaceAll(" ", "").replaceAll(",", "")));
             arrelemClassrooms.add(elemClassrooms);
 
             ElemClassrooms elemClassrooms2 = new ElemClassrooms();
             elemClassrooms2.setGradeLevel("Elementary");
-            elemClassrooms2.setClassroomCount(Integer.parseInt(ElemClassRoom));
+            elemClassrooms2.setClassroomCount(Integer.parseInt(ElemClassRoom.replaceAll(" ", "").replaceAll(",", "")));
             arrelemClassrooms.add(elemClassrooms2);
 
             ArrayList<ElemTeachers> arrTeachers = new ArrayList<ElemTeachers>();
             ElemTeachers elemTeachers = new ElemTeachers();
             elemTeachers.setGradeLevel("Kinder");
-            elemTeachers.setFemaleCount(Integer.parseInt(KteacherFemale));
-            elemTeachers.setMaleCount(Integer.parseInt(KteacherMale));
+            elemTeachers.setFemaleCount(Integer.parseInt(KteacherFemale.replaceAll(" ", "").replaceAll(",", "")));
+            elemTeachers.setMaleCount(Integer.parseInt(KteacherMale.replaceAll(" ", "").replaceAll(",", "")));
             arrTeachers.add(elemTeachers);
 
             ElemTeachers elemTeachers2 = new ElemTeachers();
             elemTeachers2.setGradeLevel("Elementary");
-            elemTeachers2.setFemaleCount(Integer.parseInt(EteacherFemale));
-            elemTeachers2.setMaleCount(Integer.parseInt(EteacherMale));
+            elemTeachers2.setFemaleCount(Integer.parseInt(EteacherFemale.replaceAll(" ", "").replaceAll(",", "")));
+            elemTeachers2.setMaleCount(Integer.parseInt(EteacherMale.replaceAll(" ", "").replaceAll(",", "")));
             arrTeachers.add(elemTeachers2);
 
             ArrayList<Seats> arrseats = new ArrayList<Seats>();
             Seats seats = new Seats();
             seats.setGradeLevel("Kinder");
-            seats.setSeatCount(Integer.parseInt(KinderSeats));
+            seats.setSeatCount(Integer.parseInt(KinderSeats.replaceAll(" ", "").replaceAll(",", "")));
             arrseats.add(seats);
 
             Seats seats2 = new Seats();
             seats2.setGradeLevel("Elementary");
-            seats2.setSeatCount(Integer.parseInt(ElemSeats));
+            seats2.setSeatCount(Integer.parseInt(ElemSeats.replaceAll(" ", "").replaceAll(",", "")));
             arrseats.add(seats2);
 
             directorySchool.setElemClassrooms(arrelemClassrooms);
             directorySchool.setSeats(arrseats);
             directorySchool.setTeacher(arrTeachers);
 
-            
-            boolean y =true;
+            boolean y = true;
             if (y) {
 
                 try {
+
                     if (year != Integer.parseInt(oldYear)) {
-                        y = directorySchoolDAO.UpdateDirectory(directorySchool);
+
+                        y = directorySchoolDAO.AddNewEncodeDirectorySchool(directorySchool);
+                        y = directorySchoolDAO.setDirectoryInactive(schoolName.trim(), classification, Integer.parseInt(oldYear));
+
                     } else {
                         y = directorySchoolDAO.UpdateDirectory(directorySchool);
                     }

@@ -116,7 +116,7 @@ public class AddNewSchool extends BaseServlet {
 
         directorySchool.setFormID(formid);
         directorySchool.setSchoolName(schoolName);
-        directorySchool.setSchoolID(Integer.parseInt(schoolID));
+        directorySchool.setSchoolID(Integer.parseInt(schoolID.trim()));
         directorySchool.setCensusYear(year);
         directorySchool.setAddress("");
         directorySchool.setLatitude(0);
@@ -127,36 +127,36 @@ public class AddNewSchool extends BaseServlet {
 
         ElemClassrooms elemClassrooms = new ElemClassrooms();
         elemClassrooms.setGradeLevel("Kinder");
-        elemClassrooms.setClassroomCount(Integer.parseInt(KinderClassRoom));
+        elemClassrooms.setClassroomCount(Integer.parseInt(KinderClassRoom.replaceAll(" ", "").replaceAll(",", "")));
         arrelemClassrooms.add(elemClassrooms);
 
         ElemClassrooms elemClassrooms2 = new ElemClassrooms();
         elemClassrooms2.setGradeLevel("Elementary");
-        elemClassrooms2.setClassroomCount(Integer.parseInt(ElemClassRoom));
+        elemClassrooms2.setClassroomCount(Integer.parseInt(ElemClassRoom.replaceAll(" ", "").replaceAll(",", "")));
         arrelemClassrooms.add(elemClassrooms2);
 
         ArrayList<ElemTeachers> arrTeachers = new ArrayList<ElemTeachers>();
         ElemTeachers elemTeachers = new ElemTeachers();
         elemTeachers.setGradeLevel("Kinder");
-        elemTeachers.setFemaleCount(Integer.parseInt(KteacherFemale));
-        elemTeachers.setMaleCount(Integer.parseInt(KteacherMale));
+        elemTeachers.setFemaleCount(Integer.parseInt(KteacherFemale.replaceAll(" ", "").replaceAll(",", "")));
+        elemTeachers.setMaleCount(Integer.parseInt(KteacherMale.replaceAll(" ", "").replaceAll(",", "")));
         arrTeachers.add(elemTeachers);
 
         ElemTeachers elemTeachers2 = new ElemTeachers();
         elemTeachers2.setGradeLevel("Elementary");
-        elemTeachers2.setFemaleCount(Integer.parseInt(EteacherFemale));
-        elemTeachers2.setMaleCount(Integer.parseInt(EteacherMale));
+        elemTeachers2.setFemaleCount(Integer.parseInt(EteacherFemale.replaceAll(" ", "").replaceAll(",", "")));
+        elemTeachers2.setMaleCount(Integer.parseInt(EteacherMale.replaceAll(" ", "").replaceAll(",", "")));
         arrTeachers.add(elemTeachers2);
 
         ArrayList<Seats> arrseats = new ArrayList<Seats>();
         Seats seats = new Seats();
         seats.setGradeLevel("Kinder");
-        seats.setSeatCount(Integer.parseInt(KinderSeats));
+        seats.setSeatCount(Integer.parseInt(KinderSeats.replaceAll(" ", "").replaceAll(",", "")));
         arrseats.add(seats);
 
         Seats seats2 = new Seats();
         seats2.setGradeLevel("Elementary");
-        seats2.setSeatCount(Integer.parseInt(ElemSeats));
+        seats2.setSeatCount(Integer.parseInt(ElemSeats.replaceAll(" ", "").replaceAll(",", "")));
         arrseats.add(seats2);
 
         directorySchool.setElemClassrooms(arrelemClassrooms);

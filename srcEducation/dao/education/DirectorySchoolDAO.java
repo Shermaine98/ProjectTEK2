@@ -357,7 +357,31 @@ public class DirectorySchoolDAO {
         }
         return null;
     }
+ public boolean checkifRecordSubmitted(int year) throws SQLException {
+        boolean rows = true;
+        try {
+            DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
 
+            try (Connection conn = myFactory.getConnection()) {
+
+                PreparedStatement pstmt = conn.prepareStatement("SELECT count(censusYear) as `count` FROM directory_school WHERE `active` = 1 AND censusYear = ?;");
+                pstmt.setInt(1, year);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    int isDeleted2 = rs.getInt("count");
+
+                    if (isDeleted2 > 0) {
+                        rows = false;
+                    }
+                }
+                conn.close();
+                pstmt.close();
+            }
+        } catch (SQLException ex) {
+            getLogger(DirectorySchoolDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return rows;
+    }
     public ArrayList<String> SearchSchoolNamePublic(String name) throws ParseException, SQLException {
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
@@ -744,9 +768,6 @@ public class DirectorySchoolDAO {
                     x = recorddao.newRecord(190000000 + year, year, uploadedBy);
                 } else {
                     x = deleteSchoolRecord(year, "public");
-                    if (x) {
-                        x = setActiveOrInactive(year - 1, 1, "public");
-                    }
                 }
 
                 if (x) {
@@ -850,7 +871,8 @@ public class DirectorySchoolDAO {
 
         DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
 
-        Connection conn = myFactory.getConnection();
+        Connection conn;
+        conn = myFactory.getConnection();
 
         String updateValidation = "UPDATE directory_school "
                 + " SET schoolID = ?, classification = ?,"
@@ -929,12 +951,14 @@ public class DirectorySchoolDAO {
             rows4 = pstmt4.executeUpdate();
         }
 
-        conn.close();
-        pstmt.close();
-
+    
         if (rows >= 1 && rows2 >= 1 && rows3 >= 1 && rows4 >= 1) {
+               conn.close();
+        pstmt.close();
             return true;
         } else {
+               conn.close();
+        pstmt.close();
             return false;
         }
 
