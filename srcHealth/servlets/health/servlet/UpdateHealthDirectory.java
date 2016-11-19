@@ -59,10 +59,9 @@ public class UpdateHealthDirectory extends BaseServlet {
             response.setCharacterEncoding("utf-8");
             response.getWriter().write(json);
         } else if (redirect.equalsIgnoreCase("submitAll")) {
-            RecordDAO recorddao = new RecordDAO();
             boolean checkExist = false;
             try {
-                checkExist = recorddao.checkExistRecord(90000000, year);
+                checkExist = directoryHospitalDAO.checkifRecordSubmitted(year-1);
             } catch (SQLException ex) {
                 Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -114,6 +113,7 @@ public class UpdateHealthDirectory extends BaseServlet {
             String uploadedBy = request.getParameter("uploadedBy");
             boolean x = false;
             int formID = 0;
+            
             try {
                 formID = directoryHospitalDAO.getFormID(year);
             } catch (SQLException ex) {
@@ -191,15 +191,36 @@ public class UpdateHealthDirectory extends BaseServlet {
                 String uploadedBy = request.getParameter("uploadedBy");
                 x = recorddao.newRecord(90000000 + year, year, Integer.parseInt(uploadedBy));
             }
-
+            
+            
+            
+            
+            
             if (x) {
 
                 try {
                     if (year != Integer.parseInt(oldyear)) {
-                        x = directoryHospitalDAO.UpdateDirectory(hospitalName, Integer.parseInt(oldyear),
-                                Integer.parseInt(totalDoctors), Integer.parseInt(totalNurses),
-                                Integer.parseInt(midwives), Integer.parseInt(numberofBeds), accreditation,
-                                category, tel, classification);
+                        DirectoryHealth directoryHealth = new DirectoryHealth();
+                        directoryHealth.setFormID(90000000+year);
+                        directoryHealth.setClassification(classification);
+                        directoryHealth.setHospitalName(hospitalName);
+                        directoryHealth.setYear(year);
+                        directoryHealth.setNumberOfDoctor(Integer.parseInt(totalDoctors));
+                        directoryHealth.setNumberOfNurses(Integer.parseInt(totalNurses));
+                        directoryHealth.setNumberOfMidwives(Integer.parseInt(midwives));
+                        directoryHealth.setNumberOfBeds(Integer.parseInt(numberofBeds));
+                        directoryHealth.setAddresss("");
+                        directoryHealth.setTelephone(tel);
+                        directoryHealth.setCategory(category);
+                        directoryHealth.setAccreditation(Boolean.parseBoolean(accreditation));
+                        directoryHealth.setLatitude(0);
+                        directoryHealth.setLongitude(0);
+
+                        if (x) {
+                            x = directoryHospitalDAO.addNewHospital(directoryHealth);
+                            x = directoryHospitalDAO.setDirectoryInactive(hospitalName, Integer.parseInt(oldyear));
+                        }
+                        
                     } else {
                         x = directoryHospitalDAO.UpdateDirectory(hospitalName, Integer.parseInt(oldyear),
                                 Integer.parseInt(totalDoctors), Integer.parseInt(totalNurses),

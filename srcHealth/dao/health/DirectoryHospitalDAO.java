@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package dao.health;
 
 import dao.RecordDAO;
@@ -22,9 +21,8 @@ import static java.util.logging.Logger.getLogger;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class DirectoryHospitalDAO {
 
     public ArrayList<DirectoryHealth> ViewDirectoryHospitalRecent() throws ParseException, SQLException {
@@ -292,9 +290,6 @@ public class DirectoryHospitalDAO {
                 x = recorddao.newRecord(90000000 + year, year, uploadedBy);
             } else {
                 x = deleteHospitalDRecord(year);
-                if (x) {
-                    x = setActiveOrInactive(year - 1, 1);
-                }
             }
             if (x) {
                 try (Connection conn = myFactory.getConnection()) {
@@ -306,7 +301,7 @@ public class DirectoryHospitalDAO {
                             + "				d.telephone, d.totalDoctors, d.totalNurses, d.totalMidwives, d.numberOfBeds,\n"
                             + "				d.category, d.isAccredited, d.latitude, d.longitude, 0 , d.active\n"
                             + "                         FROM directory_health d\n"
-                            + "                         WHERE d.active = '1';";
+                            + "                         WHERE d.active = '1' AND d.alter != '1';";
                     pstmt = conn.prepareStatement(updateValidation);
                     pstmt.setInt(1, 90000000 + year);
                     pstmt.setInt(2, year);
@@ -443,6 +438,32 @@ public class DirectoryHospitalDAO {
                     rows = true;
                 }
 
+            }
+        } catch (SQLException ex) {
+            getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
+        }
+        return rows;
+    }
+
+    public boolean checkifRecordSubmitted(int year) throws SQLException {
+        boolean rows = true;
+        try {
+            DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
+
+            try (Connection conn = myFactory.getConnection()) {
+
+                PreparedStatement pstmt = conn.prepareStatement("SELECT count(censusYear) as `count` FROM directory_health WHERE `active` = 1 AND censusYear = ?;");
+                pstmt.setInt(1, year);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    int isDeleted2 = rs.getInt("count");
+
+                    if (isDeleted2 > 0) {
+                        rows = false;
+                    }
+                }
+                conn.close();
+                pstmt.close();
             }
         } catch (SQLException ex) {
             getLogger(DirectoryHospitalDAO.class.getName()).log(SEVERE, null, ex);
