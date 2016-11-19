@@ -18,8 +18,8 @@ function integrate() {
                 if (data === true) {
                     $("#integrateLoad").modal("hide");
                     $("#notificationHeader").text("Success!");
-                    $("#modal_Header").css({background: "#00a65a"});
-                    $("#notificationHeader").css({display: "none"});
+                    $("#modalHeader").css({background: "#00a65a"});
+                    $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='margin-right: 10%; padding: 3%; text-align:center;'>You have successfully integrated the data.</p>");
                     $("#notificationModalFooter").empty();
                     $("#notificationModalFooter").append('<a href="ServletAccess?redirect=StandardManipulation"><button type="button"class="btn btn-success" >Proceed to Integrated Analytics</button></a>');
@@ -32,7 +32,7 @@ function integrate() {
                 } else {
                     $("#integrateLoad").modal("hide");
                     $("#notificationHeader").text("Success!");
-                    $("#modal_Header").css({background: "#00a65a"});
+                    $("#modalHeader").css({background: "#00a65a"});
                     $("#notificationHeader").css({color: "#FFFFFF"});
                     $("#notificationBodyModal").append("<p style='padding: 3%; text-align:center;'>You have successfully integrated the data</p>");
                     $("#notificationModalFooter").empty();
