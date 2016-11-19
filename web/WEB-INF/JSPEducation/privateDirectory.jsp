@@ -109,7 +109,9 @@
                                 <tbody>
                                     <tr style = "background-color: #454545; color: #fff" >
                                         <th colspan="2" style="vertical-align: bottom; text-align: left;" >Name of School</th>
-                                        <td class="nr" colspan = "7" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
+                                        <td class="nr" colspan = "3" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
+                                        <th colspan="1" style="vertical-align: bottom; text-align: left;" >School ID</th>
+                                        <td class="si" colspan = "3" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolID()%></td>
                                         <td style="border-left: none; text-align: right">
                                             <button id="updateDirectory" class="upadateBtn btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
                                             <button id="invalidDirectory"  class="deleteBtn btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
@@ -197,12 +199,12 @@
                                         <!--<td></td>-->
                                     </tr>
                                     <tr>
-                                        <th colspan="5">Total Teachers</th>
-                                        <td class="censusYear" ><input type="hidden" id="censusYear" value="<%=directorySchool.get(i).getCensusYear()%>"/><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
+                                        <th  class="censusYear" colspan="5"><input type="hidden" id="censusYear" value="<%=directorySchool.get(i).getCensusYear()%>"/>Total Teachers</th>
+                                        <td class="totalAllteachers"><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
                                         <th>Total Classrooms</th>
-                                        <td><%= directorySchool.get(i).getFormatcount(totalClassroom)%> </td>
+                                        <td class="totalAllClassroom"><%= directorySchool.get(i).getFormatcount(totalClassroom)%> </td>
                                         <th>Total Seats</th>
-                                        <td><%= directorySchool.get(i).getFormatcount(totalSeats)%></td>
+                                        <td class="totalAllSeats"><%= directorySchool.get(i).getFormatcount(totalSeats)%></td>
                                     </tr>
 
 

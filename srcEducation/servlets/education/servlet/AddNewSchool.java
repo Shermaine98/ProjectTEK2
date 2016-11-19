@@ -52,7 +52,7 @@ public class AddNewSchool extends BaseServlet {
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
         String schoolName = request.getParameter("schoolName");
-        String address = request.getParameter("Address");
+       // String address = request.getParameter("Address");
         //String censusYear = request.getParameter("censusYear");
         String schoolID = request.getParameter("schoolID");
 
@@ -118,7 +118,7 @@ public class AddNewSchool extends BaseServlet {
         directorySchool.setSchoolName(schoolName);
         directorySchool.setSchoolID(Integer.parseInt(schoolID));
         directorySchool.setCensusYear(year);
-        directorySchool.setAddress(address);
+        directorySchool.setAddress("");
         directorySchool.setLatitude(0);
         directorySchool.setLongitude(0);
         directorySchool.setClassification(classification);
