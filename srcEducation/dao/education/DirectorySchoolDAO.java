@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package dao.education;
 
 import dao.RecordDAO;
@@ -28,9 +26,8 @@ import static java.util.logging.Logger.getLogger;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 public class DirectorySchoolDAO {
 
     public ArrayList<DirectorySchool> ViewDirectorySchoolRecentPrivate() throws ParseException, SQLException {
@@ -394,23 +391,51 @@ public class DirectorySchoolDAO {
         return null;
     }
 
-    public boolean setDirectoryInactive(String schoolName, int censusYear) throws SQLException {
+    public boolean setDirectoryInactive(String schoolName, String classification, int censusYear) throws SQLException {
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
-            PreparedStatement pstmt;
-            int rows = 0;
+
             Connection conn;
             conn = myFactory.getConnection();
-            String updateValidation = "UPDATE directory_school  SET `active`= ? WHERE `schoolName` = ? and `censusYear` = ?;";
-            pstmt = conn.prepareStatement(updateValidation);
+            String updateValidation = "UPDATE directory_school  SET `active`= ? WHERE `classification` = ? and `schoolName` = ? and `censusYear` = ?;";
+            PreparedStatement pstmt = conn.prepareStatement(updateValidation);
             pstmt.setBoolean(1, false);
-            pstmt.setString(2, schoolName);
-            pstmt.setInt(3, censusYear);
-            rows = pstmt.executeUpdate();
+            pstmt.setString(2, classification);
+            pstmt.setString(3, schoolName);
+            pstmt.setInt(4, censusYear);
+            int rows = pstmt.executeUpdate();
+
+            String updateValidation2 = "UPDATE elem_classrooms  SET `active`= ? WHERE `classification` = ? and `schoolName` = ? and `censusYear` = ?;";
+            PreparedStatement pstmt2 = conn.prepareStatement(updateValidation2);
+            pstmt2.setBoolean(1, false);
+            pstmt2.setString(2, classification);
+            pstmt2.setString(3, schoolName);
+            pstmt2.setInt(4, censusYear);
+            int rows2 = pstmt2.executeUpdate();
+
+            String updateValidation3 = "UPDATE elem_teachers  SET `active`= ? WHERE `classification` = ? and `schoolName` = ? and `censusYear` = ?;";
+            PreparedStatement pstmt3 = conn.prepareStatement(updateValidation3);
+            pstmt3.setBoolean(1, false);
+            pstmt3.setString(2, classification);
+            pstmt3.setString(3, schoolName);
+            pstmt3.setInt(4, censusYear);
+            int rows3 = pstmt3.executeUpdate();
+
+            String updateValidation4 = "UPDATE seats  SET `active`= ? WHERE `classification` = ? and `schoolName` = ? and `censusYear` = ?;";
+            PreparedStatement pstmt4 = conn.prepareStatement(updateValidation4);
+            pstmt4.setBoolean(1, false);
+            pstmt4.setString(2, classification);
+            pstmt4.setString(3, schoolName);
+            pstmt4.setInt(4, censusYear);
+            int rows4 = pstmt4.executeUpdate();
 
             pstmt.close();
             conn.close();
-            return rows == 1;
+            if (rows >= 1 && rows2 >= 1 && rows3 >= 1 && rows4 >= 1) {
+
+                return true;
+            }
+
         } catch (SQLException ex) {
             getLogger(DirectorySchoolDAO.class.getName()).log(SEVERE, null, ex);
         }
@@ -422,7 +447,7 @@ public class DirectorySchoolDAO {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             ArrayList<DirectorySchool> ArrdirectorySchool = new ArrayList<>();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_school WHERE formID = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_school WHERE formID = ? and `active` = 1");
                 pstmt.setInt(1, formID);
                 ResultSet rs = pstmt.executeQuery();
 
@@ -448,7 +473,7 @@ public class DirectorySchoolDAO {
         DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
         ArrayList<DirectorySchool> ArrdirectorySchool = new ArrayList<>();
         try (Connection conn = myFactory.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_school WHERE censusYear = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_school WHERE censusYear = ? and `active` = 1");
             pstmt.setInt(1, year);
             ResultSet rs = pstmt.executeQuery();
 
@@ -467,26 +492,31 @@ public class DirectorySchoolDAO {
         return null;
     }
 
-    public boolean EncodeDirectorySchool(DirectorySchool directorySchool) {
+    public boolean AddNewEncodeDirectorySchool(DirectorySchool directorySchool) {
+
+        int rows4 = 0;
+        int rows3 = 0;
+        int rows2 = 0;
+        int rows = 0;
         try {
 
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             try (Connection conn = myFactory.getConnection()) {
                 String school = "INSERT INTO directory_school"
-                        + "(censusYear, formID, schoolID, classification, schoolName, latitude, longitude, `active`, address, active) "
+                        + "(censusYear, formID, schoolID, classification, schoolName, latitude, longitude, address, `active`, `alter`) "
                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
                 String teacher = "INSERT INTO elem_teachers"
-                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, maleCount, femaleCount) "
-                        + "VALUES (?, ?, ?);";
+                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, maleCount, femaleCount, `active`, `alter`) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
                 String classroom = "INSERT INTO elem_classrooms"
-                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, classroomCount) "
-                        + "VALUES (?, ?, ?);";
+                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, classroomCount, `active`, `alter`) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
                 String seats = "INSERT INTO seats"
-                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, seatsCount) "
-                        + "VALUES (?, ?, ?);";
+                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, seatsCount, `active`, `alter`) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 PreparedStatement pstmtSchool = conn.prepareStatement(school);
                 PreparedStatement pstmtTeacher = conn.prepareStatement(teacher);
                 PreparedStatement pstmtClassroom = conn.prepareStatement(classroom);
@@ -499,9 +529,10 @@ public class DirectorySchoolDAO {
                 pstmtSchool.setString(5, directorySchool.getSchoolName());
                 pstmtSchool.setDouble(6, directorySchool.getLatitude());
                 pstmtSchool.setDouble(7, directorySchool.getLongitude());
-                pstmtSchool.setBoolean(8, directorySchool.isActive());
-                pstmtSchool.setString(9, directorySchool.getAddress());
-                pstmtSchool.setBoolean(10, directorySchool.isActive());
+                pstmtSchool.setString(8, directorySchool.getAddress());
+                pstmtSchool.setBoolean(9, true);
+                pstmtSchool.setBoolean(10, true);
+                rows = pstmtSchool.executeUpdate();
 
                 for (int i = 0; i < directorySchool.getElemClassrooms().size(); i++) {
                     pstmtClassroom.setInt(1, directorySchool.getCensusYear());
@@ -509,9 +540,11 @@ public class DirectorySchoolDAO {
                     pstmtClassroom.setInt(3, directorySchool.getSchoolID());
                     pstmtClassroom.setString(4, directorySchool.getClassification());
                     pstmtClassroom.setString(5, directorySchool.getSchoolName());
-
                     pstmtClassroom.setString(6, directorySchool.getElemClassrooms().get(i).getGradeLevel());
                     pstmtClassroom.setDouble(7, directorySchool.getElemClassrooms().get(i).getClassroomCount());
+                    pstmtClassroom.setBoolean(8, true);
+                    pstmtClassroom.setBoolean(9, true);
+                    rows4 = pstmtClassroom.executeUpdate();
 
                 }
 
@@ -525,6 +558,9 @@ public class DirectorySchoolDAO {
                     pstmtTeacher.setString(6, directorySchool.getTeacher().get(i).getGradeLevel());
                     pstmtTeacher.setDouble(7, directorySchool.getTeacher().get(i).getFemaleCount());
                     pstmtTeacher.setDouble(8, directorySchool.getTeacher().get(i).getMaleCount());
+                    pstmtTeacher.setBoolean(9, true);
+                    pstmtTeacher.setBoolean(10, true);
+                    rows2 = pstmtTeacher.executeUpdate();
                 }
 
                 for (int i = 0; i < directorySchool.getSeats().size(); i++) {
@@ -533,22 +569,20 @@ public class DirectorySchoolDAO {
                     pstmtSeats.setInt(3, directorySchool.getSchoolID());
                     pstmtSeats.setString(4, directorySchool.getClassification());
                     pstmtSeats.setString(5, directorySchool.getSchoolName());
-
                     pstmtSeats.setString(6, directorySchool.getSeats().get(i).getGradeLevel());
                     pstmtSeats.setDouble(7, directorySchool.getSeats().get(i).getSeatCount());
+                    pstmtSeats.setBoolean(8, true);
+                    pstmtSeats.setBoolean(9, true);
+                    rows3 = pstmtSeats.executeUpdate();
 
                 }
-
-                int rows = pstmtSchool.executeUpdate();
-                int rows2 = pstmtTeacher.executeUpdate();
-                int rows3 = pstmtSeats.executeUpdate();
 
                 pstmtSchool.close();
                 pstmtSeats.close();
                 pstmtTeacher.close();
                 pstmtClassroom.close();
                 conn.close();
-                if (rows > 1 && rows2 > 1 && rows3 > 1) {
+                if (rows == 1 && rows2 == 1 && rows3 == 1 && rows4 == 1) {
                     return true;
                 }
             }
@@ -599,9 +633,9 @@ public class DirectorySchoolDAO {
                     x = recorddao.newRecord(120000000 + year, year, uploadedBy);
                 } else {
                     x = deleteSchoolRecord(year, "private");
-                     if(x){
-                        x = setActiveOrInactive(year -1 , 1 , "private");
-                     }
+                    if (x) {
+                        x = setActiveOrInactive(year - 1, 1, "private");
+                    }
                 }
 
                 if (x) {
@@ -670,14 +704,12 @@ public class DirectorySchoolDAO {
                     pstmt3.setInt(2, 120000000 + year);
                     pstmt3.setInt(3, year);
 
-                    
-                    
                     rows1 = pstmt.executeUpdate();
                     rows2 = pstmt1.executeUpdate();
                     rows3 = pstmt2.executeUpdate();
                     rows4 = pstmt3.executeUpdate();
-                    
-                   setActiveOrInactive(year -1 , 0 , "private");
+
+                    setActiveOrInactive(year - 1, 0, "private");
 
                     conn.close();
                     pstmt.close();
@@ -687,11 +719,11 @@ public class DirectorySchoolDAO {
 
             }
             if (rows1 > 0 && rows2 > 0 && rows3 > 0 && rows4 > 0) {
-               boolean y = setActiveOrInactive(year -1 , 0 , "private");
-                if(y){
-                 y = UpdateValidation(120000000 + year);
+                boolean y = setActiveOrInactive(year - 1, 0, "private");
+                if (y) {
+                    y = UpdateValidation(120000000 + year);
                 }
-                 return y;
+                return y;
             }
         } catch (SQLException ex) {
             getLogger(DirectorySchoolDAO.class.getName()).log(SEVERE, null, ex);
@@ -712,8 +744,8 @@ public class DirectorySchoolDAO {
                     x = recorddao.newRecord(190000000 + year, year, uploadedBy);
                 } else {
                     x = deleteSchoolRecord(year, "public");
-                    if(x){
-                    x = setActiveOrInactive(year - 1 , 1 , "public");
+                    if (x) {
+                        x = setActiveOrInactive(year - 1, 1, "public");
                     }
                 }
 
@@ -787,9 +819,7 @@ public class DirectorySchoolDAO {
                     rows2 = pstmt1.executeUpdate();
                     rows3 = pstmt2.executeUpdate();
                     rows4 = pstmt3.executeUpdate();
-                    
-                  
-                    
+
                     conn.close();
                     pstmt.close();
                     pstmt2.close();
@@ -798,11 +828,11 @@ public class DirectorySchoolDAO {
 
             }
             if (rows1 > 0 && rows2 > 0 && rows3 > 0 && rows4 > 0) {
-                boolean y = setActiveOrInactive(year - 1 , 0 , "public");
-                if(y){
-                 y = UpdateValidation(190000000 + year);
+                boolean y = setActiveOrInactive(year - 1, 0, "public");
+                if (y) {
+                    y = UpdateValidation(190000000 + year);
                 }
-                
+
                 return y;
             }
         } catch (SQLException ex) {
@@ -854,14 +884,14 @@ public class DirectorySchoolDAO {
                 int isDeleted2 = pstmtC.executeUpdate();
                 int isDeleted3 = pstmtT.executeUpdate();
                 int isDeleted4 = pstmtST.executeUpdate();
-                
+
                 if (isDeleted > 0 && isDeleted2 > 0 && isDeleted3 > 0 && isDeleted4 > 0) {
                     conn.close();
                     pstmtS.close();
                     pstmtC.close();
                     pstmtT.close();
                     pstmtST.close();
-                      rows = true;
+                    rows = true;
                 }
 
             }

@@ -2,10 +2,9 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package servlets.education.servlet;
 
+import dao.RecordDAO;
 import dao.education.DirectorySchoolDAO;
 import model.education.DirectorySchool;
 import model.education.ElemClassrooms;
@@ -16,23 +15,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.accounts.User;
 
 /**
  *
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class AddNewSchool extends BaseServlet {
 
-      /**
+    /**
      *
      * @param request servlet request
      * @param response servlet response
@@ -47,35 +49,31 @@ public class AddNewSchool extends BaseServlet {
         RequestDispatcher rd = null;
         DirectorySchoolDAO directorySchoolDAO = new DirectorySchoolDAO();
 
-        
-        
-        
-        
-        
-        
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
         String schoolName = request.getParameter("schoolName");
         String address = request.getParameter("Address");
-        String censusYear = request.getParameter("censusYear");
+        //String censusYear = request.getParameter("censusYear");
         String schoolID = request.getParameter("schoolID");
 
         String KteacherMale = request.getParameter("KteacherMale");
         String KteacherFemale = request.getParameter("KteacherFemale");
-        String KteacherTotal = request.getParameter("KteacherTotal");
+        //  String KteacherTotal = request.getParameter("KteacherTotal");
 
         String EteacherMale = request.getParameter("EteacherMale");
         String EteacherFemale = request.getParameter("EteacherFemale");
-        String EteacherTotal = request.getParameter("EteacherTotal");
+        //  String EteacherTotal = request.getParameter("EteacherTotal");
 
         String KinderClassRoom = request.getParameter("KinderClassRoom");
         String ElemClassRoom = request.getParameter("ElemClassRoom");
-        String ElemTotal = request.getParameter("TotalClassrooms");
+        //  String ElemTotal = request.getParameter("TotalClassrooms");
 
         String KinderSeats = request.getParameter("KinderSeats");
         String ElemSeats = request.getParameter("ElemSeats");
-        String TotalSeats = request.getParameter("TotalSeats");
+        //  String TotalSeats = request.getParameter("TotalSeats");
 
-        String lat = request.getParameter("lat");
-        String longi = request.getParameter("long");
+        // String lat = request.getParameter("lat");
+        // String longi = request.getParameter("long");
         String classification = request.getParameter("classification");
 
         boolean x = false;
@@ -83,18 +81,46 @@ public class AddNewSchool extends BaseServlet {
         DirectorySchool directorySchool = new DirectorySchool();
         int formid = 0;
         try {
-            formid = directorySchoolDAO.getFormID(Integer.parseInt(censusYear), classification);
+            formid = directorySchoolDAO.getFormID(year, classification);
         } catch (SQLException ex) {
             Logger.getLogger(AddNewSchool.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        RecordDAO recorddao = new RecordDAO();
+        if (classification.equalsIgnoreCase("private")) {
+            try {
+                x = recorddao.checkExistRecord(120000000, year);
+            } catch (SQLException ex) {
+                Logger.getLogger(AddNewSchool.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (x == false) {
+                HttpSession session = request.getSession();
+                User chck = (User) session.getAttribute("user");
+                x = recorddao.newRecord(120000000 + year, year, chck.getUserID());
+            }
+        } else if (classification.equalsIgnoreCase("public")) {
+
+            try {
+                x = recorddao.checkExistRecord(190000000, year);
+            } catch (SQLException ex) {
+                Logger.getLogger(AddNewSchool.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (x == false) {
+                HttpSession session = request.getSession();
+                User chck = (User) session.getAttribute("user");
+                x = recorddao.newRecord(190000000 + year, year, chck.getUserID());
+            }
+        }
+
         directorySchool.setFormID(formid);
-        directorySchool.setSchoolName(censusYear);
-        directorySchool.setSchoolID(Integer.parseInt(schoolID));
         directorySchool.setSchoolName(schoolName);
+        directorySchool.setSchoolID(Integer.parseInt(schoolID));
+        directorySchool.setCensusYear(year);
         directorySchool.setAddress(address);
-        directorySchool.setLatitude(Double.parseDouble(lat));
-        directorySchool.setLongitude(Double.parseDouble(longi));
+        directorySchool.setLatitude(0);
+        directorySchool.setLongitude(0);
         directorySchool.setClassification(classification);
 
         ArrayList<ElemClassrooms> arrelemClassrooms = new ArrayList<ElemClassrooms>();
@@ -117,9 +143,9 @@ public class AddNewSchool extends BaseServlet {
         arrTeachers.add(elemTeachers);
 
         ElemTeachers elemTeachers2 = new ElemTeachers();
-        elemClassrooms.setGradeLevel("Elementary");
-        elemTeachers.setFemaleCount(Integer.parseInt(EteacherFemale));
-        elemTeachers.setMaleCount(Integer.parseInt(EteacherMale));
+        elemTeachers2.setGradeLevel("Elementary");
+        elemTeachers2.setFemaleCount(Integer.parseInt(EteacherFemale));
+        elemTeachers2.setMaleCount(Integer.parseInt(EteacherMale));
         arrTeachers.add(elemTeachers2);
 
         ArrayList<Seats> arrseats = new ArrayList<Seats>();
@@ -137,17 +163,36 @@ public class AddNewSchool extends BaseServlet {
         directorySchool.setSeats(arrseats);
         directorySchool.setTeacher(arrTeachers);
 
-        directorySchoolDAO.EncodeDirectorySchool(directorySchool);
+        x = directorySchoolDAO.AddNewEncodeDirectorySchool(directorySchool);
 
-        if (x) {
+        if (classification.equalsIgnoreCase("private")) {
             if (x) {
+                request.setAttribute("page", "add");
+                request.setAttribute("saveToDB", "SuccessDB");
+                rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                rd.forward(request, response);
+
+            } else {
+                request.setAttribute("page", "add");
+                request.setAttribute("saveToDB", "notSuccess");
+                rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                rd.forward(request, response);
 
             }
-        } else {
-            rd = request.getRequestDispatcher("/ErrorHandler");
-            request.setAttribute("page", "enrollment");
-            request.setAttribute("action", "upload");
-            rd.forward(request, response);
+        } else if (classification.equalsIgnoreCase("public")) {
+
+            if (x) {
+                request.setAttribute("page", "add");
+                request.setAttribute("saveToDB", "SuccessDB");
+                rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                rd.forward(request, response);
+            } else {
+                request.setAttribute("page", "add");
+                request.setAttribute("saveToDB", "notSuccess");
+                rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                rd.forward(request, response);
+
+            }
         }
     }
 }

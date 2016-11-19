@@ -99,7 +99,7 @@
 
                         <%                            ArrayList<DirectorySchool> directorySchool = (ArrayList<DirectorySchool>) request.getAttribute("directory");%>
 
-                        <div class="DT" id="SchoolDirectory">                                <input type="hidden" id="censusYear" value="<%=directorySchool.get(0).getCensusYear()%>"/>
+                        <div class="DT" id="SchoolDirectory">
 
                             <table id="approved" class="table table-bordered" role="grid" aria-describedby="incomplete_info">
                                 <%
@@ -198,12 +198,13 @@
                                     </tr>
                                     <tr>
                                         <th colspan="5">Total Teachers</th>
-                                        <td><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
+                                        <td class="censusYear" ><input type="hidden" id="censusYear" value="<%=directorySchool.get(i).getCensusYear()%>"/><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
                                         <th>Total Classrooms</th>
                                         <td><%= directorySchool.get(i).getFormatcount(totalClassroom)%> </td>
                                         <th>Total Seats</th>
                                         <td><%= directorySchool.get(i).getFormatcount(totalSeats)%></td>
                                     </tr>
+
 
                                 </tbody>
                                 <%
@@ -222,57 +223,12 @@
                 </section>
             </div>
         </div>
+
         <script>
-            $(document).ready(function () {
+
+                $(document).ready(function () {
                 $('#classification').val("Private");
             });
-            function changeKinder() {
-                var totalPoints = 0;
-                $('.kinderT').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#KteacherTotal').val(totalPoints);
-                totlT();
-            }
-            function changeElem() {
-                var totalPoints = 0;
-                $('.ElemT').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#EteacherTotal').val(totalPoints);
-                totlT();
-            }
-            function totlT() {
-                var totalPoints = 0;
-                $('.totalT').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalTeachers').val(totalPoints);
-            }
-
-            function changeSum() {
-                var totalPoints = 0;
-                $('.add').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalTeachers').val(totalPoints);
-            }
-            function changeClassroom() {
-                var totalPoints = 0;
-                $('.classroom').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalClassrooms').val(totalPoints);
-            }
-            function changeSeats() {
-                var totalPoints = 0;
-                $('.seats').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalSeats').val(totalPoints);
-            }
-        </script>
-        <script>
             function viewAll() {
                 $('#dataSchool').remove();
 

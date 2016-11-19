@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -49,7 +50,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
                 String schoolName = request.getParameter("schoolName");
                 String censusYear = request.getParameter("censusYear");
 
-                boolean x = directorySchoolDAO.setDirectoryInactive(schoolName.trim(), Integer.parseInt(censusYear));
+                boolean x = directorySchoolDAO.setDirectoryInactive(schoolName.trim(), classification ,  Integer.parseInt(censusYear));
 
                 String json = new Gson().toJson(x);
                 response.setContentType("application/json");
@@ -60,13 +61,13 @@ public class UpdateSchoolDirectory extends BaseServlet {
             }
         } else if (redirect.equalsIgnoreCase("submitAll")) {
             boolean x;
-            String censusYear = request.getParameter("censusYear");
+              int year = Calendar.getInstance().get(Calendar.YEAR);
             String uploadedBy = request.getParameter("uploadedBy");
 
             if (classification.equalsIgnoreCase("private")) {
-                x = directorySchoolDAO.SubtmitAllPrivate(Integer.parseInt(censusYear), Integer.parseInt(uploadedBy));
+                x = directorySchoolDAO.SubtmitAllPrivate(year, Integer.parseInt(uploadedBy));
             } else {
-                x = directorySchoolDAO.SubtmitAllPublic(Integer.parseInt(censusYear), Integer.parseInt(uploadedBy));
+                x = directorySchoolDAO.SubtmitAllPublic(year, Integer.parseInt(uploadedBy));
             }
 
             if (x) {

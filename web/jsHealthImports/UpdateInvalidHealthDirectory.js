@@ -39,7 +39,7 @@ $(document).on("click", "#invalidDirectory", function () {
     var redirect = "invalid";
     var schoolName = $(this).closest("tr").find(".nr").text();
     var censusYear = $(this).closest("tr").find(".censusYear input").val();
-
+    console.log("x");
     var whichtr = $(this).closest("tr");
     whichtr.remove();
     $.ajax({
@@ -52,6 +52,7 @@ $(document).on("click", "#invalidDirectory", function () {
             schoolName: schoolName
         },
         success: function (data) {
+            console.log(data);
             if (data === true) {
                 $("#notificationHeader").text("Success!");
                 $("#modalHeader").css({background: "#00a65a"});
@@ -65,7 +66,7 @@ $(document).on("click", "#invalidDirectory", function () {
                 console.log("Not Sucessfuly Deleted");
             }
         }, error: function (XMLHttpRequest, textStatus, exception) {
-            alert(textStatus);
+            console.log(textStatus);
         }
     });
 });

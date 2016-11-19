@@ -15,7 +15,7 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <form action="" method="post">
+                    <form action="AddNewSchool" method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Add New School</h4>
@@ -24,9 +24,9 @@
                             <p>Please input school details below:</p>
 
                             <div class="form-inline" style="margin-top:3%;">
-                                <label class="width20">Name of School: </label> <input type="text" name="schoolName" class="form-control" style="width: 65%" /><br/><br/>
-                                <label class="width20">School ID: </label> <input type="text" name="schoolID" class="form-control" style="width: 65%" /><br/><br/>
-                                <label class="width20">Address: </label> <input type="text" class="form-control" name="Address" id="inputAddress" style="width: 65%" /><br/><br/>
+                                <label class="width20">Name of School: </label> <input type="text" name="schoolName" required class="form-control" style="width: 65%" /><br/><br/>
+                                <label class="width20">School ID: </label> <input type="text" name="schoolID" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control" style="width: 65%" /><br/><br/>
+                                <label class="width20">Address: </label> <input type="text" required class="form-control" name="Address" id="inputAddress" style="width: 65%" /><br/><br/>
                             </div>
                             <table class="table table-bordered">
                                 <thead>
@@ -48,12 +48,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KteacherMale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="KteacherFemale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="KteacherTotal" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="EteacherMale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="EteacherFemale" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
-                                        <td><input name="EteacherTotal" type="number" class="form-control add" min="0" value="0" onchange="changeSum()" /></td>
+                                        <td><input name="KteacherMale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control kinderT" value="0" onchange="changeKinder()" /></td>
+                                        <td><input name="KteacherFemale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control kinderT" value="0" onchange="changeKinder()" /></td>
+                                        <td><input name="KteacherTotal" id="KteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
+                                        <td><input name="EteacherMale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemT"  value="0" onchange="changeElem()" /></td>
+                                        <td><input name="EteacherFemale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemT"  value="0" onchange="changeElem()" /></td>
+                                        <td><input name="EteacherTotal" id="EteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalT"  value="0"  /></td>
                                     </tr>
                                     <tr>
                                         <th colspan="5" style="text-align:right;">Total Teachers</th>
@@ -79,11 +79,11 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KinderClassRoom" type="number" class="form-control classroom" min="0" value="0" onchange="changeClassroom()" /></td>
-                                        <td><input name="ElemClassRoom" type="number" class="form-control classroom" min="0" value="0" onchange="changeClassroom()" /></td>
+                                        <td><input name="KinderClassRoom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control classroom"  value="0" onchange="changeClassroom()" /></td>
+                                        <td><input name="ElemClassRoom"  class="form-control classroom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  value="0" onchange="changeClassroom()" /></td>
                                         <td><input name="TotalClassrooms" type="text" class="form-control" style="background:transparent;border:none;" readonly value="0" id="totalClassrooms" /></td>
-                                        <td><input name="KinderSeats" type="number" class="form-control seats" min="0" value="0" onchange="changeSeats()" /></td>
-                                        <td><input name="ElemSeats" type="number" class="form-control seats" min="0" value="0" onchange="changeSeats()" /></td>
+                                        <td><input name="KinderSeats" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control seats"  value="0" onchange="changeSeats()" /></td>
+                                        <td><input name="ElemSeats" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control seats"  value="0" onchange="changeSeats()" /></td>
                                         <td><input name="TotalSeats" type="text" class="form-control" style="background:transparent;border:none;" readonly value="0" id="totalSeats" /></td>
                                     </tr>
                                 </tbody>
@@ -95,12 +95,12 @@
                             <div class="form-group" style="background: transparent;">
                                 <input class="form-control" name="lat" id="lat" type="hidden"  />
                                 <input class="form-control" name="long" id="long" type="hidden"  />
-                                <input class="form-control" name="classification" id="classification" type="text" placeholder="Classification" />
+                                <input class="form-control" name="classification" id="classification" type="hidden"  />
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button  class="btn btn-success" >Submit</button>
                         </div>
                     </form>
                 </div>
@@ -123,9 +123,9 @@
                             <p>Please input school details below:</p>
 
                             <div class="form-inline" style="margin-top:3%;">
-                                <label class="width20">Name of School: </label> <input type="text" name="schoolName" class="form-control" style="width: 65%" /><br/><br/>
-                                <label class="width20">School ID: </label> <input type="text" name="schoolID" class="form-control" style="width: 65%" /><br/><br/>
-                                <label class="width20">Address: </label> <input type="text" class="form-control" name="Address" id="inputAddress" style="width: 65%" /><br/><br/>
+                                <label class="width20">Name of School: </label> <input type="text" required name="schoolName" class="form-control" style="width: 65%" /><br/><br/>
+                                <label class="width20">School ID: </label> <input type="text"  required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  name="schoolID" class="form-control" style="width: 65%" /><br/><br/>
+                                <label class="width20">Address: </label> <input type="text" class="form-control" required name="Address" id="inputAddress" style="width: 65%" /><br/><br/>
                             </div>
                             <table class="table table-bordered">
                                 <thead>
@@ -147,12 +147,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KteacherMale" type="number" class="form-control kinderT" min="0" value="0" onchange="changeKinder()" /></td>
-                                        <td><input name="KteacherFemale" type="number" class="form-control kinderT" min="0" value="0" onchange="changeKinder()" /></td>
-                                        <td><input name="KteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
-                                        <td><input name="EteacherMale" type="number" class="form-control ElemT" min="0" value="0" onchange="changeElem()" /></td>
-                                        <td><input name="EteacherFemale" type="number" class="form-control ElemT" min="0" value="0" onchange="changeElem()" /></td>
-                                        <td><input name="EteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
+                                        <td><input name="KteacherMale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control kinderT"  value="0" onchange="changeKinder()" /></td>
+                                        <td><input name="KteacherFemale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control kinderT"  value="0" onchange="changeKinder()" /></td>
+                                        <td><input name="KteacherTotal" id="KteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
+                                        <td><input name="EteacherMale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemT"  value="0" onchange="changeElem()" /></td>
+                                        <td><input name="EteacherFemale" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemT" value="0" onchange="changeElem()" /></td>
+                                        <td><input name="EteacherTotal" id="EteacherTotal" type="number" style="background:transparent;border:none;" class="form-control totalT" min="0" value="0" readonly /></td>
                                     </tr>
                                     <tr>
                                         <th colspan="5" style="text-align:right; vertical-align:middle;">Total Teachers</th>
@@ -178,11 +178,11 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KinderClassRoom" type="number" class="form-control classroom" min="0" value="0" onchange="changeClassroom()" /></td>
-                                        <td><input name="ElemClassRoom" type="number" class="form-control classroom" min="0" value="0" onchange="changeClassroom()" /></td>
+                                        <td><input name="KinderClassRoom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control classroom"  value="0" onchange="changeClassroom()" /></td>
+                                        <td><input name="ElemClassRoom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control classroom"  value="0" onchange="changeClassroom()" /></td>
                                         <td><input name="TotalClassrooms" type="text" class="form-control" style="background:transparent;border:none;" readonly value="0" id="totalClassrooms" /></td>
-                                        <td><input name="KinderSeats" type="number" class="form-control seats" min="0" value="0" onchange="changeSeats()" /></td>
-                                        <td><input name="ElemSeats" type="number" class="form-control seats" min="0" value="0" onchange="changeSeats()" /></td>
+                                        <td><input name="KinderSeats" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control seats"  value="0" onchange="changeSeats()" /></td>
+                                        <td><input name="ElemSeats" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control seats"  value="0" onchange="changeSeats()" /></td>
                                         <td><input name="TotalSeats" type="text" class="form-control" style="background:transparent;border:none;" readonly value="0" id="totalSeats" /></td>
                                     </tr>
                                 </tbody>
@@ -198,7 +198,7 @@
                         </div>
                         <div class="modal-footer" id="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button  class="btn btn-success">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -206,5 +206,56 @@
 
         </div>
         <!--END MODAL UPDATE-->
+
+
+          <script>
+
+            function changeKinder() {
+                var totalPoints = 0;
+                $('.kinderT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#KteacherTotal').val(totalPoints);
+                totlT();
+            }
+            function changeElem() {
+                var totalPoints = 0;
+
+                $('.ElemT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#EteacherTotal').val(totalPoints);
+                totlT();
+            }
+            function totlT() {
+                var totalPoints = 0;
+                $('.totalT').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#totalTeachers').val(totalPoints);
+            }
+
+            function changeSum() {
+                var totalPoints = 0;
+                $('.add').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#totalTeachers').val(totalPoints);
+            }
+            function changeClassroom() {
+                var totalPoints = 0;
+                $('.classroom').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#totalClassrooms').val(totalPoints);
+            }
+            function changeSeats() {
+                var totalPoints = 0;
+                $('.seats').each(function () {
+                    totalPoints = parseInt($(this).val()) + totalPoints;
+                });
+                $('#totalSeats').val(totalPoints);
+            }
+        </script>
     </body>
 </html>

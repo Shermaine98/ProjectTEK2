@@ -74,7 +74,7 @@ public class DirectoryHospitalDAO {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             ArrayList<DirectoryHealth> ArrListOfHospitals = new ArrayList<>();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_health WHERE formID = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_health WHERE formID = ?  AND `active` = 1");
                 pstmt.setInt(1, formID);
                 ResultSet rs = pstmt.executeQuery();
 
@@ -111,7 +111,7 @@ public class DirectoryHospitalDAO {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             ArrayList<DirectoryHealth> ArrListOfHospitals = new ArrayList<>();
             try (Connection conn = myFactory.getConnection()) {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_health WHERE censusYear = ?");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM directory_health WHERE censusYear = ? AND `active` = 1");
                 pstmt.setInt(1, year);
                 ResultSet rs = pstmt.executeQuery();
 

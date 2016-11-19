@@ -149,9 +149,7 @@ public class RetrieveDataEducationServlet extends BaseServlet {
             }
 
             request.setAttribute("directory", directorySchool);
-
             rd = request.getRequestDispatcher("/WEB-INF/JSPEducation/privateDirectory.jsp");
-
             rd.forward(request, response);
         } // head    
         else if (redirect.equalsIgnoreCase("education_approval")) {

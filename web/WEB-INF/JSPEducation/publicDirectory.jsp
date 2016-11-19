@@ -98,7 +98,6 @@
                         <%                            ArrayList<DirectorySchool> directorySchool = (ArrayList<DirectorySchool>) request.getAttribute("directory");%>
 
                         <div class="DT" id="SchoolDirectory">
-                            <input type="hidden" id="censusYear" value="<%=directorySchool.get(0).getCensusYear()%>" />
 
                             <table id="approved" class="table table-bordered" role="grid" aria-describedby="incomplete_info">
                                 <%
@@ -197,7 +196,7 @@
                                     </tr>
                                     <tr>
                                         <th colspan="5">Total Teachers</th>
-                                        <td><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
+                                       <td class="censusYear" ><input type="hidden" id="censusYear" value="<%=directorySchool.get(i).getCensusYear()%>"/><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
                                         <th>Total Classrooms</th>
                                         <td><%= directorySchool.get(i).getFormatcount(totalClassroom)%> </td>
                                         <th>Total Seats</th>
@@ -224,29 +223,7 @@
               $(document).ready(function () {
                 $('#classification').val("Public");
             });
-            function changeSum() {
-                var totalPoints = 0;
-                $('.add').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalTeachers').val(totalPoints);
-            }
-            function changeClassroom() {
-                var totalPoints = 0;
-                $('.classroom').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalClassrooms').val(totalPoints);
-            }
-            function changeSeats() {
-                var totalPoints = 0;
-                $('.seats').each(function () {
-                    totalPoints = parseInt($(this).val()) + totalPoints;
-                });
-                $('#totalSeats').val(totalPoints);
-            }
-        </script>
-        <script>
+
             function viewAll() {
                 $('#dataSchool').remove();
 
