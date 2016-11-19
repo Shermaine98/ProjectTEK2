@@ -230,6 +230,7 @@
 
                 $(document).ready(function () {
                 $('#classification').val("Private");
+                $('#classificationE').val("Private");
             });
             function viewAll() {
                 $('#dataSchool').remove();

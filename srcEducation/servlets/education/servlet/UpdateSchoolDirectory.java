@@ -131,11 +131,14 @@ public class UpdateSchoolDirectory extends BaseServlet {
             boolean x = false;
             RecordDAO recorddao = new RecordDAO();
             int formid = 0;
+            
             try {
                 formid = directorySchoolDAO.getFormID(year, classification);
             } catch (SQLException ex) {
                 Logger.getLogger(AddNewSchool.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
             if (classification.equalsIgnoreCase("private")) {
                 try {
                     x = recorddao.checkExistRecord(120000000, year);
@@ -166,9 +169,9 @@ public class UpdateSchoolDirectory extends BaseServlet {
             DirectorySchool directorySchool = new DirectorySchool();
 
             directorySchool.setFormID(formid);
-            directorySchool.setSchoolName(schoolName);
-            directorySchool.setSchoolID(Integer.parseInt(schoolID));
-            directorySchool.setCensusYear(year);
+            directorySchool.setSchoolName(schoolName.trim());
+            directorySchool.setSchoolID(Integer.parseInt(schoolID.trim()));
+            directorySchool.setCensusYear(Integer.parseInt(oldYear));
             directorySchool.setAddress("");
             directorySchool.setLatitude(0);
             directorySchool.setLongitude(0);
@@ -214,22 +217,52 @@ public class UpdateSchoolDirectory extends BaseServlet {
             directorySchool.setSeats(arrseats);
             directorySchool.setTeacher(arrTeachers);
 
-            if (x) {
+            
+            boolean y =true;
+            if (y) {
 
                 try {
                     if (year != Integer.parseInt(oldYear)) {
-                        x = directorySchoolDAO.UpdateDirectory(directorySchool);
+                        y = directorySchoolDAO.UpdateDirectory(directorySchool);
                     } else {
-                        x = directorySchoolDAO.UpdateDirectory(directorySchool);
+                        y = directorySchoolDAO.UpdateDirectory(directorySchool);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
-            x = directorySchoolDAO.AddNewEncodeDirectorySchool(directorySchool);
+            RequestDispatcher rd = null;
+            if (classification.equalsIgnoreCase("private")) {
+                if (y) {
+                    request.setAttribute("page", "update");
+                    request.setAttribute("saveToDB", "SuccessDB");
+                    rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                    rd.forward(request, response);
+
+                } else {
+                    request.setAttribute("page", "update");
+                    request.setAttribute("saveToDB", "notSuccess");
+                    rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                    rd.forward(request, response);
+
+                }
+            } else if (classification.equalsIgnoreCase("public")) {
+
+                if (y) {
+                    request.setAttribute("page", "update");
+                    request.setAttribute("saveToDB", "SuccessDB");
+                    rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                    rd.forward(request, response);
+                } else {
+                    request.setAttribute("page", "update");
+                    request.setAttribute("saveToDB", "notSuccess");
+                    rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                    rd.forward(request, response);
+
+                }
+            }
 
         }
-
     }
 }

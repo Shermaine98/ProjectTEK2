@@ -78,7 +78,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KinderClassRoom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control classroom"  value="0" onchange="changeClassroom()" /></td>
+                                        <td> <input name="KinderClassRoom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control classroom"  value="0" onchange="changeClassroom()" /></td>
                                         <td><input name="ElemClassRoom"  class="form-control classroom" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  value="0" onchange="changeClassroom()" /></td>
                                         <td><input name="TotalClassrooms" type="text" class="form-control" style="background:transparent;border:none;" readonly value="0" id="totalClassrooms" /></td>
                                         <td><input name="KinderSeats" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control seats"  value="0" onchange="changeSeats()" /></td>
@@ -112,7 +112,7 @@
         <!--MODAL UPDATE-->
         <div id="UpdateModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-                <form action="" method="post">
+                <form action="UpdateSchoolDirectory" method="post">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -176,7 +176,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input name="KinderClassRoom" id="EditeKinderClass" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control classroomE"  value="0" onchange="changeClassroomE()" /></td>
+                                        <td> <input name="cencusYear" id="cencusYearE" type="hidden"  /><input name="KinderClassRoom" id="EditeKinderClass" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control classroomE"  value="0" onchange="changeClassroomE()" /></td>
                                         <td><input name="ElemClassRoom" id="EditElemClass" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control classroomE"  value="0" onchange="changeClassroomE()" /></td>
                                         <td><input name="TotalClassrooms"  type="text" class="form-control" style="background:transparent;border:none;" readonly value="0" id="EtotalClassrooms" /></td>
                                         <td><input name="KinderSeats" id="EditKinderSeats" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control seatsE"  value="0" onchange="changeSeatsE()" /></td>
@@ -191,7 +191,8 @@
                             <div class="form-group" style="background: transparent;">
                                 <input name="lat" class="form-control" id="lat" value="0" type="hidden"  />
                                 <input name="long" class="form-control" id="long" value="0" type="hidden"/>
-                                <input name="classification" id="classification" type="hidden" />
+                                <input name="classification" id="classificationE" type="hidden" />
+                                 <input name="redirect" value="updateData" type="hidden" />
                             </div>
                         </div>
                         <div class="modal-footer" id="modal-footer">

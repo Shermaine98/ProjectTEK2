@@ -224,6 +224,7 @@
 
               $(document).ready(function () {
                 $('#classification').val("Public");
+                 $('#classificationE').val("Public");
             });
 
             function viewAll() {

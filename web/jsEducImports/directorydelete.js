@@ -112,6 +112,7 @@ $(document).on("click", "#updateDirectory", function () {
 
     $('#schoolNameEdit').val(schoolName);
     $('#SchoolIDEdit').val(schoolID);
+    $('#cencusYearE').val(censusYear);
    // $('#SchooAddressEdit').val(schooladdress);
    
     $('#EditKtM').val(KtMale);  
