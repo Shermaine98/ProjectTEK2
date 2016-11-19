@@ -4897,12 +4897,16 @@ function encodeImageAnalysis(imageUri, para, data) {
             image.setAttribute("width", "94%");
             image.setAttribute("id", "image");
             image.setAttribute("src", dataURL);
-              var para2 = document.createElement("div");
-                    para2.setAttribute("class","divTEMP");
-                    para.appendChild(para2);
+            var para2 = document.createElement("div");
+            para2.setAttribute("class","divTEMP");
+            para.appendChild(para2);
+            var br = document.createElement("br");
+            para.append(br)
             document.querySelector(".divTEMP").appendChild(image);
             $(para).append('<b>Analysis: </b> <br>' + data + "<br><br>");
-           $('.divTEMP').removeClass('divTEMP');
+            $('.divTEMP').removeClass('divTEMP');
+            var br = document.createElement("br");
+            para.append(br)
     };
 }
 
