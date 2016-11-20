@@ -67,10 +67,19 @@ public class UpdateHealthDirectory extends BaseServlet {
             }
 
             if (checkExist) {
+                boolean update= false;
+                try {
+                     update = directoryHospitalDAO.UpdateValidation(90000000 + year);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                if(update){
                 request.setAttribute("page", "Upload");
                 request.setAttribute("saveToDB", "SuccessDB");
                 rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=directoryHosptial");
                 rd.forward(request, response);
+                }
             } else {
 
                 String uploadedBy = request.getParameter("uploadedBy");

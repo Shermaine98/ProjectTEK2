@@ -1076,7 +1076,7 @@ public class DirectorySchoolDAO {
             PreparedStatement pstmt;
             int rows;
             try (Connection conn = myFactory.getConnection()) {
-                String updateValidation = "UPDATE RECORDS  SET `validated`= 1 WHERE `FORMID` = ?;";
+                String updateValidation = "UPDATE RECORDS  SET `validated`= 1 , `approved` = 0  WHERE `FORMID` = ?;";
                 pstmt = conn.prepareStatement(updateValidation);
                 pstmt.setInt(1, formID);
 

@@ -83,15 +83,32 @@ public class UpdateSchoolDirectory extends BaseServlet {
 
                 request.setAttribute("page", "Upload");
                 request.setAttribute("saveToDB", "SuccessDB");
+                boolean update = false;
+               
                 if (classification.equalsIgnoreCase("private")) {
-                    RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
-                    rd.forward(request, response);
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
-                    rd.forward(request, response);
-                }
 
-            } else {
+                    try {
+                        update = directorySchoolDAO.UpdateValidation(120000000 + year);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UpdateSchoolDirectory.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (update) {
+                        RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=privateDirectory");
+                        rd.forward(request, response);
+                    }
+
+                } else {
+                    try {
+                        update = directorySchoolDAO.UpdateValidation(190000000 + year);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UpdateSchoolDirectory.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (update) {
+                        RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataEducationServlet?redirect=publicDirectory");
+                        rd.forward(request, response);
+                    }
+                }
+            }else {
 
                 if (classification.equalsIgnoreCase("private")) {
                     x = directorySchoolDAO.SubtmitAllPrivate(year, chck.getUserID());
