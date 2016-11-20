@@ -33,15 +33,16 @@
                                         <th colspan="6">Teachers</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="3">Kinder</th>
+
                                         <th colspan="3">Elementary</th>
+                                        <th colspan="3">Kinder</th>
                                     </tr>
                                     <tr>
+                                         <th>Female</th>
                                         <th>Male</th>
-                                        <th>Female</th>
                                         <th>Total</th>
-                                        <th>Male</th>
                                         <th>Female</th>
+                                        <th>Male</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
