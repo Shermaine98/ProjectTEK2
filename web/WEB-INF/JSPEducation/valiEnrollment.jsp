@@ -100,7 +100,7 @@
                                                         <th colspan="2">School Type</th>
                                                         <td colspan="4"><input name="schoolTypeError" type="text" readonly value="<%=enrollmentTemp.get(i).getSchoolType()%>" /></td>
                                                         <th colspan="6">Gender Disparity Index</th>
-                                                        <td class="GenderDisparityIndexError" colspan="7"><input id="GenderDisparityIndexError" name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
+                                                        <td class="errorV GenderDisparityIndexError" colspan="7"><input id="GenderDisparityIndexError" name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="vertical-align: middle">Sex</th>
