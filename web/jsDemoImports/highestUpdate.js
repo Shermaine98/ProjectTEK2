@@ -13,7 +13,7 @@ $(document).ready(function () {
         var countError2 = $row.find(".countError2 input").val();
 
 
-        if (parseInt(countError, 10) === -1) {
+        if (parseInt(countError, 10) === -1 || countError === "" ) {
             $row.find(".countError input").val("");
             $row.find(".countError2 input").each(function (index, value) {
                 $row.find('.errorH2').css('color', '#fff');
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
         }
 
-        if (parseInt(countError2, 10) === -1) {
+        if (parseInt(countError2, 10) === -1 || countError2 === "" ) {
             $row.find(".countError2 input").val("");
             $row.find(".countError2 input").each(function (index, value) {
                 $row.find('.errorH2').css('color', '#fff');

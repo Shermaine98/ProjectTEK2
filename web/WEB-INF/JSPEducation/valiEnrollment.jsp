@@ -87,7 +87,7 @@
                                     %>
                                     <div class="box-body">
                                         <div class="DT" id="errorsDiv">
-                                            <table class="table table-bordered">
+                                            <table id="enrollemt-error" class="table table-bordered">
                                                 <tbody>
                                                     <%for (int i = 0; i < enrollmentTemp.size(); i++) {%>
                                                     <tr style = "background-color: #454545; color: #fff" >
@@ -112,33 +112,33 @@
                                                         <th style="vertical-align: middle">Grand Total</th>
                                                         <th style="vertical-align: middle">Reason</th>
                                                     </tr>
-                                                    <tr class='EditTable'>
+                                                    <tr class="maleE EditTable">
                                                         <th>Male</th>
                                                             <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
-                                                        <td><input name="gradeLevelError" type="hidden" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  />
-                                                            <input name="maleCountError" style="width:60px"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
-                                                        <td rowspan="3" style="vertical-align: middle"><%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>
-                                                            <input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" hidden /></td>
+                                                        <td class="errorV maleCountError"><input name="maleCountError" style="width:60px"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                                        <td class='errorV validationM' rowspan="3" style="vertical-align: middle"><input  name="gradeLevelError" type="hidden" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getGradeLevel()%>"  /><%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>
+                                                            <input id='validationM' name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" hidden /></td>
                                                             <%}%>
-                                                        <td><input name="totalMaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalMale()%>" readonly /></td>
-                                                        <td rowspan="3" style="vertical-align: middle"><%=enrollmentTemp.get(i).getReason()%>
-                                                            <input name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" hidden /></td>                                                        </tr>
-                                                    <tr>
+                                                        <td class='errorV totalMaleError'><input  id="totalMaleError" name="totalMaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalMale()%>" readonly /></td>
+                                                        <td class="errorV validationM" rowspan="3" style="vertical-align: middle"><%=enrollmentTemp.get(i).getReason()%>
+                                                            <input id="validation2" name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" hidden /></td>
+                                                    </tr>
+                                                    <tr class="femaleE">
                                                         <th>Female</th>
                                                             <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
-                                                        <td><input name="femaleCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                                        <td class="errorV femaleCountError" ><input  name="femaleCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
                                                         <td class="no_display"><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
                                                             <%}%>
-                                                        <td><input name="totalFemaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalFemale()%>" readonly /></td>
+                                                        <td class="errorV femaleTotal"><input  name="totalFemaleError" type="text" value="<%= enrollmentTemp.get(i).getTotalFemale()%>" readonly /></td>
                                                         <td class="no_display"><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getReason()%>" readonly /></td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="totalE">
                                                         <th>Total</th>
                                                             <%for (int y = 0; y < enrollmentTemp.get(i).getEnrollmentDetArrayList().size(); y++) {%>
-                                                        <td><input name="totalCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()%>"  /></td>
+                                                        <td class="errorV totalCountError"><input readonly id="totalCountError" name="totalCountError"  type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getTotalCount()%>"  /></td>
                                                         <td class="no_display"><input name="validation" type="text" value="<%=enrollmentTemp.get(i).getEnrollmentDetArrayList().get(y).getReason()%>" readonly /></td>
                                                             <%}%>
-                                                        <td><input name="grandTotalError" type="text" value="<%= enrollmentTemp.get(i).getGrandTotal()%>" readonly /></td>
+                                                        <td  class="grandTotalError errorV"><input id="grandTotalError" name="grandTotalError" type="text" value="<%= enrollmentTemp.get(i).getGrandTotal()%>" readonly /></td>
                                                         <td class="no_display"><input name="validation" type="text" value="<%= enrollmentTemp.get(i).getReason()%>" readonly /></td>
                                                     </tr>
                                                     <%}%>

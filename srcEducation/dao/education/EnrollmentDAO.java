@@ -447,14 +447,14 @@ public class EnrollmentDAO {
 
             String query = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
                     + "FROM enrollment_det \n"
-                    + "WHERE `VALIDATION` = 0 AND formID > 160000000 AND formID < 169999999 \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 160000000 AND formID < 169999999 \n"
                     + "GROUP BY formID";
             ResultSet rs;
             
             
              String query2 = "SELECT formID, count(`VALIDATION`) as `ERROR` \n"
                     + "FROM enrollment \n"
-                    + "WHERE `VALIDATION` = 0 AND formID > 160000000 AND formID < 169999999 \n"
+                    + "WHERE `VALIDATION` != 1 AND formID > 160000000 AND formID < 169999999 \n"
                     + "GROUP BY formID";
              ResultSet rs2;
            
