@@ -284,7 +284,7 @@
                     $('#searchCensusYear').keypress(autoCompletePrivateEnrollment());
                 } else if (conceptName == "Number of Teachers and Classrooms for Public Schools") {
                     $('#searchCensusYear').removeAttr('disabled');
-                    $('#searchCensusYear').keypress(autoPublicEnrollment());
+                    $('#searchCensusYear').keypress(autoPublicClassroom());
                 } else if (conceptName == "Number of Teachers and Classrooms for Private Schools") {
                     $('#searchCensusYear').removeAttr('disabled');
                     $('#searchCensusYear').keypress(autoCompletePrivateClassroom());
