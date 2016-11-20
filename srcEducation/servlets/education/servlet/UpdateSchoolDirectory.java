@@ -181,8 +181,6 @@ public class UpdateSchoolDirectory extends BaseServlet {
                 }
 
                 if (x == false) {
-
-                    String uploadedBy = request.getParameter("uploadedBy");
                     x = recorddao.newRecord(190000000 + year, year, chck.getUserID());
                 }
 
@@ -238,9 +236,8 @@ public class UpdateSchoolDirectory extends BaseServlet {
             directorySchool.setSeats(arrseats);
             directorySchool.setTeacher(arrTeachers);
 
-            boolean y = true;
-            if (y) {
-
+       
+            boolean y = false;
                 try {
 
                     if (year != Integer.parseInt(oldYear)) {
@@ -254,7 +251,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
                 } catch (SQLException ex) {
                     Logger.getLogger(UpdateHealthDirectory.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            
 
             RequestDispatcher rd = null;
             if (classification.equalsIgnoreCase("private")) {

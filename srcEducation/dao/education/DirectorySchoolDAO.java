@@ -357,7 +357,8 @@ public class DirectorySchoolDAO {
         }
         return null;
     }
- public boolean checkifRecordSubmitted(int year) throws SQLException {
+
+    public boolean checkifRecordSubmitted(int year) throws SQLException {
         boolean rows = true;
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
@@ -382,6 +383,7 @@ public class DirectorySchoolDAO {
         }
         return rows;
     }
+
     public ArrayList<String> SearchSchoolNamePublic(String name) throws ParseException, SQLException {
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
@@ -456,7 +458,6 @@ public class DirectorySchoolDAO {
             pstmt.close();
             conn.close();
             if (rows >= 1 && rows2 >= 1 && rows3 >= 1 && rows4 >= 1) {
-
                 return true;
             }
 
@@ -523,8 +524,8 @@ public class DirectorySchoolDAO {
         int rows2 = 0;
         int rows = 0;
         try {
-
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
+            
             try (Connection conn = myFactory.getConnection()) {
                 String school = "INSERT INTO directory_school"
                         + "(censusYear, formID, schoolID, classification, schoolName, latitude, longitude, address, `active`, `alter`) "
@@ -871,96 +872,89 @@ public class DirectorySchoolDAO {
 
         DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
 
-        Connection conn;
-        conn = myFactory.getConnection();
+        try (Connection conn = myFactory.getConnection()) {
 
-        String updateValidation = "UPDATE directory_school "
-                + " SET schoolID = ?, classification = ?,"
-                + " latitude = 0, longitude = 0, `alter` = ?,"
-                + " address = ?, active = ?"
-                + " WHERE `schoolName` = ? and `censusYear` = ?;";
+            String updateValidation = "UPDATE directory_school "
+                    + " SET schoolID = ?, classification = ?,"
+                    + " latitude = 0, longitude = 0, `alter` = ?,"
+                    + " address = ?, active = ?"
+                    + " WHERE `schoolName` = ? and `censusYear` = ?;";
 
-        String updateValidation4 = "UPDATE seats "
-                + " SET schoolID = ?, classification = ?, "
-                + "gradeLevel = ?, seatsCount = ?, active = ?, `alter` = ?"
-                + "  WHERE `schoolName` = ? and `censusYear` = ?;";
+            String updateValidation4 = "UPDATE seats "
+                    + " SET schoolID = ?, classification = ?, "
+                    + "gradeLevel = ?, seatsCount = ?, active = ?, `alter` = ?"
+                    + "  WHERE `schoolName` = ? and `censusYear` = ?;";
 
-        String updateValidation2 = "UPDATE elem_classrooms "
-                + " SET  schoolID = ?, "
-                + "classification = ?, "
-                + " gradeLevel = ?, classroomCount = ? , active = ?, `alter` = ?"
-                + "  WHERE `schoolName` = ? and `censusYear` = ?;";
+            String updateValidation2 = "UPDATE elem_classrooms "
+                    + " SET  schoolID = ?, "
+                    + "classification = ?, "
+                    + " gradeLevel = ?, classroomCount = ? , active = ?, `alter` = ?"
+                    + "  WHERE `schoolName` = ? and `censusYear` = ?;";
 
-        String updateValidation3 = "UPDATE elem_teachers "
-                + " SET  schoolID = ?,"
-                + " classification = ?, gradeLevel = ?, femaleCount = ?, maleCount = ?, "
-                + " active = ?, `alter` = ? "
-                + "  WHERE `schoolName` = ? and `censusYear` = ?;";
-        PreparedStatement pstmt = conn.prepareStatement(updateValidation);
+            String updateValidation3 = "UPDATE elem_teachers "
+                    + " SET  schoolID = ?,"
+                    + " classification = ?, gradeLevel = ?, femaleCount = ?, maleCount = ?, "
+                    + " active = ?, `alter` = ? "
+                    + "  WHERE `schoolName` = ? and `censusYear` = ?;";
+            PreparedStatement pstmt = conn.prepareStatement(updateValidation);
 
-        PreparedStatement pstmt2 = conn.prepareStatement(updateValidation2);
-        PreparedStatement pstmt3 = conn.prepareStatement(updateValidation3);
-        PreparedStatement pstmt4 = conn.prepareStatement(updateValidation4);
+            pstmt.setInt(1, directorySchool.getSchoolID());
+            pstmt.setString(2, directorySchool.getClassification());
+            pstmt.setBoolean(3, true);
+            pstmt.setString(4, directorySchool.getAddress());
+            pstmt.setBoolean(5, true);
+            pstmt.setString(6, directorySchool.getSchoolName());
+            pstmt.setInt(7, directorySchool.getCensusYear());
 
-        pstmt.setInt(1, directorySchool.getSchoolID());
-        pstmt.setString(2, directorySchool.getClassification());
-        pstmt.setBoolean(3, true);
-        pstmt.setString(4, directorySchool.getAddress());
-        pstmt.setBoolean(5, true);
-        pstmt.setString(6, directorySchool.getSchoolName());
-        pstmt.setInt(7, directorySchool.getCensusYear());
+            //set
+            rows = pstmt.executeUpdate();
 
-        //set
-        rows = pstmt.executeUpdate();
+            for (int i = 0; i < directorySchool.getElemClassrooms().size(); i++) {
+               PreparedStatement pstmt2 = conn.prepareStatement(updateValidation2);
+                pstmt2.setInt(1, directorySchool.getSchoolID());
+                pstmt2.setString(2, directorySchool.getClassification());
+                pstmt2.setString(3, directorySchool.getElemClassrooms().get(i).getGradeLevel());
+                pstmt2.setInt(4, directorySchool.getElemClassrooms().get(i).getClassroomCount());
+                pstmt2.setBoolean(5, true);
+                pstmt2.setBoolean(6, true);
+                pstmt2.setString(7, directorySchool.getSchoolName());
+                pstmt2.setInt(8, directorySchool.getCensusYear());
+                rows2 = pstmt2.executeUpdate();
+            }
 
-        for (int i = 0; i < directorySchool.getElemClassrooms().size(); i++) {
-            pstmt2.setInt(1, directorySchool.getSchoolID());
-            pstmt2.setString(2, directorySchool.getClassification());
-            pstmt2.setString(3, directorySchool.getElemClassrooms().get(i).getGradeLevel());
-            pstmt2.setInt(4, directorySchool.getElemClassrooms().get(i).getClassroomCount());
-            pstmt2.setBoolean(5, true);
-            pstmt2.setBoolean(6, true);
-            pstmt2.setString(7, directorySchool.getSchoolName());
-            pstmt2.setInt(8, directorySchool.getCensusYear());
-            rows2 = pstmt2.executeUpdate();
+            for (int i = 0; i < directorySchool.getTeacher().size(); i++) {
+                
+            PreparedStatement pstmt3 = conn.prepareStatement(updateValidation3);
+                pstmt3.setInt(1, directorySchool.getSchoolID());
+                pstmt3.setString(2, directorySchool.getClassification());
+                pstmt3.setString(3, directorySchool.getTeacher().get(i).getGradeLevel());
+                pstmt3.setInt(4, directorySchool.getTeacher().get(i).getFemaleCount());
+                pstmt3.setInt(5, directorySchool.getTeacher().get(i).getMaleCount());
+                pstmt3.setBoolean(6, true);
+                pstmt3.setBoolean(7, true);
+                pstmt3.setString(8, directorySchool.getSchoolName());
+                pstmt3.setInt(9, directorySchool.getCensusYear());
+                rows3 = pstmt3.executeUpdate();
+            }
+            //set
+
+            for (int i = 0; i < directorySchool.getSeats().size(); i++) {
+                
+            PreparedStatement pstmt4 = conn.prepareStatement(updateValidation4);
+                pstmt4.setInt(1, directorySchool.getSchoolID());
+                pstmt4.setString(2, directorySchool.getClassification());
+                pstmt4.setString(3, directorySchool.getSeats().get(i).getGradeLevel());
+                pstmt4.setInt(4, directorySchool.getSeats().get(i).getSeatCount());
+                pstmt4.setBoolean(5, true);
+                pstmt4.setBoolean(6, true);
+                pstmt4.setString(7, directorySchool.getSchoolName());
+                pstmt4.setInt(8, directorySchool.getCensusYear());
+                rows4 = pstmt4.executeUpdate();
+            }
+            conn.close();
         }
 
-        for (int i = 0; i < directorySchool.getTeacher().size(); i++) {
-            pstmt3.setInt(1, directorySchool.getSchoolID());
-            pstmt3.setString(2, directorySchool.getClassification());
-            pstmt3.setString(3, directorySchool.getTeacher().get(i).getGradeLevel());
-            pstmt3.setInt(4, directorySchool.getTeacher().get(i).getFemaleCount());
-            pstmt3.setInt(5, directorySchool.getTeacher().get(i).getMaleCount());
-            pstmt3.setBoolean(6, true);
-            pstmt3.setBoolean(7, true);
-            pstmt3.setString(8, directorySchool.getSchoolName());
-            pstmt3.setInt(9, directorySchool.getCensusYear());
-            rows3 = pstmt3.executeUpdate();
-        }
-        //set
-
-        for (int i = 0; i < directorySchool.getSeats().size(); i++) {
-            pstmt4.setInt(1, directorySchool.getSchoolID());
-            pstmt4.setString(2, directorySchool.getClassification());
-            pstmt4.setString(3, directorySchool.getSeats().get(i).getGradeLevel());
-            pstmt4.setInt(4, directorySchool.getSeats().get(i).getSeatCount());
-            pstmt4.setBoolean(5, true);
-            pstmt4.setBoolean(6, true);
-            pstmt4.setString(7, directorySchool.getSchoolName());
-            pstmt4.setInt(8, directorySchool.getCensusYear());
-            rows4 = pstmt4.executeUpdate();
-        }
-
-    
-        if (rows >= 1 && rows2 >= 1 && rows3 >= 1 && rows4 >= 1) {
-               conn.close();
-        pstmt.close();
-            return true;
-        } else {
-               conn.close();
-        pstmt.close();
-            return false;
-        }
+        return rows >= 1 && rows2 >= 1 && rows3 >= 1 && rows4 >= 1;
 
     }
 
