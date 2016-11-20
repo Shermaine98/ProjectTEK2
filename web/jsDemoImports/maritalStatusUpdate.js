@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('td.commonLawLiveInError').css('background-color', '#a93e3e');
     $('td.unknownError').css('background-color', '#a93e3e');
     $('td.totalError').css('background-color', '#a93e3e');
-     $('td.reasonNum').css('background-color', '#a93e3e');
+    $('td.reasonNum').css('background-color', '#a93e3e');
     $('td.singleError').css('color', '#fff');
     $('td.marriedError').css('color', '#fff');
     $('td.windowedError').css('color', '#fff');
@@ -19,7 +19,7 @@ $(document).ready(function () {
     $('td.commonLawLiveInError').css('color', '#fff');
     $('td.unknownError').css('color', '#fff');
     $('td.totalError').css('color', '#fff');
-     $('td.reasonNum').css('color', '#fff');
+    $('td.reasonNum').css('color', '#fff');
 
 
     $('#error_maritalStatus tbody tr').each(function () {
@@ -77,8 +77,8 @@ $(document).ready(function () {
         }
 
     });
-    
-    
+
+
     $("#error_maritalStatus tbody").on("change", 'input[type="text"]', function () {
         var row = $(this).closest("tr");
         var singleError = parseInt(row.find("#singleError").val().replace(/,/g, ''), 10);
@@ -93,15 +93,6 @@ $(document).ready(function () {
         row.find("#totalError").val(totalError);
 
 
-        row.find(".singleError").css('background-color', 'green');
-        row.find(".marriedError").css('background-color', 'green');
-        row.find(".windowedError").css('background-color', 'green');
-        row.find(".divorcedSeparatedError").css('background-color', 'green');
-        row.find(".commonLawLiveInError").css('background-color', 'green');
-        row.find(".unknownError").css('background-color', 'green');
-        row.find(".totalError").css('background-color', 'green');
-        row.find(".reasonNum").css('background-color', 'green');
-        
         var a = row.find("#singleError").val();
         var b = row.find("#marriedError").val();
         var c = row.find("#windowedError").val();
@@ -109,6 +100,48 @@ $(document).ready(function () {
         var e = row.find("#commonLawLiveInError").val();
         var f = row.find("#unknownError").val();
         var g = row.find("#totalError").val();
+
+        var z = false;
+
+
+        if (a === "" || b === "" ||  c === "" || d === "" ||  e === "" || f === "" ||  a === "" || g === ""){
+
+            z = true;
+        }
+
+
+        if (z === false) {
+            row.find(".singleError").css('background-color', 'green');
+            row.find(".marriedError").css('background-color', 'green');
+            row.find(".windowedError").css('background-color', 'green');
+            row.find(".divorcedSeparatedError").css('background-color', 'green');
+            row.find(".commonLawLiveInError").css('background-color', 'green');
+            row.find(".unknownError").css('background-color', 'green');
+            row.find(".totalError").css('background-color', 'green');
+            row.find(".reasonNum").css('background-color', 'green');
+
+        } else {
+            row.find('.singleError').css('background-color', '#a93e3e');
+            row.find('.marriedError').css('background-color', '#a93e3e');
+            row.find('.windowedError').css('background-color', '#a93e3e');
+            row.find('.divorcedSeparatedError').css('background-color', '#a93e3e');
+            row.find('.commonLawLiveInError').css('background-color', '#a93e3e');
+            row.find('.unknownError').css('background-color', '#a93e3e');
+            row.find('.totalError').css('background-color', '#a93e3e');
+            row.find('.reasonNum').css('background-color', '#a93e3e');
+            row.find('.singleError').css('color', '#fff');
+            row.find('.marriedError').css('color', '#fff');
+            row.find('.windowedError').css('color', '#fff');
+            row.find('.divorcedSeparatedError').css('color', '#fff');
+            row.find('.commonLawLiveInError').css('color', '#fff');
+            row.find('.unknownError').css('color', '#fff');
+            row.find('.totalError').css('color', '#fff');
+            row.find('.reasonNum').css('color', '#fff');
+        }
+
+
+
+
 
         row.find("#singleError").val(a.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         row.find("#marriedError").val(b.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
@@ -120,31 +153,3 @@ $(document).ready(function () {
 
     });
 });
-
-function colorCheck(row) {
-    var singleError = parseInt(row.find(".singleError input").val(), 10);
-    var marriedError = parseInt(row.find(".marriedError input").val(), 10);
-    var windowedError = parseInt(row.find(".windowedError input").val(), 10);
-    var divorcedSeparatedError = parseInt(row.find(".divorcedSeparatedError input").val(), 10);
-    var commonLawLiveInError = parseInt(row.find(".commonLawLiveInError input").val(), 10);
-    var unknownError = parseInt(row.find(".unknownError input").val(), 10);
-    var totalError = parseInt(row.find(".totalError input").val(), 10);
-
-    if (singleError.val=="") {
-        row.find(".singleError").css('background-color', 'red');
-        row.find(".marriedError").css('background-color', 'red');
-        row.find(".windowedError").css('background-color', 'red');
-        row.find(".divorcedSeparatedError").css('background-color', 'red');
-        row.find(".commonLawLiveInError").css('background-color', 'red');
-        row.find(".unknownError").css('background-color', 'red');
-        row.find(".totalError").css('background-color', 'red');
-    } else {
-        row.find(".singleError").css('background-color', 'green');
-        row.find(".marriedError").css('background-color', 'green');
-        row.find(".windowedError").css('background-color', 'green');
-        row.find(".divorcedSeparatedError").css('background-color', 'green');
-        row.find(".commonLawLiveInError").css('background-color', 'green');
-        row.find(".unknownError").css('background-color', 'green');
-        row.find(".totalError").css('background-color', 'green');
-    }
-}
