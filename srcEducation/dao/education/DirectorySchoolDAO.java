@@ -358,15 +358,17 @@ public class DirectorySchoolDAO {
         return null;
     }
 
-    public boolean checkifRecordSubmitted(int year) throws SQLException {
+    public boolean checkifRecordSubmitted(int year, String classification) throws SQLException {
         boolean rows = true;
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
 
             try (Connection conn = myFactory.getConnection()) {
 
-                PreparedStatement pstmt = conn.prepareStatement("SELECT count(censusYear) as `count` FROM directory_school WHERE `active` = 1 AND censusYear = ?;");
-                pstmt.setInt(1, year);
+                PreparedStatement pstmt = conn.prepareStatement("SELECT count(censusYear) as `count` FROM directory_school WHERE `active` = 1 AND classification = ? AND censusYear = ?;");
+                pstmt.setString(1, classification);
+                pstmt.setInt(2, year);
+               
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     int isDeleted2 = rs.getInt("count");
@@ -525,7 +527,7 @@ public class DirectorySchoolDAO {
         int rows = 0;
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
-            
+
             try (Connection conn = myFactory.getConnection()) {
                 String school = "INSERT INTO directory_school"
                         + "(censusYear, formID, schoolID, classification, schoolName, latitude, longitude, address, `active`, `alter`) "
@@ -648,7 +650,7 @@ public class DirectorySchoolDAO {
         try {
             DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
             int rows1 = 0, rows2 = 0, rows3 = 0, rows4 = 0;
-            try (Connection conn = myFactory.getConnection()) {
+            
 
                 boolean x;
                 RecordDAO recorddao = new RecordDAO();
@@ -658,16 +660,15 @@ public class DirectorySchoolDAO {
                     x = recorddao.newRecord(120000000 + year, year, uploadedBy);
                 } else {
                     x = deleteSchoolRecord(year, "private");
-                    if (x) {
-                        x = setActiveOrInactive(year - 1, 1, "private");
-                    }
                 }
 
                 if (x) {
+                 try (Connection conn = myFactory.getConnection()) {   
+                    
                     String school = "INSERT INTO directory_school \n"
                             + "(censusYear, formID, schoolID, classification, schoolName, latitude, longitude, `alter`, address, active) \n"
                             + "SELECT ?, ?, schoolID, classification, schoolName, latitude, longitude, `alter`, address, active \n"
-                            + "FROM directory_school WHERE `active` = 1 AND   `alter` = 0 AND `classification` = 'Private'";
+                            + "FROM directory_school WHERE `active` = 1 AND `alter` != '1' AND `classification` = 'Private'";
 
                     PreparedStatement pstmt = conn.prepareStatement(school);
                     pstmt.setInt(1, year);
@@ -681,11 +682,11 @@ public class DirectorySchoolDAO {
                             + "					(SELECT *\n"
                             + "					FROM directory_school d \n"
                             + "					WHERE d.active = 1  AND d.classification = 'Private' \n"
-                            + "							AND  `alter` = 0		   AND d.censusYear = ?\n"
+                            + "							AND  `alter` != '1'   AND d.censusYear = ?\n"
                             + "					) z \n"
                             + "			  ON e.schoolID  = z.schoolID \n"
-                            + "              AND e.active = '1'\n"
-                            + "              AND e.`alter` = '0';";
+                            + "              AND e.`active` = '1'\n"
+                            + "              AND e.`alter` != '1';";
 
                     PreparedStatement pstmt1 = conn.prepareStatement(teacher);
 
@@ -700,11 +701,9 @@ public class DirectorySchoolDAO {
                             + "					(SELECT *\n"
                             + "					FROM directory_school d \n"
                             + "					WHERE d.active = 1 AND  d.classification = 'Private' \n"
-                            + "							AND  `alter` = 0		   AND d.censusYear = ?\n"
+                            + "					AND  `alter` != '1'  AND d.censusYear = ?\n"
                             + "					) z \n"
-                            + "			  ON e.schoolID  = z.schoolID \n"
-                            + "              AND e.active = '1'\n"
-                            + "              AND e.`alter` = '0';              ";
+                            + "			  ON e.schoolID  = z.schoolID AND e.`active` = '1'  AND e.`alter` != '1';  ";
 
                     PreparedStatement pstmt2 = conn.prepareStatement(classroom);
                     pstmt2.setInt(1, year);
@@ -718,11 +717,11 @@ public class DirectorySchoolDAO {
                             + "					(SELECT *\n"
                             + "					FROM directory_school d \n"
                             + "					WHERE d.active = 1 AND   d.classification = 'Private' \n"
-                            + "						AND  `alter` = 0			   AND d.censusYear = ?\n"
+                            + "						AND  `alter` != '1' AND d.censusYear = ?\n"
                             + "					) z \n"
                             + "			  ON e.schoolID  = z.schoolID \n"
-                            + "              AND e.active = '1'\n"
-                            + "              AND e.`alter` = '0';";
+                            + "              AND e.`active` = '1' \n"
+                            + "              AND e.`alter` != '1';";
 
                     PreparedStatement pstmt3 = conn.prepareStatement(seats);
                     pstmt3.setInt(1, year);
@@ -733,8 +732,6 @@ public class DirectorySchoolDAO {
                     rows2 = pstmt1.executeUpdate();
                     rows3 = pstmt2.executeUpdate();
                     rows4 = pstmt3.executeUpdate();
-
-                    setActiveOrInactive(year - 1, 0, "private");
 
                     conn.close();
                     pstmt.close();
@@ -775,7 +772,7 @@ public class DirectorySchoolDAO {
                     String school = "INSERT INTO directory_school \n"
                             + "(censusYear, formID, schoolID, classification, schoolName, latitude, longitude, `alter`, address, active) \n"
                             + "SELECT ?, ?, schoolID, classification, schoolName, latitude, longitude, `alter`, address, active \n"
-                            + "FROM directory_school WHERE `active` = 1 AND  `alter` = 0 AND `classification` = 'Public'";
+                            + "FROM directory_school WHERE `active` = 1  AND `alter` != '1'  AND `classification` = 'Public'";
 
                     PreparedStatement pstmt = conn.prepareStatement(school);
                     pstmt.setInt(1, year);
@@ -789,11 +786,11 @@ public class DirectorySchoolDAO {
                             + "					(SELECT *\n"
                             + "					FROM directory_school d \n"
                             + "					WHERE d.active = 1  AND d.classification = 'Public' \n"
-                            + "								AND  `alter` = 0 AND d.censusYear = ?\n"
+                            + "					AND  `alter` != '1' AND d.censusYear = ?\n"
                             + "					) z \n"
                             + "			  ON e.schoolID  = z.schoolID \n"
                             + "              AND e.active = '1'\n"
-                            + "              AND e.`alter` = '0';";
+                            + "              AND e.`alter` != '1';";
 
                     PreparedStatement pstmt1 = conn.prepareStatement(teacher);
 
@@ -808,11 +805,11 @@ public class DirectorySchoolDAO {
                             + "					(SELECT *\n"
                             + "					FROM directory_school d \n"
                             + "					WHERE d.active = 1 AND  d.classification = 'Public' \n"
-                            + "							AND  `alter` = 0		   AND d.censusYear = ?\n"
+                            + "					AND  `alter` != '1'  AND d.censusYear = ?\n"
                             + "					) z \n"
                             + "			  ON e.schoolID  = z.schoolID \n"
                             + "              AND e.active = '1'\n"
-                            + "              AND e.`alter` = '0';              ";
+                            + "              AND e.`alter` != '1';              ";
 
                     PreparedStatement pstmt2 = conn.prepareStatement(classroom);
                     pstmt2.setInt(1, year);
@@ -826,11 +823,11 @@ public class DirectorySchoolDAO {
                             + "					(SELECT *\n"
                             + "					FROM directory_school d \n"
                             + "					WHERE d.active = 1 AND   d.classification = 'Public' \n"
-                            + "							AND  `alter` = 0   AND d.censusYear = ?\n"
+                            + "							AND  `alter` != '1'   AND d.censusYear = ?\n"
                             + "					) z \n"
                             + "			  ON e.schoolID  = z.schoolID \n"
                             + "              AND e.active = '1'\n"
-                            + "              AND e.`alter` = '0';";
+                            + "              AND e.`alter` != '1';";
 
                     PreparedStatement pstmt3 = conn.prepareStatement(seats);
                     pstmt3.setInt(1, year);
@@ -866,9 +863,6 @@ public class DirectorySchoolDAO {
     public boolean UpdateDirectory(DirectorySchool directorySchool) throws SQLException {
 
         int rows = 0;
-        int rows2 = 0;
-        int rows3 = 0;
-        int rows4 = 0;
 
         DBConnectionFactoryStorageDB myFactory = DBConnectionFactoryStorageDB.getInstance();
 
@@ -881,21 +875,17 @@ public class DirectorySchoolDAO {
                     + " WHERE `schoolName` = ? and `censusYear` = ?;";
 
             String updateValidation4 = "UPDATE seats "
-                    + " SET schoolID = ?, classification = ?, "
-                    + "gradeLevel = ?, seatsCount = ?, active = ?, `alter` = ?"
-                    + "  WHERE `schoolName` = ? and `censusYear` = ?;";
+                    + " SET seatsCount = ?, active = ?, `alter` = ?"
+                    + "  WHERE gradeLevel = ? and `schoolName` = ? and `censusYear` = ?;";
 
             String updateValidation2 = "UPDATE elem_classrooms "
-                    + " SET  schoolID = ?, "
-                    + "classification = ?, "
-                    + " gradeLevel = ?, classroomCount = ? , active = ?, `alter` = ?"
-                    + "  WHERE `schoolName` = ? and `censusYear` = ?;";
+                    + " SET classroomCount = ? , active = ?, `alter` = ?"
+                    + "  WHERE gradeLevel = ? and `schoolName` = ? and `censusYear` = ?;";
 
             String updateValidation3 = "UPDATE elem_teachers "
-                    + " SET  schoolID = ?,"
-                    + " classification = ?, gradeLevel = ?, femaleCount = ?, maleCount = ?, "
+                    + " SET femaleCount = ?, maleCount = ?, "
                     + " active = ?, `alter` = ? "
-                    + "  WHERE `schoolName` = ? and `censusYear` = ?;";
+                    + "  WHERE gradeLevel = ? and `schoolName` = ? and `censusYear` = ?;";
             PreparedStatement pstmt = conn.prepareStatement(updateValidation);
 
             pstmt.setInt(1, directorySchool.getSchoolID());
@@ -908,53 +898,54 @@ public class DirectorySchoolDAO {
 
             //set
             rows = pstmt.executeUpdate();
+            PreparedStatement pstmt2 = conn.prepareStatement(updateValidation2);
 
             for (int i = 0; i < directorySchool.getElemClassrooms().size(); i++) {
-               PreparedStatement pstmt2 = conn.prepareStatement(updateValidation2);
-                pstmt2.setInt(1, directorySchool.getSchoolID());
-                pstmt2.setString(2, directorySchool.getClassification());
-                pstmt2.setString(3, directorySchool.getElemClassrooms().get(i).getGradeLevel());
-                pstmt2.setInt(4, directorySchool.getElemClassrooms().get(i).getClassroomCount());
-                pstmt2.setBoolean(5, true);
-                pstmt2.setBoolean(6, true);
-                pstmt2.setString(7, directorySchool.getSchoolName());
-                pstmt2.setInt(8, directorySchool.getCensusYear());
-                rows2 = pstmt2.executeUpdate();
+                pstmt2.setInt(1, directorySchool.getElemClassrooms().get(i).getClassroomCount());
+                pstmt2.setBoolean(2, true);
+                pstmt2.setBoolean(3, true);
+                pstmt2.setString(4, directorySchool.getElemClassrooms().get(i).getGradeLevel());
+                pstmt2.setString(5, directorySchool.getSchoolName());
+                pstmt2.setInt(6, directorySchool.getCensusYear());
+                pstmt2.addBatch();
             }
 
-            for (int i = 0; i < directorySchool.getTeacher().size(); i++) {
-                
             PreparedStatement pstmt3 = conn.prepareStatement(updateValidation3);
-                pstmt3.setInt(1, directorySchool.getSchoolID());
-                pstmt3.setString(2, directorySchool.getClassification());
-                pstmt3.setString(3, directorySchool.getTeacher().get(i).getGradeLevel());
-                pstmt3.setInt(4, directorySchool.getTeacher().get(i).getFemaleCount());
-                pstmt3.setInt(5, directorySchool.getTeacher().get(i).getMaleCount());
-                pstmt3.setBoolean(6, true);
-                pstmt3.setBoolean(7, true);
-                pstmt3.setString(8, directorySchool.getSchoolName());
-                pstmt3.setInt(9, directorySchool.getCensusYear());
-                rows3 = pstmt3.executeUpdate();
+            for (int i = 0; i < directorySchool.getTeacher().size(); i++) {
+                pstmt3.setInt(1, directorySchool.getTeacher().get(i).getFemaleCount());
+                pstmt3.setInt(2, directorySchool.getTeacher().get(i).getMaleCount());
+                pstmt3.setBoolean(3, true);
+                pstmt3.setBoolean(4, true);
+                pstmt3.setString(5, directorySchool.getTeacher().get(i).getGradeLevel());
+                pstmt3.setString(6, directorySchool.getSchoolName());
+                pstmt3.setInt(7, directorySchool.getCensusYear());
+          pstmt3.addBatch();
             }
             //set
-
-            for (int i = 0; i < directorySchool.getSeats().size(); i++) {
-                
             PreparedStatement pstmt4 = conn.prepareStatement(updateValidation4);
-                pstmt4.setInt(1, directorySchool.getSchoolID());
-                pstmt4.setString(2, directorySchool.getClassification());
-                pstmt4.setString(3, directorySchool.getSeats().get(i).getGradeLevel());
-                pstmt4.setInt(4, directorySchool.getSeats().get(i).getSeatCount());
-                pstmt4.setBoolean(5, true);
-                pstmt4.setBoolean(6, true);
-                pstmt4.setString(7, directorySchool.getSchoolName());
-                pstmt4.setInt(8, directorySchool.getCensusYear());
-                rows4 = pstmt4.executeUpdate();
+            for (int i = 0; i < directorySchool.getSeats().size(); i++) {
+                pstmt4.setInt(1, directorySchool.getSeats().get(i).getSeatCount());
+                pstmt4.setBoolean(2, true);
+                pstmt4.setBoolean(3, true);
+                pstmt4.setString(4, directorySchool.getSeats().get(i).getGradeLevel());
+                pstmt4.setString(5, directorySchool.getSchoolName());
+                pstmt4.setInt(6, directorySchool.getCensusYear());
+             pstmt4.addBatch();
             }
+
+             pstmt4.executeBatch();
+            pstmt3.executeBatch();
+            pstmt2.executeBatch();
+            
             conn.close();
+            pstmt.close();
+            pstmt4.close();
+            pstmt3.close();
+            pstmt2.close();
+
         }
 
-        return rows >= 1 && rows2 >= 1 && rows3 >= 1 && rows4 >= 1;
+        return rows >= 1;
 
     }
 
@@ -973,41 +964,47 @@ public class DirectorySchoolDAO {
                 pstmtS.setInt(2, year);
                 pstmtS.setString(3, classification);
 
-                String updateClassroom = "UPDATE elem_classrooms  SET `active` = ? \n"
-                        + "WHERE censusYear = ?  AND  classification = ?;";
-                PreparedStatement pstmtC = conn.prepareStatement(updateClassroom);
-
-                pstmtC.setInt(1, decision);
-                pstmtC.setInt(2, year);
-                pstmtC.setString(3, classification);
-
-                String updateTeacher = "UPDATE elem_teachers  SET `active` = ? \n"
-                        + "WHERE censusYear = ?  AND  classification = ?;";
-                PreparedStatement pstmtT = conn.prepareStatement(updateTeacher);
-
-                pstmtT.setInt(1, decision);
-                pstmtT.setInt(2, year);
-                pstmtT.setString(3, classification);
-
-                String updateseat = "UPDATE seats  SET `active` =  ? \n"
-                        + "WHERE censusYear = ? AND  classification = ?;";
-                PreparedStatement pstmtST = conn.prepareStatement(updateseat);
-
-                pstmtST.setInt(1, decision);
-                pstmtST.setInt(2, year);
-                pstmtST.setString(3, classification);
-
+//                String updateClassroom = "UPDATE elem_classrooms  SET `active` = ? \n"
+//                        + "WHERE censusYear = ?  AND  classification = ?;";
+//                PreparedStatement pstmtC = conn.prepareStatement(updateClassroom);
+//
+//                pstmtC.setInt(1, decision);
+//                pstmtC.setInt(2, year);
+//                pstmtC.setString(3, classification);
+//
+//                String updateTeacher = "UPDATE elem_teachers  SET `active` = ? \n"
+//                        + "WHERE censusYear = ?  AND  classification = ?;";
+//                PreparedStatement pstmtT = conn.prepareStatement(updateTeacher);
+//
+//                pstmtT.setInt(1, decision);
+//                pstmtT.setInt(2, year);
+//                pstmtT.setString(3, classification);
+//
+//                String updateseat = "UPDATE seats  SET `active` =  ? \n"
+//                        + "WHERE censusYear = ? AND  classification = ?;";
+//                PreparedStatement pstmtST = conn.prepareStatement(updateseat);
+//
+//                pstmtST.setInt(1, decision);
+//                pstmtST.setInt(2, year);
+//                pstmtST.setString(3, classification);
+//
                 int isDeleted = pstmtS.executeUpdate();
-                int isDeleted2 = pstmtC.executeUpdate();
-                int isDeleted3 = pstmtT.executeUpdate();
-                int isDeleted4 = pstmtST.executeUpdate();
+//                int isDeleted2 = pstmtC.executeUpdate();
+//                int isDeleted3 = pstmtT.executeUpdate();
+//                int isDeleted4 = pstmtST.executeUpdate();
 
-                if (isDeleted > 0 && isDeleted2 > 0 && isDeleted3 > 0 && isDeleted4 > 0) {
+//                if (isDeleted > 0 && isDeleted2 > 0 && isDeleted3 > 0 && isDeleted4 > 0) {
+//                    conn.close();
+//                    pstmtS.close();
+//                    pstmtC.close();
+//                    pstmtT.close();
+//                    pstmtST.close();
+//                    rows = true;
+//                }
+
+                if (isDeleted > 0) {
                     conn.close();
                     pstmtS.close();
-                    pstmtC.close();
-                    pstmtT.close();
-                    pstmtST.close();
                     rows = true;
                 }
 
@@ -1054,12 +1051,15 @@ public class DirectorySchoolDAO {
                 int isDeleted4 = pstmt3.executeUpdate();
                 int isDeleted = pstmt.executeUpdate();
 
+           
+                
                 if (isDeleted > 0 && isDeleted2 > 0 && isDeleted3 > 0 && isDeleted4 > 0) {
                     conn.close();
-                    pstmt.close();
                     pstmt1.close();
-                    pstmt2.close();
-                    pstmt3.close();
+                    rows = true;
+                } else if (isDeleted == 0 && isDeleted2 == 0 && isDeleted3 == 0 && isDeleted4 == 0) {
+                    conn.close();
+                    pstmt1.close();
                     rows = true;
                 }
 
