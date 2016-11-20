@@ -99,7 +99,7 @@ $(document).ready(function () {
                     var totalFemaleError = $(this).val();
                       body.find('tr.totalE td.totalCountError input').each(function (majorLoop3) {
                         if (majorLoop2 === majorLoop3) {
-                            totalEach = parseInt(totalMaleError, 10) + parseInt(totalFemaleError, 10);
+                            totalEach = parseInt(totalMaleError, 10) + parseInt(totalFemaleError, 10) || 0;
                             $(this).val(totalEach.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                             totalEach = 0;
                         }
