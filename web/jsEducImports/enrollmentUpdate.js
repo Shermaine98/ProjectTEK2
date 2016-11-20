@@ -122,11 +122,11 @@ $(document).ready(function () {
             totaAll += parseInt(totalCountError, 10) || 0;
         });
 
-        var getMTotal = $("#enrollemt-error tbody tr.maleE td.totalMaleError input");
-        var getTotal = $("#enrollemt-error tbody tr.totalE td.grandTotalError input");
-        var getFTotal = $("#enrollemt-error tbody tr.femaleE td.femaleTotal input");
+        var getMTotal = $(this).find("tr.maleE td.totalMaleError input");
+        var getTotal = $(this).find("tr.totalE td.grandTotalError input");
+        var getFTotal = $(this).find("tr.femaleE td.femaleTotal input");
 
-        var genderD = $("#enrollemt-error tbody tr.gd td.GenderDisparityIndexError input");
+        var genderD = $(this).find("tr.gd td.GenderDisparityIndexError input");
 
         getTotal.val(totaAll.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getFTotal.val(totalFemale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
