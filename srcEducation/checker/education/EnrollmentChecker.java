@@ -1690,7 +1690,7 @@ public class EnrollmentChecker {
                 enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                 enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                 enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-                enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
 
                 enrollment.setValidation(-3);
 
@@ -1801,7 +1801,7 @@ public class EnrollmentChecker {
                 enrollment.setTotalFemale(Integer.parseInt(arrError.get(i).getTotalFemale()));
                 enrollment.setTotalMale(Integer.parseInt(arrError.get(i).getTotalMale()));
                 enrollment.setGrandTotal(Integer.parseInt(arrError.get(i).getGrandTotal()));
-                enrollment.setGenderDisparityIndex(Integer.parseInt(arrError.get(i).getGenderDisparityIndex()));
+                enrollment.setGenderDisparityIndex(Double.parseDouble(arrError.get(i).getGenderDisparityIndex()));
 
                 enrollment.setValidation(-4);
                 arrEnrollmentDet = new ArrayList<EnrollmentDet>();

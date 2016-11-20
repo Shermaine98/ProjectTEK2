@@ -131,7 +131,7 @@ $(document).ready(function () {
         getFTotal.val(totalFemale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getMTotal.val(totalMale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-             $('#enrollemt-error tbody').each(function () {
+            $(this).each(function () {
             if (onChange === true) {
                 console.log("eror");
                 $(this).find(".errorV").css('color', '#fff');

@@ -16,6 +16,7 @@ $(document).ready(function () {
         MaritalStatusDataNotificaiton(year);
     } else if (notifcationsetData === "schoolDirectory") {
         var classificationS = document.getElementById('classificationSpecific').value;
+        console.log('HI'+classificationS);
         SchoolDataNotification(year, classificationS);
     } else if (notifcationsetData === "nutritional") {
         NutritionalStatusNotification();
@@ -933,7 +934,7 @@ function chartMarital(print) {
 
 
 function SchoolDataNotification(censusYear, classification) {
-    if (classification == "privateDirectory") {
+    if (classification == "Private") {
         classification = "Private";
     } else {
         classification = "Public";
@@ -1483,7 +1484,7 @@ function chartHealth(print) {
 }
 
 function EnrollmentDataNotification(censusYear, classification) {
-    if (classification == "ePublic") {
+    if (classification == "Public") {
         classification = "Public";
     } else {
         classification = "Private";
