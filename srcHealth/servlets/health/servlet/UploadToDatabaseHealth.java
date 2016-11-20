@@ -2,8 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
-
 package servlets.health.servlet;
 
 import excel.health.ExcelNutritionalStatus;
@@ -29,13 +27,12 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
-
 @MultipartConfig(maxFileSize = 16177215)
 public class UploadToDatabaseHealth extends BaseServlet {
 
-   /**
+    /**
      *
      * @param request servlet request
      * @param response servlet response
@@ -72,40 +69,43 @@ public class UploadToDatabaseHealth extends BaseServlet {
                 arrTempNoError = new ExcelNutritionalStatus(wb, sheetNumber).getArrayNoError();
 
                 int x = 0;
-                
+
                 for (int i = 0; i < arrTempError.size(); i++) {
                     for (int y = 0; y < arrTempError.get(i).getNutritionalStatusBMITemp().size(); y++) {
+                        if (arrTempError.get(i).getNutritionalStatusBMITemp().get(y).getValidation() != 1) {
+                            x++;
+                        }
+                    }
+                    if (arrTempError.get(i).isValidation() != 1) {
                         x++;
                     }
                 }
-                
+
                 if (x > 3) {
                     request.setAttribute("ErrorMessage", "ErrorMore");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
-                       request.setAttribute("page", "Upload");
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/hPercentageDist.jsp");
-                rd.forward(request, response);
-                    
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/hPercentageDist.jsp");
+                    rd.forward(request, response);
+
                 } else if (!arrTempError.isEmpty()) {
                     request.setAttribute("ErrorMessage", "Error");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
-                       request.setAttribute("page", "Upload");
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/valiNutritionalStatus.jsp");
-                rd.forward(request, response);
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/valiNutritionalStatus.jsp");
+                    rd.forward(request, response);
                 } else {
                     request.setAttribute("ErrorMessage", "NoError");
                     request.setAttribute("ArrNoError", arrTempNoError);
-                       request.setAttribute("page", "Upload");
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/valiNutritionalStatus.jsp");
-                rd.forward(request, response);
+                    request.setAttribute("page", "Upload");
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/valiNutritionalStatus.jsp");
+                    rd.forward(request, response);
                 }
-
-             
 
             } else {
                 ArrayList<String> arrSheet = new ArrayList<>();
@@ -117,7 +117,7 @@ public class UploadToDatabaseHealth extends BaseServlet {
                     rd.forward(request, response);
                 }
             }
-        } else if (sheetNumber == -1 && uploadFile.equalsIgnoreCase("nutritionalStatus")){
+        } else if (sheetNumber == -1 && uploadFile.equalsIgnoreCase("nutritionalStatus")) {
             request.setAttribute("saveToDB", "UploadError");
             RequestDispatcher rd = request.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=percentageDist");
             rd.forward(request, response);
@@ -131,7 +131,6 @@ public class UploadToDatabaseHealth extends BaseServlet {
                 rd.forward(request, response);
             }
         }
-        
 
     }
 }

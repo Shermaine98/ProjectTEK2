@@ -109,7 +109,7 @@ $(document).ready(function () {
                 }
             });
         });
-        
+
         $('#enrollemt-error tbody tr.totalE td.totalCountError input').each(function () {
             var $row = $(this);
             var totalCountError = $row.val();
@@ -125,23 +125,24 @@ $(document).ready(function () {
         var getMTotal = $("#enrollemt-error tbody tr.maleE td.totalMaleError input");
         var getTotal = $("#enrollemt-error tbody tr.totalE td.grandTotalError input");
         var getFTotal = $("#enrollemt-error tbody tr.femaleE td.femaleTotal input");
-
+        
+         var genderD = $("#enrollemt-error tbody tr.gd td.GenderDisparityIndexError input");
+         
+         
 
         getTotal.val(totaAll.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getFTotal.val(totalFemale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getMTotal.val(totalMale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-            $(this).each(function () {
-            if (onChange === true) {
-                console.log("eror");
-                $(this).find(".errorV").css('color', '#fff');
-                $(this).find('.errorV').css('background-color', '#a93e3e');
-            } else {
-
-                console.log("flase");
-                $(this).find('.errorV').css('background-color', 'green');
-            }
-        });
+        genderD.val(Math.round(parseInt(totalFemale, 10)/parseInt(totalMale, 10) * 100) / 100);
+            
+        if (onChange === true) {
+            $(this).find(".errorV").css('color', '#fff');
+            $(this).find('.errorV').css('background-color', '#a93e3e');
+        } else {
+            console.log("flase");
+            $(this).find('.errorV').css('background-color', 'green');
+        }
 
     });
 });
