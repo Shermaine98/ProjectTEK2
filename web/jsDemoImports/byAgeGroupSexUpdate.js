@@ -13,12 +13,12 @@ $(document).ready(function () {
     $('td.maleSexesError').css('color', '#fff');
     $('td.femaleSexesError').css('color', '#fff');
     $('td.reasonNum').css('color', '#fff');
-   
+
     $('#error-ageGroup tbody tr').each(function () {
         var $row = $(this);
-        var  bothSexes = $row.find(".bothSexesError input").val();
+        var bothSexes = $row.find(".bothSexesError input").val();
         var femaleErorr = $row.find(".femaleSexesError input").val();
-       var  maleError = $row.find(".maleSexesError input").val();
+        var maleError = $row.find(".maleSexesError input").val();
 
 
 
@@ -54,14 +54,33 @@ $(document).ready(function () {
         var bothSexes = femaleErorr + MaleError || 0;
         row.find("#bothSexesError").val(bothSexes);
 
-        row.find(".bothSexesError").css('background-color', 'green');
-        row.find(".maleSexesError").css('background-color', 'green');
-        row.find(".femaleSexesError").css('background-color', 'green');
-        row.find(".reasonNum").css('background-color', 'green');
+        var f = false;
 
         var x = row.find("#bothSexesError").val();
         var y = row.find("#maleSexesError").val();
         var z = row.find("#femaleSexesError").val();
+
+        if (z === -1 || z === "" || y === -1 || y === "") {
+            f = true;
+        }
+
+        if (f === false) {
+            row.find(".bothSexesError").css('background-color', 'green');
+            row.find(".maleSexesError").css('background-color', 'green');
+            row.find(".femaleSexesError").css('background-color', 'green');
+            row.find(".reasonNum").css('background-color', 'green');
+
+        } else {
+            row.find('.bothSexesError').css('background-color', '#a93e3e');
+            row.find('.maleSexesError').css('background-color', '#a93e3e');
+            row.find('.femaleSexesError').css('background-color', '#a93e3e');
+            row.find('.reasonNum').css('background-color', '#a93e3e');
+            row.find('.bothSexesError').css('color', '#fff');
+            row.find('.maleSexesError').css('color', '#fff');
+            row.find('.femaleSexesError').css('color', '#fff');
+            row.find('.reasonNum').css('color', '#fff');
+
+        }
 
         row.find("#bothSexesError").val(x.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         row.find("#maleSexesError").val(y.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
