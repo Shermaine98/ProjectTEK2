@@ -83,19 +83,29 @@ public class UploadToDatabaseHealth extends BaseServlet {
                     request.setAttribute("ErrorMessage", "ErrorMore");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
+                       request.setAttribute("page", "Upload");
+                ServletContext context = getServletContext();
+                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/hPercentageDist.jsp");
+                rd.forward(request, response);
+                    
                 } else if (!arrTempError.isEmpty()) {
                     request.setAttribute("ErrorMessage", "Error");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
-                } else {
-                    request.setAttribute("ErrorMessage", "NoError");
-                    request.setAttribute("ArrNoError", arrTempNoError);
-                }
-
-                request.setAttribute("page", "Upload");
+                       request.setAttribute("page", "Upload");
                 ServletContext context = getServletContext();
                 RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/valiNutritionalStatus.jsp");
                 rd.forward(request, response);
+                } else {
+                    request.setAttribute("ErrorMessage", "NoError");
+                    request.setAttribute("ArrNoError", arrTempNoError);
+                       request.setAttribute("page", "Upload");
+                ServletContext context = getServletContext();
+                RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/valiNutritionalStatus.jsp");
+                rd.forward(request, response);
+                }
+
+             
 
             } else {
                 ArrayList<String> arrSheet = new ArrayList<>();

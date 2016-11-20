@@ -7,7 +7,8 @@
 $(document).ready(function () {
 
     var page = document.getElementById('page').value;
-    var classification = document.getElementById('classification').value;
+    var classification = document.getElementById('classificationChecker').value;
+    console.log("THIS" + classification);
     $.ajax({
         url: "UploadCheckerDirectory",
         type: 'POST',

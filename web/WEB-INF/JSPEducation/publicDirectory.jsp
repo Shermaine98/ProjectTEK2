@@ -213,6 +213,7 @@
                         </div>
 
                         <input type="hidden" id= "page" value="schoolDirectory"/>
+                        <input type="hidden" id= "classificationChecker" value="public"/>
                         <div class="DT" id="dataHolder">
                         </div>
                     </div>

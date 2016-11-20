@@ -130,11 +130,14 @@ public class ValiNutritionalStatus extends BaseServlet {
         String[] pupilsWeighedMaleError = request.getParameterValues("pupilsWeighedMaleError");
         String[] pupilsWeighedFemaleError = request.getParameterValues("pupilsWeighedFemaleError");
         String[] pupilsWeighedTotalError = request.getParameterValues("pupilsWeighedTotalError");
-
+        String[] validation1 = request.getParameterValues("validation1");
+        
+        
         String[] BMIError = request.getParameterValues("bmiError");
         String[] BmaleCountError = request.getParameterValues("maleCountError");
         String[] BfemaleCountError = request.getParameterValues("femaleCountError");
         String[] BtotalCountError = request.getParameterValues("bTotalCountError");
+        String[] validation = request.getParameterValues("validation");
 
         NutritionalStatusTemp nutritionalStatusTemp;
         ArrayList<NutritionalStatusBMITemp> arrNutritionalStatusBMITemp;
@@ -155,7 +158,7 @@ public class ValiNutritionalStatus extends BaseServlet {
             nutritionalStatusTemp.setPupilsWeighedMale(pupilsWeighedMaleError[i].replaceAll(" ", "").replaceAll(",", ""));
             nutritionalStatusTemp.setPupilsWeighedFemale(pupilsWeighedFemaleError[i].replaceAll(" ", "").replaceAll(",", ""));
             nutritionalStatusTemp.setPupilsWeighedTotal(pupilsWeighedTotalError[i].replaceAll(" ", "").replaceAll(",", ""));
-            nutritionalStatusTemp.setValidation(-1);
+            nutritionalStatusTemp.setValidation(Integer.parseInt(validation1[i]));
             arrNutritionalStatusBMITemp = new ArrayList<NutritionalStatusBMITemp>();
             
             for (; y < 5 + stopper; y++) {
@@ -164,6 +167,7 @@ public class ValiNutritionalStatus extends BaseServlet {
                 NutritionalStatusBMITemp.setFemaleCount(BfemaleCountError[y].replaceAll(" ", "").replaceAll(",", ""));
                 NutritionalStatusBMITemp.setMaleCount(BmaleCountError[y].replaceAll(" ", "").replaceAll(",", ""));
                 NutritionalStatusBMITemp.setTotalCount(BtotalCountError[y].replaceAll(" ", "").replaceAll(",", ""));
+                NutritionalStatusBMITemp.setValidation(Integer.parseInt(validation[y]));
                 arrNutritionalStatusBMITemp.add(NutritionalStatusBMITemp);
               
             }
