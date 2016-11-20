@@ -112,7 +112,7 @@
                                         </tr>
                                         <tr class='EditTable'>
                                             <th>Male</th>
-                                            <td><input name="totalMaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalMale()%>" readonly /></td>
+                                            <td><input name="validation1" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).isValidation()%>" /><input name="totalMaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalMale()%>" readonly /></td>
                                             <td><input name="pupilsWeighedMaleError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedMale()%>" readonly /></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
                                             <td><input name="bmiError" class="centerTD" style="width:70px" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getBMI()%>"  />
