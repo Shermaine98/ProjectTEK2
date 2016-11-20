@@ -88,8 +88,9 @@
                                     <div class="box-body">
                                         <div class="DT" id="errorsDiv">
                                             <table id="enrollemt-error" class="table table-bordered">
-                                                <tbody>
+
                                                     <%for (int i = 0; i < enrollmentTemp.size(); i++) {%>
+                                                     <tbody class="bodyTable">
                                                     <tr style = "background-color: #454545; color: #fff" >
                                                         <th colspan="2">School Name</th>
                                                         <td colspan="10"><input readonly name="schoolNameError" type="text" value="<%=enrollmentTemp.get(i).getSchoolName()%>"/></td>
@@ -99,8 +100,8 @@
                                                     <tr class="gd">
                                                         <th colspan="2">School Type</th>
                                                         <td colspan="4"><input name="schoolTypeError" type="text" readonly value="<%=enrollmentTemp.get(i).getSchoolType()%>" /></td>
-                                                        <th colspan="6">Gender Disparity Index</th>
-                                                        <td class="errorV GenderDisparityIndexError" colspan="7"><input id="GenderDisparityIndexError" name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
+                                                        <th colspan="5">Gender Disparity Index</th>
+                                                        <td class="errorV GenderDisparityIndexError" colspan="8"><input id="GenderDisparityIndexError" name="GenderDisparityIndexError" type="text" value="<%= enrollmentTemp.get(i).getGenderDisparityIndex()%>" readonly /></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="vertical-align: middle">Sex</th>
@@ -141,8 +142,9 @@
                                                         <td  class="grandTotalError errorV"><input id="grandTotalError" name="grandTotalError" type="text" value="<%= enrollmentTemp.get(i).getGrandTotal()%>" readonly /></td>
                                                         <td class="no_display"><input name="validation" type="text" value="<%= enrollmentTemp.get(i).getReason()%>" readonly /></td>
                                                     </tr>
+                                                     </tbody>
                                                     <%}%>
-                                                </tbody>
+
                                             </table>
                                         </div>
                                     </div>
