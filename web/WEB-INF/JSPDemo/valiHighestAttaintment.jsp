@@ -97,27 +97,27 @@
                                         </tr>
                                         <tr>
                                             <th>Highest Grade Completed</th>
-                                            <th class="errorH centerTD">Total Count</th>
+                                            <th class="centerTD">Total Count</th>
                                             <th>Reason</th>
                                             <th>Highest Grade Completed</th>
-                                            <th class="errorH centerTD">Total Count</th>
+                                            <th class="centerTD">Total Count</th>
                                             <th>Reason</th>
                                         </tr>
                                         <%for (int y = 0; y < highestError.get(i).getHighestCompletedAgeGroupTemp().size(); y += 2) {%>
-                                        <tr>
-                                            <th class='errorH' ><input type="text" name="highestCompletedError" readonly
-                                                                       value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
-                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"
-                                                                      onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
-                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;"
-                                                                   value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
-                                            <th class='errorH'><input type="text" name="highestCompletedError" readonly
-                                                                      value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
-                                            <td class='errorH'><input type="text" class="errorHI centerTD" name="countError"
+                                        <tr class='data'>
+                                            <th class='errorH2 highestCompletedError' ><input type="text" name="highestCompletedError" readonly
+                                                                id="highestCompletedError"       value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).gethighestAttaintment()%>"/></th>
+                                            <td class='errorH2 countError'><input type="text" class="centerTD" name="countError"
+                                                                id="countError"      onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getCount()%>"/></td>
+                                            <td class='errorH2 validation2' width="10%"><input type="text" name="validation2" style="display:none;"
+                                                                id="validation2"   value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y).getReason()%></td>
+                                            <th class='errorH2 highestCompletedError2'><input type="text" name="highestCompletedError" readonly
+                                                                id="highestCompletedError2"     value="<%= highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).gethighestAttaintment()%>"/></th>
+                                            <td class='errorH2 countError2'><input type="text" class="centerTD" name="countError"
                                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                                                      value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
-                                            <td class='errorH' width="10%"><input type="text" name="validation2" style="display:none;"
-                                                                   value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
+                                                               id="countError2"       value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getCount()%>"/></td>
+                                            <td class='errorH2 validation3' width="10%"><input type="text" name="validation2" style="display:none;"
+                                                              id="validation3"  value="<%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).isValidation()%>"/><%=highestError.get(i).getHighestCompletedAgeGroupTemp().get(y + 1).getReason()%></td>
                                         </tr>
                                         <% }%>
                                         <tr>
