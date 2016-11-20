@@ -146,11 +146,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                         <td><input name="KteacherFemale" id="EditKtF" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control kinderTE"  value="0" onchange="changeKinderE()" /></td>
                                         <td><input name="KteacherMale" id="EditKtM" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control kinderTE"  value="0" onchange="changeKinderE()" /></td>
-                                        <td><input name="KteacherFemale" id="EditKtF" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control kinderTE"  value="0" onchange="changeKinderE()" /></td>
                                         <td><input name="KteacherTotal"  id="EKteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalTE" value="0" readonly /></td>
-                                        <td><input name="EteacherMale" id="EditElemTM" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemTE"  value="0" onchange="changeElemE()" /></td>
                                         <td><input name="EteacherFemale" id="EditElemTF" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemTE" value="0" onchange="changeElemE()" /></td>
+                                        <td><input name="EteacherMale" id="EditElemTM" type="text" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control ElemTE"  value="0" onchange="changeElemE()" /></td>
+
                                         <td><input name="EteacherTotal" id="EditElteacherTotal" type="text" style="background:transparent;border:none;" class="form-control totalTE"  value="0" readonly /></td>
                                     </tr>
                                     <tr>

@@ -74,7 +74,7 @@ public class UpdateSchoolDirectory extends BaseServlet {
 
             boolean checkExist = false;
             try {
-                checkExist = directorySchoolDAO.checkifRecordSubmitted(year - 1);
+                checkExist = directorySchoolDAO.checkifRecordSubmitted(year - 1, classification);
             } catch (SQLException ex) {
                 Logger.getLogger(UpdateSchoolDirectory.class.getName()).log(Level.SEVERE, null, ex);
             }
