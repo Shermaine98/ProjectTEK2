@@ -84,9 +84,10 @@
                                 if (NutritionalStatusTemp != null) {
                             %>
                             <div class="DT" id="errorsDiv">
-                                <table class="table table-bordered">
-                                    <tbody>
+                                <table id="nutritional-table-error" class="table table-bordered">
+                                    
                                         <%for (int i = 0; i < NutritionalStatusTemp.size(); i++) {%>
+                                        <tbody>
                                         <tr style="background-color: #454545; color: #fff">
                                             <th>Location</th>
                                             <td colspan="6"><input name="districtError" type="text" value="<%=NutritionalStatusTemp.get(i).getDistrict()%>" readonly/></td>
@@ -110,37 +111,37 @@
                                             <th class="centerTD">Obese</th>
                                             <th class="centerTD">Reason</th>
                                         </tr>
-                                        <tr class='EditTable'>
-                                            <th>Male</th>
-                                            <td><input name="validation1" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).isValidation()%>" /><input name="totalMaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalMale()%>" readonly /></td>
-                                            <td><input name="pupilsWeighedMaleError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedMale()%>" readonly /></td>
+                                        <tr class='trMale EditTable'>
+                                            <th><input name="validation1" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).isValidation()%>" />Male</th>
+                                            <td class="ErrorC totalMaleError"><input id="totalMaleError" name="totalMaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalMale()%>" readonly /></td>
+                                            <td class="ErrorC pupilsWeighedMaleError"><input id="pupilsWeighedMaleError" name="pupilsWeighedMaleError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedMale()%>" readonly /></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
-                                            <td><input name="bmiError" class="centerTD" style="width:70px" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getBMI()%>"  />
-                                                <input name="maleCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
-                                            <td rowspan="3" style="vertical-align: middle; text-align: center"  ><input name="validation" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getValidation()%>" style="width: auto" /><%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getReason()%></td>
+                                            <td class="ErrorC maleCountError">
+                                                <input id="maleCountError" name="maleCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getMaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                            <td class="ErrorC" rowspan="3" style="vertical-align: middle; text-align: center"  ><input id="bmiError" name="bmiError" class="centerTD" style="width:70px" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getBMI()%>"  /><input name="validation" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getValidation()%>" style="width: auto" /><%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getReason()%></td>
                                                 <% }%>
                                         </tr>
-                                        <tr>
+                                        <tr class="trFemale">
                                             <th>Female</th>
-                                            <td><input name="totalFemaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalFemale()%>" style="width: auto" readonly/></td>
-                                            <td><input name="pupilsWeighedFemaleError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedFemale()%>"  readonly/></td>
+                                            <td class="ErrorC totalFemaleError"><input id="totalFemaleError" name="totalFemaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalFemale()%>" style="width: auto" readonly/></td>
+                                            <td class="ErrorC pupilsWeighedFemaleError"><input id="pupilsWeighedFemaleError" name="pupilsWeighedFemaleError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedFemale()%>"  readonly/></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
-                                            <td><input name="femaleCountError" class="centerTD"  style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                            <td class="ErrorC femaleCountError"><input id="femaleCountError" name="femaleCountError" class="centerTD"  style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getFemaleCount()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
                                             <td class="no_display"><input name="validation" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getValidation()%>" style="width: auto" /><%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getReason()%></td>
                                                 <% }%>
                                         </tr>
-                                        <tr>
+                                        <tr class="trTotal">
                                             <th>Total</th>
-                                            <td><input name="totalCountError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalCount()%>" style="width: auto" readonly /></td>
-                                            <td><input name="pupilsWeighedTotalError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedTotal()%>" readonly/></td>
+                                            <td class="ErrorC totalCountError"><input name="totalCountError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalCount()%>" style="width: auto" readonly /></td>
+                                            <td class="ErrorC pupilsWeighedTotalError"><input name="pupilsWeighedTotalError" class="centerTD"  type="text" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedTotal()%>" readonly/></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
-                                            <td><input name="bTotalCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()%>"  readonly/></td>
+                                            <td class="ErrorC bTotalCountError"><input name="bTotalCountError" class="centerTD" style="width:70px"  type="text" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getTotalCount()%>"  readonly/></td>
                                             <td class="no_display"><input name="validation" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getValidation()%>" style="width: auto" /><%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getReason()%></td>
                                                 <% } %>
                                         </tr>
-                                        <%
-                                            }%>
-                                    </tbody>
+                                          </tbody>
+                                        <%}%>
+                                  
                                 </table>
                             </div>
                             <div align="center">

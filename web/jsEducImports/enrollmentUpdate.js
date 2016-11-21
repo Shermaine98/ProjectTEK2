@@ -7,6 +7,10 @@ $(document).ready(function () {
 
 
     $('#enrollemt-error tbody').each(function () {
+
+        $(this).find(".errorV").css('color', '#fff');
+        $(this).find('.errorV').css('background-color', '#a93e3e');
+
         var all = false;
 
         $('#enrollemt-error tbody tr.maleE td.maleCountError input').each(function () {
@@ -57,7 +61,7 @@ $(document).ready(function () {
 
     $("#enrollemt-error tbody").on("change", 'input[type="text"]', function () {
         var onChange = false;
-         var body = $(this).closest('tbody');
+        var body = $(this).closest('tbody');
         var totalMale = 0;
         var totalFemale = 0;
         var totaAll = 0;
@@ -76,7 +80,7 @@ $(document).ready(function () {
         });
 
 
-            body.find('tr.femaleE td.femaleCountError input').each(function () {
+        body.find('tr.femaleE td.femaleCountError input').each(function () {
             var $row = $(this);
             var femaleCountError = $row.val();
 
@@ -92,12 +96,12 @@ $(document).ready(function () {
 
 
         var totalEach = 0;
-           body.find('tr.maleE td.maleCountError input').each(function (majorLoop) {
+        body.find('tr.maleE td.maleCountError input').each(function (majorLoop) {
             var totalMaleError = $(this).val();
-                body.find('tr.femaleE td.femaleCountError input').each(function (majorLoop2) {
+            body.find('tr.femaleE td.femaleCountError input').each(function (majorLoop2) {
                 if (majorLoop === majorLoop2) {
                     var totalFemaleError = $(this).val();
-                      body.find('tr.totalE td.totalCountError input').each(function (majorLoop3) {
+                    body.find('tr.totalE td.totalCountError input').each(function (majorLoop3) {
                         if (majorLoop2 === majorLoop3) {
                             totalEach = parseInt(totalMaleError, 10) + parseInt(totalFemaleError, 10) || 0;
                             $(this).val(totalEach.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
@@ -109,7 +113,7 @@ $(document).ready(function () {
             });
         });
 
-           body.find('tr.totalE td.totalCountError input').each(function () {
+        body.find('tr.totalE td.totalCountError input').each(function () {
             var $row = $(this);
             var totalCountError = $row.val();
             if (parseInt(totalCountError, 10) === -1 || totalCountError === "") {
@@ -120,15 +124,15 @@ $(document).ready(function () {
             }
             totaAll += parseInt(totalCountError, 10) || 0;
         });
-        
-       
-        
+
+
+
         var getMTotal = body.find("tr.maleE td.totalMaleError input");
         var getTotal = body.find("tr.totalE td.grandTotalError input");
         var getFTotal = body.find("tr.femaleE td.femaleTotal input");
 
         var genderD = body.find("tr.gd td.GenderDisparityIndexError input");
-       
+
         getTotal.val(totaAll.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getFTotal.val(totalFemale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getMTotal.val(totalMale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));

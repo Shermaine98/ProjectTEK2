@@ -67,7 +67,7 @@ public class UploadToDatabaseHealth extends BaseServlet {
 
                 arrTempError = new ExcelNutritionalStatus(wb, sheetNumber).getArrayError();
                 arrTempNoError = new ExcelNutritionalStatus(wb, sheetNumber).getArrayNoError();
-
+/**
                 int x = 0;
 
                 for (int i = 0; i < arrTempError.size(); i++) {
@@ -81,13 +81,14 @@ public class UploadToDatabaseHealth extends BaseServlet {
                     }
                 }
 
-                if (x > 3) {
+   **/             if (arrTempError.size() > 3) {
+                    request.setAttribute("saveToDB", "ErrorMore");
                     request.setAttribute("ErrorMessage", "ErrorMore");
                     request.setAttribute("ArrError", arrTempError);
                     request.setAttribute("ArrNoError", arrTempNoError);
                     request.setAttribute("page", "Upload");
                     ServletContext context = getServletContext();
-                    RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/JSPHealth/hPercentageDist.jsp");
+                    RequestDispatcher rd = context.getRequestDispatcher("/RetrieveDataHealthServlet?redirect=percentageDist");
                     rd.forward(request, response);
 
                 } else if (!arrTempError.isEmpty()) {
