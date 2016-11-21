@@ -57,6 +57,17 @@
         <!-- Favicon and touch icons -->
         <link rel="icon" href="index_template/Ph_seal_ncr_caloocan.png">
 
+        <style>
+            p, h3{
+                color: #333333;
+                font-weight: 500;
+            }
+            a{
+                color: #0099cc;
+                font-weight: 500;
+            }
+        </style>
+        
     </head>
 
     <body>
@@ -71,7 +82,7 @@
 
                             <p>
                                 We will work on fixing that right away.
-                                Meanwhile, you may  <li><a href="Logout" onclick="clearStorage()">Log in again</a></li>
+                                Meanwhile, you may <a href="Logout" onclick="clearStorage()">log in</a> again.
                             </p>
                         </div>
                     </div>
