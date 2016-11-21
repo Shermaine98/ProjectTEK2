@@ -34,7 +34,6 @@
                 <section class="content-header">
                     <h1><i class="fa fa-pencil-square-o"></i> Report Generation</h1>
                 </section>
-
                 <ol class="breadcrumb" style='background: transparent; margin-left: 3%; font-size: 120%;'>
                     <li class="title">Report Generation</li>
                     <li class="active title">Create Report</li>

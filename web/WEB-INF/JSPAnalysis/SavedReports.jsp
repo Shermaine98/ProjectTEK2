@@ -61,9 +61,9 @@
                         <p>A problem was encountered while uploading your file</p>
                     </div>
                     <%}%>
-
-
-
+                      <!-- if can solved first image error-->
+                    <img src="chartImages/chartImages.jpg"  height="5"  width="5" style="display: none;" >
+                     <!-- if can solved first image error-->
                     <div class="row">
                         <div id="report" style="margin: 0 auto; float:none;" align="center">
                             <input type="hidden" name="userID" id="userID" value="<%= user.getUserID()%>" />
