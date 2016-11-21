@@ -26,7 +26,11 @@
         <!--DELETE TABLE-->
         <script src="jsEducImports/directorydelete.js" type="text/javascript"></script>
         <script src="jsImported/directoryChecker.js" type="text/javascript"></script>
-
+        <style>
+            td, th{
+                text-align:center;
+            }
+        </style>
     </head>
     <body>
         <div class="wrapper">
@@ -34,10 +38,6 @@
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
-
-                        <!--                        <section class="content-header">
-                                                    <h1><i class="fa fa-upload"></i> Upload Facility</h1>
-                                                </section>-->
                         <ol class="breadcrumb" style='background: transparent; margin-left: 3%; font-size: 120%;'>
                             <li class="title">Education</li>
                             <li class="active title">Number of Teachers and Classrooms for Public Schools</li>
@@ -107,30 +107,31 @@
                                 <tbody>
                                     <tr style = "background-color: #454545; color: #fff" >
                                         <th colspan="2" style="vertical-align: bottom; text-align: left;" >Name of School</th>
-                                        <td class="nr" colspan = "3" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
+                                        <td class="nr" colspan = "4" style="vertical-align: bottom; border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
                                         <th colspan="1" style="vertical-align: bottom; text-align: left;" >School ID</th>
-                                        <td class="si" colspan = "3" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolID()%></td>
+                                        <td class="si" colspan = "2" style="vertical-align: bottom; border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolID()%></td>
                                         <td style="border-left: none; text-align: right">
                                             <button id="updateDirectory" class="upadateBtn btn btn-success btn-sm"><span class="fa fa-edit"></span> Edit</button>
                                             <button id="invalidDirectory"  class="deleteBtn btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th colspan="6">Teachers</th>
-                                        <th colspan="2">Classrooms</th>
-                                        <th colspan="2">Seats</th>
+                                        <th colspan="6" >Teachers</th>
+                                        <th colspan="2" >Classrooms</th>
+                                        <th colspan="2" >Seats</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="3">Kinder</th>
-                                        <th colspan="3">Elementary</th>
+                                        <th colspan="3" >Kinder</th>
+                                        <th colspan="3" >Elementary</th>
                                         <th rowspan="2" style="vertical-align: bottom;
                                             border-left: solid;
                                             border-width: thin;
                                             border-color: #d2d6de;
-                                            padding: 1%;" >Kinder</th>
-                                        <th rowspan="2" style="vertical-align: bottom; ">Elementary</th>
-                                        <th rowspan="2" style="vertical-align: bottom; ">Kinder</th>
-                                        <th rowspan="2" style="vertical-align: bottom; ">Elementary</th>
+                                            padding: 1%;
+                                            text-align:center;" >Kinder</th>
+                                        <th rowspan="2" style="vertical-align: bottom;">Elementary</th>
+                                        <th rowspan="2" style="vertical-align: bottom;">Kinder</th>
+                                        <th rowspan="2" style="vertical-align: bottom;">Elementary</th>
 
                                     </tr>
                                     <tr>
