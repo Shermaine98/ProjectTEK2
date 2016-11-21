@@ -465,10 +465,10 @@ function createTable(image2, tableImage) {
 function createTablePivot(image2, tableImage) {
     html2canvas($(".pvtTable"), {
         onrendered: function (canvas) {
-            
-            // canvas.height = 10;
-        //     canvas.width = 5 ;
             tableImage = canvas.toDataURL("image/png");
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+            
             image2.src = tableImage;
             var input = document.createElement("input");
             input.setAttribute("type", "hidden");
