@@ -217,7 +217,7 @@
                 $('#uploadDB').submit();
             }
             function print_div() {
-
+                 $('#printTable').empty();
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
@@ -231,7 +231,9 @@
 
                 $('#error_maritalStatus').DataTable().destroy(false);
                 $("#DateHere").html(today);
-                jQuery('#printTable').html(jQuery("#errorsDiv").html());
+
+                $('div#errorsDiv').clone().appendTo('#printTable');
+              //  jQuery('#printTable').html(jQuery("#errorsDiv").html());
                 window.print();
 //                document.body.onfocus = doneyet();
             }

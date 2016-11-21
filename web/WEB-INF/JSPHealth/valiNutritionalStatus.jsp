@@ -85,7 +85,7 @@
                             %>
                             <div class="DT" id="errorsDiv">
                                 <table id="nutritional-table-error" class="table table-bordered">
-                                    
+
                                         <%for (int i = 0; i < NutritionalStatusTemp.size(); i++) {%>
                                         <tbody>
                                         <tr style="background-color: #454545; color: #fff">
@@ -141,7 +141,7 @@
                                         </tr>
                                           </tbody>
                                         <%}%>
-                                  
+
                                 </table>
                             </div>
                             <div align="center">
@@ -222,12 +222,12 @@
                 </section>
             </div>
         </div>
-                            
+
         <div class="visible-print">
             <div style="margin-bottom: 6%;" align="center">
                 <img src="img/Caloocan-Logo.png" alt=""/><br>
                 <h4>City Planning and Development Department</h4>
-                <p>Percentage Distribution of Elementary School Children in Each District<br> 
+                <p>Percentage Distribution of Elementary School Children in Each District<br>
                     in the Division of Caloocan by Nutritional Status/By Gender<br>
                     Errors Summary Report for 2016<br>
                     Prepared By: <%= user.getFirstName()%> <%= user.getLastName()%></p>
@@ -249,10 +249,10 @@
                 </div>
             </footer>
         </div>
-                
+
         <script>
             function print_div() {
-
+                $('#printTable').empty();
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
@@ -265,7 +265,9 @@
                         + ", " + curr_year;
 
                 $("#DateHere").html(today);
-                jQuery('#printTable').html(jQuery("#errorsDiv").html());
+
+                $('div#errorsDiv').clone().appendTo('#printTable');
+               // jQuery('#printTable').html(jQuery("#errorsDiv").html());
                 window.print();
             }
             var d = new Date();

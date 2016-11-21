@@ -270,7 +270,7 @@
             });
 
             function print_div() {
-
+                $('#printTable').empty();
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
@@ -284,7 +284,7 @@
 
                 $('#error-ageGroup').DataTable().destroy(false);
                 $("#DateHere").html(today);
-                jQuery('#printTable').html(jQuery("#errorsDiv").html());
+                $('div#errorsDiv').clone().appendTo('#printTable');
                 window.print();
                 document.body.onfocus = doneyet();
             }
