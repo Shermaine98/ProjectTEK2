@@ -13,11 +13,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link href="cssPivot/pivot.css" rel="stylesheet" type="text/css"/>
-
-        <script src="jsPivot/html2canvas.js" type="text/javascript"></script>
-        <script src="jsPivot/jsapi.js" type="text/javascript"></script>
+        <link href="cssPivot/pivot.min.css" rel="stylesheet" type="text/css"/>
+         <script src="jsPivot/jsapi.js" type="text/javascript"></script>
         <script src="jsPivot/pivot.js" type="text/javascript"></script>
         <script src="jsPivot/gchart_renderers.js" type="text/javascript"></script>
+        <script src="jsPivot/html2canvas.js" type="text/javascript"></script>
+       
 
         <script src="Highcharts/highcharts.js"></script>
         <script src="Highcharts/modules/data.js"></script>
