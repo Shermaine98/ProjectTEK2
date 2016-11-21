@@ -182,19 +182,19 @@ var data;
                             nextButton.disabled = options.hAxis.viewWindow.max >= MAX;
                             changeZoomButton.disabled = false;
 
-
+                             
                             $("#btnMatrix, #btnReport").unbind('click').click(function () {
                                 document.getElementById('notShow').style.display = "block";
                                 document.getElementById('buttonSave').style.display = "block";
                                 document.getElementById('showReport').style.display = "block";
 
                                 var conceptName = $('#commonReports').find(":selected").text();
-
+                              var tablePivot =  $( ".pvtRenderer option:selected" ).text();
                                 if (conceptName != 'Population by year'
                                         && conceptName != 'Enrollment in Public and Private Schools'
                                         && conceptName != 'Actual number of Beds in Private and Public Hospitals') {
                                     //var chartSelected = $('#charts').find(":selected").text();
-                                    console.log("CHART: "+chartSelected);
+                                   
                                     if (chartSelected == "Table") {
 
                                         if (this.id == "btnMatrix") {
@@ -297,6 +297,52 @@ var data;
                                         }
                                     }
                                 } else {
+                                    
+                                    if(tablePivot==="Table Barchart" ||  tablePivot==="Table" 
+                                        || tablePivot==="Heatmap" ||  tablePivot==="Row Heatmap" 
+                                        ||  tablePivot==="Col Heatmap"){
+                                    
+                                     if (this.id == "btnMatrix") {
+                                            var para = document.createElement("div");
+                                            var element = document.getElementById("reportBody");
+                                            para.setAttribute("class", "reportContents");
+                                            element.appendChild(para);
+                                            var tableADD = document.createElement("div");
+                                            tableADD.setAttribute("class", "tableAdd");
+                                            para.appendChild(tableADD);
+                                            $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
+                                            var image2 = new Image();
+                                            var tableImage;
+                                            createTablePivot(image2, tableImage);
+                                            $('div#matrix')                         // grab the media content
+                                                    .clone()                          // make a duplicate of it
+                                                    .removeAttr('id')               // remove their ID attributes
+                                                    .appendTo('.reportContents'); // now add it to the media container
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<br><br><br><hr/>');
+                                            para.setAttribute("class", "reportDelete");
+                                        } else if (this.id === "btnReport") {
+                                            var para = document.createElement("div");
+                                            var element = document.getElementById("reportBody");
+                                            para.setAttribute("class", "reportContents");
+                                            element.appendChild(para);
+                                            var tableADD = document.createElement("div");
+                                            tableADD.setAttribute("class", "tableAdd");
+                                            para.appendChild(tableADD);
+                                            $('.reportContents').append('<input id="title" style="border:none;" name="title" type="hidden" value=" ' + title + '"/>');
+                                            var image2 = new Image();
+                                            var tableImage;
+                                            createTablePivot(image2, tableImage);
+                                            $('div#report').clone().removeAttr('id').appendTo('.reportContents');
+                                            $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
+                                            $('.reportContents').append('<br><br><br><hr/>');
+                                            para.setAttribute("class", "reportDelete");
+
+                                        }
+                                        
+                                    }else{
+                                    
+                                    
                                     if (this.id === "btnMatrix") {
                                         var para = document.createElement("div");
                                         var element = document.getElementById("reportBody");
@@ -329,6 +375,7 @@ var data;
                                         $('.reportContents').append('<button class="btn btn-danger btn-sm" type="button" onclick="deleteDivNotify(this)">Delete Chart</button>');
                                         $('.reportContents').append('<br><br><br><hr/>');
                                         para.setAttribute("class", "reportDelete");
+                                    }
                                     }
                                 }
                             }
@@ -394,6 +441,33 @@ var data;
 function createTable(image2, tableImage) {
     html2canvas($("#dataTable"), {
         onrendered: function (canvas) {
+            tableImage = canvas.toDataURL("image/png");
+            image2.src = tableImage;
+            var input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("id", "imageSrc");
+            input.setAttribute("name", "imageSrc");
+            input.setAttribute("value", tableImage);
+
+
+            var image = document.createElement("img");
+            image.setAttribute("style", "width: 90%;");
+            image.setAttribute("id", "image");
+            image.setAttribute("src", image2.src);
+
+            document.querySelector(".tableAdd").appendChild(input);
+            document.querySelector(".tableAdd").appendChild(image);
+            $('.tableAdd').removeClass('tableAdd');
+        },
+        allowTaint: false
+    });
+}
+function createTablePivot(image2, tableImage) {
+    html2canvas($(".pvtTable"), {
+        onrendered: function (canvas) {
+            
+            // canvas.height = 10;
+        //     canvas.width = 5 ;
             tableImage = canvas.toDataURL("image/png");
             image2.src = tableImage;
             var input = document.createElement("input");
