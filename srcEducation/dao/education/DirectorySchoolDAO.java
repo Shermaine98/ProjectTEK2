@@ -337,7 +337,7 @@ public class DirectorySchoolDAO {
                         + "    from directory_school\n"
                         + "    group by schoolName\n"
                         + ") tm on t.schoolName = tm.schoolName and t.censusYear = tm.MaxDate\n"
-                        + "WHERE t.classification = 'Private' and t.schoolName LIKE ? ;");
+                        + "WHERE t.classification = 'Private' and t.`active` = 1 and t.schoolName LIKE ? ;");
                 String search = name + "%";
                 pstmt.setString(1, search);
                 ResultSet rs = pstmt.executeQuery();
@@ -398,7 +398,7 @@ public class DirectorySchoolDAO {
                         + "    from directory_school\n"
                         + "    group by schoolName\n"
                         + ") tm on t.schoolName = tm.schoolName and t.censusYear = tm.MaxDate\n"
-                        + "WHERE t.classification = 'Public' AND t.schoolName LIKE ? ;");
+                        + "WHERE t.classification = 'Public' AND t.`active` = 1 AND t.schoolName LIKE ? ;");
                 String search = name + "%";
                 pstmt.setString(1, search);
                 ResultSet rs = pstmt.executeQuery();

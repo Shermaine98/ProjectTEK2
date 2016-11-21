@@ -52,7 +52,7 @@ function setSchoolData() {
                                             border-left: solid; \n\
                                             border-width: thin;\n\
                                             border-color: #d2d6de;\n\
-                                            padding: 1%;"">Kinder</th>\n\
+                                            padding: 1%;">Kinder</th>\n\
                     <th rowspan="2" style="vertical-align: bottom; ">Elementary</th>\n\
                     <th rowspan="2" style="vertical-align: bottom; ">Kinder</th>\n\
                     <th rowspan="2" style="vertical-align: bottom; ">Elementary</th>\n\
@@ -64,21 +64,24 @@ function setSchoolData() {
                     <th>Male</th>\n\
                     <th>Female</th>\n\
                     <th>Total</th>\n\
-                </tr>');
-
-            $('#data').append('<tr>');
+                </tr><tr id="this" >');
+            
+          
+//          var x = document.createElement("tr");
+//          
+//           $('#data').append(x);
             var totalKinder;
             var totalElem;
             for (var i = 0; i < schoolData[0].teacher.length; i++) {
                 if (schoolData[0].teacher[i].gradeLevel == 'Kinder') {
                     totalKinder = schoolData[0].teacher[i].maleCount + schoolData[0].teacher[i].femaleCount;
-                    $('#data').append('<td class="search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
+                    $('#this').append('<td class="search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
                     <td class="search-border">' + schoolData[0].teacher[i].femaleCount + '</td>\n\
 \                   <td class="search-border">' + totalKinder + '</td>');
                 }
                 if (schoolData[0].teacher[i].gradeLevel == 'Elementary') {
                     totalElem = schoolData[0].teacher[i].maleCount + schoolData[0].teacher[i].femaleCount;
-                    $('#data').append('<td class="search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
+                    $('#this').append('<td class="search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
                     <td class="search-border">' + schoolData[0].teacher[i].femaleCount + '</td>\n\
                     <td class="search-border">' + totalElem + '</td>');
                 }
@@ -91,25 +94,24 @@ function setSchoolData() {
                     classK = schoolData[0].classrooms[i].roomCount;
                 }
                 if (schoolData[0].classrooms[i].ClassgradeLevel == 'Elementary') {
-                    $('#data').append('<td class="search-border">' + schoolData[0].classrooms[i].roomCount + '</td>');
+                    $('#this').append('<td class="search-border">' + schoolData[0].classrooms[i].roomCount + '</td>');
                 }
                 totalClassroom = totalClassroom + schoolData[0].classrooms[i].roomCount;
             }
-            $('#data').append('<td class="search-border">' + classK + '</td>');
+            $('#this').append('<td class="search-border">' + classK + '</td>');
 
             var totalSeats = 0;
             for (var i = 0; i < schoolData[0].seats.length; i++) {
                 if (schoolData[0].seats[i].SeatsgradeLevel == 'Kinder') {
-                    $('#data').append('<td class="search-border">' + schoolData[0].seats[i].seatCount + '</td>');
+                    $('#this').append('<td class="search-border">' + schoolData[0].seats[i].seatCount + '</td>');
                 }
                 if (schoolData[0].seats[i].SeatsgradeLevel == 'Elementary') {
-                    $('#data').append('<td class="search-border">' + schoolData[0].seats[i].seatCount + '</td>');
+                    $('#this').append('<td class="search-border">' + schoolData[0].seats[i].seatCount + '</td>');
                 }
                 totalSeats = totalSeats + schoolData[0].seats[i].seatCount;
             }
-            $('#data').append('</tr>');
 
-            $('#data').append('<tr>\n\
+            $('#data').append('</tr><tr>\n\
                                         <th colspan="5">Total Teachers</th>\n\
                                         <td>' + (totalKinder + totalElem) + '</td>\n\
                                         <th>Total Classrooms</th>\n\
