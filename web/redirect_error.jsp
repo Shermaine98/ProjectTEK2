@@ -82,7 +82,7 @@
 
                             <p>
                                 We will work on fixing that right away.
-                                Meanwhile, you may <a href="Logout" onclick="clearStorage()">log in</a> again.
+                                Meanwhile, you may <a href="Logout">log in</a> again.
                             </p>
                         </div>
                     </div>
