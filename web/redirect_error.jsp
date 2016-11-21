@@ -14,8 +14,8 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link href="cssImported/uploadJSP.css" rel="stylesheet" type="text/css"/>
- 
- <!-- Bootstrap 3.3.6 -->
+
+        <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="AdminLTE/bootstrap/css/bootstrap.min.css">
         <!--Font Awesome -->
         <link href="AdminLTE/fonts/font-awesome.css" rel="stylesheet" type="text/css"/>
@@ -66,37 +66,32 @@
                 color: #0099cc;
                 font-weight: 500;
             }
+            body{
+                background-color: #e2e2e2;
+            }
         </style>
-        
+
     </head>
 
     <body>
-        <div class="wrapper">
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <div class="error-page">
-                        <div class="error-content" style="margin: 20% auto 0 auto;">
-                            <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
+        <div class="error-page">
+            <div class="error-content" style="margin: 50% auto 0 auto;">
+                <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
 
-                            <p>
-                                We will work on fixing that right away.
-                                Meanwhile, you may <a href="Logout">log in</a> again.
-                            </p>
-                        </div>
-                    </div>
-                </section>
+                <p>
+                    We will work on fixing that right away.
+                    Meanwhile, you may <a href="Logout">log in</a> again.
+                </p>
             </div>
-        </div>       
+        </div>
         <!-- Javascript -->
-      <!-- jQuery 2.2.0 -->
+        <!-- jQuery 2.2.0 -->
         <script src="AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script src="AdminLTE/plugins/jQueryUI/jquery-ui.js" type="text/javascript"></script>
         <script>
-                                        $.widget.bridge('uibutton', $.ui.button);
-                                        $.widget.bridge('uitooltip', $.ui.tooltip);
+            $.widget.bridge('uibutton', $.ui.button);
+            $.widget.bridge('uitooltip', $.ui.tooltip);
         </script>
         <!-- Bootstrap 3.3.6 -->
         <script src="AdminLTE/bootstrap/js/bootstrap.min.js"></script>
@@ -116,6 +111,6 @@
         <!--DataTables-->
         <script src="AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
-        
+
     </body>
 </html>
