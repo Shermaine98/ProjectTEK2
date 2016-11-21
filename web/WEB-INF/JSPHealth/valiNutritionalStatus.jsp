@@ -40,7 +40,7 @@
         </style>
     </head>
     <body>
-        <div class="wrapper no-print">
+        <div class="wrapper hidden-print">
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
@@ -145,7 +145,7 @@
                                 </table>
                             </div>
                             <div align="center">
-                                <a href="javascript:window.print()"><input align="center" class="btn btn-flat btn-success" style="margin: 0 auto 5% auto" type="button" value="Print Error Summary"/></a>
+                                <a onclick="print_div()"><input align="center" class="btn btn-flat btn-success" style="margin: 0 auto 5% auto" type="button" value="Print Error Summary"/></a>
                             </div>
                             <% }
                                 ArrayList<NutritionalStatus> NutritionalStatus = (ArrayList<NutritionalStatus>) request.getAttribute("ArrNoError");
@@ -222,7 +222,52 @@
                 </section>
             </div>
         </div>
+                            
+        <div class="visible-print">
+            <div style="margin-bottom: 6%;" align="center">
+                <img src="img/Caloocan-Logo.png" alt=""/><br>
+                <h4>City Planning and Development Department</h4>
+                <p>Percentage Distribution of Elementary School Children in Each District<br> 
+                    in the Division of Caloocan by Nutritional Status/By Gender<br>
+                    Errors Summary Report for 2016<br>
+                    Prepared By: <%= user.getFirstName()%> <%= user.getLastName()%></p>
+                <p id="DateHere"></p>
+            </div>
+            <!--TABLE-->
+            <p style="margin-left: 5%;">Please provide the correct inputs for the missing and incorrect fields as seen in the table below.</p>
+            <div id="printTable" style="width: 80%; ">
+            </div>
+            <footer>
+                <div style='text-align:center;
+                     /*position:fixed;*/
+                     height:50px;
+                     bottom:0px;
+                     left:0px;
+                     right:0px;
+                     margin-bottom:0px;'>Page 1
+                    <!--<span class="pageCounter"></span>/<span class="totalPages"></span>-->
+                </div>
+            </footer>
+        </div>
+                
         <script>
+            function print_div() {
+
+                var m_names = new Array("January", "February", "March",
+                        "April", "May", "June", "July", "August", "September",
+                        "October", "November", "December");
+
+                var d = new Date();
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth();
+                var curr_year = d.getFullYear();
+                var today = m_names[curr_month] + " " + curr_date
+                        + ", " + curr_year;
+
+                $("#DateHere").html(today);
+                jQuery('#printTable').html(jQuery("#errorsDiv").html());
+                window.print();
+            }
             var d = new Date();
             var n = d.getFullYear();
             document.getElementById('text_year').innerHTML = "<b>" + n + "</b>";
