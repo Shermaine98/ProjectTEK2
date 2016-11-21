@@ -207,10 +207,18 @@
                                         </div>
                                     </div>
                                     <!--THIS IS FOR THE BACK AND SUBMIT BUTTON-->
-
+                                    
+                                    <%
+                                    String backbutton = "ePrivate";
+                                    if(classification.equalsIgnoreCase("public")){
+                                           backbutton = "ePublic";
+                                    }
+                                    %>
+                                    
+                                    
                                     <div style="margin-top: 5%;">
                                         <div style="display:inline; float:left;">
-                                            <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=page">
+                                            <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=<%=backbutton%>">
                                                 <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
                                             </a></div>
                                         <div  style="display:inline; float:right;">
