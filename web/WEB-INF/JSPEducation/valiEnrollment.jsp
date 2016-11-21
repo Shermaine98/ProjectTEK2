@@ -210,7 +210,7 @@
 
                                     <div style="margin-top: 5%;">
                                         <div style="display:inline; float:left;">
-                                            <a href="${pageContext.request.contextPath}/RetrieveDataDemoServlet?redirect=byAgeGroupSex">
+                                            <a href="${pageContext.request.contextPath}/RetrieveDataEducationServlet?redirect=page">
                                                 <input type="button" class="btn btn-block btn-default" style="width: 100px;" value='Back'>
                                             </a></div>
                                         <div  style="display:inline; float:right;">
