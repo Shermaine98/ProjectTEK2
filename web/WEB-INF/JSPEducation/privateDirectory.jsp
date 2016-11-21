@@ -27,6 +27,11 @@
         <script src="jsEducImports/directorydelete.js" type="text/javascript"></script>
         <script src="jsImported/directoryChecker.js" type="text/javascript"></script>
 
+        <style>
+            td, th{
+                text-align:center;
+            }
+        </style>
 
     </head>
     <body>
@@ -109,9 +114,9 @@
                                 <tbody>
                                     <tr style = "background-color: #454545; color: #fff" >
                                         <th colspan="2" style="vertical-align: bottom; text-align: left;" >Name of School</th>
-                                        <td class="nr" colspan = "3" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
+                                        <td class="nr" colspan = "4" style="vertical-align: bottom; border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolName()%></td>
                                         <th colspan="1" style="vertical-align: bottom; text-align: left;" >School ID</th>
-                                        <td class="si" colspan = "3" style="border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolID()%></td>
+                                        <td class="si" colspan = "2" style="vertical-align: bottom; border-right: none; text-align: left;"> <%=directorySchool.get(i).getSchoolID()%></td>
                                         <td style="border-left: none; text-align: right">
                                             <button id="updateDirectory" class="upadateBtn btn btn-success btn-sm" ><span class="fa fa-edit"></span> Edit</button>
                                             <button id="invalidDirectory"  class="deleteBtn btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button>

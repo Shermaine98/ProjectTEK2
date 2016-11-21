@@ -26,7 +26,11 @@
         <!--DELETE TABLE-->
         <script src="jsEducImports/directorydelete.js" type="text/javascript"></script>
         <script src="jsImported/directoryChecker.js" type="text/javascript"></script>
-
+        <style>
+            td, th{
+                text-align:center;
+            }
+        </style>
     </head>
     <body>
         <div class="wrapper">
@@ -112,31 +116,31 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th colspan="6" style="text-align:center;">Teachers</th>
-                                        <th colspan="2" style="text-align:center;">Classrooms</th>
-                                        <th colspan="2" style="text-align:center;">Seats</th>
+                                        <th colspan="6" >Teachers</th>
+                                        <th colspan="2" >Classrooms</th>
+                                        <th colspan="2" >Seats</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="3" style="text-align:center;">Kinder</th>
-                                        <th colspan="3" style="text-align:center;">Elementary</th>
+                                        <th colspan="3" >Kinder</th>
+                                        <th colspan="3" >Elementary</th>
                                         <th rowspan="2" style="vertical-align: bottom;
                                             border-left: solid;
                                             border-width: thin;
                                             border-color: #d2d6de;
                                             padding: 1%;
                                             text-align:center;" >Kinder</th>
-                                        <th rowspan="2" style="vertical-align: bottom; text-align:center;">Elementary</th>
-                                        <th rowspan="2" style="vertical-align: bottom; text-align:center;">Kinder</th>
-                                        <th rowspan="2" style="vertical-align: bottom; text-align:center;">Elementary</th>
+                                        <th rowspan="2" style="vertical-align: bottom;">Elementary</th>
+                                        <th rowspan="2" style="vertical-align: bottom;">Kinder</th>
+                                        <th rowspan="2" style="vertical-align: bottom;">Elementary</th>
 
                                     </tr>
                                     <tr>
-                                        <th style="text-align:center;">Male</th>
-                                        <th style="text-align:center;">Female</th>
-                                        <th style="text-align:center;">Total</th>
-                                        <th style="text-align:center;">Male</th>
-                                        <th style="text-align:center;">Female</th>
-                                        <th style="text-align:center;">Total</th>
+                                        <th>Male</th>
+                                        <th>Female</th>
+                                        <th>Total</th>
+                                        <th>Male</th>
+                                        <th>Female</th>
+                                        <th>Total</th>
                                     </tr>
                                     <tr>
 
