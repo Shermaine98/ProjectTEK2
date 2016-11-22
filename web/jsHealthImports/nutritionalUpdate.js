@@ -14,7 +14,7 @@ $(document).ready(function () {
         var all = false;
 
 
-        $('#nutritional-table-error tbody tr.trMale td.totalMaleError input').each(function () {
+          $('#nutritional-table-error tbody tr.trMale td.totalMaleError input').each(function () {
             var $row = $(this);
             console.log($row.val());
             var maleCountError = $row.val();

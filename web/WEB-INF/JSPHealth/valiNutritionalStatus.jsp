@@ -136,7 +136,7 @@
                                         </tr>
                                         <tr class='trMale EditTable'>
                                             <th><input name="validation1" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).isValidation()%>" />Male</th>
-                                            <td class="ErrorC totalMaleError"><input style="width: 60px;" id="totalMaleError" name="totalMaleError" class="centerTD" type="hidden" value="<%=NutritionalStatusTemp.get(i).getTotalMale()%>" readonly /></td>
+                                            <td class="ErrorC totalMaleError"><input style="width: 60px;" id="totalMaleError" name="totalMaleError" class="centerTD" type="text" value="<%=NutritionalStatusTemp.get(i).getTotalMale()%>" readonly /></td>
                                             <td class="ErrorC pupilsWeighedMaleError centerTD"><%=NutritionalStatusTemp.get(i).getPupilsWeighedMale()%><input id="pupilsWeighedMaleError" name="pupilsWeighedMaleError" class="centerTD"  type="hidden" value="<%=NutritionalStatusTemp.get(i).getPupilsWeighedMale()%>" readonly /></td>
                                                 <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
                                             <td class="ErrorC maleCountError">
