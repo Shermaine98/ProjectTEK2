@@ -129,7 +129,7 @@
                                         </tr>
                                         <tr>
                                              <%for (int y = 0; y < NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().size(); y++) {%>
-                                            <th><input name="bmiError" class="centerTD" style="width:70px" type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getBMI()%>"  />
+                                            <th class="centerTD"><input name="bmiError"  type="hidden" value="<%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getBMI()%>"  />
                                                 <%=NutritionalStatusTemp.get(i).getNutritionalStatusBMITemp().get(y).getBMI()%></th>
                                              <th class="centerTD">Reason</th>
                                                 <% }%>
@@ -203,7 +203,7 @@
                                         </tr>
                                         <tr>
                                             <%for (int y = 0; y < NutritionalStatus.get(i).getNutritionalStatusBMI().size(); y++) {%>
-                                            <th><input name="bmi" class="centerTD" style="width:70px" type="hidden" value="<%=NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getBMI()%>"  />
+                                            <th class="centerTD"><input name="bmi" type="hidden" value="<%=NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getBMI()%>"  />
                                                 <%=NutritionalStatus.get(i).getNutritionalStatusBMI().get(y).getBMI()%></th>
                                                 <% }%>
                                             <!--
