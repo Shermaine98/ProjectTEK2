@@ -297,7 +297,10 @@ and open the template in the editor.
                                                             if (sessionStorage.data) {
                                                                 var recent = JSON.parse(sessionStorage.data);
                                                                 if (sessionStorage.data !== JSON.stringify(data)) {
-                                                                    $("#value").html(Math.abs(data.length - recent.length));
+                                                                    var negative = data.length - recent.length;
+                                                                        if(negative > 0){
+                                                                            $("#value").html(Math.abs(data.length - recent.length));
+                                                                        }
                                                                 } else {
                                                                     //do nothing
                                                                 }
