@@ -137,7 +137,7 @@ $(document).ready(function () {
         getFTotal.val(totalFemale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         getMTotal.val(totalMale.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-        genderD.val(Math.round(parseInt(totalFemale.replace(/,/g , ""), 10) / parseInt(totalMale.replace(/,/g , ""), 10) * 100) / 100 || 0);
+        genderD.val(Math.round(parseInt(totalFemale, 10) / parseInt(totalMale, 10) * 100) / 100 || 0);
 
         if (onChange === true) {
             body.find(".errorV").css('color', '#fff');
