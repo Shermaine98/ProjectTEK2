@@ -54,7 +54,7 @@ $(document).ready(function () {
         });
 
 
-        $('#nutritional-table-error tbody tr.trFemale td.totalFemaleError input').each(function () {
+        $('#nutritional-table-error tbody tr.trFemale td.femaleCountError input').each(function () {
             var $row = $(this);
             console.log($row.val());
             var femaleCountError = $row.val();
@@ -163,7 +163,7 @@ $(document).ready(function () {
                 $row.val(maleCountError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             }
 
-            totalMale += parseInt(maleCountError, 10) || 0;
+            totalMale += parseInt(maleCountError.replace(/,/g , ""), 10) || 0;
         });
 
 
@@ -178,7 +178,7 @@ $(document).ready(function () {
                 $row.val(femaleCountError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             }
 
-            totalFemale += parseInt(femaleCountError, 10) || 0;
+            totalFemale += parseInt(femaleCountError.replace(/,/g , ""), 10) || 0;
         });
 
 
@@ -190,7 +190,7 @@ $(document).ready(function () {
                     var totalFemaleError = $(this).val();
                     body.find('tr.trTotal td.bTotalCountError input').each(function (majorLoop3) {
                         if (majorLoop2 === majorLoop3) {
-                            totalEach = parseInt(totalMaleError, 10) + parseInt(totalFemaleError, 10) || 0;
+                            totalEach = parseInt(totalMaleError.replace(/,/g , ""), 10) + parseInt(totalFemaleError.replace(/,/g , ""), 10) || 0;
                             $(this).val(totalEach.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                             totalEach = 0;
                         }
@@ -209,7 +209,7 @@ $(document).ready(function () {
             } else {
                 $row.val(totalCountError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             }
-            totaAll += parseInt(totalCountError, 10) || 0;
+            totaAll += parseInt(totalCountError.replace(/,/g , ""), 10) || 0;
         });
 
 
