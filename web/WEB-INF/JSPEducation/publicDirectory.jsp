@@ -199,7 +199,7 @@
                                     </tr>
                                     <tr>
                                         <th class="censusYear"  colspan="5"><input type="hidden" id="censusYear" value="<%=directorySchool.get(i).getCensusYear()%>"/>Total Teachers</th>
-                                        <td totalAllteachers><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
+                                        <td class="totalAllteachers"><%= directorySchool.get(i).getFormatcount(totalKinder + totalElem)%></td>
                                         <th class="totalAllClassroom">Total Classrooms</th>
                                         <td><%= directorySchool.get(i).getFormatcount(totalClassroom)%> </td>
                                         <th>Total Seats</th>
