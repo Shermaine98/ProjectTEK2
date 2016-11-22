@@ -382,12 +382,12 @@ and open the template in the editor.
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Analysis");
                                         } else if (formName === "Health Analysis") {
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Analysis");
-                                        } else if (formName === "Eudcation Integrated Analysis") {
+                                        } else if (formName === "Integrated Eudcation Analysis") {
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
                                         }//DEMO END
-                                        else if (formName === "Health Integrated Analysis") {
+                                        else if (formName === "Integrated Health Analysis") {
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
-                                        } else if (formName === "Demographics Integrated Analysis") {
+                                        } else if (formName === "Integrated Demographics Analysis") {
                                             window.location.replace("ReportAccess?redirect=addChartReport&type=Integrated");
                                         }
 
