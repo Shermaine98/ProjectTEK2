@@ -330,7 +330,7 @@
                 } else if (formName === "Number of Teachers and Classrooms for Private Schools") {
                     window.location.replace("ServletAccess?redirect=reportSchoolDirectory&classification=Private");
                 } else if (formName === "Household Population by Age Group and Sex") {
-                    window.location.replace("ServletAccess?redirect=reportHighestCompleted");
+                    window.location.replace("ServletAccess?redirect=reportAgeGroup");
                 } else if (formName === "Household Population 5 years old & over by Highest Grade/Year Completed, Age Group and Sex") {
                     window.location.replace("ServletAccess?redirect=reportHighestCompleted");
                 } else if (formName === "Household Population 10 years old & over by Age Group, Sex and Marital Status") {
