@@ -22,7 +22,7 @@
         <script src="jsImported/getYear.js" type="text/javascript"></script>
         <script src="jsDemoImports/maritalStatusUpdate.js" type="text/javascript"></script>
 
-         <!--Pace Imports-->
+        <!--Pace Imports-->
         <script src="AdminLTE/plugins/pace/pace.js" type="text/javascript"></script>
         <link href="AdminLTE/plugins/pace/dataurl.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -31,8 +31,7 @@
             <div class="content-wrapper">
                 <section class="content">
                     <div class="row">
-                        <%
-                            String redirect = (String) request.getAttribute("page");
+                        <%                            String redirect = (String) request.getAttribute("page");
                             if (redirect.equalsIgnoreCase("upload")) {
                         %>
                         <div class="box-header with-border">
@@ -91,23 +90,27 @@
 
                                                 %>
                                                 <tr>
-                                                    <td width="13%"><input name="locationError" type="text" value="<%=error.get(i).getLocation()%>" /></td>
-                                                    <td width="10%"><input name="sexError" type="text" value="<%=error.get(i).getSex()%>" /></td>
-                                                    <td width="10%"><input name="ageGroupError" type="text" value="<%=error.get(i).getAgeGroup()%>" /></td>
-                                                    <td width="5%" class="singleError"><input class="centerTD" id="singleError" type="text" name="singleError" value="<%=error.get(i).getSingle()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
-                                                    <td width="5%" class="marriedError"><input class="centerTD" id="marriedError" type="text" name="marriedError" value="<%=error.get(i).getMarried()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td width="5%" class="windowedError"><input class="centerTD" id="windowedError" type="text" name="windowedError" value="<%=error.get(i).getWidowed()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td width="5%" class="divorcedSeparatedError"><input class="centerTD" id="divorcedSeparatedError" type="text" name="divorcedSeparatedError" value="<%=error.get(i).getDivorcedSeparated()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td width="5%" class="commonLawLiveInError"><input class="centerTD" id="commonLawLiveInError" type="text" name="commonLawLiveInError" value="<%=error.get(i).getCommonLawLiveIn()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td width="5%" class="unknownError"><input class="centerTD" id="unknownError" type="text" name="unknownError" value="<%=error.get(i).getUnknown()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td width="5%" class="totalError"><input  class="centerTD" id="totalError" type="text" name="totalError" value="<%=error.get(i).getTotal()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
-                                                    <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=error.get(i).getValidation()%>"/>
-                                                        <input type="text" readonly id="reasonNum"  value="<%=error.get(i).getErrorReason()%>"/></td>
-                                                </tr>
-                                                <%
+                                            <input name="locationError" type="hidden" value="<%=error.get(i).getLocation()%>" />
+                                            <input name="sexError" type="hidden" value="<%=error.get(i).getSex()%>" />
+                                            <input name="ageGroupError" type="hidden" value="<%=error.get(i).getAgeGroup()%>" />
+                                            <input type="hidden" name="errorReason" value="<%=error.get(i).getValidation()%>"/>
+                                            <input type="hidden" readonly id="reasonNum"  value="<%=error.get(i).getErrorReason()%>"/>
+                                            <td width="13%"><%=error.get(i).getLocation()%></td>
+                                            <td width="10%"><%=error.get(i).getSex()%></td>
+                                            <td width="10%"><%=error.get(i).getAgeGroup()%></td>
+                                            <td width="5%" class="singleError"><input class="centerTD" id="singleError" type="text" name="singleError" value="<%=error.get(i).getSingle()%>"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></td>
+                                            <td width="5%" class="marriedError"><input class="centerTD" id="marriedError" type="text" name="marriedError" value="<%=error.get(i).getMarried()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                            <td width="5%" class="windowedError"><input class="centerTD" id="windowedError" type="text" name="windowedError" value="<%=error.get(i).getWidowed()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                            <td width="5%" class="divorcedSeparatedError"><input class="centerTD" id="divorcedSeparatedError" type="text" name="divorcedSeparatedError" value="<%=error.get(i).getDivorcedSeparated()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                            <td width="5%" class="commonLawLiveInError"><input class="centerTD" id="commonLawLiveInError" type="text" name="commonLawLiveInError" value="<%=error.get(i).getCommonLawLiveIn()%>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                            <td width="5%" class="unknownError"><input class="centerTD" id="unknownError" type="text" name="unknownError" value="<%=error.get(i).getUnknown()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                            <td width="5%" class="totalError"><input  class="centerTD" id="totalError" type="text" name="totalError" value="<%=error.get(i).getTotal()%>"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" /></td>
+                                            <td class='reasonNum'><%=error.get(i).getErrorReason()%></td>
+                                            </tr>
+                                            <%
 
-                                                    }
-                                                %>
+                                                }
+                                            %>
                                             </tbody>
 
                                         </table>
@@ -205,7 +208,7 @@
             </div>
             <!--TABLE-->
             <p style="margin-left: 5%;">Please provide the correct inputs for the missing and incorrect fields as seen in the table below.</p>
-            <div id="printTable" style="width: 90%; margin-left: auto; margin-right: auto;">
+            <div id="printTable" style="width: 100%; margin-left: auto; margin-right: auto;">
 
             </div>
         </div>
@@ -217,7 +220,7 @@
                 $('#uploadDB').submit();
             }
             function print_div() {
-                 $('#printTable').empty();
+                $('#printTable').empty();
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
@@ -233,7 +236,7 @@
                 $("#DateHere").html(today);
 
                 $('div#errorsDiv').clone().appendTo('#printTable');
-              //  jQuery('#printTable').html(jQuery("#errorsDiv").html());
+                //  jQuery('#printTable').html(jQuery("#errorsDiv").html());
                 window.print();
 //                document.body.onfocus = doneyet();
             }
