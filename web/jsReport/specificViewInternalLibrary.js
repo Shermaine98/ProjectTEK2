@@ -19,7 +19,7 @@ $(document).ready(function () {
         console.log('HI'+classificationS);
         SchoolDataNotification(year, classificationS);
     } else if (notifcationsetData === "nutritional") {
-        NutritionalStatusNotification();
+        NutritionalStatusNotification(year);
     } else if (notifcationsetData === "Enrollment") {
         var classificationS = document.getElementById('classificationSpecific').value;
         EnrollmentDataNotification(year, classificationS);
