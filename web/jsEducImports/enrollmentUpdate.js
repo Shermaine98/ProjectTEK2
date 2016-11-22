@@ -34,7 +34,7 @@ $(document).ready(function () {
                 $row.val("");
                 all = true;
             } else {
-                $row.find("#femaleCountError").val(femaleCountError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $row.val(femaleCountError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             }
         });
 
