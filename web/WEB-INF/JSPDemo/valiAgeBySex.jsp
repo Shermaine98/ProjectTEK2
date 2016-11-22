@@ -90,7 +90,9 @@
                                                     <td class='bothSexesError' ><input  class="centerTD" name="bothSexesError" id="bothSexesError" type="text" value=" <%=byAgeGroupError.get(i).getBothSex()%> "  readonly/></td>
                                                     <td class='maleSexesError' ><input  class="centerTD" name="maleError" id="maleSexesError" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value=" <%=byAgeGroupError.get(i).getMaleCount()%> "  /></td>
                                                     <td class='femaleSexesError'><input class="centerTD" name="femaleError" id="femaleSexesError" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value=" <%=byAgeGroupError.get(i).getFemaleCount()%> "  /></td>
-                                                    <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=byAgeGroupError.get(i).getvalidation()%>"/><input type="text" id="reasonNum"  value="<%=byAgeGroupError.get(i).getErrorReason()%>"/></td>
+                                                    <td class='reasonNum'><input type="hidden" name="errorReason" value="<%=byAgeGroupError.get(i).getvalidation()%>"/>
+                                                        <input type="text" style="display:none;" id="reasonNum"  value="<%=byAgeGroupError.get(i).getErrorReason()%>"/><%=byAgeGroupError.get(i).getErrorReason()%>
+                                                    </td>
                                                 </tr>
                                                 <%}%>
                                             </tbody>
@@ -164,7 +166,7 @@
             </div>
             <!--TABLE-->
             <p style="margin-left: 5%;">Please provide the correct inputs for the missing and incorrect fields as seen in the table below.</p>
-            <div id="printTable" style="width: 90%; margin-left: auto; margin-right: auto;">
+            <div id="printTable" style="width: 100%; margin-left: auto; margin-right: auto;">
             </div>
             <footer>
                 <div style='text-align:center;
