@@ -2,7 +2,6 @@
  *  ProjectTEK - DLSU CCS 2016
  * 
  */
-
 package servlets.education.servlet;
 
 import dao.education.DirectorySchoolDAO;
@@ -27,7 +26,7 @@ import org.json.JSONObject;
  * @author Gian Carlo Roxas
  * @author Shermaine Sy
  * @author Geraldine Atayan
- * 
+ *
  */
 public class SetSchoolData extends HttpServlet {
 
@@ -52,7 +51,7 @@ public class SetSchoolData extends HttpServlet {
             String classification = request.getParameter("classification");
             ArrayList<DirectorySchool> directorySchool = new DirectorySchoolDAO().ViewDirectorySchoolRecentByName(classification, schoolName);
             JSONObject arrayAll = new JSONObject();
-              JSONArray arrTeacher = new JSONArray();
+            JSONArray arrTeacher = new JSONArray();
             JSONArray arrSchool = new JSONArray();
             JSONArray arrSeats = new JSONArray();
             JSONArray arrClassrooms = new JSONArray();
@@ -60,8 +59,9 @@ public class SetSchoolData extends HttpServlet {
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("schoolName", directorySchool.get(i).getSchoolName());
+                    obj.put("schoolID", directorySchool.get(i).getSchoolID());
                     obj.put("classification", directorySchool.get(i).getClassification());
-                    
+                    obj.put("censusYear", directorySchool.get(i).getCensusYear());
                     for (int y = 0; y < directorySchool.get(i).getTeacher().size(); y++) {
                         JSONObject teacher = new JSONObject();
 
@@ -93,7 +93,7 @@ public class SetSchoolData extends HttpServlet {
                 }
 
             }
-            arrayAll.put("school",arrSchool);
+            arrayAll.put("school", arrSchool);
             arrayAll.put("teacher", arrTeacher);
             arrayAll.put("seats", arrSeats);
             arrayAll.put("classrooms", arrClassrooms);

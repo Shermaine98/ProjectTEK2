@@ -14,7 +14,7 @@ function autoCompleteSchool() {
 }
 
 function setSchoolData() {
-     var schoolName = document.getElementById('schoolNameSearch').value;
+    var schoolName = document.getElementById('schoolNameSearch').value;
     var classification = "private";
     $.ajax({
         url: "SetSchoolData",
@@ -26,15 +26,17 @@ function setSchoolData() {
         },
         success: function (data) {
             var schoolData = data;
-    
+
             $('#SchoolDirectory').hide();
             $('#viewAll').removeAttr("disabled");
             $('#dataSchool').remove();
             var str = '<table class="table table-bordered" id="dataSchool"><tbody id="data"></tbody></table>';
             document.getElementById("dataHolder").innerHTML = str;
             $('#data').append('<tr style = "background-color: #454545; color: #fff" >\n\
-                                        <th style="vertical-align: bottom; text-align: left;" >Name of School</th>\n\
-                                        <td class="nr" colspan = "8" style="border-right: none; text-align: left;">' + schoolData[0].school[0].schoolName + '</td> \n\
+                                        <th  colspan="2"style="vertical-align: bottom; text-align: left;" >Name of School</th>\n\
+                                        <td class="nr" colspan = "4" style="border-right: none; text-align: left;">' + schoolData[0].school[0].schoolName + '</td> \n\
+                                         <th colspan="1" style="vertical-align: bottom; text-align: left;" >School ID</th> \n\
+                                        <td class="si" colspan = "2" style="vertical-align: bottom; border-right: none; text-align: left;"> ' + schoolData[0].school[0].schoolID + ' </td>  \n\
                                         <td style="border-left: none; text-align: right"> \n\
                                             <button id="updateDirectory" class="btn btn-success btn-sm"><span class="fa fa-edit"></span> Edit</button> \n\
                                             <button id="invalidDirectory"  class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button> \n\
@@ -65,8 +67,8 @@ function setSchoolData() {
                     <th>Female</th>\n\
                     <th>Total</th>\n\
                 </tr><tr id="this" >');
-            
-          
+
+
 //          var x = document.createElement("tr");
 //          
 //           $('#data').append(x);
@@ -75,15 +77,15 @@ function setSchoolData() {
             for (var i = 0; i < schoolData[0].teacher.length; i++) {
                 if (schoolData[0].teacher[i].gradeLevel == 'Kinder') {
                     totalKinder = schoolData[0].teacher[i].maleCount + schoolData[0].teacher[i].femaleCount;
-                    $('#this').append('<td class="search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
-                    <td class="search-border">' + schoolData[0].teacher[i].femaleCount + '</td>\n\
-\                   <td class="search-border">' + totalKinder + '</td>');
+                    $('#this').append('<td class="KtMale search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
+                    <td class="KtFemale search-border">' + schoolData[0].teacher[i].femaleCount + '</td>\n\
+\                   <td class="KTotal search-border">' + totalKinder + '</td>');
                 }
                 if (schoolData[0].teacher[i].gradeLevel == 'Elementary') {
                     totalElem = schoolData[0].teacher[i].maleCount + schoolData[0].teacher[i].femaleCount;
-                    $('#this').append('<td class="search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
-                    <td class="search-border">' + schoolData[0].teacher[i].femaleCount + '</td>\n\
-                    <td class="search-border">' + totalElem + '</td>');
+                    $('#this').append('<td class="EtMale search-border">' + schoolData[0].teacher[i].maleCount + '</td>\n\
+                    <td class="EtFemale search-border">' + schoolData[0].teacher[i].femaleCount + '</td>\n\
+                    <td class="ETotal search-border">' + totalElem + '</td>');
                 }
             }
 
@@ -94,37 +96,63 @@ function setSchoolData() {
                     classK = schoolData[0].classrooms[i].roomCount;
                 }
                 if (schoolData[0].classrooms[i].ClassgradeLevel == 'Elementary') {
-                    $('#this').append('<td class="search-border">' + schoolData[0].classrooms[i].roomCount + '</td>');
+                    $('#this').append('<td class="EClassroom search-border">' + schoolData[0].classrooms[i].roomCount + '</td>');
                 }
                 totalClassroom = totalClassroom + schoolData[0].classrooms[i].roomCount;
             }
-            $('#this').append('<td class="search-border">' + classK + '</td>');
+            $('#this').append('<td class="KClassroom search-border">' + classK + '</td>');
 
             var totalSeats = 0;
             for (var i = 0; i < schoolData[0].seats.length; i++) {
                 if (schoolData[0].seats[i].SeatsgradeLevel == 'Kinder') {
-                    $('#this').append('<td class="search-border">' + schoolData[0].seats[i].seatCount + '</td>');
+                    $('#this').append('<td class="Kseats search-border">' + schoolData[0].seats[i].seatCount + '</td>');
                 }
                 if (schoolData[0].seats[i].SeatsgradeLevel == 'Elementary') {
-                    $('#this').append('<td class="search-border">' + schoolData[0].seats[i].seatCount + '</td>');
+                    $('#this').append('<td class="Eseats search-border">' + schoolData[0].seats[i].seatCount + '</td>');
                 }
                 totalSeats = totalSeats + schoolData[0].seats[i].seatCount;
             }
 
             $('#data').append('</tr><tr>\n\
-                                        <th colspan="5">Total Teachers</th>\n\
-                                        <td>' + (totalKinder + totalElem) + '</td>\n\
+                                         <th  class="censusYear" colspan="5"><input type="hidden" id="censusYear" value="' + schoolData[0].teacher[0].censusYear + '"/>Total Teachers</th>\n\
+                                        <td class="totalAllteachers">' + (totalKinder + totalElem) + '</td>\n\
                                         <th>Total Classrooms</th>\n\
-                                        <td>' + totalClassroom + '</td>\n\
+                                        <td class="totalAllClassroom">' + totalClassroom + '</td>\n\
                                         <th>Total Seats</th>\n\
-                                        <td>' + totalSeats + '</td>\n\
+                                        <td class="totalAllSeats">' + totalSeats + '</td>\n\
                                     </tr>');
-                
+
             $('input:text').focus(
                     function () {
                         $('#schoolNameSearch').val('');
                     });
-                    
+
+            var page = document.getElementById('page').value;
+            var classification = document.getElementById('classificationChecker').value;
+
+            $.ajax({
+                url: "UploadCheckerDirectory",
+                type: 'POST',
+                dataType: "JSON",
+                data: {
+                    page: page,
+                    classification: classification
+                }, success: function (data) {
+                    console.log(data);
+                    if (data === "approved") {
+
+
+                        $('.upadateBtn').prop('disabled', true);
+                        $('.deleteBtn').prop('disabled', true);
+                        $('#btnsubmit').prop('disabled', true);
+                        $('#addnew').prop('disabled', true);
+
+                    }
+                }, error: function (XMLHttpRequest, textStatus, exception) {
+                    console.log(exception);
+                }
+            });
+
         }, error: function (XMLHttpRequest, textStatus, exception) {
             alert(XMLHttpRequest.responseText);
         }
