@@ -1869,24 +1869,40 @@ function getNutritionalStatus() {
                                                 <th>Male</th>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getTotalMale + '</td>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getPupilsWeighedMale + '</td>';
-                    for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                        table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + '</td>';
+                    var nutritionalStatuses = ['Severly Wasted', 'Wasted', 'Normal', 'Overweight', 'Obese'];
+                    for(var z = 0; z < nutritionalStatuses.length; z++){
+                        for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
+                            if(nutritionalStatuses[z]==print[0].total[i].getNutritionalStatusBMI[y].getBMI){
+                                table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + '</td>';
+                            }
+                        }
                     }
                     table += '</tr>\n\
                                             <tr>\n\
                                                 <th>Female</th>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getTotalFemale + '</td>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getPupilsWeighedFemale + '</td>';
-                    for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                        table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts + '</td>';
+                    var nutritionalStatuses = ['Severly Wasted', 'Wasted', 'Normal', 'Overweight', 'Obese'];
+                    for(var z = 0; z < nutritionalStatuses.length; z++){
+                        for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
+                            if(nutritionalStatuses[z]==print[0].total[i].getNutritionalStatusBMI[y].getBMI){
+                                table += '<td class="centerTD number">' + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts + '</td>';
+                            }
+                        }
                     }
                     table += '</tr>\n\
                                             <tr>\n\
                                                 <th>Total</th>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getTotalCount + '</td>\n\
                                                 <td class="centerTD number">' + print[0].total[i].getPupilsWeighedTotal + '</td>';
-                    for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
-                        table += '<td class="centerTD number">' + (print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts) + '</td>';
+                    
+                    var nutritionalStatuses = ['Severly Wasted', 'Wasted', 'Normal', 'Overweight', 'Obese'];
+                    for(var z = 0; z < nutritionalStatuses.length; z++){
+                        for (y = 0; y < print[0].total[i].getNutritionalStatusBMI.length; y++) {
+                            if(nutritionalStatuses[z]==print[0].total[i].getNutritionalStatusBMI[y].getBMI){
+                                table += '<td class="centerTD number">' + (print[0].total[i].getNutritionalStatusBMI[y].getMaleCounts + print[0].total[i].getNutritionalStatusBMI[y].getFemaleCounts) + '</td>';
+                            }
+                        }
                     }
                     table += '</tr>';
                     $('#data').append(table);
