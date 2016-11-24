@@ -77,6 +77,9 @@ public class ElementaryEnrollmentServlet extends HttpServlet {
             ArrayList<FactEnrollment> schools = chartEnrollment.retrieveSchools();
             ArrayList<String> classifications = chartsClassification.retrieveClassifications();
             ArrayList<String> gradeLevels = chartsGradeLevel.retrieveElementaryLevels();
+            FactEnrollment outlierEnrollment = new FactEnrollment();
+            
+            outlierEnrollment.outlierEnrollment(censusYears, enrollment);
             
             for(int i = 0; i < enrollment.size(); i++){
                 JSONObject objEnrollment = new JSONObject();
