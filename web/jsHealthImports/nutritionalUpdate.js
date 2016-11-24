@@ -16,7 +16,7 @@ $(document).ready(function () {
 
           $('#nutritional-table-error tbody tr.trMale td.totalMaleError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
+          
             var maleCountError = $row.val();
             if (parseInt(maleCountError, 10) === -1 || maleCountError === "") {
                 $row.val("");
@@ -29,7 +29,6 @@ $(document).ready(function () {
 
         $('#nutritional-table-error tbody tr.trMale td.pupilsWeighedMaleError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
             var maleCountError = $row.val();
             if (parseInt(maleCountError, 10) === -1 || maleCountError === "") {
                 $row.val("");
@@ -56,7 +55,6 @@ $(document).ready(function () {
 
         $('#nutritional-table-error tbody tr.trFemale td.femaleCountError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
             var femaleCountError = $row.val();
             if (parseInt(femaleCountError, 10) === -1 || femaleCountError === "") {
                 $row.val("");
@@ -69,7 +67,6 @@ $(document).ready(function () {
 
         $('#nutritional-table-error tbody tr.trFemale td.totalFemaleError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
             var femaleCountError = $row.val();
             if (parseInt(femaleCountError, 10) === -1 || femaleCountError === "") {
                 $row.val("");
@@ -96,7 +93,6 @@ $(document).ready(function () {
 
         $('#nutritional-table-error tbody tr.trTotal td.totalCountError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
             var bTotalCountError = $row.val();
             if (parseInt(bTotalCountError, 10) === -1 || bTotalCountError === "") {
                 $row.val("");
@@ -111,7 +107,6 @@ $(document).ready(function () {
 
         $('#nutritional-table-error tbody tr.trTotal td.pupilsWeighedTotalError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
             var bTotalCountError = $row.val();
             if (parseInt(bTotalCountError, 10) === -1 || bTotalCountError === "") {
                 $row.val("");
@@ -127,7 +122,6 @@ $(document).ready(function () {
 
         $('#nutritional-table-error tbody tr.trTotal td.bTotalCountError input').each(function () {
             var $row = $(this);
-            console.log($row.val());
             var bTotalCountError = $row.val();
             if (parseInt(bTotalCountError, 10) === -1 || bTotalCountError === "") {
                 $row.val("");

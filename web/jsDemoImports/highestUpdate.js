@@ -16,10 +16,11 @@ $(document).ready(function () {
 
         var all = false;
 
-        $('#enrollemt-error tbody tr.data td.countError input').each(function () {
+        $('#Highest-table tbody tr.data td.countError input').each(function () {
             var $row = $(this);
             var maleCountError = $row.val();
             if (parseInt(maleCountError, 10) === -1 || maleCountError === "") {
+                console.log("LALALA");
                 $row.val("");
                 all = true;
             } else {
@@ -29,12 +30,13 @@ $(document).ready(function () {
         });
 
 
-        $('#enrollemt-error tbody tr.data td.countError2 input').each(function () {
+        $('#Highest-table tbody tr.data td.countError2 input').each(function () {
             var $row = $(this);
             var femaleCountError = $row.val();
 
             if (parseInt(femaleCountError, 10) === -1 || femaleCountError === "") {
                 $row.val("");
+                 console.log("LALALA");
                 all = true;
             } else {
                 $row.val(femaleCountError.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","));
