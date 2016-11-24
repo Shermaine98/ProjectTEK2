@@ -534,7 +534,7 @@ public class DirectorySchoolDAO {
                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
                 String teacher = "INSERT INTO elem_teachers"
-                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, femaleCount, maleCount, `active`, `alter`) "
+                        + "(censusYear, formID, schoolID, classification, schoolName, gradeLevel, maleCount, femaleCount, `active`, `alter`) "
                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
                 String classroom = "INSERT INTO elem_classrooms"
