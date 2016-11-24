@@ -163,56 +163,56 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <script>
 
-                <script>
+            $(document).on("change", ".divisionClass", function () {
+                var conceptName = $(this).find("option:selected").text();
+                var x = $(this).closest('tr').find('.select_position_td').find('#position_title');
+                if (conceptName == "Social Development Planning Division") {
+                    x.find('option').remove().end()
+                            .append('<option disabled selected>Choose Position</option>')
+                            .append('<option value="Project Development Officer I">Project Development Officer I</option>')
+                            .append('<option value="Project Development Officer III">Project Development Officer III</option>')
+                            .append('<option value="Project Development Officer IV">Project Development Officer IV</option>')
+                            .append('<option value="Administrative Aide VI">Administrative Aide VI</option>')
+                            //                         .val('whatever')
+                            ;
+                } else if (conceptName == "Physical Development Planning Division") {
+                    x.find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Position</option>')
+                            .append('<option value="Planning Officer II">Planning Officer II</option>')
+                            .append('<option value="Planning Officer III">Planning Officer III</option>')
+                            .append('<option value="Planning Officer IV">Planning Officer IV</option>')
+                            .append('<option value="Administrative Aide VI">Administrative Aide VI</option>')
+                            //                            .val('whatever')
+                            ;
+                } else if (conceptName == "Institutional Development Planning Division") {
+                    x.find('option')
+                            .remove()
+                            .end()
+                            .append('<option disabled selected>Choose Report</option>')
+                            .append('<option value="Statistician I">Statistician I</option>')
+                            //                            .val('whatever')
+                            ;
+                }
 
-                    $(document).on("change", ".divisionClass", function () {
-                        var conceptName = $(this).find("option:selected").text();
-                        var x = $(this).closest('tr').find('.select_position_td').find('#position_title');
-                        if (conceptName == "Social Development Planning Division") {
-                            x.find('option').remove().end()
-                                    .append('<option disabled selected>Choose Position</option>')
-                                    .append('<option value="Project Development Officer I">Project Development Officer I</option>')
-                                    .append('<option value="Project Development Officer III">Project Development Officer III</option>')
-                                    .append('<option value="Project Development Officer IV">Project Development Officer IV</option>')
-                                    .append('<option value="Administrative Aide VI">Administrative Aide VI</option>')
-                                    //                         .val('whatever')
-                                    ;
-                        } else if (conceptName == "Physical Development Planning Division") {
-                            x.find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option disabled selected>Choose Position</option>')
-                                    .append('<option value="Planning Officer II">Planning Officer II</option>')
-                                    .append('<option value="Planning Officer III">Planning Officer III</option>')
-                                    .append('<option value="Planning Officer IV">Planning Officer IV</option>')
-                                    .append('<option value="Administrative Aide VI">Administrative Aide VI</option>')
-                                    //                            .val('whatever')
-                                    ;
-                        } else if (conceptName == "Institutional Development Planning Division") {
-                            x.find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option disabled selected>Choose Report</option>')
-                                    .append('<option value="Statistician I">Statistician I</option>')
-                                    //                            .val('whatever')
-                                    ;
-                        }
-
-                        $(this).closest('tr').find('.select_position_td').find('#position_title').removeAttr('disabled');
-                    });
+                $(this).closest('tr').find('.select_position_td').find('#position_title').removeAttr('disabled');
+            });
 
 
-                    $(document).on("change", ".employmentDate_class", function () {
-                        console.log("Date changed: ");
+            $(document).on("change", ".employmentDate_class", function () {
+                console.log("Date changed: ");
 
-                        var x = $(this).closest('tr').find('.select_position_td').find('#position_title').find("option:selected").text();
-                        var buttons = $(this).closest('tbody').find('tr').find('.buttons_class').find('.clickedApproved');
+                var x = $(this).closest('tr').find('.select_position_td').find('#position_title').find("option:selected").text();
+                var buttons = $(this).closest('tbody').find('tr').find('.buttons_class').find('.clickedApproved');
 
-                        if (x != 'Choose Position' && !(!Date.parse($(this).val())))
-                            buttons.removeAttr('disabled');
-                    });
-                </script>
-
-                </body>
-                </html>
+                if (x != 'Choose Position' && !(!Date.parse($(this).val())))
+                    buttons.removeAttr('disabled');
+            });
+        </script>
+    </body>
+</html>
