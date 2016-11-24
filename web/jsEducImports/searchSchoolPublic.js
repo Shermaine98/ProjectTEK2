@@ -49,8 +49,8 @@ function setSchoolData() {
                                <th colspan="2">Classrooms</th>\n\
                                <th colspan="2">Seats</th>\n\
                                </tr><tr>\n\
-                    <th colspan="3">Kinder</th>\n\
                     <th colspan="3">Elementary</th>\n\
+                    <th colspan="3">Kinder</th>\n\
                     <th rowspan="2" style="vertical-align: bottom; \n\
                                             border-left: solid; \n\
                                             border-width: thin;\n\

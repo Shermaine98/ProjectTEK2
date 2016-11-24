@@ -121,8 +121,11 @@
                                         <th colspan="2" >Seats</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="3" >Kinder</th>
-                                        <th colspan="3" >Elementary</th>
+                                        <%   for (int y = 0; y < directorySchool.get(i).getTeacher().size(); y++) {%>
+                                        <th colspan="3"><%= directorySchool.get(i).getTeacher().get(y).getGradeLevel()%></th>
+                                            <%
+                                                }
+                                            %>
                                         <th rowspan="2" style="vertical-align: bottom;
                                             border-left: solid;
                                             border-width: thin;
@@ -224,9 +227,9 @@
 
         <script>
 
-              $(document).ready(function () {
+            $(document).ready(function () {
                 $('#classification').val("Public");
-                 $('#classificationE').val("Public");
+                $('#classificationE').val("Public");
             });
 
             function viewAll() {
