@@ -703,7 +703,7 @@ public class EnrollmentChecker {
      * public or private
      * @param year year
      * @param formID form id
-     * @param classification
+     * @param classification classification
      */
     public EnrollmentChecker(ArrayList<EnrollmentTemp> arrError, int year, int formID, String classification) {
 
