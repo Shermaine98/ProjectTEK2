@@ -1,5 +1,5 @@
 <%--
-    Document   : showTableEnrollement
+    Document   : Education_Enrollment
     Created on : Jul 15, 2016, 3:19:30 PM
     Author     :  Geraldine, Gian, Shermaine
 --%>

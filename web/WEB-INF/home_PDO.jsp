@@ -1,5 +1,5 @@
 <%--
-    Document   : home
+    Document   : home_PDO
     Created on : Jun 8, 2016, 10:13:59 PM
     Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
