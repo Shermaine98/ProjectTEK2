@@ -1,5 +1,5 @@
 <%--
-    Document   : RejectModal
+    Document   : RejectModal_Demo
     Created on : 07 19, 16, 12:50:08 AM
     Author     : Geraldine, Gian, Shermaine
 --%>
@@ -60,7 +60,7 @@
         </div>
         <script>
 
-          
+
 
                 $('#rejectReport').click(function () {
                     var fromID = $('#formID').val();
