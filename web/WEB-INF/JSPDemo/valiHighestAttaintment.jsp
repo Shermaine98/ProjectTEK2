@@ -273,6 +273,7 @@
 
             function print_div() {
                 $('#printTable').empty();
+                document.getElementById("_bottom").className = "hidden";
                 var m_names = new Array("January", "February", "March",
                         "April", "May", "June", "July", "August", "September",
                         "October", "November", "December");
@@ -288,11 +289,14 @@
                 $("#DateHere").html(today);
                 $('div#errorsDiv').clone().appendTo('#printTable');
                 window.print();
+                
+                
                 document.body.onfocus = doneyet();
             }
             function doneyet() {
                 document.body.onfocus = "";
                 $('#printTable').empty();
+                //document.getElementById("_bottom").className = "hidden";
             }
 
             var d = new Date();
