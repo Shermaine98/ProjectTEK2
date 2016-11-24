@@ -1,15 +1,10 @@
+<!DOCTYPE html>
 <%--
     Document   : ProfileModal
     Created on : Jul 21, 2016, 8:17:35 PM
     Author     : Geraldine Atayan, Gian Roxas, Shermaine Sy
 --%>
 <%@page import="model.accounts.User"%>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <%@include file="ProfileModal.jsp" %>
 
 <html>
