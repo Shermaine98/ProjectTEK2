@@ -1548,6 +1548,60 @@ function setHHPopAgeGroupSex (chart){
     }
     
     function drawHHPopPyramid(print, year){
+        
+        var filteredOutBarangays = [];
+        var filteredOutGenders = []; 
+        $('[id="barangayss"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutBarangays.push(id);
+            }
+        });
+
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0];
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                }
+            }
+            
+            if(filteredOutBarangays.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutBarangays.length>0){
+            if(filteredOutBarangays.length == 1){
+                filteredOut += 'Barangay ' + filteredOutBarangays[0];
+            }
+            else if (filteredOutBarangays.length > 1){
+                filteredOut += 'Barangays ';
+                for(var i = 0; i < filteredOutBarangays.length; i++){
+                    filteredOut += filteredOutBarangays[i];
+                    if(i == filteredOutBarangays.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutBarangays.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+
         var topCategories = [];
         for (var i = 0; i < print[0].ageGroups.length; i++) {
             topCategories.push(print[0].ageGroups[i].ageGroup);
@@ -1827,7 +1881,7 @@ function setHHPopAgeGroupSex (chart){
                     text: 'Household Population by Age Group and Sex for ' + year
                 },
                 subtitle: {
-                    text: 'Click and drag to zoom in. Hold down shift key to pan.'
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
                 },
                 plotOptions: {
                     series: {
@@ -1949,6 +2003,59 @@ function setHHPopAgeGroupSex (chart){
     }
     
     function drawHHPopAgeGroupSexPie(print, year, chart){
+        var filteredOutBarangays = [];
+        var filteredOutGenders = []; 
+        $('[id="barangayss"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutBarangays.push(id);
+            }
+        });
+
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0];
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                }
+            }
+            
+            if(filteredOutBarangays.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutBarangays.length>0){
+            if(filteredOutBarangays.length == 1){
+                filteredOut += 'Barangay ' + filteredOutBarangays[0];
+            }
+            else if (filteredOutBarangays.length > 1){
+                filteredOut += 'Barangays ';
+                for(var i = 0; i < filteredOutBarangays.length; i++){
+                    filteredOut += filteredOutBarangays[i];
+                    if(i == filteredOutBarangays.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutBarangays.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
             //color: Highcharts.getOptions().colors[0]
             var totals = [];
             for(var a = 0; a < print[0].ageGroups.length;a++){
@@ -2154,6 +2261,9 @@ function setHHPopAgeGroupSex (chart){
                 },
                 title: {
                     text: 'Household Population by Age Group and Sex for ' + year
+                },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
                 },
                 xAxis: {
                     type: 'category'
@@ -2941,6 +3051,59 @@ function setHHPopAgeGroupSex (chart){
     }
     
     function drawMaritalStatusBar(print, year, chart){
+        var filteredOutBarangays = [];
+        var filteredOutGenders = []; 
+        $('[id="barangayss"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutBarangays.push(id);
+            }
+        });
+
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0];
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                }
+            }
+            
+            if(filteredOutBarangays.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutBarangays.length>0){
+            if(filteredOutBarangays.length == 1){
+                filteredOut += 'Barangay ' + filteredOutBarangays[0];
+            }
+            else if (filteredOutBarangays.length > 1){
+                filteredOut += 'Barangays ';
+                for(var i = 0; i < filteredOutBarangays.length; i++){
+                    filteredOut += filteredOutBarangays[i];
+                    if(i == filteredOutBarangays.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutBarangays.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
             var total = [];
             widowedItem = {};
             var widowedTotal = 0;
@@ -3936,6 +4099,9 @@ function setHHPopAgeGroupSex (chart){
                 },
                 title: {
                     text: 'Household Population 10 Yrs Old and Over by Age Group, Sex, and Marital Status for ' + year
+                },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
                 },
                 xAxis: {
                     type: 'category'
