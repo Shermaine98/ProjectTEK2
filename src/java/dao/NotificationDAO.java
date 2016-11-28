@@ -53,7 +53,7 @@ public class NotificationDAO {
                     String checkExist = "SELECT R.TimeUploaded, R.approved, R.approvedBy,R.validated from RECORDS R\n"
                             + "WHERE R.FORMID = ?\n"
                             + " AND R.TimeUploaded > ?\n"
-                            + " AND R.TimeUploaded < ? AND R.approved = 1 AND R.validated = 1;";
+                            + " AND R.TimeUploaded < ? AND R.approved = 1 AND R.validated = 1 ORDER BY R.TimeUploaded;";
                     PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                     int check = taskModel.get(i).getFormID();
                     pstmt1.setInt(1, check);
@@ -113,7 +113,7 @@ public class NotificationDAO {
                     String checkExist = "SELECT R.TimeUploaded, R.approved, R.approvedBy,  R.validated from RECORDS R\n"
                             + " WHERE R.FORMID = ?\n"
                             + " AND R.TimeUploaded > ?\n"
-                            + " AND R.TimeUploaded < ? AND R.approved = -1 AND R.validated = 1;";
+                            + " AND R.TimeUploaded < ? AND R.approved = -1 AND R.validated = 1 ORDER BY R.TimeUploaded;";
                     PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                     int check = taskModel.get(i).getFormID();
                     pstmt1.setInt(1, check);
@@ -173,7 +173,7 @@ public class NotificationDAO {
                     String checkExist = "SELECT R.TimeUploaded, R.approved, R.UploadedBy, R.validated from RECORDS R\n"
                             + "WHERE R.FORMID = ?\n"
                             + "  AND R.TimeUploaded > ? \n"
-                            + "  AND R.TimeUploaded < ? AND R.approved = 0 AND R.validated = 1;";
+                            + "  AND R.TimeUploaded < ? AND R.approved = 0 AND R.validated = 1 ORDER BY R.TimeUploaded;";
                     PreparedStatement pstmt1 = conn.prepareStatement(checkExist);
                     int check = taskModel.get(i).getFormID();
                     pstmt1.setInt(1, check);

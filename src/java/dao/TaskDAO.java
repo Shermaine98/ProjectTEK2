@@ -47,7 +47,7 @@ public class TaskDAO {
                 taskModelTemp.setReportType(rs.getString("reportType"));
                 taskModelTemp.setSector(rs.getString("sector"));
                 taskModelTemp.setDuedate(formatter.parse(year + "/" + rs.getInt("month") + "/" + rs.getInt("day")));
-                String query2 = "select datediff(?,NOW()) as 'diffDate';";
+                String query2 = "select datediff(?,NOW()) as 'diffDate' ORDER BY 'diffDate';";
                 PreparedStatement pstmt2 = conn.prepareStatement(query2);
                 pstmt2.setString(1, year + "/" + rs.getInt("month") + "/" + rs.getInt("day"));
                 
@@ -71,7 +71,7 @@ public class TaskDAO {
         ArrayList<TaskModel> taskModel;
         try (Connection conn = myFactory1.getConnection()) {
             taskModel = new ArrayList<>();
-            String query = "select * from task where `reportType` = 'Upload' and  `sector` = ?";
+            String query = "select * from task where `reportType` = 'Upload' and  `sector` = ? ORDER BY 'TimeUploaded';";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, sector);
             ResultSet rs = pstmt.executeQuery();
@@ -108,7 +108,7 @@ public class TaskDAO {
                 ArrayList<TaskModel> taskModelFinal = new ArrayList<>();
 
                 for (int i = 0; i < taskModels.size(); i++) {
-                    String query = "SELECT * FROM RECORDS Where formID = ? ;";
+                    String query = "SELECT * FROM RECORDS Where formID = ? ORDER BY 'TimeUploaded' ;";
                     PreparedStatement pstmt1 = conn.prepareStatement(query);
                     int check = taskModels.get(i).getFormID();
                     pstmt1.setInt(1, check);
