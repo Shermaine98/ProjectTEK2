@@ -216,7 +216,7 @@ and open the template in the editor.
                         <li>
                             <a href="${pageContext.request.contextPath}/ServletAccess?redirect=forums">
                                 <i class="fa fa-comments"></i>
-                                <span>Forums</span>
+                                <span>Feedback</span>
                             </a>
                         </li>
                     </ul>
