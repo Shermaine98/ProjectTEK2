@@ -600,7 +600,7 @@ public class RecordDAO {
             try (Connection conn = myFactory.getConnection()) {
                 records = new ArrayList<>();
                 String search = year + "%";
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM RECORDS where formID >= ? AND formID <= ? AND censusYear LIKE ? AND `APPROVED` = 1 AND `validated` = 1;");
+                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM RECORDS where formID >= ? AND formID <= ? AND censusYear LIKE ? AND `APPROVED` = 1 AND `validated` = 1 ORDER BY `censusYear`;");
                 pstmt.setInt(1, form);
                 pstmt.setInt(2, limit);
                 pstmt.setString(3, search);

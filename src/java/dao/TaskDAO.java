@@ -108,7 +108,7 @@ public class TaskDAO {
                 ArrayList<TaskModel> taskModelFinal = new ArrayList<>();
 
                 for (int i = 0; i < taskModels.size(); i++) {
-                    String query = "SELECT * FROM RECORDS Where formID = ?;";
+                    String query = "SELECT * FROM RECORDS Where formID = ? ;";
                     PreparedStatement pstmt1 = conn.prepareStatement(query);
                     int check = taskModels.get(i).getFormID();
                     pstmt1.setInt(1, check);
