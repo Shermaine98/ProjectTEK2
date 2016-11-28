@@ -26,6 +26,9 @@
                 padding: 25px 25px;
                 <%}%>
             }
+            body{
+                background: #f9fafc;
+            }
         </style>
     </head>
     <body>
