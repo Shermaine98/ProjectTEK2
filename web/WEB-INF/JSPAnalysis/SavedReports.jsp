@@ -375,11 +375,10 @@
                                     Are you sure you want to proceed?</p>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary button-submit"  onClick="setSubmit()()" value="Submit"/>Submit</button>
-                                <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+                                <button class="btn btn-primary button-submit"  onClick="setSubmit()()" value="Submit"/>Yes</button>
+                                <button class="btn btn-default" data-dismiss="modal" type="button">No</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -393,11 +392,11 @@
                                 <h4 class="modal-title" style="color: #FFF;">Warning!</h4>
                             </div>
                             <div class="modal-body" align="center">
-                                <p>Are you sure you want save this? Previous report will be updated.</p>
+                                <p>Are you sure you want save this? The previous report will be updated.</p>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary button-submit"  onClick="setSubmit()()" value="Submit"/>Submit</button>
-                                <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+                                <button class="btn btn-primary button-submit"  onClick="setSubmit()()" value="Submit"/>Yes</button>
+                                <button class="btn btn-default" data-dismiss="modal" type="button">No</button>
                             </div>
                         </div>
 
@@ -479,8 +478,8 @@
                 $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure you want to delete the chart?</p>');
 
                 $("#notificationModalFooter").empty();
-                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
-                $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
+                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Yes</button>');
+                $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
                 $("#notificationModal").modal("show");
 
 
@@ -507,8 +506,8 @@
                 $("#notificationBodyModal").append('<p style="padding:3%; text-align:center;">Are you sure you want to delete the chart?</p>');
 
                 $("#notificationModalFooter").empty();
-                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger"  >Delete Chart</button>');
-                $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>');
+                $("#notificationModalFooter").append('<button type="button" id="deleteButton" data-dismiss="modal" class="btn btn-danger">Yes</button>');
+                $("#notificationModalFooter").append(' <button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
                 $("#notificationModal").modal("show");
 
 
