@@ -487,6 +487,93 @@ function setElementaryEnrollments(chart){
     }
 
     function drawElementaryEnrollment(print, chart, isStacked){
+        var filteredOutClassifications = [];
+        var filteredOutGenders = []; 
+        var filteredOutGradeLevels = []; 
+        $('[id="classificationCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutClassifications.push(id);
+            }
+        });
+
+        $('[id="genderCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        $('[id="gradeLevelCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                
+                filteredOutGradeLevels.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0] + ' Students';
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                    if(i == filteredOutGenders.length-1){
+                       filteredOut += ' Students';
+                    }
+                }
+            }
+            if(filteredOutClassifications.length>0 && filteredOutGradeLevels.length>0){
+                filteredOut += ', ';
+            } else if (filteredOutClassifications.length>0 || filteredOutGradeLevels.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutGradeLevels.length>0){
+            if(filteredOutGradeLevels.length == 1){
+                filteredOut += "Grade Level "+filteredOutGradeLevels[0].substring(6);
+            }
+            else if (filteredOutGradeLevels.length > 1){
+                filteredOut += "Grade Levels ";
+                for(var i = 0; i < filteredOutGradeLevels.length; i++){
+                    filteredOut += filteredOutGradeLevels[i].substring(6);
+                    if(i == filteredOutGradeLevels.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutGradeLevels.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+            if(filteredOutClassifications.length>0){
+                filteredOut += ' and ';
+            }  
+        }
+        if(filteredOutClassifications.length>0){
+            if(filteredOutClassifications.length == 1){
+                filteredOut += filteredOutClassifications[0] + ' Schools';
+            }
+            else if (filteredOutClassifications.length > 1){
+                for(var i = 0; i < filteredOutClassifications.length; i++){
+                    filteredOut += filteredOutClassifications[i];
+                    if(i == filteredOutClassifications.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutClassifications.length-2){
+                        filteredOut += ', ';
+                    }
+                    if(i == filteredOutClassifications.length-1){
+                       filteredOut += ' Schools';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
         var ultimateTotal = [];
         for(var b = 0; b < print[0].genders.length; b++){
             var totals = {};
@@ -778,6 +865,9 @@ function setElementaryEnrollments(chart){
                 title: {
                     text: 'Enrollment in Public and Private Elementary Schools'
                 },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
+                },
                 xAxis: {
                     type: 'category',
                 },
@@ -816,6 +906,9 @@ function setElementaryEnrollments(chart){
                 },
                 title: {
                     text: 'Enrollment in Public and Private Elementary Schools'
+                },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
                 },
                 xAxis: {
                     type: 'category'
@@ -1003,6 +1096,64 @@ function setKinderEnrollments(chart){
     }
     
     function drawKinderEnrollment(print, chart, isStacked){
+        var filteredOutClassifications = [];
+        var filteredOutGenders = []; 
+        $('[id="classificationCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutClassifications.push(id);
+            }
+        });
+
+        $('[id="genderCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0] + ' Students';
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                    if(i == filteredOutGenders.length-1){
+                       filteredOut += ' Students';
+                    }
+                }
+            }
+            
+            if(filteredOutClassifications.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutClassifications.length>0){
+            if(filteredOutClassifications.length == 1){
+                filteredOut += filteredOutClassifications[0] + ' Schools';
+            }
+            else if (filteredOutClassifications.length > 1){
+                for(var i = 0; i < filteredOutClassifications.length; i++){
+                    filteredOut += filteredOutClassifications[i];
+                    if(i == filteredOutClassifications.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutClassifications.length-2){
+                        filteredOut += ', ';
+                    }
+                    if(i == filteredOutClassifications.length-1){
+                       filteredOut += ' Schools';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
         var ultimateTotal = [];
         for(var b = 0; b < print[0].genders.length; b++){
             var totals = {};
@@ -1218,7 +1369,10 @@ function setKinderEnrollments(chart){
                     }
                 },
                 title: {
-                    text: 'Enrollment in Public and Private Preschools'
+                    text: 'Enrollment in Public and Private Preschools' 
+                },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
                 },
                 xAxis: {
                     type: 'category',
@@ -1258,6 +1412,9 @@ function setKinderEnrollments(chart){
                 },
                 title: {
                     text: 'Enrollment in Public and Private Preschools'
+                },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
                 },
                 xAxis: {
                     type: 'category',
@@ -2302,7 +2459,7 @@ function setHHPopAgeGroupSex (chart){
             }
             //barangay
             for (var i = 0; i < print[0].gradeLevels.length; i++) {
-                    $('#gradeLevels').append('<input type="checkbox" class="filter" id="gradeLevels" value="' 
+                    $('#gradeLevelsBox').append('<input type="checkbox" class="filter" id="gradeLevels" value="' 
                             + print[0].gradeLevels[i].gradeLevel + '" checked>'+print[0].gradeLevels[i].gradeLevel+'</input></br>');
             }
             
@@ -2482,6 +2639,73 @@ function setHHPopAgeGroupSex (chart){
     }
     
     function drawNutritionalStatus(print, chart, isStacked){
+        var filteredOutGenders = []; 
+        var filteredOutGradeLevels = []; 
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        $('[id="gradeLevels"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                
+                filteredOutGradeLevels.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0] + ' Students';
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                    if(i == filteredOutGenders.length-1){
+                       filteredOut += ' Students';
+                    }
+                }
+            }
+            if(filteredOutGradeLevels.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutGradeLevels.length>0){
+            if(filteredOutGradeLevels.length == 1){
+                if(filteredOutGradeLevels[0]!= 'Pre Elementary' && filteredOutGradeLevels[0]!= 'SPED' ){
+                    filteredOut += "Grade Level "+filteredOutGradeLevels[0].substring(6);
+                } else {
+                    filteredOut += filteredOutGradeLevels[0];
+                }
+            }
+            else if (filteredOutGradeLevels.length > 1){
+                if(filteredOutGradeLevels[0]!= 'Pre Elementary' && filteredOutGradeLevels[0]!= 'SPED' ){
+                    filteredOut += "Grade Levels ";
+                } 
+                for(var i = 0; i < filteredOutGradeLevels.length; i++){
+                    //filteredOut += filteredOutGradeLevels[i].substring(6);
+                    if(filteredOutGradeLevels[i]!= 'Pre Elementary' && filteredOutGradeLevels[i]!= 'SPED' ){
+                        filteredOut += filteredOutGradeLevels[i].substring(6);
+                    } else {
+                        filteredOut += filteredOutGradeLevels[i];
+                    }
+                    if(i == filteredOutGradeLevels.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutGradeLevels.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        console.log(filteredOut);
+        
         var ultimateTotal = [];
         var nutritionalStatus = ['Severely Wasted','Wasted', 'Normal', 'Overweight', 'Obese'];
         var totals = [];

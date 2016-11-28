@@ -438,7 +438,7 @@
                                                 <h4 class='box-title'>Filter by Grade Level</h4>\n\
                                             </div>\n\
                                             <div class='box-body'>\n\
-                                                <div  id='gradeLevels' style='height: 139px; overflow-y: scroll'>\n\
+                                                <div  id='gradeLevelsBox' style='height: 139px; overflow-y: scroll'>\n\
                                                 </div>\n\
                                             </div>\n\
                                         </div>\n\
