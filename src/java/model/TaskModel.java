@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import java.util.Date;
  * @author Geraldine Atayan
  *
  */
-public class TaskModel {
+public class TaskModel implements Comparable<TaskModel> {
 
     private String reportName;
     private Date duedate;
@@ -24,6 +25,7 @@ public class TaskModel {
     private String sector;
     private String name;
     private String timeStamp;
+    private Timestamp timeStamp2;
     private int dateDiff;
 
     SimpleDateFormat sdf = new SimpleDateFormat("MMM. dd, yyyy");
@@ -38,6 +40,10 @@ public class TaskModel {
         this.dateDiff = dateDiff;
     }
 
+    @Override
+    public int compareTo(TaskModel o) {
+        return o.getTimeStamp2().compareTo(getTimeStamp2());
+    }
     /**
      * @return the task
      */
@@ -155,6 +161,20 @@ public class TaskModel {
      */
     public String getSduedate() {
         return sdf.format(duedate);
+    }
+
+    /**
+     * @return the timeStamp2
+     */
+    public Timestamp getTimeStamp2() {
+        return timeStamp2;
+    }
+
+    /**
+     * @param timeStamp2 the timeStamp2 to set
+     */
+    public void setTimeStamp2(Timestamp timeStamp2) {
+        this.timeStamp2 = timeStamp2;
     }
    
 }

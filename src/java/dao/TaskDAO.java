@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
@@ -37,7 +38,7 @@ public class TaskDAO {
         ArrayList<TaskModel> taskModel;
         try (Connection conn = myFactory1.getConnection()) {
             taskModel = new ArrayList<>();
-            String query = "select * from task where `position` = ?";
+            String query = "select * from task where `position` = ? ORDER BY month";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, position);
             ResultSet rs = pstmt.executeQuery();
@@ -47,7 +48,7 @@ public class TaskDAO {
                 taskModelTemp.setReportType(rs.getString("reportType"));
                 taskModelTemp.setSector(rs.getString("sector"));
                 taskModelTemp.setDuedate(formatter.parse(year + "/" + rs.getInt("month") + "/" + rs.getInt("day")));
-                String query2 = "select datediff(?,NOW()) as 'diffDate' ORDER BY 'diffDate';";
+                String query2 = "select datediff(?,NOW()) as 'diffDate';";
                 PreparedStatement pstmt2 = conn.prepareStatement(query2);
                 pstmt2.setString(1, year + "/" + rs.getInt("month") + "/" + rs.getInt("day"));
                 
@@ -71,7 +72,7 @@ public class TaskDAO {
         ArrayList<TaskModel> taskModel;
         try (Connection conn = myFactory1.getConnection()) {
             taskModel = new ArrayList<>();
-            String query = "select * from task where `reportType` = 'Upload' and  `sector` = ? ORDER BY 'TimeUploaded';";
+            String query = "select * from task where `reportType` = 'Upload' and  `sector` = ? ORDER BY month;";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, sector);
             ResultSet rs = pstmt.executeQuery();
@@ -108,7 +109,7 @@ public class TaskDAO {
                 ArrayList<TaskModel> taskModelFinal = new ArrayList<>();
 
                 for (int i = 0; i < taskModels.size(); i++) {
-                    String query = "SELECT * FROM RECORDS Where formID = ? ORDER BY 'TimeUploaded' ;";
+                    String query = "SELECT * FROM RECORDS Where formID = ? ORDER BY `TimeUploaded` DESC;";
                     PreparedStatement pstmt1 = conn.prepareStatement(query);
                     int check = taskModels.get(i).getFormID();
                     pstmt1.setInt(1, check);
@@ -121,6 +122,7 @@ public class TaskDAO {
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
                             temp.setStatus("Completed");
+                            temp.setTimeStamp2(rs.getTimestamp("TimeUploaded"));
                             temp.setSector(taskModels.get(i).getSector());
                             temp.setFormID(taskModels.get(i).getFormID());
                             taskModelFinal.add(temp);
@@ -129,6 +131,7 @@ public class TaskDAO {
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
                             temp.setSector(taskModels.get(i).getSector());
+                            temp.setTimeStamp2(rs.getTimestamp("TimeUploaded"));
                             temp.setStatus("Rejected");
                             temp.setFormID(taskModels.get(i).getFormID());
                             taskModelFinal.add(temp);
@@ -137,6 +140,7 @@ public class TaskDAO {
                             temp.setSector(taskModels.get(i).getSector());
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setReportType(taskModels.get(i).getReportType());
+                            temp.setTimeStamp2(rs.getTimestamp("TimeUploaded"));
                             temp.setStatus("Incomplete");
                             temp.setFormID(taskModels.get(i).getFormID());
                             taskModelFinal.add(temp);
@@ -144,6 +148,7 @@ public class TaskDAO {
                             temp.setreportName(taskModels.get(i).getReportName());
                             temp.setDuedate(taskModels.get(i).getDuedate());
                             temp.setSector(taskModels.get(i).getSector());
+                            temp.setTimeStamp2(rs.getTimestamp("TimeUploaded"));
                             temp.setReportType(taskModels.get(i).getReportType());
                             temp.setStatus("For Approval");
                             temp.setFormID(taskModels.get(i).getFormID());
@@ -160,6 +165,7 @@ public class TaskDAO {
                             temp.setFormID(taskModels.get(i).getFormID());
                             temp.setSector(taskModels.get(i).getSector());
                             temp.setStatus("Delayed");
+                            temp.setTimeStamp2(new java.sql.Timestamp(taskModels.get(i).getDuedate().getTime()));
                             taskModelFinal.add(temp);
                         } else {
                             temp.setDateDiff(taskModels.get(i).getDateDiff());
@@ -168,6 +174,7 @@ public class TaskDAO {
                             temp.setReportType(taskModels.get(i).getReportType());
                             temp.setFormID(taskModels.get(i).getFormID());
                             temp.setSector(taskModels.get(i).getSector());
+                            temp.setTimeStamp2(new java.sql.Timestamp(taskModels.get(i).getDuedate().getTime()));
                             temp.setStatus("Pending");
                             taskModelFinal.add(temp);
                         }
@@ -178,6 +185,7 @@ public class TaskDAO {
                     pstmt1.close();
                 }
                 conn.close();
+                Collections.sort(taskModelFinal);
                 return taskModelFinal;
             }
 
