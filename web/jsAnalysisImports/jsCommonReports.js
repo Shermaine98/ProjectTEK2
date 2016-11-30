@@ -334,26 +334,13 @@ function setElementaryEnrollments(chart){
             }
             //gender
             
-            if(chartSelected == 'Stacked Bar Chart'){
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-            } else{
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Both Sexes';
-                print[0].genders.push(item);
-            }
+            print[0].genders.length = 0;
+            item = {};
+            item["gender"] = 'Female';
+            print[0].genders.push(item);
+            item = {};
+            item["gender"] = 'Male';
+            print[0].genders.push(item);
             
             for (var i = 0; i < print[0].genders.length; i++) {
                     $('#genderCheckbox').append('<input type="checkbox" class="filter" id="genderCheckboxes" value="' 
@@ -390,6 +377,107 @@ function setElementaryEnrollments(chart){
     });}
 
     function drawElementaryEnrollmentTable(print){
+        var filteredOutClassifications = [];
+        var filteredOutGenders = []; 
+        var filteredOutGradeLevels = []; 
+        $('[id="classificationCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutClassifications.push(id);
+            }
+        });
+
+        $('[id="genderCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        $('[id="gradeLevelCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                
+                filteredOutGradeLevels.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0] + ' Students';
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                    if(i == filteredOutGenders.length-1){
+                       filteredOut += ' Students';
+                    }
+                }
+            }
+            if(filteredOutClassifications.length>0 && filteredOutGradeLevels.length>0){
+                filteredOut += ', ';
+            } else if (filteredOutClassifications.length>0 || filteredOutGradeLevels.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutGradeLevels.length>0){
+            if(filteredOutGradeLevels.length == 1){
+                filteredOut += "Grade Level "+filteredOutGradeLevels[0].substring(6);
+            }
+            else if (filteredOutGradeLevels.length > 1){
+                filteredOut += "Grade Levels ";
+                for(var i = 0; i < filteredOutGradeLevels.length; i++){
+                    filteredOut += filteredOutGradeLevels[i].substring(6);
+                    if(i == filteredOutGradeLevels.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutGradeLevels.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+            if(filteredOutClassifications.length>0){
+                filteredOut += ' and ';
+            }  
+        }
+        if(filteredOutClassifications.length>0){
+            if(filteredOutClassifications.length == 1){
+                filteredOut += filteredOutClassifications[0] + ' Schools';
+            }
+            else if (filteredOutClassifications.length > 1){
+                for(var i = 0; i < filteredOutClassifications.length; i++){
+                    filteredOut += filteredOutClassifications[i];
+                    if(i == filteredOutClassifications.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutClassifications.length-2){
+                        filteredOut += ', ';
+                    }
+                    if(i == filteredOutClassifications.length-1){
+                       filteredOut += ' Schools';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        if(chartSelected!= 'Stacked Bar Chart'){
+            if(filteredOutGenders.length == 0){
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+            } else {
+                for(var b = 0; b < print[0].genders.length; b++){
+                    if(print[0].genders[b].gender == 'Both Sexes'){
+                        print[0].genders.splice(b, 1);
+                    }
+                }
+            }
+        }
+        
         var zones = ["SOUTH", "NORTH"];
         var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
@@ -478,10 +566,14 @@ function setElementaryEnrollments(chart){
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
+            "sDom": '<"header">',
             "info": false, "language": {
                 "emptyTable": "No Data"
             }
         });
+        
+        $("div.header").html('<h3><center>Enrollment in Public and Private Elementary Schools</center></h3><center>'+filteredOut+'</center><br/>');
+        
         var chart = $('#output').highcharts();
         chart.destroy();
     }
@@ -572,6 +664,20 @@ function setElementaryEnrollments(chart){
         }
         if(filteredOut.length > 0){
             filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        if(chartSelected!= 'Stacked Bar Chart'){
+            if(filteredOutGenders.length == 0){
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+            } else {
+                for(var b = 0; b < print[0].genders.length; b++){
+                    if(print[0].genders[b].gender == 'Both Sexes'){
+                        print[0].genders.splice(b, 1);
+                    }
+                }
+            }
         }
         
         var ultimateTotal = [];
@@ -947,26 +1053,13 @@ function setKinderEnrollments(chart){
             $('#genderCheckbox').empty();
             $('#classificationCheckbox').empty();
             
-            if(chartSelected == 'Stacked Bar Chart'){
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-            } else{
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Both Sexes';
-                print[0].genders.push(item);
-            }
+            print[0].genders.length = 0;
+            item = {};
+            item["gender"] = 'Female';
+            print[0].genders.push(item);
+            item = {};
+            item["gender"] = 'Male';
+            print[0].genders.push(item);
             
             for (var i =0; i <  print[0].years.length; i++) {
                 $('#yearsCheckbox').append('<input type="checkbox" class="filter" id="yearCheckboxes" value="' 
@@ -1005,6 +1098,78 @@ function setKinderEnrollments(chart){
 
 
     function drawKinderEnrollmentTable(print){
+        var filteredOutClassifications = [];
+        var filteredOutGenders = []; 
+        $('[id="classificationCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutClassifications.push(id);
+            }
+        });
+
+        $('[id="genderCheckboxes"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0] + ' Students';
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                    if(i == filteredOutGenders.length-1){
+                       filteredOut += ' Students';
+                    }
+                }
+            }
+            
+            if(filteredOutClassifications.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutClassifications.length>0){
+            if(filteredOutClassifications.length == 1){
+                filteredOut += filteredOutClassifications[0] + ' Schools';
+            }
+            else if (filteredOutClassifications.length > 1){
+                for(var i = 0; i < filteredOutClassifications.length; i++){
+                    filteredOut += filteredOutClassifications[i];
+                    if(i == filteredOutClassifications.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutClassifications.length-2){
+                        filteredOut += ', ';
+                    }
+                    if(i == filteredOutClassifications.length-1){
+                       filteredOut += ' Schools';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        if(chartSelected!= 'Stacked Bar Chart'){
+            if(filteredOutGenders.length == 0){
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+            } else {
+                for(var b = 0; b < print[0].genders.length; b++){
+                    if(print[0].genders[b].gender == 'Both Sexes'){
+                        print[0].genders.splice(b, 1);
+                    }
+                }
+            }
+        }
+        
         var zones = ["SOUTH", "NORTH"];
         var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
@@ -1087,10 +1252,14 @@ function setKinderEnrollments(chart){
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
+            "dom": '<"header">',
             "info": false, "language": {
                 "emptyTable": "No Data"
             }
         });
+        
+        $("div.header").html('<h3><center>Enrollment in Public and Private Preschools</center></h3><center>'+filteredOut+'</center><br/>');
+        
         var chart = $('#output').highcharts();
         chart.destroy();
     }
@@ -1152,6 +1321,20 @@ function setKinderEnrollments(chart){
         }
         if(filteredOut.length > 0){
             filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        if(chartSelected!= 'Stacked Bar Chart'){
+            if(filteredOutGenders.length == 0){
+                item = {};
+                item["gender"] = 'Both Sexes';
+                print[0].genders.push(item);
+            } else {
+                for(var b = 0; b < print[0].genders.length; b++){
+                    if(print[0].genders[b].gender == 'Both Sexes'){
+                        print[0].genders.splice(b, 1);
+                    }
+                }
+            }
         }
         
         var ultimateTotal = [];
@@ -1467,26 +1650,14 @@ function setHHPopAgeGroupSex (chart){
                             + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
             }
             
-            if(chartSelected == 'Table'){
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Both Sexes';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-            } else{
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-            }
+            
+            print[0].genders.length = 0;
+            item = {};
+            item["gender"] = 'Male';
+            print[0].genders.push(item);
+            item = {};
+            item["gender"] = 'Female';
+            print[0].genders.push(item);
             
             print[0].ageGroups.length = 0;
             item = {};
@@ -1575,6 +1746,71 @@ function setHHPopAgeGroupSex (chart){
     });}
             
     function drawHHPopTable(print, year){
+         var filteredOutBarangays = [];
+        var filteredOutGenders = []; 
+        $('[id="barangayss"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutBarangays.push(id);
+            }
+        });
+
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0];
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                }
+            }
+            
+            if(filteredOutBarangays.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutBarangays.length>0){
+            if(filteredOutBarangays.length == 1){
+                filteredOut += 'Barangay ' + filteredOutBarangays[0];
+            }
+            else if (filteredOutBarangays.length > 1){
+                filteredOut += 'Barangays ';
+                for(var i = 0; i < filteredOutBarangays.length; i++){
+                    filteredOut += filteredOutBarangays[i];
+                    if(i == filteredOutBarangays.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutBarangays.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        if(filteredOutGenders.length == 0){
+            item = {};
+            item["gender"] = 'Both Sexes';
+            print[0].genders.push(item);
+        } else {
+            for(var b = 0; b < print[0].genders.length; b++){
+                if(print[0].genders[b].gender == 'Both Sexes'){
+                    print[0].genders.splice(b, 1);
+                }
+            }
+        }
+        
         var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
@@ -1695,10 +1931,13 @@ function setHHPopAgeGroupSex (chart){
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
+            "sDom": '<"header">',
             "info": false, "language": {
                 "emptyTable": "No Data"
             }
         });
+        
+        $("div.header").html('<h3><center>Household Population by Age Group and Sex for '+year+'</center></h3><center>'+filteredOut+'</center><br/>');
         
         var chart = $('#output').highcharts();
         chart.destroy();
@@ -2115,26 +2354,14 @@ function setHHPopAgeGroupSex (chart){
                             + print[0].barangays[i].barangay + '" checked>'+'&nbsp;Barangay '+print[0].barangays[i].barangay+'</input></br>');
             }
             
-            if(chartSelected == 'Table'){
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Both Sexes';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-            } else{
-                print[0].genders.length = 0;
-                item = {};
-                item["gender"] = 'Male';
-                print[0].genders.push(item);
-                item = {};
-                item["gender"] = 'Female';
-                print[0].genders.push(item);
-            }
+            
+            print[0].genders.length = 0;
+            item = {};
+            item["gender"] = 'Male';
+            print[0].genders.push(item);
+            item = {};
+            item["gender"] = 'Female';
+            print[0].genders.push(item);
             
             for (var i = 0; i < print[0].genders.length; i++) {
                     $('#sex').append('<input type="checkbox" class="filter" id="genders" value="' 
@@ -2489,6 +2716,72 @@ function setHHPopAgeGroupSex (chart){
     }
     
     function drawNutritionalStatusTable(print){
+        var filteredOutGenders = []; 
+        var filteredOutGradeLevels = []; 
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        $('[id="gradeLevels"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                
+                filteredOutGradeLevels.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0] + ' Students';
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                    if(i == filteredOutGenders.length-1){
+                       filteredOut += ' Students';
+                    }
+                }
+            }
+            if(filteredOutGradeLevels.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutGradeLevels.length>0){
+            if(filteredOutGradeLevels.length == 1){
+                if(filteredOutGradeLevels[0]!= 'Pre Elementary' && filteredOutGradeLevels[0]!= 'SPED' ){
+                    filteredOut += "Grade Level "+filteredOutGradeLevels[0].substring(6);
+                } else {
+                    filteredOut += filteredOutGradeLevels[0];
+                }
+            }
+            else if (filteredOutGradeLevels.length > 1){
+                if(filteredOutGradeLevels[0]!= 'Pre Elementary' && filteredOutGradeLevels[0]!= 'SPED' ){
+                    filteredOut += "Grade Levels ";
+                } 
+                for(var i = 0; i < filteredOutGradeLevels.length; i++){
+                    //filteredOut += filteredOutGradeLevels[i].substring(6);
+                    if(filteredOutGradeLevels[i]!= 'Pre Elementary' && filteredOutGradeLevels[i]!= 'SPED' ){
+                        filteredOut += filteredOutGradeLevels[i].substring(6);
+                    } else {
+                        filteredOut += filteredOutGradeLevels[i];
+                    }
+                    if(i == filteredOutGradeLevels.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutGradeLevels.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
         var str = '<table id="dataTable" class="table table-hover table-bordered dataTable"> <thead id="thead">\n\
                             </thead>\n\
                             <tbody id="data">\n\
@@ -2629,10 +2922,14 @@ function setHHPopAgeGroupSex (chart){
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
+            "sDom": '<"header">',
             "info": false, "language": {
                 "emptyTable": "No Data"
             }
         });
+        
+        $("div.header").html('<h3><center>Nutritional Status of the Preschool and Elementary Students</center></h3><center>'+filteredOut+'</center><br/>');
+
         
         var chart = $('#output').highcharts();
         chart.destroy();
@@ -2704,7 +3001,6 @@ function setHHPopAgeGroupSex (chart){
         if(filteredOut.length > 0){
             filteredOut = 'Without: '+ filteredOut;
         }
-        console.log(filteredOut);
         
         var ultimateTotal = [];
         var nutritionalStatus = ['Severely Wasted','Wasted', 'Normal', 'Overweight', 'Obese'];
@@ -3073,6 +3369,9 @@ function setHHPopAgeGroupSex (chart){
                 title: {
                     text: 'Nutritional Status of the Preschool and Elementary Students'
                 },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
+                },
                 xAxis: {
                     type: 'category'
                 },
@@ -3105,6 +3404,9 @@ function setHHPopAgeGroupSex (chart){
                 title: {
                     text: 'Nutritional Status of the Preschool and Elementary Students'
                 },
+                subtitle: {
+                    text: filteredOut + '<br>Click and drag to zoom in. Hold down shift key to pan.'
+                },
                 xAxis: {
                     type: 'category'
                 },
@@ -3125,6 +3427,71 @@ function setHHPopAgeGroupSex (chart){
     }
     
     function drawMaritalStatusTable(print, year){
+        var filteredOutBarangays = [];
+        var filteredOutGenders = []; 
+        $('[id="barangayss"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutBarangays.push(id);
+            }
+        });
+
+        $('[id="genders"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutGenders.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutGenders.length > 0){
+            if(filteredOutGenders.length == 1){
+                filteredOut += filteredOutGenders[0];
+            } else if(filteredOutGenders.length > 1){
+                for(var i = 0; i < filteredOutGenders.length; i++){
+                    filteredOut += filteredOutGenders[i];
+                    if(i == filteredOutGenders.length-2){
+                        filteredOut += ' and ';
+                    }
+                }
+            }
+            
+            if(filteredOutBarangays.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutBarangays.length>0){
+            if(filteredOutBarangays.length == 1){
+                filteredOut += 'Barangay ' + filteredOutBarangays[0];
+            }
+            else if (filteredOutBarangays.length > 1){
+                filteredOut += 'Barangays ';
+                for(var i = 0; i < filteredOutBarangays.length; i++){
+                    filteredOut += filteredOutBarangays[i];
+                    if(i == filteredOutBarangays.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutBarangays.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        if(filteredOutGenders.length == 0){
+            item = {};
+            item["gender"] = 'Both Sexes';
+            print[0].genders.push(item);
+        } else {
+            for(var b = 0; b < print[0].genders.length; b++){
+                if(print[0].genders[b].gender == 'Both Sexes'){
+                    print[0].genders.splice(b, 1);
+                }
+            }
+        }
+        
         var maritalStatuses = ["Total Population 10 Yrs. Old & Over", "Single", "Married","Widowed", "Divorced/Separated", "Common Law/Live In", "Unknown"];
         var genders = ["Both Sexes", "Male", "Female"];
         
@@ -3265,10 +3632,13 @@ function setHHPopAgeGroupSex (chart){
         $("#dataTable").DataTable({
             "paging": false,
             "ordering": false,
+            "sDom": '<"header">',
             "info": false, "language": {
                 "emptyTable": "No Data"
             }
         });
+        
+        $("div.header").html('<h3><center>Enrollment in Public and Private Elementary Schools for '+year+'</center></h3><center>'+filteredOut+'</center><br/>');
         
         var chart = $('#output').highcharts();
         chart.destroy();

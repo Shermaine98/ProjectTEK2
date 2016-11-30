@@ -495,7 +495,7 @@
                                         <tr>\n\
                                             <div class='box box-solid'>\n\
                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                    <h4 class='box-title'>Filter by Gender</h4>\n\
+                                                    <h4 class='box-title'>Filter by Sex</h4>\n\
                                                 </div>\n\
                                                 <div class='box-body'>\n\
                                                     <div  id='genderCheckbox' style='height: 60px;'>\n\
@@ -554,7 +554,7 @@
                                         <tr>\n\
                                             <div class='box box-solid'>\n\
                                                 <div class='box-header with-border' style='background: #a1bce1; color: #FFF'>\n\
-                                                    <h4 class='box-title'>Filter by Gender</h4>\n\
+                                                    <h4 class='box-title'>Filter by Sex</h4>\n\
                                                 </div>\n\
                                                 <div class='box-body'>\n\
                                                     <div  id='genderCheckbox' style='height: 60px;'>\n\
