@@ -106,7 +106,63 @@ $(document).ready(function () {
         }
     }
     function chart(print) {
+        var filteredOutBarangays = [];
+        var filteredOutDistricts = []; 
+        $('[id="barangay"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutBarangays.push(id);
+            }
+        });
 
+        $('[id="district"]').each(function (e) {
+            if (!$(this).is(':checked')) {
+                var id = $(this).attr('value');
+                filteredOutDistricts.push(id);
+            }
+        });
+        
+        var filteredOut = "";
+        if(filteredOutDistricts.length > 0){
+            if(filteredOutDistricts.length == 1){
+                filteredOut += filteredOutDistricts[0];
+            } else if(filteredOutDistricts.length > 1){
+                for(var i = 0; i < filteredOutDistricts.length; i++){
+                    filteredOut += filteredOutDistricts[i];
+                    if(i == filteredOutDistricts.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutDistricts.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+            
+            if(filteredOutBarangays.length>0){
+                filteredOut += ' and ';
+            }
+        }
+        if(filteredOutBarangays.length>0){
+            if(filteredOutBarangays.length == 1){
+                filteredOut += 'Barangay ' + filteredOutBarangays[0];
+            }
+            else if (filteredOutBarangays.length > 1){
+                filteredOut += 'Barangays ';
+                for(var i = 0; i < filteredOutBarangays.length; i++){
+                    filteredOut += filteredOutBarangays[i];
+                    if(i == filteredOutBarangays.length-2){
+                        filteredOut += ' and ';
+                    } else if(i < filteredOutBarangays.length-2){
+                        filteredOut += ', ';
+                    }
+                }
+            }
+        }
+        if(filteredOut.length > 0){
+            filteredOut = 'Without: '+ filteredOut;
+        }
+        
+        console.log(filteredOut);
+        
         var total = [];
         for (var i = 0; i < print[0].years.length; i++) {
             var totals = 0;
@@ -565,6 +621,9 @@ $(document).ready(function () {
             },
             title: {
                 text: 'School Going Age Population vs. Enrollment'
+            },
+            subtitle: {
+                text: filteredOut
             },
             xAxis: {
                 type: 'category'
@@ -1428,6 +1487,9 @@ $(document).ready(function () {
             title: {
                 text: 'Population vs. Hospital Total number of Beds, Doctors and Nurses'
             },
+            subtitle: {
+                text: filteredOut
+            },
             xAxis: {
                 type: 'category'
             },
@@ -2215,6 +2277,9 @@ $(document).ready(function () {
             },
             title: {
                 text: 'Nutritional Status of the enrolled Elementary Students'
+            },
+            subtitle: {
+                text: filteredOut
             },
             xAxis: {
                 type: 'category'
